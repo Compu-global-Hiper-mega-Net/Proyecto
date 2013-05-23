@@ -4336,6 +4336,7 @@ private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     }
 
     public void actualizaTablaPagoActividad(String alumno, String actividad, String temporada, String fecha, String pagado) throws SQLException, ParseException {
+<<<<<<< HEAD
         List<PagoActividad> pagos = new ArrayList<PagoActividad>();
 
         pagos = GestorPagos.ConsultarPagoActividad(accesoBD, alumno, actividad, temporada, fecha, pagado);
@@ -4359,36 +4360,17 @@ private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
          }
          */
         //tablaPagos.setModel(dtm);
+=======
+>>>>>>> 8cd867a05b64b7bee925008e2980351e0804a5ae
     }
 
     public void actualizaTablaPagoActividad() {
-        List<PagoActividad> pagos = new ArrayList<PagoActividad>();
 
-        //pagos = GestorPagos
-
-        DefaultTableModel dtm = new DefaultTableModel();
-        dtm.addColumn("Nombre");
-        dtm.addColumn("Categoria");
-        dtm.addColumn("Temporada");
-        dtm.addColumn("Primer Entrenador");
-        dtm.addColumn("Segundo Entrenador");
-
-        Object[] fila = new Object[5];
-        /*        for (Equipo it : equipos) {
-         fila[0] = it.getNombre();
-         fila[1] = it.getCategoria().getNombreCategoria().toString();
-         fila[2] = it.getTemporada().getCurso().toString();
-         fila[3] = it.getEntrenador().getNombre().toString();
-         fila[4] = it.getEntrenador2().getNombre().toString();
-         dtm.addRow(fila);
-         }
-         */
-        tablaEquipos.setModel(dtm);
     }
 
     public void actualizaTablaPagoTemporada(String alumno, String actividad, String temporada, String fecha, String pagado) throws SQLException, ParseException {
-        List<PagoTemporada> pagos = new ArrayList<PagoTemporada>();
 
+<<<<<<< HEAD
         pagos = GestorPagos.ConsultarPagoTemporada(accesoBD, alumno, temporada, fecha, pagado);
 
         DefaultTableModel dtm = new DefaultTableModel();
@@ -4409,6 +4391,8 @@ private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
          }
          */
         //tablaPagos.setModel(dtm);
+=======
+>>>>>>> 8cd867a05b64b7bee925008e2980351e0804a5ae
     }
 
     private String getCategoria(String s) throws SQLException {
