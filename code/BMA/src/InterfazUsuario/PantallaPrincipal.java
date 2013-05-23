@@ -4417,79 +4417,14 @@ private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     }
 
     public void actualizaTablaPagoActividad(String alumno, String actividad, String temporada, String fecha, String pagado) throws SQLException, ParseException {
-        List<PagoActividad> pagos = new ArrayList<PagoActividad>();
-
-        pagos = GestorPagos.ConsultarPagoActividad(accesoBD, alumno, actividad, temporada, fecha, pagado);
-
-        DefaultTableModel dtm = new DefaultTableModel();
-        dtm.addColumn("Alumno");
-        dtm.addColumn("Actividad");
-        dtm.addColumn("Temporada");
-        dtm.addColumn("Fecha");
-        dtm.addColumn("Pagado");
-        /*
-         //Mostrar en tabla
-         Object[] fila = new Object[5];
-         for (PagoActividad it : pagos) {
-         fila[0] = it.getNombre();
-         fila[1] = it.getCategoria().getNombreCategoria().toString();
-         fila[2] = it.getTemporada().getCurso().toString();
-         fila[3] = it.getEntrenador().getNombre().toString();
-         fila[4] = it.getEntrenador2().getNombre().toString();
-         dtm.addRow(fila);
-         }
-         */
-        tablaPagos.setModel(dtm);
     }
 
     public void actualizaTablaPagoActividad() {
-        List<PagoActividad> pagos = new ArrayList<PagoActividad>();
 
-        //pagos = GestorPagos
-
-        DefaultTableModel dtm = new DefaultTableModel();
-        dtm.addColumn("Nombre");
-        dtm.addColumn("Categoria");
-        dtm.addColumn("Temporada");
-        dtm.addColumn("Primer Entrenador");
-        dtm.addColumn("Segundo Entrenador");
-
-        Object[] fila = new Object[5];
-        /*        for (Equipo it : equipos) {
-         fila[0] = it.getNombre();
-         fila[1] = it.getCategoria().getNombreCategoria().toString();
-         fila[2] = it.getTemporada().getCurso().toString();
-         fila[3] = it.getEntrenador().getNombre().toString();
-         fila[4] = it.getEntrenador2().getNombre().toString();
-         dtm.addRow(fila);
-         }
-         */
-        tablaEquipos.setModel(dtm);
     }
 
     public void actualizaTablaPagoTemporada(String alumno, String actividad, String temporada, String fecha, String pagado) throws SQLException, ParseException {
-        List<PagoTemporada> pagos = new ArrayList<PagoTemporada>();
 
-        pagos = GestorPagos.ConsultarPagoTemporada(accesoBD, alumno, temporada, fecha, pagado);
-
-        DefaultTableModel dtm = new DefaultTableModel();
-        dtm.addColumn("Alumno");
-        dtm.addColumn("Temporada");
-        dtm.addColumn("Fecha");
-        dtm.addColumn("Pagado");
-        /*
-         //Mostrar en tabla
-         Object[] fila = new Object[5];
-         for (PagoTemporada it : pagos) {
-         fila[0] = it.getNombre();
-         fila[1] = it.getCategoria().getNombreCategoria().toString();
-         fila[2] = it.getTemporada().getCurso().toString();
-         fila[3] = it.getEntrenador().getNombre().toString();
-         fila[4] = it.getEntrenador2().getNombre().toString();
-         dtm.addRow(fila);
-         }
-         */
-        tablaPagos.setModel(dtm);
     }
 
     
