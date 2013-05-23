@@ -224,24 +224,29 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox();
         panelPagos = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox();
+        jLabel14 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        comboTipoPagos = new javax.swing.JComboBox();
-        comboTempPagos = new javax.swing.JComboBox();
+        jComboBox3 = new javax.swing.JComboBox();
+        jLabel21 = new javax.swing.JLabel();
+        jComboBox4 = new javax.swing.JComboBox();
         jLabel22 = new javax.swing.JLabel();
-        textFechaPagos = new javax.swing.JTextField();
-        comboPagadoPagos = new javax.swing.JComboBox();
-        botonBuscarPagos = new javax.swing.JButton();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        tablaPagos = new javax.swing.JTable();
-        botonModificarPagos = new javax.swing.JButton();
-        botonEliminarPagos = new javax.swing.JButton();
-        botonNuevoPagos = new javax.swing.JButton();
+        jLabel23 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel24 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel25 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
-        textActividadPagos = new javax.swing.JTextField();
+        jComboBox5 = new javax.swing.JComboBox();
         jLabel27 = new javax.swing.JLabel();
-        textAlumnoPagos = new javax.swing.JTextField();
-        comboAlumnoPagos = new javax.swing.JComboBox();
-        comboActividad = new javax.swing.JComboBox();
+        jComboBox6 = new javax.swing.JComboBox();
+        jButton4 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton7 = new javax.swing.JButton();
         panelActividades = new javax.swing.JPanel();
         actividadesLabel = new javax.swing.JLabel();
         buscarLabel = new javax.swing.JLabel();
@@ -672,7 +677,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         panelTemporadas.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         panelTemporadas.setLocation(150, 100);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel3.setText("Temporadas");
 
         botonNuevaTemp.setText("Nueva");
@@ -832,8 +837,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator2)
-                    .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -844,7 +849,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(botonNuevoGrupEnt)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(0, 430, Short.MAX_VALUE))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -853,7 +858,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                                         .addComponent(jButton1)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButton2)
-                                        .addGap(0, 0, Short.MAX_VALUE))
+                                        .addGap(0, 251, Short.MAX_VALUE))
                                     .addGroup(jPanel4Layout.createSequentialGroup()
                                         .addComponent(comboTempEntr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -897,7 +902,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel4.setText("Grupos de Entrenamiento");
 
         javax.swing.GroupLayout panelGruposLayout = new javax.swing.GroupLayout(panelGrupos);
@@ -1078,7 +1083,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         panelEquipos.setVisible(false);
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel8.setText("Equipos");
 
         jLabel10.setText("Nombre:");
@@ -1149,10 +1154,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        labelEquiposMostrados.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        labelEquiposMostrados.setFont(new java.awt.Font("Tahoma", 1, 12));
         labelEquiposMostrados.setText("Numero de equipos:");
 
-        labelNumeroEquipos.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        labelNumeroEquipos.setFont(new java.awt.Font("Tahoma", 1, 12));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Entrenador-" }));
 
@@ -1163,7 +1168,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             .addGroup(panelEquiposLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(panelEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator4)
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
                     .addGroup(panelEquiposLayout.createSequentialGroup()
                         .addGroup(panelEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
@@ -1259,154 +1264,193 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         panelPagos.setVisible(false);
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel15.setText("Pagos");
 
-        jLabel16.setText("Buscar Pagos:");
+        jLabel9.setText("Buscar Pagos por:");
 
-        comboTipoPagos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Tipo-", "Actividad", "Temporada" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        comboTempPagos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Temporada" }));
+        jLabel14.setText("Temporada");
 
-        jLabel22.setText("Fecha Pago");
+        jLabel16.setText("Mes");
 
-        textFechaPagos.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel21.setText("Temporada/Actividad");
+
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel22.setText("Buscar Pagos por Alumno:");
+
+        jLabel23.setText("Nombre");
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFechaPagosActionPerformed(evt);
+                jTextField1ActionPerformed(evt);
             }
         });
 
-        comboPagadoPagos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Pagado-" }));
+        jLabel24.setText("Primer Apellido");
 
-        botonBuscarPagos.setText("Buscar");
-        botonBuscarPagos.addActionListener(new java.awt.event.ActionListener() {
+        jLabel25.setText("Segundo Apellido");
+
+        jLabel26.setText("Equipo");
+
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel27.setText("Entrenador");
+
+        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jButton4.setText("Mostrar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonBuscarPagosActionPerformed(evt);
+                jButton4ActionPerformed(evt);
             }
         });
 
-        tablaPagos.setModel(new javax.swing.table.DefaultTableModel(
+        jButton6.setText("Mostrar solo Deudores");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Alumno", "Tipo", "Fecha", "Pagado", "Importe"
+                "Nombre", "Primer Apellido", "Segundo Apellido", "Importe", "Fecha", "Pagado/Debido", "Tipo de Pago", "Email", "Tel. Fijo", "Tel. Movil"
             }
-        ));
-        jScrollPane6.setViewportView(tablaPagos);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, true, false, false, false, false
+            };
 
-        botonModificarPagos.setText("Modificar");
-
-        botonEliminarPagos.setText("Eliminar");
-
-        botonNuevoPagos.setText("Nuevo");
-        botonNuevoPagos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonNuevoPagosActionPerformed(evt);
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
+        jScrollPane6.setViewportView(jTable1);
+        jTable1.getColumnModel().getColumn(9).setResizable(false);
 
-        jLabel26.setText("Actividad:");
-
-        textActividadPagos.setText("Buscar...");
-
-        jLabel27.setText("Alumno");
-
-        textAlumnoPagos.setText("Buscar...");
-        textAlumnoPagos.setToolTipText("");
-
-        comboAlumnoPagos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        comboActividad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Actividad-" }));
+        jButton7.setText("Guardar Cambios");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelPagosLayout = new javax.swing.GroupLayout(panelPagos);
         panelPagos.setLayout(panelPagosLayout);
         panelPagosLayout.setHorizontalGroup(
             panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPagosLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
                 .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelPagosLayout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel15)
-                            .addGroup(panelPagosLayout.createSequentialGroup()
-                                .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel22)
-                                    .addGroup(panelPagosLayout.createSequentialGroup()
-                                        .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(panelPagosLayout.createSequentialGroup()
-                                                .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel26)
-                                                    .addComponent(textActividadPagos, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGap(18, 18, 18)
-                                                .addComponent(comboActividad, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(panelPagosLayout.createSequentialGroup()
-                                                .addComponent(textFechaPagos, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(comboTipoPagos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(comboPagadoPagos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(18, 18, 18)
-                                        .addComponent(comboTempPagos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(40, 40, 40)
-                                .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(botonModificarPagos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(botonEliminarPagos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(botonNuevoPagos, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel16)
-                            .addGroup(panelPagosLayout.createSequentialGroup()
-                                .addComponent(textAlumnoPagos, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(comboAlumnoPagos, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel27)))
-                    .addGroup(panelPagosLayout.createSequentialGroup()
-                        .addGap(211, 211, 211)
-                        .addComponent(botonBuscarPagos)))
-                .addGap(50, 50, 50))
+                    .addComponent(jButton7)
+                    .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelPagosLayout.createSequentialGroup()
+                            .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel22))
+                            .addGap(68, 68, 68)
+                            .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel14)
+                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel23)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(23, 23, 23)
+                            .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel16)
+                                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel24)
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(44, 44, 44)
+                            .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel25)
+                                .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextField3))
+                            .addGap(53, 53, 53)
+                            .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel26)
+                                .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(40, 40, 40)
+                            .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel27)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelPagosLayout.createSequentialGroup()
+                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(45, 45, 45)
+                            .addComponent(jButton6))))
+                .addContainerGap(229, Short.MAX_VALUE))
         );
         panelPagosLayout.setVerticalGroup(
             panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPagosLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel15)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel16)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel27)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textAlumnoPagos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboAlumnoPagos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel22)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textFechaPagos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboTipoPagos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboPagadoPagos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboTempPagos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel26)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textActividadPagos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboActividad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addComponent(botonBuscarPagos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(26, 26, 26)
                 .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelPagosLayout.createSequentialGroup()
-                        .addComponent(botonNuevoPagos)
+                        .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel21))
                         .addGap(18, 18, 18)
-                        .addComponent(botonModificarPagos)
-                        .addGap(18, 18, 18)
-                        .addComponent(botonEliminarPagos))
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50))
+                        .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel9))
+                .addGap(42, 42, 42)
+                .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel22)
+                    .addComponent(jLabel23)
+                    .addComponent(jLabel24)
+                    .addComponent(jLabel25)
+                    .addComponent(jLabel26)
+                    .addComponent(jLabel27))
+                .addGap(26, 26, 26)
+                .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4)
+                    .addComponent(jButton6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jButton7)
+                .addGap(40, 40, 40))
         );
 
         getContentPane().add(panelPagos, new java.awt.GridBagConstraints());
@@ -1489,9 +1533,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         panelActividadesLayout.setHorizontalGroup(
             panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelActividadesLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
                 .addGroup(panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelActividadesLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(AñaridAlumno)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Informacion))
@@ -1575,7 +1619,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         panelCategorias.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         panelCategorias.setLocation(150, 100);
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel17.setText("Categorias");
 
         botonNuevaCat.setText("Nueva");
@@ -3761,41 +3805,6 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
         }
     }//GEN-LAST:event_botonNuevoEquipoActionPerformed
 
-    private void botonBuscarPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarPagosActionPerformed
-        if ("Actividad".equals(comboTipoPagos.getSelectedItem().toString())) {
-            try {
-                actualizaTablaPagoActividad(comboAlumnoPagos.getSelectedItem().toString(), comboActividad.getSelectedItem().toString(),
-                        comboTempPagos.getSelectedItem().toString(), textFechaPagos.getText(), comboPagadoPagos.getSelectedItem().toString());
-            } catch (SQLException ex) {
-                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ParseException ex) {
-                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else if ("Temporada".equals(comboTipoPagos.getSelectedItem().toString())) {
-            try {
-                actualizaTablaPagoTemporada(comboAlumnoPagos.getSelectedItem().toString(), comboActividad.getSelectedItem().toString(),
-                        comboTempPagos.getSelectedItem().toString(), textFechaPagos.getText(), comboPagadoPagos.getSelectedItem().toString());
-            } catch (SQLException ex) {
-                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ParseException ex) {
-                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-        }
-    }//GEN-LAST:event_botonBuscarPagosActionPerformed
-
-    private void textFechaPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFechaPagosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFechaPagosActionPerformed
-
-    private void botonNuevoPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoPagosActionPerformed
-        try {
-            new NuevoPago(this).setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_botonNuevoPagosActionPerformed
-
     private void menuPagosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuPagosMouseClicked
         ocultarPaneles();
         panelPagos.setVisible(true);
@@ -3943,6 +3952,22 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
         mostrarActividades();
     }//GEN-LAST:event_EliminarActionPerformed
 
+private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_jTextField1ActionPerformed
+
+private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_jButton4ActionPerformed
+
+private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_jButton6ActionPerformed
+
+private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_jButton7ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -3993,13 +4018,11 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
     private javax.swing.JTable actividadesTable;
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton botonBuscar;
-    private javax.swing.JButton botonBuscarPagos;
     private javax.swing.JButton botonConsGrupo;
     private javax.swing.JButton botonElimCat;
     private javax.swing.JButton botonElimTemp;
     private javax.swing.JButton botonEliminarAlumno;
     private javax.swing.JButton botonEliminarEquipo;
-    private javax.swing.JButton botonEliminarPagos;
     private javax.swing.JButton botonEliminarUsuario;
     private javax.swing.JButton botonGuardarCambiosAl;
     private javax.swing.JButton botonGuardarCambiosUsuario;
@@ -4007,14 +4030,12 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
     private javax.swing.JButton botonModCat;
     private javax.swing.JButton botonModTem;
     private javax.swing.JButton botonModificarEquipo;
-    private javax.swing.JButton botonModificarPagos;
     private javax.swing.JButton botonMostrarAlumnos;
     private javax.swing.JButton botonNuevaCat;
     private javax.swing.JButton botonNuevaTemp;
     private javax.swing.JButton botonNuevoAlumno;
     private javax.swing.JButton botonNuevoEquipo;
     private javax.swing.JButton botonNuevoGrupEnt;
-    private javax.swing.JButton botonNuevoPagos;
     private javax.swing.JButton botonNuevoUsuario;
     private javax.swing.JButton boton_mostrar_Usuarios;
     private javax.swing.JLabel buscarAlLabel;
@@ -4022,17 +4043,12 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
     private javax.swing.JTextField capacidadInst;
     private javax.swing.JLabel categoriaAlLabel;
     private javax.swing.JButton cerrarSesion;
-    private javax.swing.JComboBox comboActividad;
-    private javax.swing.JComboBox comboAlumnoPagos;
     private javax.swing.JComboBox comboCatEquipo;
     private javax.swing.JComboBox comboCatGrup;
     private javax.swing.JComboBox comboEntGrup;
-    private javax.swing.JComboBox comboPagadoPagos;
     private javax.swing.JComboBox comboTempEntr;
     private javax.swing.JComboBox comboTempEquipo;
-    private javax.swing.JComboBox comboTempPagos;
     private javax.swing.JComboBox comboTempo;
-    private javax.swing.JComboBox comboTipoPagos;
     private javax.swing.JComboBox consultaCategoria;
     private javax.swing.JComboBox consultaCategoriaUsuario;
     private javax.swing.JComboBox consultaEntrenador;
@@ -4065,13 +4081,22 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JComboBox jComboBox3;
+    private javax.swing.JComboBox jComboBox4;
+    private javax.swing.JComboBox jComboBox5;
+    private javax.swing.JComboBox jComboBox6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -4079,7 +4104,11 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
@@ -4095,6 +4124,7 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -4108,6 +4138,10 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel labelEquiposMostrados;
     private javax.swing.JLabel labelNumeroEquipos;
     private javax.swing.JLabel mensajeErrorEliminarAlumno;
@@ -4150,13 +4184,9 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
     private javax.swing.JTable tablaEquipos;
     private javax.swing.JTable tablaGrupos;
     private javax.swing.JTable tablaInstalacion;
-    private javax.swing.JTable tablaPagos;
     private javax.swing.JTable tablaUsuarios;
     private javax.swing.JLabel temporadaLabel;
-    private javax.swing.JTextField textActividadPagos;
-    private javax.swing.JTextField textAlumnoPagos;
     private javax.swing.JTextField textEntEquipo;
-    private javax.swing.JTextField textFechaPagos;
     private javax.swing.JTextField textNombreEquipo;
     private javax.swing.JTextField textfield_apellidoPrimeroUsuario;
     private javax.swing.JTextField textfield_apellidoSegundoUsuario;
