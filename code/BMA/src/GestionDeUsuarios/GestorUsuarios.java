@@ -37,7 +37,7 @@ public class GestorUsuarios {
     
     public static boolean tengoPermisosAdministrador(BaseDatos accesoBD, String usuario) {
         boolean tengoPermisos = true;
-        String consulta = "SELECT entrenador FROM Usuario WHERE user='" + usuario + "'";
+        String consulta = "SELECT entrenador FROM usuario WHERE user='" + usuario + "'";
         ResultSet rs = AccesoBDUsuario.consultaUsuarioBD(accesoBD, consulta);
         try {
             rs.next();

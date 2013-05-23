@@ -1,4 +1,4 @@
-<?xml version="1.1" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
@@ -99,6 +99,7 @@
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="barraMenu"/>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -130,7 +131,7 @@
                   <Component id="jLabel1" min="-2" pref="255" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="299" max="-2" attributes="0"/>
                   <Component id="cerrarSesion" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="633" max="32767" attributes="0"/>
+                  <EmptySpace pref="635" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -142,7 +143,7 @@
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cerrarSesion" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="673" max="32767" attributes="0"/>
+                  <EmptySpace pref="674" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -1501,7 +1502,7 @@
                           <Component id="jScrollPane3" min="-2" pref="492" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="174" max="32767" attributes="0"/>
+                  <EmptySpace pref="176" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -1535,7 +1536,7 @@
                   </Group>
                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                   <Component id="jScrollPane3" min="-2" pref="100" max="-2" attributes="0"/>
-                  <EmptySpace pref="103" max="32767" attributes="0"/>
+                  <EmptySpace pref="104" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -1682,7 +1683,7 @@
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jSeparator4" alignment="0" pref="675" max="32767" attributes="0"/>
+                      <Component id="jSeparator4" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
@@ -2011,7 +2012,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="229" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -2059,7 +2060,7 @@
                       <Component id="jButton4" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButton6" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="28" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="jScrollPane6" min="-2" pref="347" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   <Component id="jButton7" min="-2" max="-2" attributes="0"/>
@@ -2374,7 +2375,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="936" max="32767" attributes="0"/>
+                  <EmptySpace pref="837" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -2412,7 +2413,7 @@
                       <Component id="Informacion" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="AñaridAlumno" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="363" max="32767" attributes="0"/>
+                  <EmptySpace pref="327" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
