@@ -3877,7 +3877,7 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
 
     private void botonNuevoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoEquipoActionPerformed
         try {
-            new NuevoEquipo(this).setVisible(true);
+            new NuevoEquipo(accesoBD).setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }

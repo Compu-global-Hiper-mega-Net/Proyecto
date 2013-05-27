@@ -88,6 +88,13 @@ public class GestorAlumnos {
         
         return als;
     }
+    
+    public static List<String> getNombreAl(BaseDatos accesoBD, List<Integer> listaAlumnos) throws SQLException {
+        List<String> listanomAl = new ArrayList<String>();
+        listanomAl = AccesoBDAlumno.getNombreAl(accesoBD, listaAlumnos);
+
+        return listanomAl;
+    }
 
     public static List<Integer> getIdAl(BaseDatos accesoBD, List<String> listaAlumnos) throws SQLException {
         List<Integer> listaIDAl = new ArrayList<Integer>();
