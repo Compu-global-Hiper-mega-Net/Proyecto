@@ -93,6 +93,7 @@ DROP TABLE IF EXISTS `mydb`.`liga` ;
 
 CREATE  TABLE IF NOT EXISTS `mydb`.`liga` (
   `idLiga` INT NOT NULL AUTO_INCREMENT ,
+  `nombre` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`idLiga`) )
 ENGINE = InnoDB;
 
