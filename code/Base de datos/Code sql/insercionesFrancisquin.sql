@@ -1,6 +1,6 @@
 
-INSERT INTO usuario (nombre, primerapellido, segundoapellido, dni, clave)
-VALUES ("paco", "fernandez" , "fernandez2", "77777777q","clave");
+INSERT INTO usuario (nombre, primerapellido, segundoapellido, dni, clave, user)
+VALUES ("paco", "fernandez" , "fernandez2", "77777777q","clave", "paco");
 INSERT INTO usuario (nombre, primerapellido, segundoapellido, dni, clave, entrenador)
 VALUES ("trainerman", "fernandez" , "fernandez2", "77777777q","clave", true);
 INSERT INTO usuario (nombre, primerapellido, segundoapellido, dni, clave, entrenador)
