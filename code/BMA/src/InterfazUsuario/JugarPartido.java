@@ -4,6 +4,8 @@
  */
 package InterfazUsuario;
 
+import java.awt.Toolkit;
+
 /**
  * Clase JugarPartido que sirve para visualizar la introducción de las 
  * estadísticas de los jugadores en los partidos.
@@ -17,7 +19,7 @@ public class JugarPartido extends javax.swing.JFrame {
      */
     public JugarPartido() {
         initComponents();
-        this.setSize(600, 400);
+        this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
     }
         
 
@@ -36,44 +38,38 @@ public class JugarPartido extends javax.swing.JFrame {
         Jugador2 = new javax.swing.JComboBox();
         Jugador3 = new javax.swing.JComboBox();
         MedioCampo = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        Suplentes = new javax.swing.JScrollPane();
         ListaAlumnosEquipos = new javax.swing.JList();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        Estadisticas = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTextPane2 = new javax.swing.JTextPane();
-        jLabel5 = new javax.swing.JLabel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jTextPane3 = new javax.swing.JTextPane();
-        jLabel6 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jButton8 = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
-        jButton9 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jButton10 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
-        jButton15 = new javax.swing.JButton();
+        NombreLocalLabel = new javax.swing.JLabel();
+        NombreVisitanteLabel = new javax.swing.JLabel();
+        SuplentesLabel = new javax.swing.JLabel();
+        TiroLibreAcertado = new javax.swing.JButton();
+        TiroLibreFallado = new javax.swing.JButton();
+        TiroCampoAcertado = new javax.swing.JButton();
+        TiroCampoFallado = new javax.swing.JButton();
+        TripleAcertado = new javax.swing.JButton();
+        TripleFallado = new javax.swing.JButton();
+        ReboteOf = new javax.swing.JButton();
+        ReboteDef = new javax.swing.JButton();
+        Robo = new javax.swing.JButton();
+        Perdida = new javax.swing.JButton();
+        TaponHecho = new javax.swing.JButton();
+        TaponRecibido = new javax.swing.JButton();
+        Asistencia = new javax.swing.JButton();
+        TiroLibreLabel = new javax.swing.JLabel();
+        TiroCampoLabel = new javax.swing.JLabel();
+        TripleLabel = new javax.swing.JLabel();
+        RebotesLabel = new javax.swing.JLabel();
+        RoboPerdidaLabel = new javax.swing.JLabel();
+        TaponesLabel = new javax.swing.JLabel();
+        AsistenciasLabel = new javax.swing.JLabel();
+        EquipoLocal = new javax.swing.JTextField();
+        EquipoVisitante = new javax.swing.JTextField();
+        cronometro1 = new InterfazUsuario.Cronometro();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         getContentPane().setLayout(null);
 
         Jugador4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -105,18 +101,10 @@ public class JugarPartido extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(ListaAlumnosEquipos);
+        Suplentes.setViewportView(ListaAlumnosEquipos);
 
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(70, 190, 180, 280);
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/play.png"))); // NOI18N
-        getContentPane().add(jButton1);
-        jButton1.setBounds(530, 100, 60, 40);
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagen/pause.jpg"))); // NOI18N
-        getContentPane().add(jButton2);
-        jButton2.setBounds(610, 100, 60, 40);
+        getContentPane().add(Suplentes);
+        Suplentes.setBounds(70, 190, 180, 280);
 
         jTable1.setAutoCreateRowSorter(true);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -139,170 +127,175 @@ public class JugarPartido extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable1);
+        Estadisticas.setViewportView(jTable1);
         jTable1.getAccessibleContext().setAccessibleParent(ListaAlumnosEquipos);
 
-        getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(10, 490, 1040, 120);
+        getContentPane().add(Estadisticas);
+        Estadisticas.setBounds(10, 490, 1040, 120);
 
-        jLabel3.setText("LOCAL");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(180, 50, 60, 20);
+        NombreLocalLabel.setText("LOCAL");
+        getContentPane().add(NombreLocalLabel);
+        NombreLocalLabel.setBounds(270, 40, 60, 20);
 
-        jLabel4.setText("VISITANTE");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(880, 50, 110, 20);
+        NombreVisitanteLabel.setText("VISITANTE");
+        getContentPane().add(NombreVisitanteLabel);
+        NombreVisitanteLabel.setBounds(880, 40, 110, 20);
 
-        jScrollPane3.setViewportView(jTextPane1);
+        SuplentesLabel.setText("SUPLENTES");
+        getContentPane().add(SuplentesLabel);
+        SuplentesLabel.setBounds(120, 160, 70, 20);
 
-        getContentPane().add(jScrollPane3);
-        jScrollPane3.setBounds(170, 80, 50, 22);
-
-        jScrollPane4.setViewportView(jTextPane2);
-
-        getContentPane().add(jScrollPane4);
-        jScrollPane4.setBounds(880, 80, 50, 22);
-
-        jLabel5.setText("TIEMPO");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(580, 40, 70, 20);
-
-        jScrollPane5.setViewportView(jTextPane3);
-
-        getContentPane().add(jScrollPane5);
-        jScrollPane5.setBounds(560, 70, 80, 22);
-
-        jLabel6.setText("SUPLENTES");
-        getContentPane().add(jLabel6);
-        jLabel6.setBounds(120, 160, 70, 20);
-
-        jButton3.setText("+1");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        TiroLibreAcertado.setText("+1");
+        TiroLibreAcertado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                TiroLibreAcertadoActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3);
-        jButton3.setBounds(700, 190, 47, 23);
+        getContentPane().add(TiroLibreAcertado);
+        TiroLibreAcertado.setBounds(700, 190, 47, 23);
 
-        jButton4.setText("+0");
-        getContentPane().add(jButton4);
-        jButton4.setBounds(780, 190, 47, 23);
+        TiroLibreFallado.setText("+0");
+        getContentPane().add(TiroLibreFallado);
+        TiroLibreFallado.setBounds(780, 190, 47, 23);
 
-        jButton5.setText("+2");
-        getContentPane().add(jButton5);
-        jButton5.setBounds(700, 240, 47, 23);
-
-        jButton6.setText("+0");
-        getContentPane().add(jButton6);
-        jButton6.setBounds(780, 240, 47, 23);
-
-        jButton7.setText("+3");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        TiroCampoAcertado.setText("+2");
+        TiroCampoAcertado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                TiroCampoAcertadoActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton7);
-        jButton7.setBounds(700, 290, 47, 23);
+        getContentPane().add(TiroCampoAcertado);
+        TiroCampoAcertado.setBounds(700, 240, 47, 23);
 
-        jLabel1.setText("Tiros Libres");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(700, 160, 100, 20);
+        TiroCampoFallado.setText("+0");
+        getContentPane().add(TiroCampoFallado);
+        TiroCampoFallado.setBounds(780, 240, 47, 23);
 
-        jLabel7.setText("Tiros de Campo");
-        getContentPane().add(jLabel7);
-        jLabel7.setBounds(700, 220, 90, 20);
-
-        jLabel8.setText("Triple");
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(700, 270, 26, 14);
-
-        jButton8.setText("+0");
-        getContentPane().add(jButton8);
-        jButton8.setBounds(780, 290, 47, 23);
-
-        jLabel9.setText("Rebotes");
-        getContentPane().add(jLabel9);
-        jLabel9.setBounds(700, 320, 110, 20);
-
-        jButton9.setText("Of.");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        TripleAcertado.setText("+3");
+        TripleAcertado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                TripleAcertadoActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton9);
-        jButton9.setBounds(700, 340, 49, 23);
+        getContentPane().add(TripleAcertado);
+        TripleAcertado.setBounds(700, 290, 47, 23);
 
-        jButton11.setText("Def.");
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        TripleFallado.setText("+0");
+        getContentPane().add(TripleFallado);
+        TripleFallado.setBounds(780, 290, 47, 23);
+
+        ReboteOf.setText("Of.");
+        ReboteOf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                ReboteOfActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton11);
-        jButton11.setBounds(780, 340, 53, 23);
+        getContentPane().add(ReboteOf);
+        ReboteOf.setBounds(700, 340, 49, 23);
 
-        jLabel10.setText("Asistencias");
-        getContentPane().add(jLabel10);
-        jLabel10.setBounds(880, 270, 70, 20);
-
-        jLabel11.setText("Robos/Pérdidas");
-        getContentPane().add(jLabel11);
-        jLabel11.setBounds(880, 160, 110, 20);
-
-        jLabel13.setText("Tapones");
-        getContentPane().add(jLabel13);
-        jLabel13.setBounds(880, 220, 41, 14);
-
-        jButton10.setText("+1");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        ReboteDef.setText("Def.");
+        ReboteDef.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                ReboteDefActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton10);
-        jButton10.setBounds(880, 290, 47, 23);
+        getContentPane().add(ReboteDef);
+        ReboteDef.setBounds(780, 340, 53, 23);
 
-        jButton12.setText("Robo");
-        getContentPane().add(jButton12);
-        jButton12.setBounds(880, 190, 57, 23);
+        Robo.setText("Robo");
+        getContentPane().add(Robo);
+        Robo.setBounds(880, 190, 57, 23);
 
-        jButton13.setText("Pérdida");
-        getContentPane().add(jButton13);
-        jButton13.setBounds(970, 190, 69, 23);
+        Perdida.setText("Pérdida");
+        Perdida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PerdidaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Perdida);
+        Perdida.setBounds(970, 190, 69, 23);
 
-        jButton14.setText("Realizado");
-        getContentPane().add(jButton14);
-        jButton14.setBounds(880, 240, 79, 23);
+        TaponHecho.setText("Realizado");
+        getContentPane().add(TaponHecho);
+        TaponHecho.setBounds(880, 240, 79, 23);
 
-        jButton15.setText("Recibido");
-        getContentPane().add(jButton15);
-        jButton15.setBounds(970, 240, 73, 23);
+        TaponRecibido.setText("Recibido");
+        getContentPane().add(TaponRecibido);
+        TaponRecibido.setBounds(970, 240, 73, 23);
+
+        Asistencia.setText("+1");
+        Asistencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AsistenciaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Asistencia);
+        Asistencia.setBounds(880, 290, 47, 23);
+
+        TiroLibreLabel.setText("Tiros Libres");
+        getContentPane().add(TiroLibreLabel);
+        TiroLibreLabel.setBounds(700, 160, 100, 20);
+
+        TiroCampoLabel.setText("Tiros de Campo");
+        getContentPane().add(TiroCampoLabel);
+        TiroCampoLabel.setBounds(700, 220, 90, 20);
+
+        TripleLabel.setText("Triple");
+        getContentPane().add(TripleLabel);
+        TripleLabel.setBounds(700, 270, 26, 14);
+
+        RebotesLabel.setText("Rebotes");
+        getContentPane().add(RebotesLabel);
+        RebotesLabel.setBounds(700, 320, 110, 20);
+
+        RoboPerdidaLabel.setText("Robos/Pérdidas");
+        getContentPane().add(RoboPerdidaLabel);
+        RoboPerdidaLabel.setBounds(880, 160, 110, 20);
+
+        TaponesLabel.setText("Tapones");
+        getContentPane().add(TaponesLabel);
+        TaponesLabel.setBounds(880, 220, 41, 14);
+
+        AsistenciasLabel.setText("Asistencias");
+        getContentPane().add(AsistenciasLabel);
+        AsistenciasLabel.setBounds(880, 270, 70, 20);
+        getContentPane().add(EquipoLocal);
+        EquipoLocal.setBounds(870, 70, 70, 20);
+        getContentPane().add(EquipoVisitante);
+        EquipoVisitante.setBounds(250, 70, 70, 20);
+        getContentPane().add(cronometro1);
+        cronometro1.setBounds(500, 20, 209, 111);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void TiroLibreAcertadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TiroLibreAcertadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_TiroLibreAcertadoActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void TripleAcertadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TripleAcertadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_TripleAcertadoActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void ReboteOfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReboteOfActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_ReboteOfActionPerformed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+    private void ReboteDefActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReboteDefActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton11ActionPerformed
+    }//GEN-LAST:event_ReboteDefActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void AsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AsistenciaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton10ActionPerformed
+    }//GEN-LAST:event_AsistenciaActionPerformed
+
+    private void PerdidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PerdidaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PerdidaActionPerformed
+
+    private void TiroCampoAcertadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TiroCampoAcertadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TiroCampoAcertadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -340,6 +333,11 @@ public class JugarPartido extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Asistencia;
+    private javax.swing.JLabel AsistenciasLabel;
+    private javax.swing.JTextField EquipoLocal;
+    private javax.swing.JTextField EquipoVisitante;
+    private javax.swing.JScrollPane Estadisticas;
     private javax.swing.JComboBox Jugador1;
     private javax.swing.JComboBox Jugador2;
     private javax.swing.JComboBox Jugador3;
@@ -347,40 +345,29 @@ public class JugarPartido extends javax.swing.JFrame {
     private javax.swing.JComboBox Jugador5;
     private javax.swing.JList ListaAlumnosEquipos;
     private javax.swing.JLabel MedioCampo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JLabel NombreLocalLabel;
+    private javax.swing.JLabel NombreVisitanteLabel;
+    private javax.swing.JButton Perdida;
+    private javax.swing.JButton ReboteDef;
+    private javax.swing.JButton ReboteOf;
+    private javax.swing.JLabel RebotesLabel;
+    private javax.swing.JButton Robo;
+    private javax.swing.JLabel RoboPerdidaLabel;
+    private javax.swing.JScrollPane Suplentes;
+    private javax.swing.JLabel SuplentesLabel;
+    private javax.swing.JButton TaponHecho;
+    private javax.swing.JButton TaponRecibido;
+    private javax.swing.JLabel TaponesLabel;
+    private javax.swing.JButton TiroCampoAcertado;
+    private javax.swing.JButton TiroCampoFallado;
+    private javax.swing.JLabel TiroCampoLabel;
+    private javax.swing.JButton TiroLibreAcertado;
+    private javax.swing.JButton TiroLibreFallado;
+    private javax.swing.JLabel TiroLibreLabel;
+    private javax.swing.JButton TripleAcertado;
+    private javax.swing.JButton TripleFallado;
+    private javax.swing.JLabel TripleLabel;
+    private InterfazUsuario.Cronometro cronometro1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextPane jTextPane1;
-    private javax.swing.JTextPane jTextPane2;
-    private javax.swing.JTextPane jTextPane3;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,6 +6,7 @@
 package InterfazUsuario;
 import GestionDeUsuarios.*;
 import ServiciosAlmacenamiento.BaseDatos;
+import java.awt.event.KeyEvent;
 import java.sql.*;
 import javax.swing.JOptionPane;
 
@@ -85,6 +86,12 @@ public class Acceso extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        userTextfield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                userTextfieldKeyReleased(evt);
+            }
+        });
+
         userLabel.setText("Usuario:");
 
         passLabel.setText("Contraseña:");
@@ -93,6 +100,12 @@ public class Acceso extends javax.swing.JFrame {
         authenticateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 authenticateButtonActionPerformed(evt);
+            }
+        });
+
+        passTextfield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                passTextfieldKeyReleased(evt);
             }
         });
 
@@ -162,7 +175,7 @@ private void authenticateButtonActionPerformed(java.awt.event.ActionEvent evt) {
     String consulta_acceso = "SELECT * FROM usuario WHERE user='"
             + usuario + "' AND clave='" + new String (pass) + "'";
     
-    System.out.print("\n"+consulta_acceso);
+    System.out.print("\npass "+consulta_acceso);
     retset = GestorUsuarios.consultarUsuario(accesoBD, consulta_acceso);
     try{
         if (retset.next()) {
@@ -178,6 +191,60 @@ private void authenticateButtonActionPerformed(java.awt.event.ActionEvent evt) {
         System.out.print(ex.getMessage());
     }
 }//GEN-LAST:event_authenticateButtonActionPerformed
+
+    private void userTextfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userTextfieldKeyReleased
+        // TODO add your handling code here:
+         if(evt.getKeyCode() == evt.VK_ENTER){
+            BaseDatos accesoBD = new BaseDatos();
+            String usuario = userTextfield.getText();
+            char[] pass = passTextfield.getPassword();
+            String consulta_acceso = "SELECT * FROM usuario WHERE user='"
+                    + usuario + "' AND clave='" + new String (pass) + "'";
+
+            System.out.print("\npass "+consulta_acceso);
+            retset = GestorUsuarios.consultarUsuario(accesoBD, consulta_acceso);
+            try{
+                if (retset.next()) {
+                   (new PantallaPrincipal(accesoBD, usuario)).setVisible(true);
+                    this.dispose();
+                }else{          
+                    JOptionPane.showMessageDialog(null,
+                            "Usuario o contraseña incorrectos", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            catch(SQLException ex){
+                System.out.print(ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_userTextfieldKeyReleased
+
+    private void passTextfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passTextfieldKeyReleased
+        // TODO add your handling code here:
+         if(evt.getKeyCode() == evt.VK_ENTER){
+            BaseDatos accesoBD = new BaseDatos();
+            String usuario = userTextfield.getText();
+            char[] pass = passTextfield.getPassword();
+            String consulta_acceso = "SELECT * FROM usuario WHERE user='"
+                    + usuario + "' AND clave='" + new String (pass) + "'";
+
+            System.out.print("\npass "+consulta_acceso);
+            retset = GestorUsuarios.consultarUsuario(accesoBD, consulta_acceso);
+            try{
+                if (retset.next()) {
+                   (new PantallaPrincipal(accesoBD, usuario)).setVisible(true);
+                    this.dispose();
+                }else{          
+                    JOptionPane.showMessageDialog(null,
+                            "Usuario o contraseña incorrectos", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            catch(SQLException ex){
+                System.out.print(ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_passTextfieldKeyReleased
 
     /**
      * @param args the command line arguments
