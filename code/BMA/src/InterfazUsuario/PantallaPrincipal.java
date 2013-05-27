@@ -4400,27 +4400,6 @@ private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     public void actualizaTablaPagoTemporada(String alumno, String actividad, String temporada, String fecha, String pagado) throws SQLException, ParseException {
 
 
-        pagos = GestorPagos.ConsultarPagoTemporada(accesoBD, alumno, temporada, fecha, pagado);
-
-        DefaultTableModel dtm = new DefaultTableModel();
-        dtm.addColumn("Alumno");
-        dtm.addColumn("Temporada");
-        dtm.addColumn("Fecha");
-        dtm.addColumn("Pagado");
-        /*
-         //Mostrar en tabla
-         Object[] fila = new Object[5];
-         for (PagoTemporada it : pagos) {
-         fila[0] = it.getNombre();
-         fila[1] = it.getCategoria().getNombreCategoria().toString();
-         fila[2] = it.getTemporada().getCurso().toString();
-         fila[3] = it.getEntrenador().getNombre().toString();
-         fila[4] = it.getEntrenador2().getNombre().toString();
-         dtm.addRow(fila);
-         }
-         */
-        //tablaPagos.setModel(dtm);
-
     }
 
     private String getCategoria(String s) throws SQLException {

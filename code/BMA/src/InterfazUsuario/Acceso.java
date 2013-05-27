@@ -162,7 +162,7 @@ private void authenticateButtonActionPerformed(java.awt.event.ActionEvent evt) {
     String consulta_acceso = "SELECT * FROM usuario WHERE user='"
             + usuario + "' AND clave='" + new String (pass) + "'";
     
-    System.out.print("\npass "+consulta_acceso);
+    System.out.print("\n"+consulta_acceso);
     retset = GestorUsuarios.consultarUsuario(accesoBD, consulta_acceso);
     try{
         if (retset.next()) {

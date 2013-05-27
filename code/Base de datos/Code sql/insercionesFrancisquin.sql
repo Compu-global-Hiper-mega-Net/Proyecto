@@ -1,4 +1,4 @@
-/*
+
 INSERT INTO usuario (nombre, primerapellido, segundoapellido, dni, clave)
 VALUES ("paco", "fernandez" , "fernandez2", "77777777q","clave");
 INSERT INTO usuario (nombre, primerapellido, segundoapellido, dni, clave, entrenador)
@@ -211,7 +211,7 @@ insert into cuota (fecha, pagado) values ('12-01-12', false);
 insert into cuota (fecha, pagado) values ('12-01-12', false);
 insert into cuota (fecha, pagado) values ('12-01-12', false);
 
-*/
+
 insert into pagoactividades (Alumno_idAlumno, Actividades_idActividades, Actividades_Temporada_idTemporada, Cuota_idCuota) 
 values (2, 1, 1, 1);
 insert into pagoactividades (Alumno_idAlumno, Actividades_idActividades, Actividades_Temporada_idTemporada, Cuota_idCuota) 
@@ -232,3 +232,78 @@ insert into pagoactividades (Alumno_idAlumno, Actividades_idActividades, Activid
 values (10, 1, 1, 9);
 
 
+insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (1, 1);
+
+insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (2, 1);
+insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (3, 1);
+insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (4, 1);
+insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (5, 1);
+insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (6, 1);
+insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (7, 1);
+insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (8, 1);
+insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (9, 1);
+insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (10, 1);
+insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (10, 2);
+insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (11, 2);
+insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (12, 2);
+insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (13, 2);
+insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (14, 2);
+insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (15, 2);
+insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (16, 2);
+insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (17, 2);
+
+insert into pagotemporada (Cuota_idCuota,AlumnoTemporada_Alumno_idAlumno, AlumnoTemporada_Temporada_idTemporada) 
+values (10, 2, 1);
+
+
+insert into pagotemporada (Cuota_idCuota,AlumnoTemporada_Alumno_idAlumno, AlumnoTemporada_Temporada_idTemporada) 
+values (11, 2, 1);
+insert into pagotemporada (Cuota_idCuota,AlumnoTemporada_Alumno_idAlumno, AlumnoTemporada_Temporada_idTemporada) 
+values (12, 2, 1);
+insert into pagotemporada (Cuota_idCuota,AlumnoTemporada_Alumno_idAlumno, AlumnoTemporada_Temporada_idTemporada) 
+values (13, 2, 1);
+insert into pagotemporada (Cuota_idCuota,AlumnoTemporada_Alumno_idAlumno, AlumnoTemporada_Temporada_idTemporada) 
+values (14, 2, 1);
+insert into pagotemporada (Cuota_idCuota,AlumnoTemporada_Alumno_idAlumno, AlumnoTemporada_Temporada_idTemporada) 
+values (15, 2, 1);
+insert into pagotemporada (Cuota_idCuota,AlumnoTemporada_Alumno_idAlumno, AlumnoTemporada_Temporada_idTemporada) 
+values (16, 2, 1);
+insert into pagotemporada (Cuota_idCuota,AlumnoTemporada_Alumno_idAlumno, AlumnoTemporada_Temporada_idTemporada) 
+values (17, 2, 1);
+insert into pagotemporada (Cuota_idCuota,AlumnoTemporada_Alumno_idAlumno, AlumnoTemporada_Temporada_idTemporada) 
+values (18, 2, 1);
+
+insert into pagotemporada (Cuota_idCuota,AlumnoTemporada_Alumno_idAlumno, AlumnoTemporada_Temporada_idTemporada) 
+values (19, 10, 1);
+insert into pagotemporada (Cuota_idCuota,AlumnoTemporada_Alumno_idAlumno, AlumnoTemporada_Temporada_idTemporada) 
+values (20, 10, 1);
+insert into pagotemporada (Cuota_idCuota,AlumnoTemporada_Alumno_idAlumno, AlumnoTemporada_Temporada_idTemporada) 
+values (21, 10, 1);
+insert into pagotemporada (Cuota_idCuota,AlumnoTemporada_Alumno_idAlumno, AlumnoTemporada_Temporada_idTemporada) 
+values (22, 10, 1);
+insert into pagotemporada (Cuota_idCuota,AlumnoTemporada_Alumno_idAlumno, AlumnoTemporada_Temporada_idTemporada) 
+values (23, 10, 1);
+insert into pagotemporada (Cuota_idCuota,AlumnoTemporada_Alumno_idAlumno, AlumnoTemporada_Temporada_idTemporada) 
+values (24, 10, 1);
+insert into pagotemporada (Cuota_idCuota,AlumnoTemporada_Alumno_idAlumno, AlumnoTemporada_Temporada_idTemporada) 
+values (25, 10, 1);
+insert into pagotemporada (Cuota_idCuota,AlumnoTemporada_Alumno_idAlumno, AlumnoTemporada_Temporada_idTemporada) 
+values (26, 10, 1);
+
+
+insert into pagotemporada (Cuota_idCuota,AlumnoTemporada_Alumno_idAlumno, AlumnoTemporada_Temporada_idTemporada) 
+values (19, 10, 2);
+insert into pagotemporada (Cuota_idCuota,AlumnoTemporada_Alumno_idAlumno, AlumnoTemporada_Temporada_idTemporada) 
+values (20, 10, 2);
+insert into pagotemporada (Cuota_idCuota,AlumnoTemporada_Alumno_idAlumno, AlumnoTemporada_Temporada_idTemporada) 
+values (21, 10, 2);
+insert into pagotemporada (Cuota_idCuota,AlumnoTemporada_Alumno_idAlumno, AlumnoTemporada_Temporada_idTemporada) 
+values (22, 10, 2);
+insert into pagotemporada (Cuota_idCuota,AlumnoTemporada_Alumno_idAlumno, AlumnoTemporada_Temporada_idTemporada) 
+values (23, 10, 2);
+insert into pagotemporada (Cuota_idCuota,AlumnoTemporada_Alumno_idAlumno, AlumnoTemporada_Temporada_idTemporada) 
+values (24, 10, 2);
+insert into pagotemporada (Cuota_idCuota,AlumnoTemporada_Alumno_idAlumno, AlumnoTemporada_Temporada_idTemporada) 
+values (25, 10, 2);
+insert into pagotemporada (Cuota_idCuota,AlumnoTemporada_Alumno_idAlumno, AlumnoTemporada_Temporada_idTemporada) 
+values (26, 10, 2);
