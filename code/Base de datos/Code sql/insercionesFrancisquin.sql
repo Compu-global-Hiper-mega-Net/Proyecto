@@ -108,7 +108,7 @@ INSERT INTO alumnogrupo (Alumno_idAlumno, Grupo_idGrupo, Grupo_Categoria_idCateg
 Grupo_Usuario_idUsuario, Grupo_Temporada_idTemporada) VALUES (16, 3, 1, 1, 2);
 
 insert into fundacion (nombre,cp,ccc,email) values ('lafundacion' , 12, 'no se que es ccc pero hay lo llevas', 'correo@fundacion');
-*/
+
 insert into liga (idLiga, nombre) values (1, 'liga bbva');
 
 insert into equipo (Fundacion_idFundacion, Categoria_idCategoria, Temporada_idTemporada, nombre, fundacion, liga_idliga) 
@@ -157,5 +157,78 @@ insert into rango (Usuario_idUsuario, Equipo_idEquipo, Equipo_Fundacion_idFundac
 					Equipo_Temporada_idTemporada, tipo)
 values (2, 1, 1, 1, 1, 'primer entrenador');
 
+insert into actividades (nAlumnos, descripcion, precioSocio,precioNoSocio, Temporada_idTemporada, fechaInicio, fechaFin, nombre) 
+values (20, 'actividad q lo parte y reparte', 40, 60, 1, '12-02-12', '12-03-12', 'juventudes del papa');
 
-insert into temporadaequipo () values ();
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+insert into cuota (fecha, pagado) values ('12-01-12', false);
+
+*/
+insert into pagoactividades (Alumno_idAlumno, Actividades_idActividades, Actividades_Temporada_idTemporada, Cuota_idCuota) 
+values (2, 1, 1, 1);
+insert into pagoactividades (Alumno_idAlumno, Actividades_idActividades, Actividades_Temporada_idTemporada, Cuota_idCuota) 
+values (3, 1, 1, 2);
+insert into pagoactividades (Alumno_idAlumno, Actividades_idActividades, Actividades_Temporada_idTemporada, Cuota_idCuota) 
+values (4, 1, 1, 3);
+insert into pagoactividades (Alumno_idAlumno, Actividades_idActividades, Actividades_Temporada_idTemporada, Cuota_idCuota) 
+values (5, 1, 1, 4);
+insert into pagoactividades (Alumno_idAlumno, Actividades_idActividades, Actividades_Temporada_idTemporada, Cuota_idCuota) 
+values (6, 1, 1, 5);
+insert into pagoactividades (Alumno_idAlumno, Actividades_idActividades, Actividades_Temporada_idTemporada, Cuota_idCuota) 
+values (7, 1, 1, 6);
+insert into pagoactividades (Alumno_idAlumno, Actividades_idActividades, Actividades_Temporada_idTemporada, Cuota_idCuota) 
+values (8, 1, 1, 7);
+insert into pagoactividades (Alumno_idAlumno, Actividades_idActividades, Actividades_Temporada_idTemporada, Cuota_idCuota) 
+values (9, 1, 1, 8);
+insert into pagoactividades (Alumno_idAlumno, Actividades_idActividades, Actividades_Temporada_idTemporada, Cuota_idCuota) 
+values (10, 1, 1, 9);
+
+
