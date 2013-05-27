@@ -232,7 +232,7 @@ insert into pagoactividades (Alumno_idAlumno, Actividades_idActividades, Activid
 values (10, 1, 1, 9);
 
 
-insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (1, 1);
+/*insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (1, 1);*/
 
 insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (2, 1);
 insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (3, 1);
