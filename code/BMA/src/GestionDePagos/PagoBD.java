@@ -43,4 +43,20 @@ public class PagoBD {
             return false;
         }
     }
+    void modificarCuotaBD(BaseDatos accesoBD, int idCuota, boolean pagado){
+        String actualizacion;
+        String pagadoString;
+        if(pagado){
+            pagadoString="true";
+        }else{
+            pagadoString="false";
+        }
+        actualizacion="\nupdate cuota set cuota.pagado="+pagadoString+" where cuota.idCuota="+idCuota;
+        System.out.print("la act "+actualizacion);
+        try{
+            accesoBD.ejecutaActualizacion(actualizacion);
+        }catch (SQLException ex) {
+            System.out.print(ex.getMessage());
+        }
+    }  
 }

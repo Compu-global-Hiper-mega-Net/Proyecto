@@ -29,4 +29,10 @@ public class GestorPagos {
         return pago.compruebaSiAlumnoEraSocioEnEsaTemporada(accesoBD, idAlumno, idTemporada);
         
     }
+    public static void modificarCuota(BaseDatos accesoBD, int idCuota, boolean pagado){
+        PagoBD pago=new PagoBD();
+        
+        pago.modificarCuotaBD(accesoBD, idCuota, pagado);
+        
+    }
 }

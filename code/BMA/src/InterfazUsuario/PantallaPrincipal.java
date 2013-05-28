@@ -90,7 +90,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     String consultaInstalacionesMostradas;
     String consultaActividadesMostradas;
     Border bordeError;
-
+    String consultaPagosMostrados;
     /**
      * Creates new form InterfazPrincipal
      */
@@ -1401,7 +1401,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         });
         jScrollPane6.setViewportView(tablaPagos);
 
-        pagos_botonModificar.setText("Modificar");
+        pagos_botonModificar.setText("Modificar Pago");
         pagos_botonModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pagos_botonModificarActionPerformed(evt);
@@ -1458,8 +1458,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                                     .addGap(30, 30, 30)
                                     .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(pagos_actividad, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
-                                        .addComponent(pagos_etiqActividad))))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                        .addComponent(pagos_etiqActividad)))))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelPagosLayout.createSequentialGroup()
                             .addComponent(pagos_botonMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(45, 45, 45)
@@ -1503,7 +1502,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pagos_botonMostrar)
                     .addComponent(pagos_botonDeudores))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(pagos_botonModificar)
@@ -1815,7 +1814,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                         .addComponent(jButton8))
                     .addComponent(Partidos)
                     .addComponent(jSeparator6))
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PanelPartidosLayout.setVerticalGroup(
             PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1828,7 +1827,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addComponent(jButton8))
                 .addGap(48, 48, 48)
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         PanelPartidos.setVisible(false);
@@ -4034,7 +4033,7 @@ private void pago_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private String leeConsultaPagosInterfaz() {
 
         String consulta_pagos = "SELECT a.nombre, a.primerApellido, a.segundoApellido, a.telMovil, a.telFijo,"
-                + " a.email ";
+                + " a.email, cuota.idCuota ";
         String tablasImplicadas = " FROM alumno a, cuota  ";
         String condicionesConsulta = " WHERE ";
 
@@ -4065,7 +4064,7 @@ private void pago_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
             tablasImplicadas = tablasImplicadas + condicionesConsulta;
         }else{
             //Aqui consultamos los pagos de las actividades
-            consulta_pagos += " , act.precioSocio, act.precioNoSocio, cuota.fecha, cuota.pagado, temp.idTemporada, a.idAlumno, temp.curso ";
+            consulta_pagos += " , act.precioSocio, act.precioNoSocio, cuota.fecha, cuota.pagado, temp.idTemporada, a.idAlumno, temp.curso, act.nombre ";
             tablasImplicadas+= " , pagoactividades pagoact , temporada temp, actividades act ";
             condicionesConsulta = condicionesConsulta + " pagoact.actividades_idActividades=act.idActividades AND pagoact.alumno_idAlumno=a.idAlumno AND"
                     + " cuota.idCuota=pagoact.cuota_idCuota AND temp.idTemporada=act.temporada_idTemporada AND ";
@@ -4096,37 +4095,68 @@ private void pago_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 private void pagos_botonMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagos_botonMostrarActionPerformed
     try {
         String consulta_pagos = leeConsultaPagosInterfaz();
-        //consultaAlumnosMostrados = consulta_pagos;
+        consultaPagosMostrados = consulta_pagos;
         System.out.print("\nLA consulta a " + consulta_pagos + "; ");
         retset = GestorPagos.consultarPago(accesoBD, consulta_pagos);
-        tablaPagos.setModel(new javax.swing.table.DefaultTableModel(
-new Object [][] {
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null}
-    },
-    new String [] {
-        "Nombre", "Primer Apellido", "Segundo Apellido", "Importe", "Fecha", "Pagado/Debido", "Email", "Tel. Fijo", "Tel. Movil", "Temporada"
-    }));
-        javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
-        modelo_tabla = tablaPagos.getModel();
+    if(consulta_pagos.indexOf("alumnotemporada")!=-1){    
+                tablaPagos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "Primer Apellido", "Segundo Apellido", "Importe", "Fecha", "Pagado/Debido", "Email", "Tel. Fijo", "Tel. Movil", "Temporada"
+            }));
+                javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
+                modelo_tabla = tablaPagos.getModel();
+    }else{
+                tablaPagos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "Primer Apellido", "Segundo Apellido", "Importe", "Fecha", "Pagado/Debido", "Email", "Tel. Fijo", "Tel. Movil", "Temporada", "Actividad"
+            }));
+                javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
+                modelo_tabla = tablaPagos.getModel();        
+    }
         int i = 0;
         while (retset.next()) {
             if (i < 20) {
@@ -4148,6 +4178,9 @@ new Object [][] {
                 tablaPagos.setValueAt(retset.getString("a.telfijo"), i, 7);
                 tablaPagos.setValueAt(retset.getString("a.telmovil"), i, 8);
                 tablaPagos.setValueAt(retset.getString("temp.curso"), i, 9);
+                if(consulta_pagos.indexOf("alumnotemporada")==-1){
+                    tablaPagos.setValueAt(retset.getString("act.nombre"), i, 10);
+                }
             } else {
                 javax.swing.table.DefaultTableModel temp = (javax.swing.table.DefaultTableModel) tablaPagos.getModel();
                 Object nuevo[] = {"", "", ""};
@@ -4170,6 +4203,9 @@ new Object [][] {
                 tablaPagos.setValueAt(retset.getString("a.telfijo"), i, 7);
                 tablaPagos.setValueAt(retset.getString("a.telmovil"), i, 8);
                 tablaPagos.setValueAt(retset.getString("temp.curso"), i, 9);
+                if(consulta_pagos.indexOf("alumnotemporada")==-1){
+                    tablaPagos.setValueAt(retset.getString("act.nombre"), i, 10);
+                }
             }
             i++;
         }
@@ -4181,7 +4217,7 @@ new Object [][] {
     private String leeConsultaPagosDeDeudoresInterfaz() {
 
         String consulta_pagos = "SELECT a.nombre, a.primerApellido, a.segundoApellido, a.telMovil, a.telFijo,"
-                + " a.email ";
+                + " a.email , cuota.idcuota";
         String tablasImplicadas = " FROM alumno a, cuota  ";
         String condicionesConsulta = " WHERE ";
 
@@ -4212,7 +4248,7 @@ new Object [][] {
             tablasImplicadas = tablasImplicadas + condicionesConsulta;
         }else{
             //Aqui consultamos los pagos de las actividades
-            consulta_pagos += " , act.precioSocio, act.precioNoSocio, cuota.fecha, cuota.pagado, temp.idTemporada, a.idAlumno, temp.curso ";
+            consulta_pagos += " , act.precioSocio, act.precioNoSocio, cuota.fecha, cuota.pagado, temp.idTemporada, a.idAlumno, temp.curso, act.nombre ";
             tablasImplicadas+= " , pagoactividades pagoact , temporada temp, actividades act ";
             condicionesConsulta = condicionesConsulta + " pagoact.actividades_idActividades=act.idActividades AND pagoact.alumno_idAlumno=a.idAlumno AND"
                     + " cuota.idCuota=pagoact.cuota_idCuota AND temp.idTemporada=act.temporada_idTemporada AND cuota.pagado=false AND ";
@@ -4242,37 +4278,68 @@ new Object [][] {
 private void pagos_botonDeudoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagos_botonDeudoresActionPerformed
     try {
         String consulta_pagos = leeConsultaPagosDeDeudoresInterfaz();
-        //consultaAlumnosMostrados = consulta_pagos;
+        consultaPagosMostrados = consulta_pagos;
         System.out.print("\nLA consulta a " + consulta_pagos + "; ");
         retset = GestorPagos.consultarPago(accesoBD, consulta_pagos);
-        tablaPagos.setModel(new javax.swing.table.DefaultTableModel(
-new Object [][] {
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null, null}
-    },
-    new String [] {
-        "Nombre", "Primer Apellido", "Segundo Apellido", "Importe", "Fecha", "Pagado/Debido", "Email", "Tel. Fijo", "Tel. Movil", "Temporada"
-    }));
-        javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
-        modelo_tabla = tablaPagos.getModel();
+    if(consulta_pagos.indexOf("alumnotemporada")!=-1){    
+                tablaPagos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "Primer Apellido", "Segundo Apellido", "Importe", "Fecha", "Pagado/Debido", "Email", "Tel. Fijo", "Tel. Movil", "Temporada"
+            }));
+                javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
+                modelo_tabla = tablaPagos.getModel();
+    }else{
+                tablaPagos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "Primer Apellido", "Segundo Apellido", "Importe", "Fecha", "Pagado/Debido", "Email", "Tel. Fijo", "Tel. Movil", "Temporada", "Actividad"
+            }));
+                javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
+                modelo_tabla = tablaPagos.getModel();        
+    }
         int i = 0;
         while (retset.next()) {
             if (i < 20) {
@@ -4294,6 +4361,9 @@ new Object [][] {
                 tablaPagos.setValueAt(retset.getString("a.telfijo"), i, 7);
                 tablaPagos.setValueAt(retset.getString("a.telmovil"), i, 8);
                 tablaPagos.setValueAt(retset.getString("temp.curso"), i, 9);
+                if(consulta_pagos.indexOf("alumnotemporada")==-1){
+                    tablaPagos.setValueAt(retset.getString("act.nombre"), i, 10);
+                }
             } else {
                 javax.swing.table.DefaultTableModel temp = (javax.swing.table.DefaultTableModel) tablaPagos.getModel();
                 Object nuevo[] = {"", "", ""};
@@ -4316,16 +4386,65 @@ new Object [][] {
                 tablaPagos.setValueAt(retset.getString("a.telfijo"), i, 7);
                 tablaPagos.setValueAt(retset.getString("a.telmovil"), i, 8);
                 tablaPagos.setValueAt(retset.getString("temp.curso"), i, 9);
+                if(consulta_pagos.indexOf("alumnotemporada")==-1){
+                    tablaPagos.setValueAt(retset.getString("act.nombre"), i, 10);
+                }
             }
             i++;
         }
     } catch (SQLException ex) {
         System.out.print(ex.getMessage());
     }
+
 }//GEN-LAST:event_pagos_botonDeudoresActionPerformed
 
 private void pagos_botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagos_botonModificarActionPerformed
-// TODO add your handling code here:
+        if (tablaPagos.getSelectedRow() == -1) {
+             JOptionPane.showMessageDialog(null,
+                    "No ha seleccionado ningún pago", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } else {
+            int posTabla = tablaPagos.getSelectedRow();
+
+            try {
+                ResultSet pagosMostrados = GestorPagos.consultarPago(accesoBD, consultaPagosMostrados);
+                int i = 0;
+                while (i <= posTabla) {
+                    pagosMostrados.next();
+                    i++;
+                }
+                int idcuota = pagosMostrados.getInt("cuota.idCuota");
+                System.out.print("\n Hemos cogido el idCuota que vale "+idcuota);  
+                
+                if(consultaPagosMostrados.indexOf("alumnotemporada")!=-1){
+                    new ModificarPago(accesoBD, idcuota, pagosMostrados.getString("a.nombre"), pagosMostrados.getString("a.primerApellido"),
+                        pagosMostrados.getString("a.segundoApellido"), pagosMostrados.getString("temp.curso"), pagosMostrados.getString("cuota.fecha"),
+                        pagosMostrados.getBoolean("cuota.pagado")).setVisible(true);  
+                    if(consultaPagosMostrados.indexOf("pagado=false")!=-1){
+                        System.out.print("\nESTAMOS EN 1");
+                        pagos_botonDeudoresActionPerformed(null);
+                    }else{
+                        System.out.print("\nESTAMOS EN 2");
+                        pagos_botonMostrarActionPerformed(null);
+                    }
+                }else{
+                    new ModificarPago(accesoBD, idcuota, pagosMostrados.getString("a.nombre"), pagosMostrados.getString("a.primerApellido"),
+                        pagosMostrados.getString("a.segundoApellido"), pagosMostrados.getString("temp.curso"), pagosMostrados.getString("cuota.fecha"),
+                        pagosMostrados.getBoolean("cuota.pagado"), pagosMostrados.getString("act.nombre")).setVisible(true);  
+                    if(consultaPagosMostrados.indexOf("pagado=false")!=-1){
+                        System.out.print("\nESTAMOS EN 3");
+                        pagos_botonDeudoresActionPerformed(null);
+                    }else{
+                        System.out.print("\nESTAMOS EN 4");
+                        pagos_botonMostrarActionPerformed(null);
+                    }
+                }
+            } catch (SQLException ex) {
+                System.out.print(ex.getMessage());
+            }
+        }
+
+ 
 }//GEN-LAST:event_pagos_botonModificarActionPerformed
 
 private void menuPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPagosActionPerformed
