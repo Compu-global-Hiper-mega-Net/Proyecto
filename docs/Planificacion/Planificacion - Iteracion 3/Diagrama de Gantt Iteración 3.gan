@@ -42,10 +42,10 @@
             <task id="5" name="Revisión de los documentos de los equipos de Diseño e Implementación" color="#8cb6ce" meeting="false" start="2013-05-18" duration="22" complete="0" expand="true"/>
             <task id="4" name="Generar Documentacion (revisiones, entregas, etc)" color="#8cb6ce" meeting="false" start="2013-05-18" duration="22" complete="0" expand="true"/>
             <task id="3" name="Generar Documentacion de la tercera Iteracion" color="#8cb6ce" meeting="false" start="2013-05-18" duration="22" complete="0" expand="true"/>
-            <task id="63" name="Prueba de software generado por el equipo de implementación" color="#8cb6ce" meeting="false" start="2013-06-02" duration="5" complete="0" expand="true"/>
-            <task id="64" name="Prueba de la IU" color="#8cb6ce" meeting="false" start="2013-06-02" duration="5" complete="0" expand="true"/>
+            <task id="63" name="Prueba de software generado por el equipo de implementación" color="#8cb6ce" meeting="false" start="2013-06-04" duration="5" complete="0" expand="true"/>
+            <task id="64" name="Prueba de la IU" color="#8cb6ce" meeting="false" start="2013-06-04" duration="5" complete="0" expand="true"/>
         </task>
-        <task id="15" name="Equipo de Diseño" color="#8cb6ce" meeting="false" start="2013-05-13" duration="10" complete="0" expand="true">
+        <task id="15" name="Equipo de Diseño" color="#8cb6ce" meeting="false" start="2013-05-13" duration="12" complete="0" expand="true">
             <depend id="58" type="2" difference="0" hardness="Strong"/>
             <depend id="59" type="2" difference="0" hardness="Strong"/>
             <depend id="60" type="2" difference="0" hardness="Strong"/>
@@ -71,24 +71,24 @@
                 <task id="34" name="Obtener Diagramas de Secuencia de los contratos" color="#8cb6ce" meeting="false" start="2013-05-18" duration="5" complete="0" expand="true"/>
                 <task id="35" name="Documento Fase Analisis" color="#8cb6ce" meeting="false" start="2013-05-18" duration="5" complete="0" expand="true"/>
             </task>
-            <task id="41" name="Diseño" color="#8cb6ce" meeting="false" start="2013-05-20" duration="3" complete="0" expand="true">
-                <task id="42" name="Diagrama de Secuencia del Sistema de todos los casos de uso." color="#8cb6ce" meeting="false" start="2013-05-20" duration="3" complete="0" expand="true"/>
-                <task id="43" name="Descomposición del sistema en subsistemas de diseño" color="#8cb6ce" meeting="false" start="2013-05-20" duration="3" complete="0" expand="true"/>
-                <task id="44" name="Obtener Diagrama de Secuencia de Diseño" color="#8cb6ce" meeting="false" start="2013-05-20" duration="3" complete="0" expand="true"/>
-                <task id="45" name="Paso de clases a modelo relacional" color="#8cb6ce" meeting="false" start="2013-05-20" duration="3" complete="0" expand="true"/>
-                <task id="46" name="Modelar Diagrama de Componentes" color="#8cb6ce" meeting="false" start="2013-05-20" duration="3" complete="0" expand="true"/>
-                <task id="47" name="Encajar el Diagrama de Clases en la arquitectura obtenida" color="#8cb6ce" meeting="false" start="2013-05-20" duration="3" complete="0" expand="true"/>
-                <task id="48" name="Obtener Diagrama de Despliegue de Diseño" color="#8cb6ce" meeting="false" start="2013-05-20" duration="3" complete="0" expand="true"/>
-                <task id="49" name="Documento Fase Diseño" color="#8cb6ce" meeting="false" start="2013-05-20" duration="3" complete="0" expand="true"/>
+            <task id="41" name="Diseño" color="#8cb6ce" meeting="false" start="2013-05-20" duration="5" complete="0" expand="true">
+                <task id="42" name="Diagrama de Secuencia del Sistema de todos los casos de uso." color="#8cb6ce" meeting="false" start="2013-05-20" duration="5" complete="0" expand="true"/>
+                <task id="43" name="Descomposición del sistema en subsistemas de diseño" color="#8cb6ce" meeting="false" start="2013-05-20" duration="5" complete="0" expand="true"/>
+                <task id="44" name="Obtener Diagrama de Secuencia de Diseño" color="#8cb6ce" meeting="false" start="2013-05-20" duration="5" complete="0" expand="true"/>
+                <task id="45" name="Paso de clases a modelo relacional" color="#8cb6ce" meeting="false" start="2013-05-20" duration="5" complete="0" expand="true"/>
+                <task id="46" name="Modelar Diagrama de Componentes" color="#8cb6ce" meeting="false" start="2013-05-20" duration="5" complete="0" expand="true"/>
+                <task id="47" name="Encajar el Diagrama de Clases en la arquitectura obtenida" color="#8cb6ce" meeting="false" start="2013-05-20" duration="5" complete="0" expand="true"/>
+                <task id="48" name="Obtener Diagrama de Despliegue de Diseño" color="#8cb6ce" meeting="false" start="2013-05-20" duration="5" complete="0" expand="true"/>
+                <task id="49" name="Documento Fase Diseño" color="#8cb6ce" meeting="false" start="2013-05-20" duration="5" complete="0" expand="true"/>
             </task>
         </task>
-        <task id="50" name="Equipo de Implementacion" color="#8cb6ce" meeting="false" start="2013-05-13" duration="20" complete="0" expand="true">
+        <task id="50" name="Equipo de Implementacion" color="#8cb6ce" meeting="false" start="2013-05-13" duration="22" complete="0" expand="true">
             <task id="53" name="Idear método para la recogida de datos sin internet" color="#8cb6ce" meeting="false" start="2013-05-13" duration="3" complete="0" expand="true"/>
-            <task id="55" name="Primeros bocetos de la interfaz de usuario" color="#8cb6ce" meeting="false" start="2013-05-16" duration="7" complete="0" expand="true"/>
+            <task id="55" name="Primeros bocetos de la interfaz de usuario" color="#8cb6ce" meeting="false" start="2013-05-16" duration="9" complete="0" expand="true"/>
             <task id="57" name="Acceso remoto a la base de datos" color="#8cb6ce" meeting="false" start="2013-05-16" duration="7" complete="0" expand="true"/>
-            <task id="58" name="Implementación del sistema a partir del nuevo Diagrama de Clases obtenido por el equipo de diseño." color="#8cb6ce" meeting="false" start="2013-05-23" duration="10" complete="0" expand="true"/>
-            <task id="59" name="Implementación de las operaciones del sistema realizadas por el equipo de Diseño." color="#8cb6ce" meeting="false" start="2013-05-23" duration="10" complete="0" expand="true"/>
-            <task id="60" name="Implementación de la interfaz de usuario." color="#8cb6ce" meeting="false" start="2013-05-23" duration="10" complete="0" expand="true">
+            <task id="58" name="Implementación del sistema a partir del nuevo Diagrama de Clases obtenido por el equipo de diseño." color="#8cb6ce" meeting="false" start="2013-05-25" duration="10" complete="0" expand="true"/>
+            <task id="59" name="Implementación de las operaciones del sistema realizadas por el equipo de Diseño." color="#8cb6ce" meeting="false" start="2013-05-25" duration="10" complete="0" expand="true"/>
+            <task id="60" name="Implementación de la interfaz de usuario." color="#8cb6ce" meeting="false" start="2013-05-25" duration="10" complete="0" expand="true">
                 <depend id="63" type="2" difference="0" hardness="Strong"/>
                 <depend id="64" type="2" difference="0" hardness="Strong"/>
             </task>
