@@ -13,8 +13,7 @@ package InterfazUsuario;
 
 import GestionActividades.GestorActividad;
 import GestionDeAlumnos.*;
-import GestionDeCategorias.Categoria;
-import GestionDeCategorias.GestorCategorias;
+import GestionDeCategorias.*;
 import GestionDeGrupos.GestorGrupos;
 import GestionDeUsuarios.*;
 import GestionDeTemporadas.*;
@@ -102,6 +101,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         this.usuario = usuario;
         initComponents();
         initComponentsSegunUsuario();
+        ocultarPaneles();
+        panelInicio.setVisible(true);
     }
 
     private void initComponentsSegunUsuario() {
@@ -297,6 +298,15 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jSeparator5 = new javax.swing.JSeparator();
         jScrollPane7 = new javax.swing.JScrollPane();
         tablaCategorias = new javax.swing.JTable();
+        PanelPartidos = new javax.swing.JPanel();
+        Partidos = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        tablaPartidos = new javax.swing.JTable();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        BotonJPartido = new javax.swing.JButton();
+        jSeparator6 = new javax.swing.JSeparator();
+        BotonNPartido = new javax.swing.JButton();
         barraMenu = new javax.swing.JMenuBar();
         menuInicio = new javax.swing.JMenu();
         menuJugadores = new javax.swing.JMenu();
@@ -308,6 +318,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         menuPagos = new javax.swing.JMenu();
         menuCategorias = new javax.swing.JMenu();
         menuInstalaciones = new javax.swing.JMenu();
+        menuPartidos = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1400, 750));
@@ -327,19 +338,19 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         panelInicioLayout.setHorizontalGroup(
             panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelInicioLayout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(299, 299, 299)
-                .addComponent(cerrarSesion)
+                .addGap(26, 26, 26)
+                .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cerrarSesion)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(633, Short.MAX_VALUE))
         );
         panelInicioLayout.setVerticalGroup(
             panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelInicioLayout.createSequentialGroup()
-                .addGap(400, 400, 400)
-                .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(cerrarSesion))
+                .addGap(106, 106, 106)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(cerrarSesion)
                 .addContainerGap(673, Short.MAX_VALUE))
         );
 
@@ -350,7 +361,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 623;
         gridBagConstraints.ipady = 662;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weighty = 0.2;
         getContentPane().add(panelInicio, gridBagConstraints);
 
         panelJugadores.setVisible(false);
@@ -703,7 +714,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         panelTemporadas.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         panelTemporadas.setLocation(150, 100);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18));
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("Temporadas");
 
         botonNuevaTemp.setText("Nueva");
@@ -928,7 +939,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Grupos de Entrenamiento");
 
         javax.swing.GroupLayout panelGruposLayout = new javax.swing.GroupLayout(panelGrupos);
@@ -952,7 +963,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(panelGrupos, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        getContentPane().add(panelGrupos, gridBagConstraints);
 
         panelInstalaciones.setVisible(false);
 
@@ -1109,7 +1122,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         panelEquipos.setVisible(false);
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18));
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel8.setText("Equipos");
 
         jLabel10.setText("Nombre:");
@@ -1180,10 +1193,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        labelEquiposMostrados.setFont(new java.awt.Font("Tahoma", 1, 12));
+        labelEquiposMostrados.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         labelEquiposMostrados.setText("Numero de equipos:");
 
-        labelNumeroEquipos.setFont(new java.awt.Font("Tahoma", 1, 12));
+        labelNumeroEquipos.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Entrenador-" }));
 
@@ -1194,7 +1207,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             .addGroup(panelEquiposLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(panelEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
+                    .addComponent(jSeparator4)
                     .addGroup(panelEquiposLayout.createSequentialGroup()
                         .addGroup(panelEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
@@ -1290,7 +1303,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         panelPagos.setVisible(false);
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18));
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel15.setText("Pagos");
 
         jLabel9.setText("Buscar Pagos por:");
@@ -1436,8 +1449,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelPagosLayout.createSequentialGroup()
                             .addComponent(pagos_botonMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(45, 45, 45)
+<<<<<<< HEAD
                             .addComponent(pagos_botonDeudores))))
                 .addContainerGap(163, Short.MAX_VALUE))
+=======
+                            .addComponent(jButton6))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+>>>>>>> 267004276462d7effd0714eac94b33debd1bd616
         );
         panelPagosLayout.setVerticalGroup(
             panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1470,8 +1488,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addComponent(pago_grupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+<<<<<<< HEAD
                     .addComponent(pagos_botonMostrar)
                     .addComponent(pagos_botonDeudores))
+=======
+                    .addComponent(jButton4)
+                    .addComponent(jButton6))
+>>>>>>> 267004276462d7effd0714eac94b33debd1bd616
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
@@ -1479,7 +1502,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGap(40, 40, 40))
         );
 
-        getContentPane().add(panelPagos, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        getContentPane().add(panelPagos, gridBagConstraints);
 
         panelInstalaciones.setVisible(false);
         panelActividades.setMinimumSize(new java.awt.Dimension(1300, 640));
@@ -1645,7 +1670,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         panelCategorias.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         panelCategorias.setLocation(150, 100);
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 18));
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel17.setText("Categorias");
 
         botonNuevaCat.setText("Nueva");
@@ -1727,6 +1752,110 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         );
 
         getContentPane().add(panelCategorias, new java.awt.GridBagConstraints());
+
+        panelCategorias.setVisible(false);
+        PanelPartidos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panelCategorias.setLocation(150, 100);
+
+        Partidos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        Partidos.setText("Partidos");
+
+        tablaPartidos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Fecha", "Hora", "Equipo Local", "Equipo Visitante"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane8.setViewportView(tablaPartidos);
+
+        jButton8.setText("Modificar");
+
+        jButton9.setText("Eliminar");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
+        BotonJPartido.setText("Jugar Partido");
+        BotonJPartido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonJPartidoActionPerformed(evt);
+            }
+        });
+
+        BotonNPartido.setText("Nuevo Partido");
+        BotonNPartido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonNPartidoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PanelPartidosLayout = new javax.swing.GroupLayout(PanelPartidos);
+        PanelPartidos.setLayout(PanelPartidosLayout);
+        PanelPartidosLayout.setHorizontalGroup(
+            PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelPartidosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(PanelPartidosLayout.createSequentialGroup()
+                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(PanelPartidosLayout.createSequentialGroup()
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jButton8)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jButton9))
+                                .addGroup(PanelPartidosLayout.createSequentialGroup()
+                                    .addGap(56, 56, 56)
+                                    .addComponent(BotonJPartido))))
+                        .addComponent(Partidos)
+                        .addComponent(jSeparator6))
+                    .addComponent(BotonNPartido))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        PanelPartidosLayout.setVerticalGroup(
+            PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelPartidosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Partidos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(PanelPartidosLayout.createSequentialGroup()
+                        .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton8)
+                            .addComponent(jButton9))
+                        .addGap(18, 18, 18)
+                        .addComponent(BotonJPartido)))
+                .addGap(48, 48, 48)
+                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BotonNPartido)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(PanelPartidos, new java.awt.GridBagConstraints());
 
         menuInicio.setText("Inicio");
         menuInicio.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1827,6 +1956,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
         barraMenu.add(menuInstalaciones);
+
+        menuPartidos.setText("Partidos");
+        menuPartidos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuPartidosMouseClicked(evt);
+            }
+        });
+        barraMenu.add(menuPartidos);
 
         setJMenuBar(barraMenu);
 
@@ -3751,7 +3888,7 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
 
     private void botonNuevoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoEquipoActionPerformed
         try {
-            new NuevoEquipo(this).setVisible(true);
+            new NuevoEquipo(accesoBD).setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -4114,6 +4251,32 @@ private void pago_temporadaActionPerformed(java.awt.event.ActionEvent evt) {//GE
     
 }//GEN-LAST:event_pago_temporadaActionPerformed
 
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void BotonNPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonNPartidoActionPerformed
+        // TODO add your handling code here:
+        ocultarMensajesError();
+        try {
+            new NuevoPartido(accesoBD,this).setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_BotonNPartidoActionPerformed
+
+    private void menuPartidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuPartidosMouseClicked
+        // TODO add your handling code here:
+        ocultarPaneles();
+        PanelPartidos.setVisible(true);
+    }//GEN-LAST:event_menuPartidosMouseClicked
+
+    private void BotonJPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonJPartidoActionPerformed
+        // TODO add your handling code here:
+        ocultarMensajesError();
+        new JugarPartido().setVisible(true);
+    }//GEN-LAST:event_BotonJPartidoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -4151,6 +4314,8 @@ private void pago_temporadaActionPerformed(java.awt.event.ActionEvent evt) {//GE
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AñaridAlumno;
+    private javax.swing.JButton BotonJPartido;
+    private javax.swing.JButton BotonNPartido;
     private javax.swing.JLabel BuscarporLabel;
     private javax.swing.JButton Eliminar;
     private javax.swing.JButton Informacion;
@@ -4159,6 +4324,8 @@ private void pago_temporadaActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JButton Modificar;
     private javax.swing.JLabel NombreInsLabel;
     private javax.swing.JLabel NumeroLabel;
+    private javax.swing.JPanel PanelPartidos;
+    private javax.swing.JLabel Partidos;
     private javax.swing.JLabel TituloLabel;
     private javax.swing.JLabel actividadesLabel;
     private javax.swing.JTable actividadesTable;
@@ -4228,6 +4395,13 @@ private void pago_temporadaActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
+<<<<<<< HEAD
+=======
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
+>>>>>>> 267004276462d7effd0714eac94b33debd1bd616
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -4269,11 +4443,20 @@ private void pago_temporadaActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+<<<<<<< HEAD
+=======
+    private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+>>>>>>> 267004276462d7effd0714eac94b33debd1bd616
     private javax.swing.JLabel labelEquiposMostrados;
     private javax.swing.JLabel labelNumeroEquipos;
     private javax.swing.JLabel mensajeErrorEliminarAlumno;
@@ -4285,6 +4468,7 @@ private void pago_temporadaActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JMenu menuInstalaciones;
     private javax.swing.JMenu menuJugadores;
     private javax.swing.JMenu menuPagos;
+    private javax.swing.JMenu menuPartidos;
     private javax.swing.JMenu menuTemporadas;
     private javax.swing.JMenu menuUsuarios;
     private javax.swing.JButton modificarButton;
@@ -4325,7 +4509,11 @@ private void pago_temporadaActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JTable tablaEquipos;
     private javax.swing.JTable tablaGrupos;
     private javax.swing.JTable tablaInstalacion;
+<<<<<<< HEAD
     private javax.swing.JTable tablaPagos;
+=======
+    private javax.swing.JTable tablaPartidos;
+>>>>>>> 267004276462d7effd0714eac94b33debd1bd616
     private javax.swing.JTable tablaUsuarios;
     private javax.swing.JLabel temporadaLabel;
     private javax.swing.JTextField textEntEquipo;
@@ -4347,6 +4535,7 @@ private void pago_temporadaActionPerformed(java.awt.event.ActionEvent evt) {//GE
         panelEquipos.setVisible(false);
         panelPagos.setVisible(false);
         panelCategorias.setVisible(false);
+        PanelPartidos.setVisible(false);
     }
 
     ResultSet ejecutarConsulta(String query) {
@@ -4435,6 +4624,12 @@ private void pago_temporadaActionPerformed(java.awt.event.ActionEvent evt) {//GE
         List<String> res = new ArrayList<String>();
         res = GestorTemporadas.getListaTemporadas(accesoBD);
         return res;
+    }
+    
+   List<List<String>> getListaCategorias() throws SQLException {
+        List<List<String>> cats = new ArrayList<List<String>>();
+        cats = GestorCategorias.getListaCategorias(accesoBD);
+        return cats;
     }
 
     /*
@@ -4556,6 +4751,66 @@ private void pago_temporadaActionPerformed(java.awt.event.ActionEvent evt) {//GE
         labelNumeroEquipos.setText(Integer.toString(tablaEquipos.getRowCount()));
     }
 
+<<<<<<< HEAD
+=======
+    public void actualizaTablaPagoActividad(String alumno, String actividad, String temporada, String fecha, String pagado) throws SQLException, ParseException {
+
+        List<PagoActividad> pagos = new ArrayList<PagoActividad>();
+
+        pagos = GestorPagos.ConsultarPagoActividad(accesoBD, alumno, actividad, temporada, fecha, pagado);
+
+        DefaultTableModel dtm = new DefaultTableModel();
+        dtm.addColumn("Alumno");
+        dtm.addColumn("Actividad");
+        dtm.addColumn("Temporada");
+        dtm.addColumn("Fecha");
+        dtm.addColumn("Pagado");
+        /*
+         //Mostrar en tabla
+         Object[] fila = new Object[5];
+         for (PagoActividad it : pagos) {
+         fila[0] = it.getNombre();
+         fila[1] = it.getCategoria().getNombreCategoria().toString();
+         fila[2] = it.getTemporada().getCurso().toString();
+         fila[3] = it.getEntrenador().getNombre().toString();
+         fila[4] = it.getEntrenador2().getNombre().toString();
+         dtm.addRow(fila);
+         }
+         */
+        //tablaPagos.setModel(dtm);
+
+    }
+
+    public void actualizaTablaPagoActividad() {
+
+    }
+
+    public void actualizaTablaPagoTemporada(String alumno, String actividad, String temporada, String fecha, String pagado) throws SQLException, ParseException {
+
+        List<PagoTemporada> pagos = new ArrayList<PagoTemporada>();
+        pagos = GestorPagos.ConsultarPagoTemporada(accesoBD, alumno, temporada, fecha, pagado);
+
+        DefaultTableModel dtm = new DefaultTableModel();
+        dtm.addColumn("Alumno");
+        dtm.addColumn("Temporada");
+        dtm.addColumn("Fecha");
+        dtm.addColumn("Pagado");
+        /*
+         //Mostrar en tabla
+         Object[] fila = new Object[5];
+         for (PagoTemporada it : pagos) {
+         fila[0] = it.getNombre();
+         fila[1] = it.getCategoria().getNombreCategoria().toString();
+         fila[2] = it.getTemporada().getCurso().toString();
+         fila[3] = it.getEntrenador().getNombre().toString();
+         fila[4] = it.getEntrenador2().getNombre().toString();
+         dtm.addRow(fila);
+         }
+         */
+        //tablaPagos.setModel(dtm);
+
+    }
+>>>>>>> 267004276462d7effd0714eac94b33debd1bd616
 
     private String getCategoria(String s) throws SQLException {
 

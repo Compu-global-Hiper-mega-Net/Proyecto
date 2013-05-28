@@ -232,6 +232,11 @@ insert into pagoactividades (Alumno_idAlumno, Actividades_idActividades, Activid
 values (10, 1, 1, 9);
 
 
+<<<<<<< HEAD
+=======
+/*insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (1, 1);*/
+
+>>>>>>> 267004276462d7effd0714eac94b33debd1bd616
 insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (2, 1);
 insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (3, 1);
 insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (4, 1);
