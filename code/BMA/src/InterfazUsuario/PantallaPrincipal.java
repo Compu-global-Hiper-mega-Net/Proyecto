@@ -3687,7 +3687,7 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
             Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton5ActionPerformed
-
+    
     private void menuEquiposMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuEquiposMouseClicked
         ocultarPaneles();
         panelEquipos.setVisible(true);
@@ -4552,6 +4552,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
             @Override
             public void run() {
                 new PantallaPrincipal().setVisible(true);
+                System.out.println("Pues aquí OLA K ASE");
             }
         });
     }
