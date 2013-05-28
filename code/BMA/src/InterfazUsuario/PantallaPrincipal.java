@@ -4852,6 +4852,12 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         res = GestorTemporadas.getListaTemporadas(accesoBD);
         return res;
     }
+    
+   List<List<String>> getListaCategorias() throws SQLException {
+        List<List<String>> cats = new ArrayList<List<String>>();
+        cats = GestorCategorias.getListaCategorias(accesoBD);
+        return cats;
+    }
 
     /*
      * Metodo provisional hasta que se implemente "CATEGORIA"
