@@ -22,5 +22,11 @@ public class GestorPagos {
         PagoBD pago=new PagoBD();
         
         return pago.consultaPagoBD(accesoBD, consulta);
-    }    
+    }
+    public static boolean compruebaSiAlumnoEraSocioEnEsaTemporada(BaseDatos accesoBD, int idAlumno, int idTemporada){
+        PagoBD pago=new PagoBD();
+        
+        return pago.compruebaSiAlumnoEraSocioEnEsaTemporada(accesoBD, idAlumno, idTemporada);
+        
+    }
 }

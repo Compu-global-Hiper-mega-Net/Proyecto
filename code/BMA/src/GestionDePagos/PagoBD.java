@@ -25,4 +25,22 @@ public class PagoBD {
 
         return retset;
     }
+    boolean compruebaSiAlumnoEraSocioEnEsaTemporada(BaseDatos accesoBD, int idAlumno, int idTemporada){
+        ResultSet retset;
+        String consulta=new String();
+        consulta="SELECT * FROM temporada, alumno, alumnotemporada altemp WHERE temporada.idTemporada="+idTemporada+" AND alumno.idAlumno="+idAlumno+
+                " AND temporada.idTemporada=altemp.temporada_idTemporada AND altemp.alumno_idAlumno=alumno.idAlumno ";
+        System.out.print("\nComprueba "+consulta);
+        retset = accesoBD.ejecutaConsulta(consulta);
+        try{
+            if(retset.next()){
+                return true;
+            }else{
+                return false;
+            }
+        }catch (SQLException ex) {
+            System.out.print(ex.getMessage());
+            return false;
+        }
+    }
 }

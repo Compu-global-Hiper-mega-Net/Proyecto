@@ -13,7 +13,8 @@ package InterfazUsuario;
 
 import GestionActividades.GestorActividad;
 import GestionDeAlumnos.*;
-import GestionDeCategorias.*;
+import GestionDeCategorias.Categoria;
+import GestionDeCategorias.GestorCategorias;
 import GestionDeGrupos.GestorGrupos;
 import GestionDeUsuarios.*;
 import GestionDeTemporadas.*;
@@ -24,6 +25,7 @@ import GestionDePagos.GestorPagos;
 import GestionDePagos.PagoActividad;
 import GestionDePagos.PagoTemporada;
 import ServiciosAlmacenamiento.BaseDatos;
+import java.awt.event.ActionEvent;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -101,8 +103,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         this.usuario = usuario;
         initComponents();
         initComponentsSegunUsuario();
-        ocultarPaneles();
-        panelInicio.setVisible(true);
     }
 
     private void initComponentsSegunUsuario() {
@@ -267,13 +267,15 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         pago_primer_apellido = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
         pago_segundo_apellido = new javax.swing.JTextField();
-        jLabel26 = new javax.swing.JLabel();
+        pagos_etiqGrupo = new javax.swing.JLabel();
         pago_grupo = new javax.swing.JComboBox();
         pagos_botonMostrar = new javax.swing.JButton();
         pagos_botonDeudores = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         tablaPagos = new javax.swing.JTable();
         pagos_botonModificar = new javax.swing.JButton();
+        pagos_etiqActividad = new javax.swing.JLabel();
+        pagos_actividad = new javax.swing.JTextField();
         panelActividades = new javax.swing.JPanel();
         actividadesLabel = new javax.swing.JLabel();
         buscarLabel = new javax.swing.JLabel();
@@ -303,10 +305,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jScrollPane8 = new javax.swing.JScrollPane();
         tablaPartidos = new javax.swing.JTable();
         jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        BotonJPartido = new javax.swing.JButton();
         jSeparator6 = new javax.swing.JSeparator();
-        BotonNPartido = new javax.swing.JButton();
         barraMenu = new javax.swing.JMenuBar();
         menuInicio = new javax.swing.JMenu();
         menuJugadores = new javax.swing.JMenu();
@@ -318,7 +317,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         menuPagos = new javax.swing.JMenu();
         menuCategorias = new javax.swing.JMenu();
         menuInstalaciones = new javax.swing.JMenu();
-        menuPartidos = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1400, 750));
@@ -714,7 +712,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         panelTemporadas.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         panelTemporadas.setLocation(150, 100);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel3.setText("Temporadas");
 
         botonNuevaTemp.setText("Nueva");
@@ -939,7 +937,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel4.setText("Grupos de Entrenamiento");
 
         javax.swing.GroupLayout panelGruposLayout = new javax.swing.GroupLayout(panelGrupos);
@@ -1122,7 +1120,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         panelEquipos.setVisible(false);
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel8.setText("Equipos");
 
         jLabel10.setText("Nombre:");
@@ -1193,10 +1191,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        labelEquiposMostrados.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        labelEquiposMostrados.setFont(new java.awt.Font("Tahoma", 1, 12));
         labelEquiposMostrados.setText("Numero de equipos:");
 
-        labelNumeroEquipos.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        labelNumeroEquipos.setFont(new java.awt.Font("Tahoma", 1, 12));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Entrenador-" }));
 
@@ -1207,7 +1205,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             .addGroup(panelEquiposLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(panelEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator4)
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
                     .addGroup(panelEquiposLayout.createSequentialGroup()
                         .addGroup(panelEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
@@ -1303,7 +1301,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         panelPagos.setVisible(false);
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel15.setText("Pagos");
 
         jLabel9.setText("Buscar Pagos por:");
@@ -1317,7 +1315,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         jLabel14.setText("Temporada");
 
-        jLabel21.setText("Grupo/Actividad");
+        jLabel21.setText("Grupos/Actividad");
 
         pago_temporadaActividad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         pago_temporadaActividad.addActionListener(new java.awt.event.ActionListener() {
@@ -1343,7 +1341,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         jLabel25.setText("Segundo Apellido");
 
-        jLabel26.setText("Grupo");
+        pagos_etiqGrupo.setText("Grupos por temporada");
 
         pago_grupo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         pago_grupo.addActionListener(new java.awt.event.ActionListener() {
@@ -1368,33 +1366,33 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         tablaPagos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Primer Apellido", "Segundo Apellido", "Importe", "Fecha", "Pagado/Debido", "Email", "Tel. Fijo", "Tel. Movil"
+                "Nombre", "Primer Apellido", "Segundo Apellido", "Importe", "Fecha", "Pagado/Debido", "Email", "Tel. Fijo", "Tel. Movil", "Temporada"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1402,7 +1400,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
         jScrollPane6.setViewportView(tablaPagos);
-        tablaPagos.getColumnModel().getColumn(8).setResizable(false);
 
         pagos_botonModificar.setText("Modificar");
         pagos_botonModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -1410,6 +1407,16 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 pagos_botonModificarActionPerformed(evt);
             }
         });
+
+        pagos_etiqActividad.setText("Nombre de la Actividad");
+        pagos_etiqActividad.setVisible(false);
+
+        pagos_actividad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pagos_actividadActionPerformed(evt);
+            }
+        });
+        pagos_actividad.setVisible(false);
 
         javax.swing.GroupLayout panelPagosLayout = new javax.swing.GroupLayout(panelPagos);
         panelPagos.setLayout(panelPagosLayout);
@@ -1428,34 +1435,36 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                                 .addComponent(jLabel22))
                             .addGap(68, 68, 68)
                             .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel14)
-                                .addComponent(pago_temporada, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel23)
-                                .addComponent(pago_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(pago_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(pago_temporadaActividad, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(23, 23, 23)
                             .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel24)
-                                .addComponent(pago_primer_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(pago_primer_apellido, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                                    .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel14)
+                                .addComponent(pago_temporada, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(44, 44, 44)
-                            .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel25)
-                                .addComponent(pago_temporadaActividad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(pago_segundo_apellido))
-                            .addGap(53, 53, 53)
                             .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel26)
-                                .addComponent(pago_grupo, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel25)
+                                    .addComponent(pago_segundo_apellido))
+                                .addGroup(panelPagosLayout.createSequentialGroup()
+                                    .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(pagos_etiqGrupo)
+                                        .addComponent(pago_grupo, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(30, 30, 30)
+                                    .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(pagos_actividad, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                                        .addComponent(pagos_etiqActividad))))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelPagosLayout.createSequentialGroup()
                             .addComponent(pagos_botonMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(45, 45, 45)
-<<<<<<< HEAD
                             .addComponent(pagos_botonDeudores))))
-                .addContainerGap(163, Short.MAX_VALUE))
-=======
-                            .addComponent(jButton6))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
->>>>>>> 267004276462d7effd0714eac94b33debd1bd616
         );
         panelPagosLayout.setVerticalGroup(
             panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1464,38 +1473,37 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel15)
                 .addGap(26, 26, 26)
                 .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addGroup(panelPagosLayout.createSequentialGroup()
+                        .addComponent(jLabel21)
+                        .addGap(18, 18, 18)
+                        .addComponent(pago_temporadaActividad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelPagosLayout.createSequentialGroup()
                         .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel14)
-                            .addComponent(jLabel21))
+                            .addComponent(pagos_etiqGrupo)
+                            .addComponent(pagos_etiqActividad))
                         .addGap(18, 18, 18)
                         .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(pago_temporada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pago_temporadaActividad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel9))
+                            .addComponent(pago_grupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pagos_actividad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(42, 42, 42)
                 .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel22)
                     .addComponent(jLabel23)
                     .addComponent(jLabel24)
-                    .addComponent(jLabel25)
-                    .addComponent(jLabel26))
+                    .addComponent(jLabel25))
                 .addGap(26, 26, 26)
                 .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pago_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pago_primer_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pago_segundo_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pago_grupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pago_segundo_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-<<<<<<< HEAD
                     .addComponent(pagos_botonMostrar)
                     .addComponent(pagos_botonDeudores))
-=======
-                    .addComponent(jButton4)
-                    .addComponent(jButton6))
->>>>>>> 267004276462d7effd0714eac94b33debd1bd616
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(pagos_botonModificar)
@@ -1670,7 +1678,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         panelCategorias.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         panelCategorias.setLocation(150, 100);
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel17.setText("Categorias");
 
         botonNuevaCat.setText("Nueva");
@@ -1757,7 +1765,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         PanelPartidos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         panelCategorias.setLocation(150, 100);
 
-        Partidos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        Partidos.setFont(new java.awt.Font("Tahoma", 0, 18));
         Partidos.setText("Partidos");
 
         tablaPartidos.setModel(new javax.swing.table.DefaultTableModel(
@@ -1788,25 +1796,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jScrollPane8.setViewportView(tablaPartidos);
 
         jButton8.setText("Modificar");
-
-        jButton9.setText("Eliminar");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
-            }
-        });
-
-        BotonJPartido.setText("Jugar Partido");
-        BotonJPartido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonJPartidoActionPerformed(evt);
-            }
-        });
-
-        BotonNPartido.setText("Nuevo Partido");
-        BotonNPartido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonNPartidoActionPerformed(evt);
+                jButton8ActionPerformed(evt);
             }
         });
 
@@ -1816,23 +1808,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelPartidosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(PanelPartidosLayout.createSequentialGroup()
-                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(PanelPartidosLayout.createSequentialGroup()
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jButton8)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jButton9))
-                                .addGroup(PanelPartidosLayout.createSequentialGroup()
-                                    .addGap(56, 56, 56)
-                                    .addComponent(BotonJPartido))))
-                        .addComponent(Partidos)
-                        .addComponent(jSeparator6))
-                    .addComponent(BotonNPartido))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(PanelPartidosLayout.createSequentialGroup()
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton8))
+                    .addComponent(Partidos)
+                    .addComponent(jSeparator6))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
         PanelPartidosLayout.setVerticalGroup(
             PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1842,18 +1825,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(PanelPartidosLayout.createSequentialGroup()
-                        .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton8)
-                            .addComponent(jButton9))
-                        .addGap(18, 18, 18)
-                        .addComponent(BotonJPartido)))
+                    .addComponent(jButton8))
                 .addGap(48, 48, 48)
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(BotonNPartido)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
+
+        PanelPartidos.setVisible(false);
 
         getContentPane().add(PanelPartidos, new java.awt.GridBagConstraints());
 
@@ -1956,14 +1934,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
         barraMenu.add(menuInstalaciones);
-
-        menuPartidos.setText("Partidos");
-        menuPartidos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuPartidosMouseClicked(evt);
-            }
-        });
-        barraMenu.add(menuPartidos);
 
         setJMenuBar(barraMenu);
 
@@ -3887,11 +3857,11 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
     }//GEN-LAST:event_comboCatEquipoActionPerformed
 
     private void botonNuevoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoEquipoActionPerformed
-        try {
-            new NuevoEquipo(accesoBD).setVisible(true);
+        /*try {
+            new NuevoEquipo(this).setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
     }//GEN-LAST:event_botonNuevoEquipoActionPerformed
 
     private void menuPagosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuPagosMouseClicked
@@ -4069,43 +4039,54 @@ private void pago_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         String condicionesConsulta = " WHERE ";
 
         if (pago_temporadaActividad.getSelectedItem().equals("Temporada")){
-            consulta_pagos += " , temp.importeMensual, cuota.fecha, cuota.pagado ";
-            if (!pago_temporada.getSelectedItem().equals("")) {
-                tablasImplicadas+=" , temporada temp, alumnotemporada altemp, pagotemporada pagotemp ";
-                condicionesConsulta = condicionesConsulta + " temp.curso='" + (String) pago_temporada.getSelectedItem() + "' AND "
-                        + "temp.idTemporada=altemp.Temporada_idTemporada AND altemp.Alumno_idAlumno=a.idAlumno AND "
+            //consulta por temporada y grupo
+            consulta_pagos += " , temp.importeMensual, cuota.fecha, cuota.pagado, temp.curso ";
+            tablasImplicadas+= " , alumnotemporada altemp, pagotemporada pagotemp , temporada temp  ";
+            condicionesConsulta = condicionesConsulta + " altemp.Alumno_idAlumno=a.idAlumno AND "
                         + "pagotemp.AlumnoTemporada_Alumno_idAlumno=altemp.Alumno_idAlumno AND pagotemp.AlumnoTemporada_Temporada_idTemporada=altemp.Temporada_idTemporada AND"
-                        + " pagotemp.cuota_idCuota=cuota.idCuota AND ";
+                        + " pagotemp.cuota_idCuota=cuota.idCuota AND temp.idTemporada=altemp.Temporada_idTemporada AND ";
+            if (!pago_temporada.getSelectedItem().equals("")) {
+                condicionesConsulta = condicionesConsulta + " temp.curso='" + (String) pago_temporada.getSelectedItem() + "' AND ";                        
             }
             if (!pago_nombre.getText().equals("")) {              
                 condicionesConsulta = condicionesConsulta + " a.nombre LIKE'%" + pago_nombre.getText() + "%' AND ";
             }
             if (!pago_primer_apellido.getText().equals("")) {
                 condicionesConsulta = condicionesConsulta + " a.primerApellido LIKE'%" + pago_primer_apellido.getText() + "%' AND ";
-            }/*
-            if (!consultaGrupo.getSelectedItem().equals("") || !consultaCategoria.getSelectedItem().equals("") || !consultaTemporada.getSelectedItem().equals("") || !consultaEntrenador.getSelectedItem().equals("")) {
-                tablasImplicadas = tablasImplicadas + " , alumnogrupo ";
-                condicionesConsulta = condicionesConsulta + " alumnogrupo.alumno_idalumno=a.idalumno AND ";
-                if (!consultaGrupo.getSelectedItem().equals("")) {
-                    condicionesConsulta = condicionesConsulta + " alumnogrupo.Grupo_idGrupo=" + consultaGrupo.getSelectedItem() + " AND ";
-                }
-                if (!consultaCategoria.getSelectedItem().equals("")) {
-                    tablasImplicadas = tablasImplicadas + " , categoria ";
-                    condicionesConsulta = condicionesConsulta + " alumnogrupo.Grupo_Categoria_idCategoria=categoria.idCategoria AND categoria.tipo='" + consultaCategoria.getSelectedItem() + "' AND ";
-                }
-                if (!consultaEntrenador.getSelectedItem().equals("")) {
-                    tablasImplicadas = tablasImplicadas + " , usuario ";
-                    String nombre, apellido;
-                    int espacios;
-                    espacios = consultaEntrenador.getSelectedItem().toString().indexOf(" ");
-                    condicionesConsulta = condicionesConsulta + " alumnogrupo.Grupo_Usuario_idUsuario=usuario.idUsuario and concat(usuario.nombre, ' ', usuario.primerApellido)='" + consultaEntrenador.getSelectedItem() + "' AND ";
-                }
-            }*/
-
+            }
+            if (!pago_segundo_apellido.getText().equals("")) {
+                condicionesConsulta = condicionesConsulta + " a.segundoApellido LIKE'%" + pago_segundo_apellido.getText() + "%' AND ";
+            }
+            if(!pago_grupo.getSelectedItem().equals("")){
+                tablasImplicadas = tablasImplicadas + " , alumnogrupo, grupo ";
+                condicionesConsulta = condicionesConsulta + " alumnogrupo.alumno_idalumno=a.idalumno AND alumnogrupo.grupo_idGrupo=grupo.idGrupo AND grupo.idGrupo="+ (Integer) pago_grupo.getSelectedItem()+" AND ";
+            }
             condicionesConsulta = condicionesConsulta.substring(0, condicionesConsulta.length() - 4);
             tablasImplicadas = tablasImplicadas + condicionesConsulta;
         }else{
             //Aqui consultamos los pagos de las actividades
+            consulta_pagos += " , act.precioSocio, act.precioNoSocio, cuota.fecha, cuota.pagado, temp.idTemporada, a.idAlumno, temp.curso ";
+            tablasImplicadas+= " , pagoactividades pagoact , temporada temp, actividades act ";
+            condicionesConsulta = condicionesConsulta + " pagoact.actividades_idActividades=act.idActividades AND pagoact.alumno_idAlumno=a.idAlumno AND"
+                    + " cuota.idCuota=pagoact.cuota_idCuota AND temp.idTemporada=act.temporada_idTemporada AND ";
+            if (!pago_temporada.getSelectedItem().equals("")) {
+                condicionesConsulta = condicionesConsulta + " temp.curso='" + (String) pago_temporada.getSelectedItem() + "' AND ";                        
+            }
+            if (!pago_nombre.getText().equals("")) {              
+                condicionesConsulta = condicionesConsulta + " a.nombre LIKE'%" + pago_nombre.getText() + "%' AND ";
+            }
+            if (!pago_primer_apellido.getText().equals("")) {
+                condicionesConsulta = condicionesConsulta + " a.primerApellido LIKE'%" + pago_primer_apellido.getText() + "%' AND ";
+            }
+            if (!pago_segundo_apellido.getText().equals("")) {
+                condicionesConsulta = condicionesConsulta + " a.segundoApellido LIKE'%" + pago_segundo_apellido.getText() + "%' AND ";
+            }
+            if (!pagos_actividad.getText().equals("")) {
+                condicionesConsulta = condicionesConsulta + " act.nombre LIKE'%" + pagos_actividad.getText() + "%' AND ";
+            }
+            condicionesConsulta = condicionesConsulta.substring(0, condicionesConsulta.length() - 4);
+            tablasImplicadas = tablasImplicadas + condicionesConsulta;
+            
         }
         consulta_pagos = consulta_pagos + tablasImplicadas;
 
@@ -4116,33 +4097,33 @@ private void pagos_botonMostrarActionPerformed(java.awt.event.ActionEvent evt) {
     try {
         String consulta_pagos = leeConsultaPagosInterfaz();
         //consultaAlumnosMostrados = consulta_pagos;
-        System.out.print("\nLA consulta a " + consulta_pagos + "  y qui termina");
+        System.out.print("\nLA consulta a " + consulta_pagos + "; ");
         retset = GestorPagos.consultarPago(accesoBD, consulta_pagos);
         tablaPagos.setModel(new javax.swing.table.DefaultTableModel(
-        new Object [][] {
-        {null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null},
-        {null, null, null, null, null, null, null, null, null}
+new Object [][] {
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null}
     },
     new String [] {
-        "Nombre", "Primer Apellido", "Segundo Apellido", "Importe", "Fecha", "Pagado/Debido", "Email", "Tel. Fijo", "Tel. Movil"
+        "Nombre", "Primer Apellido", "Segundo Apellido", "Importe", "Fecha", "Pagado/Debido", "Email", "Tel. Fijo", "Tel. Movil", "Temporada"
     }));
         javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
         modelo_tabla = tablaPagos.getModel();
@@ -4155,13 +4136,18 @@ private void pagos_botonMostrarActionPerformed(java.awt.event.ActionEvent evt) {
                 if(consulta_pagos.indexOf("alumnotemporada")!=-1){
                     tablaPagos.setValueAt(retset.getFloat("temp.importeMensual"), i, 3);
                 }else{
-                    tablaPagos.setValueAt(retset.getFloat("act.preciosocio o no o si o tampoco"), i, 3);
+                    if(GestorPagos.compruebaSiAlumnoEraSocioEnEsaTemporada(accesoBD, retset.getInt("a.idAlumno"), retset.getInt("temp.idTemporada"))==true){
+                        tablaPagos.setValueAt(retset.getFloat("act.precioSocio"), i, 3);
+                    }else{
+                        tablaPagos.setValueAt(retset.getFloat("act.precioNoSocio"), i, 3);
+                    }
                 }
                 tablaPagos.setValueAt(retset.getString("cuota.fecha"), i, 4);
-                tablaPagos.setValueAt(retset.getString("cuota.pagado"), i, 5);
+                tablaPagos.setValueAt(retset.getBoolean("cuota.pagado"), i, 5);
                 tablaPagos.setValueAt(retset.getString("a.email"), i, 6);
                 tablaPagos.setValueAt(retset.getString("a.telfijo"), i, 7);
                 tablaPagos.setValueAt(retset.getString("a.telmovil"), i, 8);
+                tablaPagos.setValueAt(retset.getString("temp.curso"), i, 9);
             } else {
                 javax.swing.table.DefaultTableModel temp = (javax.swing.table.DefaultTableModel) tablaPagos.getModel();
                 Object nuevo[] = {"", "", ""};
@@ -4172,13 +4158,18 @@ private void pagos_botonMostrarActionPerformed(java.awt.event.ActionEvent evt) {
                 if(consulta_pagos.indexOf("alumnotemporada")!=-1){
                     tablaPagos.setValueAt(retset.getFloat("temp.importeMensual"), i, 3);
                 }else{
-                    tablaPagos.setValueAt(retset.getFloat("act.preciosocio o no o si o tampoco"), i, 3);
+                    if(GestorPagos.compruebaSiAlumnoEraSocioEnEsaTemporada(accesoBD, retset.getInt("a.idAlumno"), retset.getInt("temp.idTemporada"))==true){
+                        tablaPagos.setValueAt(retset.getFloat("act.precioSocio"), i, 3);
+                    }else{
+                        tablaPagos.setValueAt(retset.getFloat("act.precioNoSocio"), i, 3);
+                    }
                 }
                 tablaPagos.setValueAt(retset.getString("cuota.fecha"), i, 4);
-                tablaPagos.setValueAt(retset.getString("cuota.pagado"), i, 5);
+                tablaPagos.setValueAt(retset.getBoolean("cuota.pagado"), i, 5);
                 tablaPagos.setValueAt(retset.getString("a.email"), i, 6);
                 tablaPagos.setValueAt(retset.getString("a.telfijo"), i, 7);
                 tablaPagos.setValueAt(retset.getString("a.telmovil"), i, 8);
+                tablaPagos.setValueAt(retset.getString("temp.curso"), i, 9);
             }
             i++;
         }
@@ -4187,9 +4178,150 @@ private void pagos_botonMostrarActionPerformed(java.awt.event.ActionEvent evt) {
     }
 
 }//GEN-LAST:event_pagos_botonMostrarActionPerformed
+    private String leeConsultaPagosDeDeudoresInterfaz() {
 
+        String consulta_pagos = "SELECT a.nombre, a.primerApellido, a.segundoApellido, a.telMovil, a.telFijo,"
+                + " a.email ";
+        String tablasImplicadas = " FROM alumno a, cuota  ";
+        String condicionesConsulta = " WHERE ";
+
+        if (pago_temporadaActividad.getSelectedItem().equals("Temporada")){
+            //consulta por temporada y grupo
+            consulta_pagos += " , temp.importeMensual, cuota.fecha, cuota.pagado, temp.curso ";
+            tablasImplicadas+= " , alumnotemporada altemp, pagotemporada pagotemp , temporada temp  ";
+            condicionesConsulta = condicionesConsulta + " altemp.Alumno_idAlumno=a.idAlumno AND "
+                        + "pagotemp.AlumnoTemporada_Alumno_idAlumno=altemp.Alumno_idAlumno AND pagotemp.AlumnoTemporada_Temporada_idTemporada=altemp.Temporada_idTemporada AND"
+                        + " pagotemp.cuota_idCuota=cuota.idCuota AND temp.idTemporada=altemp.Temporada_idTemporada AND cuota.pagado=false AND ";
+            if (!pago_temporada.getSelectedItem().equals("")) {
+                condicionesConsulta = condicionesConsulta + " temp.curso='" + (String) pago_temporada.getSelectedItem() + "' AND ";                        
+            }
+            if (!pago_nombre.getText().equals("")) {              
+                condicionesConsulta = condicionesConsulta + " a.nombre LIKE'%" + pago_nombre.getText() + "%' AND ";
+            }
+            if (!pago_primer_apellido.getText().equals("")) {
+                condicionesConsulta = condicionesConsulta + " a.primerApellido LIKE'%" + pago_primer_apellido.getText() + "%' AND ";
+            }
+            if (!pago_segundo_apellido.getText().equals("")) {
+                condicionesConsulta = condicionesConsulta + " a.segundoApellido LIKE'%" + pago_segundo_apellido.getText() + "%' AND ";
+            }
+            if(!pago_grupo.getSelectedItem().equals("")){
+                tablasImplicadas = tablasImplicadas + " , alumnogrupo, grupo ";
+                condicionesConsulta = condicionesConsulta + " alumnogrupo.alumno_idalumno=a.idalumno AND alumnogrupo.grupo_idGrupo=grupo.idGrupo AND grupo.idGrupo="+ (Integer) pago_grupo.getSelectedItem()+" AND ";
+            }
+            condicionesConsulta = condicionesConsulta.substring(0, condicionesConsulta.length() - 4);
+            tablasImplicadas = tablasImplicadas + condicionesConsulta;
+        }else{
+            //Aqui consultamos los pagos de las actividades
+            consulta_pagos += " , act.precioSocio, act.precioNoSocio, cuota.fecha, cuota.pagado, temp.idTemporada, a.idAlumno, temp.curso ";
+            tablasImplicadas+= " , pagoactividades pagoact , temporada temp, actividades act ";
+            condicionesConsulta = condicionesConsulta + " pagoact.actividades_idActividades=act.idActividades AND pagoact.alumno_idAlumno=a.idAlumno AND"
+                    + " cuota.idCuota=pagoact.cuota_idCuota AND temp.idTemporada=act.temporada_idTemporada AND cuota.pagado=false AND ";
+            if (!pago_temporada.getSelectedItem().equals("")) {
+                condicionesConsulta = condicionesConsulta + " temp.curso='" + (String) pago_temporada.getSelectedItem() + "' AND ";                        
+            }
+            if (!pago_nombre.getText().equals("")) {              
+                condicionesConsulta = condicionesConsulta + " a.nombre LIKE'%" + pago_nombre.getText() + "%' AND ";
+            }
+            if (!pago_primer_apellido.getText().equals("")) {
+                condicionesConsulta = condicionesConsulta + " a.primerApellido LIKE'%" + pago_primer_apellido.getText() + "%' AND ";
+            }
+            if (!pago_segundo_apellido.getText().equals("")) {
+                condicionesConsulta = condicionesConsulta + " a.segundoApellido LIKE'%" + pago_segundo_apellido.getText() + "%' AND ";
+            }
+            if (!pagos_actividad.getText().equals("")) {
+                condicionesConsulta = condicionesConsulta + " act.nombre LIKE'%" + pagos_actividad.getText() + "%' AND ";
+            }
+            condicionesConsulta = condicionesConsulta.substring(0, condicionesConsulta.length() - 4);
+            tablasImplicadas = tablasImplicadas + condicionesConsulta;
+            
+        }
+        consulta_pagos = consulta_pagos + tablasImplicadas;
+
+        return consulta_pagos;
+    }
 private void pagos_botonDeudoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagos_botonDeudoresActionPerformed
-// TODO add your handling code here:
+    try {
+        String consulta_pagos = leeConsultaPagosDeDeudoresInterfaz();
+        //consultaAlumnosMostrados = consulta_pagos;
+        System.out.print("\nLA consulta a " + consulta_pagos + "; ");
+        retset = GestorPagos.consultarPago(accesoBD, consulta_pagos);
+        tablaPagos.setModel(new javax.swing.table.DefaultTableModel(
+new Object [][] {
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null}
+    },
+    new String [] {
+        "Nombre", "Primer Apellido", "Segundo Apellido", "Importe", "Fecha", "Pagado/Debido", "Email", "Tel. Fijo", "Tel. Movil", "Temporada"
+    }));
+        javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
+        modelo_tabla = tablaPagos.getModel();
+        int i = 0;
+        while (retset.next()) {
+            if (i < 20) {
+                tablaPagos.setValueAt(retset.getString("a.nombre"), i, 0);
+                tablaPagos.setValueAt(retset.getString("a.primerApellido"), i, 1);
+                tablaPagos.setValueAt(retset.getString("a.segundoApellido"), i, 2);    
+                if(consulta_pagos.indexOf("alumnotemporada")!=-1){
+                    tablaPagos.setValueAt(retset.getFloat("temp.importeMensual"), i, 3);
+                }else{
+                    if(GestorPagos.compruebaSiAlumnoEraSocioEnEsaTemporada(accesoBD, retset.getInt("a.idAlumno"), retset.getInt("temp.idTemporada"))==true){
+                        tablaPagos.setValueAt(retset.getFloat("act.precioSocio"), i, 3);
+                    }else{
+                        tablaPagos.setValueAt(retset.getFloat("act.precioNoSocio"), i, 3);
+                    }
+                }
+                tablaPagos.setValueAt(retset.getString("cuota.fecha"), i, 4);
+                tablaPagos.setValueAt(retset.getBoolean("cuota.pagado"), i, 5);
+                tablaPagos.setValueAt(retset.getString("a.email"), i, 6);
+                tablaPagos.setValueAt(retset.getString("a.telfijo"), i, 7);
+                tablaPagos.setValueAt(retset.getString("a.telmovil"), i, 8);
+                tablaPagos.setValueAt(retset.getString("temp.curso"), i, 9);
+            } else {
+                javax.swing.table.DefaultTableModel temp = (javax.swing.table.DefaultTableModel) tablaPagos.getModel();
+                Object nuevo[] = {"", "", ""};
+                temp.addRow(nuevo);
+                tablaPagos.setValueAt(retset.getString("a.nombre"), i, 0);
+                tablaPagos.setValueAt(retset.getString("a.primerApellido"), i, 1);
+                tablaPagos.setValueAt(retset.getString("a.segundoApellido"), i, 2);    
+                if(consulta_pagos.indexOf("alumnotemporada")!=-1){
+                    tablaPagos.setValueAt(retset.getFloat("temp.importeMensual"), i, 3);
+                }else{
+                    if(GestorPagos.compruebaSiAlumnoEraSocioEnEsaTemporada(accesoBD, retset.getInt("a.idAlumno"), retset.getInt("temp.idTemporada"))==true){
+                        tablaPagos.setValueAt(retset.getFloat("act.precioSocio"), i, 3);
+                    }else{
+                        tablaPagos.setValueAt(retset.getFloat("act.precioNoSocio"), i, 3);
+                    }
+                }
+                tablaPagos.setValueAt(retset.getString("cuota.fecha"), i, 4);
+                tablaPagos.setValueAt(retset.getBoolean("cuota.pagado"), i, 5);
+                tablaPagos.setValueAt(retset.getString("a.email"), i, 6);
+                tablaPagos.setValueAt(retset.getString("a.telfijo"), i, 7);
+                tablaPagos.setValueAt(retset.getString("a.telmovil"), i, 8);
+                tablaPagos.setValueAt(retset.getString("temp.curso"), i, 9);
+            }
+            i++;
+        }
+    } catch (SQLException ex) {
+        System.out.print(ex.getMessage());
+    }
 }//GEN-LAST:event_pagos_botonDeudoresActionPerformed
 
 private void pagos_botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagos_botonModificarActionPerformed
@@ -4219,7 +4351,17 @@ private void menuPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 }//GEN-LAST:event_menuPagosActionPerformed
 
 private void pago_temporadaActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pago_temporadaActividadActionPerformed
-// TODO add your handling code here:
+    if(pago_temporadaActividad.getSelectedItem().equals("Temporada")){
+        pagos_etiqActividad.setVisible(false);
+        pagos_actividad.setVisible(false);
+        pagos_etiqGrupo.setVisible(true);
+        pago_grupo.setVisible(true);
+    }else{
+        pagos_etiqActividad.setVisible(true);
+        pagos_actividad.setVisible(true);
+        pagos_etiqGrupo.setVisible(false);
+        pago_grupo.setVisible(false);        
+    }
 }//GEN-LAST:event_pago_temporadaActividadActionPerformed
 
 private void pago_grupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pago_grupoActionPerformed
@@ -4251,31 +4393,13 @@ private void pago_temporadaActionPerformed(java.awt.event.ActionEvent evt) {//GE
     
 }//GEN-LAST:event_pago_temporadaActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
+private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_jButton8ActionPerformed
 
-    private void BotonNPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonNPartidoActionPerformed
-        // TODO add your handling code here:
-        ocultarMensajesError();
-        try {
-            new NuevoPartido(accesoBD,this).setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_BotonNPartidoActionPerformed
-
-    private void menuPartidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuPartidosMouseClicked
-        // TODO add your handling code here:
-        ocultarPaneles();
-        PanelPartidos.setVisible(true);
-    }//GEN-LAST:event_menuPartidosMouseClicked
-
-    private void BotonJPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonJPartidoActionPerformed
-        // TODO add your handling code here:
-        ocultarMensajesError();
-        new JugarPartido().setVisible(true);
-    }//GEN-LAST:event_BotonJPartidoActionPerformed
+private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagos_actividadActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_pagos_actividadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -4314,8 +4438,6 @@ private void pago_temporadaActionPerformed(java.awt.event.ActionEvent evt) {//GE
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AñaridAlumno;
-    private javax.swing.JButton BotonJPartido;
-    private javax.swing.JButton BotonNPartido;
     private javax.swing.JLabel BuscarporLabel;
     private javax.swing.JButton Eliminar;
     private javax.swing.JButton Informacion;
@@ -4395,13 +4517,7 @@ private void pago_temporadaActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
-<<<<<<< HEAD
-=======
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
->>>>>>> 267004276462d7effd0714eac94b33debd1bd616
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -4420,7 +4536,6 @@ private void pago_temporadaActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
@@ -4449,14 +4564,7 @@ private void pago_temporadaActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
-<<<<<<< HEAD
-=======
     private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
->>>>>>> 267004276462d7effd0714eac94b33debd1bd616
     private javax.swing.JLabel labelEquiposMostrados;
     private javax.swing.JLabel labelNumeroEquipos;
     private javax.swing.JLabel mensajeErrorEliminarAlumno;
@@ -4468,7 +4576,6 @@ private void pago_temporadaActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JMenu menuInstalaciones;
     private javax.swing.JMenu menuJugadores;
     private javax.swing.JMenu menuPagos;
-    private javax.swing.JMenu menuPartidos;
     private javax.swing.JMenu menuTemporadas;
     private javax.swing.JMenu menuUsuarios;
     private javax.swing.JButton modificarButton;
@@ -4485,9 +4592,12 @@ private void pago_temporadaActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JTextField pago_segundo_apellido;
     private javax.swing.JComboBox pago_temporada;
     private javax.swing.JComboBox pago_temporadaActividad;
+    private javax.swing.JTextField pagos_actividad;
     private javax.swing.JButton pagos_botonDeudores;
     private javax.swing.JButton pagos_botonModificar;
     private javax.swing.JButton pagos_botonMostrar;
+    private javax.swing.JLabel pagos_etiqActividad;
+    private javax.swing.JLabel pagos_etiqGrupo;
     private javax.swing.JPanel panelActividades;
     private javax.swing.JPanel panelCategorias;
     private javax.swing.JPanel panelEquipos;
@@ -4509,11 +4619,8 @@ private void pago_temporadaActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JTable tablaEquipos;
     private javax.swing.JTable tablaGrupos;
     private javax.swing.JTable tablaInstalacion;
-<<<<<<< HEAD
     private javax.swing.JTable tablaPagos;
-=======
     private javax.swing.JTable tablaPartidos;
->>>>>>> 267004276462d7effd0714eac94b33debd1bd616
     private javax.swing.JTable tablaUsuarios;
     private javax.swing.JLabel temporadaLabel;
     private javax.swing.JTextField textEntEquipo;
@@ -4624,12 +4731,6 @@ private void pago_temporadaActionPerformed(java.awt.event.ActionEvent evt) {//GE
         List<String> res = new ArrayList<String>();
         res = GestorTemporadas.getListaTemporadas(accesoBD);
         return res;
-    }
-    
-   List<List<String>> getListaCategorias() throws SQLException {
-        List<List<String>> cats = new ArrayList<List<String>>();
-        cats = GestorCategorias.getListaCategorias(accesoBD);
-        return cats;
     }
 
     /*
@@ -4751,66 +4852,6 @@ private void pago_temporadaActionPerformed(java.awt.event.ActionEvent evt) {//GE
         labelNumeroEquipos.setText(Integer.toString(tablaEquipos.getRowCount()));
     }
 
-<<<<<<< HEAD
-=======
-    public void actualizaTablaPagoActividad(String alumno, String actividad, String temporada, String fecha, String pagado) throws SQLException, ParseException {
-
-        List<PagoActividad> pagos = new ArrayList<PagoActividad>();
-
-        pagos = GestorPagos.ConsultarPagoActividad(accesoBD, alumno, actividad, temporada, fecha, pagado);
-
-        DefaultTableModel dtm = new DefaultTableModel();
-        dtm.addColumn("Alumno");
-        dtm.addColumn("Actividad");
-        dtm.addColumn("Temporada");
-        dtm.addColumn("Fecha");
-        dtm.addColumn("Pagado");
-        /*
-         //Mostrar en tabla
-         Object[] fila = new Object[5];
-         for (PagoActividad it : pagos) {
-         fila[0] = it.getNombre();
-         fila[1] = it.getCategoria().getNombreCategoria().toString();
-         fila[2] = it.getTemporada().getCurso().toString();
-         fila[3] = it.getEntrenador().getNombre().toString();
-         fila[4] = it.getEntrenador2().getNombre().toString();
-         dtm.addRow(fila);
-         }
-         */
-        //tablaPagos.setModel(dtm);
-
-    }
-
-    public void actualizaTablaPagoActividad() {
-
-    }
-
-    public void actualizaTablaPagoTemporada(String alumno, String actividad, String temporada, String fecha, String pagado) throws SQLException, ParseException {
-
-        List<PagoTemporada> pagos = new ArrayList<PagoTemporada>();
-        pagos = GestorPagos.ConsultarPagoTemporada(accesoBD, alumno, temporada, fecha, pagado);
-
-        DefaultTableModel dtm = new DefaultTableModel();
-        dtm.addColumn("Alumno");
-        dtm.addColumn("Temporada");
-        dtm.addColumn("Fecha");
-        dtm.addColumn("Pagado");
-        /*
-         //Mostrar en tabla
-         Object[] fila = new Object[5];
-         for (PagoTemporada it : pagos) {
-         fila[0] = it.getNombre();
-         fila[1] = it.getCategoria().getNombreCategoria().toString();
-         fila[2] = it.getTemporada().getCurso().toString();
-         fila[3] = it.getEntrenador().getNombre().toString();
-         fila[4] = it.getEntrenador2().getNombre().toString();
-         dtm.addRow(fila);
-         }
-         */
-        //tablaPagos.setModel(dtm);
-
-    }
->>>>>>> 267004276462d7effd0714eac94b33debd1bd616
 
     private String getCategoria(String s) throws SQLException {
 

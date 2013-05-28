@@ -88,14 +88,6 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuInstalacionesActionPerformed"/>
           </Events>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="menuPartidos">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Partidos"/>
-          </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuPartidosMouseClicked"/>
-          </Events>
-        </Menu>
       </SubComponents>
     </Menu>
   </NonVisualComponents>
@@ -1983,28 +1975,39 @@
                               </Group>
                               <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="pago_temporada" alignment="0" min="-2" pref="82" max="-2" attributes="0"/>
                                   <Component id="jLabel23" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="pago_nombre" alignment="0" min="-2" pref="119" max="-2" attributes="0"/>
+                                  <Component id="jLabel21" alignment="0" min="-2" pref="90" max="-2" attributes="1"/>
+                                  <Component id="pago_temporadaActividad" alignment="0" min="-2" pref="105" max="-2" attributes="1"/>
                               </Group>
                               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel24" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="pago_primer_apellido" alignment="0" min="-2" pref="104" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="pago_primer_apellido" alignment="0" pref="104" max="32767" attributes="1"/>
+                                      <Component id="jLabel24" alignment="0" max="32767" attributes="1"/>
+                                  </Group>
+                                  <Component id="jLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="pago_temporada" alignment="0" min="-2" pref="82" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jLabel25" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="pago_temporadaActividad" max="32767" attributes="1"/>
-                                  <Component id="jLabel21" alignment="0" max="32767" attributes="1"/>
-                                  <Component id="pago_segundo_apellido" alignment="0" max="32767" attributes="1"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
-                                  <Component id="pago_grupo" min="-2" pref="91" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jLabel25" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="pago_segundo_apellido" alignment="0" max="32767" attributes="1"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="pagos_etiqGrupo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="pago_grupo" alignment="0" min="-2" pref="91" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="pagos_actividad" pref="109" max="32767" attributes="0"/>
+                                          <Component id="pagos_etiqActividad" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="pagos_botonMostrar" min="-2" pref="77" max="-2" attributes="0"/>
@@ -2013,7 +2016,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="163" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -2024,18 +2027,25 @@
                   <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="pago_temporadaActividad" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="pagos_etiqGrupo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="pagos_etiqActividad" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="pago_temporada" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="pago_temporadaActividad" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="pago_grupo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="pagos_actividad" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -2043,21 +2053,19 @@
                       <Component id="jLabel23" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel24" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel25" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel26" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="pago_nombre" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="pago_primer_apellido" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="pago_segundo_apellido" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="pago_grupo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="pagos_botonMostrar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="pagos_botonDeudores" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="13" max="32767" attributes="0"/>
                   <Component id="jScrollPane6" min="-2" pref="347" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                   <Component id="pagos_botonModificar" min="-2" max="-2" attributes="0"/>
@@ -2102,7 +2110,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel21">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Grupo/Actividad"/>
+            <Property name="text" type="java.lang.String" value="Grupos/Actividad"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="pago_temporadaActividad">
@@ -2152,9 +2160,9 @@
         </Component>
         <Component class="javax.swing.JTextField" name="pago_segundo_apellido">
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel26">
+        <Component class="javax.swing.JLabel" name="pagos_etiqGrupo">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Grupo"/>
+            <Property name="text" type="java.lang.String" value="Grupos por temporada"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="pago_grupo">
@@ -2198,7 +2206,7 @@
             <Component class="javax.swing.JTable" name="tablaPagos">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="9" rowCount="20">
+                  <Table columnCount="10" rowCount="20">
                     <Column editable="false" title="Nombre" type="java.lang.Object"/>
                     <Column editable="false" title="Primer Apellido" type="java.lang.Object"/>
                     <Column editable="false" title="Segundo Apellido" type="java.lang.Object"/>
@@ -2208,6 +2216,7 @@
                     <Column editable="false" title="Email" type="java.lang.Object"/>
                     <Column editable="false" title="Tel. Fijo" type="java.lang.Object"/>
                     <Column editable="false" title="Tel. Movil" type="java.lang.Object"/>
+                    <Column editable="false" title="Temporada" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -2252,7 +2261,12 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -2273,6 +2287,22 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pagos_botonModificarActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="pagos_etiqActividad">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Nombre de la Actividad"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="pagos_etiqActividad.setVisible(false);"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JTextField" name="pagos_actividad">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pagos_actividadActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="pagos_actividad.setVisible(false);"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
@@ -2637,6 +2667,7 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="panelCategorias.setLocation(150, 100);"/>
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="panelCategorias.setVisible(false);"/>
+        <AuxValue name="JavaCodeGenerator_LayoutCodePost" type="java.lang.String" value="PanelPartidos.setVisible(false);"/>
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -2649,29 +2680,16 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="jScrollPane8" min="-2" pref="395" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jButton8" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jButton9" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
-                                      <Component id="BotonJPartido" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                          <Component id="Partidos" min="-2" max="-2" attributes="0"/>
-                          <Component id="jSeparator6" alignment="0" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="jScrollPane8" min="-2" pref="395" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jButton8" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="BotonNPartido" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="Partidos" min="-2" max="-2" attributes="0"/>
+                      <Component id="jSeparator6" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="97" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -2683,20 +2701,11 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jScrollPane8" min="-2" pref="117" max="-2" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jButton8" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton9" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="BotonJPartido" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jButton8" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                   <Component id="jSeparator6" min="-2" pref="10" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="BotonNPartido" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="40" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -2762,32 +2771,11 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Modificar"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="jButton9">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Eliminar"/>
-          </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton9ActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="BotonJPartido">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Jugar Partido"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonJPartidoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton8ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator6">
-        </Component>
-        <Component class="javax.swing.JButton" name="BotonNPartido">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Nuevo Partido"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonNPartidoActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -231,12 +231,13 @@ values (9, 1, 1, 8);
 insert into pagoactividades (Alumno_idAlumno, Actividades_idActividades, Actividades_Temporada_idTemporada, Cuota_idCuota) 
 values (10, 1, 1, 9);
 
+INSERT INTO alumno (idAlumno, nombre,  primerapellido, segundoapellido, 
+fechanacimiento, telmovil, email, talla, nombrepadre, nombremadre, telfijo)
+VALUES (130, "alumnoaloneact",  "apellido1", "apellido2", '1990-07-12', 677677677, "sucorreo", 'XL', 'eladio', 'juana', 95888888);
 
-<<<<<<< HEAD
-=======
-/*insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (1, 1);*/
+insert into pagoactividades (Alumno_idAlumno, Actividades_idActividades, Actividades_Temporada_idTemporada, Cuota_idCuota) 
+values (130, 1, 1, 1);
 
->>>>>>> 267004276462d7effd0714eac94b33debd1bd616
 insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (2, 1);
 insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (3, 1);
 insert into alumnotemporada (Alumno_idAlumno,Temporada_idTemporada) values (4, 1);
