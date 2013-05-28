@@ -264,7 +264,7 @@ public class JugarPartido extends javax.swing.JFrame {
         getContentPane().add(EquipoVisitante);
         EquipoVisitante.setBounds(250, 70, 70, 20);
         getContentPane().add(cronometro1);
-        cronometro1.setBounds(480, 40, 237, 65);
+        cronometro1.setBounds(500, 20, 209, 111);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

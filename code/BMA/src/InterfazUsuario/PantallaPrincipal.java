@@ -304,11 +304,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         Partidos = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
         tablaPartidos = new javax.swing.JTable();
-        BotonModificarPartido = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        BotonJPartido = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
         jSeparator6 = new javax.swing.JSeparator();
-        BotonNPartido = new javax.swing.JButton();
         barraMenu = new javax.swing.JMenuBar();
         menuInicio = new javax.swing.JMenu();
         menuJugadores = new javax.swing.JMenu();
@@ -715,7 +712,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         panelTemporadas.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         panelTemporadas.setLocation(150, 100);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel3.setText("Temporadas");
 
         botonNuevaTemp.setText("Nueva");
@@ -940,7 +937,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel4.setText("Grupos de Entrenamiento");
 
         javax.swing.GroupLayout panelGruposLayout = new javax.swing.GroupLayout(panelGrupos);
@@ -1123,7 +1120,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         panelEquipos.setVisible(false);
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel8.setText("Equipos");
 
         jLabel10.setText("Nombre:");
@@ -1194,10 +1191,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        labelEquiposMostrados.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        labelEquiposMostrados.setFont(new java.awt.Font("Tahoma", 1, 12));
         labelEquiposMostrados.setText("Numero de equipos:");
 
-        labelNumeroEquipos.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        labelNumeroEquipos.setFont(new java.awt.Font("Tahoma", 1, 12));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Entrenador-" }));
 
@@ -1208,7 +1205,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             .addGroup(panelEquiposLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(panelEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator4)
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
                     .addGroup(panelEquiposLayout.createSequentialGroup()
                         .addGroup(panelEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
@@ -1304,7 +1301,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         panelPagos.setVisible(false);
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel15.setText("Pagos");
 
         jLabel9.setText("Buscar Pagos por:");
@@ -1460,11 +1457,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                                         .addComponent(pago_grupo, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGap(30, 30, 30)
                                     .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-<<<<<<< HEAD
                                         .addComponent(pagos_actividad, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
-=======
-                                        .addComponent(pagos_actividad)
->>>>>>> b0771cececc0ae81cdff3f2da78cec23f6c047b7
                                         .addComponent(pagos_etiqActividad)))))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelPagosLayout.createSequentialGroup()
                             .addComponent(pagos_botonMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1684,7 +1677,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         panelCategorias.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         panelCategorias.setLocation(150, 100);
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel17.setText("Categorias");
 
         botonNuevaCat.setText("Nueva");
@@ -1771,7 +1764,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         PanelPartidos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         panelCategorias.setLocation(150, 100);
 
-        Partidos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        Partidos.setFont(new java.awt.Font("Tahoma", 0, 18));
         Partidos.setText("Partidos");
 
         tablaPartidos.setModel(new javax.swing.table.DefaultTableModel(
@@ -1801,31 +1794,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         });
         jScrollPane8.setViewportView(tablaPartidos);
 
-        BotonModificarPartido.setText("Modificar");
-        BotonModificarPartido.addActionListener(new java.awt.event.ActionListener() {
+        jButton8.setText("Modificar");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonModificarPartidoActionPerformed(evt);
-            }
-        });
-
-        jButton9.setText("Eliminar");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
-            }
-        });
-
-        BotonJPartido.setText("Jugar Partido");
-        BotonJPartido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonJPartidoActionPerformed(evt);
-            }
-        });
-
-        BotonNPartido.setText("Nuevo Partido");
-        BotonNPartido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonNPartidoActionPerformed(evt);
+                jButton8ActionPerformed(evt);
             }
         });
 
@@ -1835,7 +1807,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelPartidosLayout.createSequentialGroup()
                 .addContainerGap()
-<<<<<<< HEAD
                 .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(PanelPartidosLayout.createSequentialGroup()
                         .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1843,24 +1814,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                         .addComponent(jButton8))
                     .addComponent(Partidos)
                     .addComponent(jSeparator6))
-=======
-                .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(PanelPartidosLayout.createSequentialGroup()
-                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(PanelPartidosLayout.createSequentialGroup()
-                                    .addGap(18, 18, 18)
-                                    .addComponent(BotonModificarPartido)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jButton9))
-                                .addGroup(PanelPartidosLayout.createSequentialGroup()
-                                    .addGap(56, 56, 56)
-                                    .addComponent(BotonJPartido))))
-                        .addComponent(Partidos)
-                        .addComponent(jSeparator6))
-                    .addComponent(BotonNPartido))
->>>>>>> b0771cececc0ae81cdff3f2da78cec23f6c047b7
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PanelPartidosLayout.setVerticalGroup(
@@ -1871,21 +1824,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(PanelPartidosLayout.createSequentialGroup()
-                        .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BotonModificarPartido)
-                            .addComponent(jButton9))
-                        .addGap(18, 18, 18)
-                        .addComponent(BotonJPartido)))
+                    .addComponent(jButton8))
                 .addGap(48, 48, 48)
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-<<<<<<< HEAD
-=======
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(BotonNPartido)
->>>>>>> b0771cececc0ae81cdff3f2da78cec23f6c047b7
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        PanelPartidos.setVisible(false);
 
         getContentPane().add(PanelPartidos, new java.awt.GridBagConstraints());
 
@@ -4567,35 +4512,13 @@ private void pago_temporadaActionPerformed(java.awt.event.ActionEvent evt) {//GE
     
 }//GEN-LAST:event_pago_temporadaActionPerformed
 
+private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_jButton8ActionPerformed
+
 private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagos_actividadActionPerformed
 // TODO add your handling code here:
 }//GEN-LAST:event_pagos_actividadActionPerformed
-
-    private void BotonModificarPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonModificarPartidoActionPerformed
-        // TODO add your handling code here:
-        ocultarMensajesError();
-        new ModificarPartido().setVisible(true);
-    }//GEN-LAST:event_BotonModificarPartidoActionPerformed
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
-
-    private void BotonJPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonJPartidoActionPerformed
-        // TODO add your handling code here:
-        ocultarMensajesError();
-        new JugarPartido().setVisible(true);
-    }//GEN-LAST:event_BotonJPartidoActionPerformed
-
-    private void BotonNPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonNPartidoActionPerformed
-        // TODO add your handling code here:
-        ocultarMensajesError();
-        try {
-            new NuevoPartido(accesoBD,this).setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_BotonNPartidoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -4634,9 +4557,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AñaridAlumno;
-    private javax.swing.JButton BotonJPartido;
-    private javax.swing.JButton BotonModificarPartido;
-    private javax.swing.JButton BotonNPartido;
     private javax.swing.JLabel BuscarporLabel;
     private javax.swing.JButton Eliminar;
     private javax.swing.JButton Informacion;
@@ -4716,7 +4636,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JButton jButton8;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -4931,12 +4851,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         res = GestorTemporadas.getListaTemporadas(accesoBD);
         return res;
     }
-    
-   List<List<String>> getListaCategorias() throws SQLException {
-        List<List<String>> cats = new ArrayList<List<String>>();
-        cats = GestorCategorias.getListaCategorias(accesoBD);
-        return cats;
-    }
 
     /*
      * Metodo provisional hasta que se implemente "CATEGORIA"
@@ -5057,63 +4971,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         labelNumeroEquipos.setText(Integer.toString(tablaEquipos.getRowCount()));
     }
 
-    public void actualizaTablaPagoActividad(String alumno, String actividad, String temporada, String fecha, String pagado) throws SQLException, ParseException {
 
-        List<PagoActividad> pagos = new ArrayList<PagoActividad>();
-
-        pagos = GestorPagos.ConsultarPagoActividad(accesoBD, alumno, actividad, temporada, fecha, pagado);
-
-        DefaultTableModel dtm = new DefaultTableModel();
-        dtm.addColumn("Alumno");
-        dtm.addColumn("Actividad");
-        dtm.addColumn("Temporada");
-        dtm.addColumn("Fecha");
-        dtm.addColumn("Pagado");
-        /*
-         //Mostrar en tabla
-         Object[] fila = new Object[5];
-         for (PagoActividad it : pagos) {
-         fila[0] = it.getNombre();
-         fila[1] = it.getCategoria().getNombreCategoria().toString();
-         fila[2] = it.getTemporada().getCurso().toString();
-         fila[3] = it.getEntrenador().getNombre().toString();
-         fila[4] = it.getEntrenador2().getNombre().toString();
-         dtm.addRow(fila);
-         }
-         */
-        //tablaPagos.setModel(dtm);
-
-    }
-
-    public void actualizaTablaPagoActividad() {
-
-    }
-
-    public void actualizaTablaPagoTemporada(String alumno, String actividad, String temporada, String fecha, String pagado) throws SQLException, ParseException {
-
-
-        //pagos = GestorPagos.ConsultarPagoTemporada(accesoBD, alumno, temporada, fecha, pagado);
-
-        DefaultTableModel dtm = new DefaultTableModel();
-        dtm.addColumn("Alumno");
-        dtm.addColumn("Temporada");
-        dtm.addColumn("Fecha");
-        dtm.addColumn("Pagado");
-        /*
-         //Mostrar en tabla
-         Object[] fila = new Object[5];
-         for (PagoTemporada it : pagos) {
-         fila[0] = it.getNombre();
-         fila[1] = it.getCategoria().getNombreCategoria().toString();
-         fila[2] = it.getTemporada().getCurso().toString();
-         fila[3] = it.getEntrenador().getNombre().toString();
-         fila[4] = it.getEntrenador2().getNombre().toString();
-         dtm.addRow(fila);
-         }
-         */
-        //tablaPagos.setModel(dtm);
-
-    }
     private String getCategoria(String s) throws SQLException {
 
         String cat = GestorCategorias.getCategoria(accesoBD, Integer.parseInt(s));
