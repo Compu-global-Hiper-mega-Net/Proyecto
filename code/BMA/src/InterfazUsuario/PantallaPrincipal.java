@@ -4553,6 +4553,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
             public void run() {
                 new PantallaPrincipal().setVisible(true);
                 System.out.println("Pues aquí OLA K DISE");
+
             }
         });
     }
