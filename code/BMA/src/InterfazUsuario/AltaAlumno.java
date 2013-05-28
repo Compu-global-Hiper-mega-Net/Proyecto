@@ -702,7 +702,7 @@ public class AltaAlumno extends javax.swing.JFrame {
                     Integer.parseInt(codPostal.getText()), provincia.getText(), colegio.getText(), nombrePadre.getText(),
                     nombreMadre.getText(), Integer.parseInt(telFijo.getText()), Integer.parseInt(telMovil.getText()), email.getText(), "",
                     (String) talla.getSelectedItem());
-            if (error) {
+            if (error==false) {
                 JOptionPane.showMessageDialog(null, "Ha habido un error en la base de datos",
                         "Error", JOptionPane.ERROR_MESSAGE);
             } else {

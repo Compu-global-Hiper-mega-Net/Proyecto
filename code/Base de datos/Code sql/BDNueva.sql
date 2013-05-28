@@ -6,6 +6,22 @@ CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
 USE `mydb` ;
 
 -- -----------------------------------------------------
+-- Table `mydb`.`temporada`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`temporada` ;
+
+CREATE  TABLE IF NOT EXISTS `mydb`.`temporada` (
+  `idTemporada` INT(11) NOT NULL AUTO_INCREMENT ,
+  `curso` VARCHAR(45) NOT NULL ,
+  `inicio` DATE NULL DEFAULT NULL ,
+  `fin` DATE NULL DEFAULT NULL ,
+  `importeMensual` FLOAT NULL ,
+  PRIMARY KEY (`idTemporada`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
 -- Table `mydb`.`actividades`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `mydb`.`actividades` ;
@@ -16,11 +32,17 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`actividades` (
   `descripcion` VARCHAR(123) NULL DEFAULT NULL ,
   `precioSocio` FLOAT NOT NULL ,
   `precioNoSocio` FLOAT NOT NULL ,
-  `Temporada_idTemporada` INT(11) NOT NULL ,
   `fechaInicio` DATE NOT NULL ,
   `fechaFin` DATE NOT NULL ,
   `nombre` VARCHAR(65) NOT NULL ,
-  PRIMARY KEY (`idActividades`, `Temporada_idTemporada`) )
+  `temporada_idTemporada` INT(11) NOT NULL ,
+  PRIMARY KEY (`idActividades`, `temporada_idTemporada`) ,
+  INDEX `fk_actividades_temporada1_idx` (`temporada_idTemporada` ASC) ,
+  CONSTRAINT `fk_actividades_temporada1`
+    FOREIGN KEY (`temporada_idTemporada` )
+    REFERENCES `mydb`.`temporada` (`idTemporada` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -96,22 +118,6 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`liga` (
   `nombre` VARCHAR(45) NULL ,
   PRIMARY KEY (`idLiga`) )
 ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `mydb`.`temporada`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`temporada` ;
-
-CREATE  TABLE IF NOT EXISTS `mydb`.`temporada` (
-  `idTemporada` INT(11) NOT NULL AUTO_INCREMENT ,
-  `curso` VARCHAR(45) NOT NULL ,
-  `inicio` DATE NULL DEFAULT NULL ,
-  `fin` DATE NULL DEFAULT NULL ,
-  `importeMensual` FLOAT NULL ,
-  PRIMARY KEY (`idTemporada`) )
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -366,8 +372,8 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`pagoactividades` (
   INDEX `fk_Alumno_has_Actividades_Alumno1_idx` (`Alumno_idAlumno` ASC) ,
   INDEX `fk_PagoActividades_Cuota1_idx` (`Cuota_idCuota` ASC) ,
   CONSTRAINT `fk_Alumno_has_Actividades_Actividades1`
-    FOREIGN KEY (`Actividades_idActividades` , `Actividades_Temporada_idTemporada` )
-    REFERENCES `mydb`.`actividades` (`idActividades` , `Temporada_idTemporada` )
+    FOREIGN KEY (`Actividades_idActividades` )
+    REFERENCES `mydb`.`actividades` (`idActividades` )
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_Alumno_has_Actividades_Alumno1`
@@ -453,8 +459,8 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`actividadesInstalacion` (
   INDEX `fk_actividades_has_Instalacion_Instalacion1_idx` (`Instalacion_idInstalacion` ASC) ,
   INDEX `fk_actividades_has_Instalacion_actividades1_idx` (`actividades_idActividades` ASC, `actividades_Temporada_idTemporada` ASC) ,
   CONSTRAINT `fk_actividades_has_Instalacion_actividades1`
-    FOREIGN KEY (`actividades_idActividades` , `actividades_Temporada_idTemporada` )
-    REFERENCES `mydb`.`actividades` (`idActividades` , `Temporada_idTemporada` )
+    FOREIGN KEY (`actividades_idActividades` )
+    REFERENCES `mydb`.`actividades` (`idActividades` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_actividades_has_Instalacion_Instalacion1`
