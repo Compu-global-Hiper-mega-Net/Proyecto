@@ -9,6 +9,8 @@ import GestionDeAlumnos.GestorAlumnos;
 import GestionDeCategorias.GestorCategorias;
 import GestionDeEquipos.GestorEquipos;
 import ServiciosAlmacenamiento.BaseDatos;
+import java.awt.Component;
+import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -27,8 +29,6 @@ public class NuevoEquipo extends javax.swing.JFrame {
     List<String> listaAlumnos = new ArrayList<String>();
     List<String> listaAlumnosQuitados = new ArrayList<String>();
     List<Integer> listaIDAlumnosQuitados = new ArrayList<Integer>();
-    public List<Integer> listaIDAlumnos = new ArrayList<Integer>();
-    public List<String> listaNombreAlumnos = new ArrayList<String>();
     BaseDatos accesoBD;
 
     /**
@@ -44,15 +44,15 @@ public class NuevoEquipo extends javax.swing.JFrame {
         this.setLocation(300, 300);
         accesoBD = acceso;
         PerteneceFundacion.setSelected(false);
-        textPrimerEnt.setEditable(false);
-        textSegundoEnt.setEditable(false);
-        jTextField1.setEditable(false);
-        comboEntrenador.removeAllItems();
-        comboEntrenador.addItem("-Entrenador-");
-        comboEntrenador2.removeAllItems();
-        comboEntrenador2.addItem("-Entrenador-");
-        //alumnosMostrados();
+        if (comboCat.getSelectedItem().toString().equals("Categoria") && comboTemp.getSelectedItem().toString().equals("Temporada")) {
+                try {
+                    actualizarCategoria();
+                    actualizarTemporada();
+                } catch (SQLException ex) {
+                    Logger.getLogger(NuevoEquipo.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
+            }
     }
 
     /**
@@ -106,15 +106,25 @@ public class NuevoEquipo extends javax.swing.JFrame {
         jLabel3.setText("Categoria:");
 
         comboCat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Categoria" }));
-        comboCat.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comboCatItemStateChanged(evt);
+        comboCat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                comboCatMouseClicked(evt);
+            }
+        });
+        comboCat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboCatActionPerformed(evt);
             }
         });
 
         jLabel4.setText("Temporada:");
 
         comboTemp.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Temporada" }));
+        comboTemp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                comboTempMouseClicked(evt);
+            }
+        });
         comboTemp.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comboTempItemStateChanged(evt);
@@ -182,12 +192,22 @@ public class NuevoEquipo extends javax.swing.JFrame {
         jScrollPane1.setViewportView(alumnosMostrados);
 
         jButton1.setText("Quitar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jScrollPane2.setViewportView(alumnosSeleccionados);
 
         jLabel8.setText("Alumnos seleccionados:");
 
         comboEntrenador.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Entrenador-" }));
+        comboEntrenador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                comboEntrenadorMouseClicked(evt);
+            }
+        });
         comboEntrenador.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comboEntrenadorItemStateChanged(evt);
@@ -202,6 +222,11 @@ public class NuevoEquipo extends javax.swing.JFrame {
         comboEntrenador2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Entrenador-" }));
 
         PerteneceFundacion.setText("Fundacion");
+        PerteneceFundacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PerteneceFundacionMouseClicked(evt);
+            }
+        });
         PerteneceFundacion.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 PerteneceFundacionStateChanged(evt);
@@ -401,11 +426,8 @@ public class NuevoEquipo extends javax.swing.JFrame {
         // TODO add your handling code here:
         List<String> ListaAlumnosSelec = new ArrayList<String>();
         ListaAlumnosSelec.addAll(alumnosMostrados.getSelectedValuesList());
-
         DefaultListModel modelo=  new DefaultListModel();
-        
-        alumnosMostrados.setModel(modelo);
-                
+              
         
         for(int i = 0; i < ListaAlumnosSelec.size(); i++){
             modelo.addElement(ListaAlumnosSelec.get(i));
@@ -418,14 +440,36 @@ public class NuevoEquipo extends javax.swing.JFrame {
 /*
     private void comboEntrenadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEntrenadorActionPerformed
         // TODO add your handling code here:
-        comboEntrenador2.removeAllItems();
-        ActualizarCombo2Entrenador(comboEntrenador.getSelectedItem().toString());
+       
     }//GEN-LAST:event_comboEntrenadorActionPerformed
 */
     private void PerteneceFundacionStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_PerteneceFundacionStateChanged
     }//GEN-LAST:event_PerteneceFundacionStateChanged
 
     private void PerteneceFundacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PerteneceFundacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PerteneceFundacionActionPerformed
+    private void comboEntrenadorActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void comboTempItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboTempItemStateChanged
+        // TODO add your handling code here:
+        /*DefaultListModel model = new DefaultListModel();
+         alumnosMostrados.setModel(model);
+         MostrarAlumnos();*/
+    }//GEN-LAST:event_comboTempItemStateChanged
+
+    private void comboEntrenadorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboEntrenadorItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboEntrenadorItemStateChanged
+
+    private void comboEntrenadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboEntrenadorMouseClicked
+        // TODO add your handling code here:
+        ActualizarCombo2Entrenador(comboEntrenador.getSelectedItem().toString());
+    }//GEN-LAST:event_comboEntrenadorMouseClicked
+
+    private void PerteneceFundacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PerteneceFundacionMouseClicked
         // TODO add your handling code here:
 
         if (PerteneceFundacion.isSelected() == true) {
@@ -453,30 +497,81 @@ public class NuevoEquipo extends javax.swing.JFrame {
             comboEntrenador2.addItem("-Entrenador-");
             DefaultListModel model = new DefaultListModel();
             alumnosMostrados.setModel(model);
+            if (comboCat.getSelectedItem().toString().equals("Categoria") && comboTemp.getSelectedItem().toString().equals("Temporada")) {
+                try {
+                    actualizarCategoria();
+                    actualizarTemporada();
+                } catch (SQLException ex) {
+                    Logger.getLogger(NuevoEquipo.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
 
         }
-    }//GEN-LAST:event_PerteneceFundacionActionPerformed
+    }//GEN-LAST:event_PerteneceFundacionMouseClicked
 
-    private void comboCatItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboCatItemStateChanged
+    private void comboCatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboCatMouseClicked
         // TODO add your handling code here:
-        DefaultListModel model = new DefaultListModel();
-        alumnosMostrados.setModel(model);
-        MostrarAlumnos();
-    }//GEN-LAST:event_comboCatItemStateChanged
-    private void comboEntrenadorActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
+        if (PerteneceFundacion.isSelected()) {
+            DefaultListModel model = new DefaultListModel();
+            alumnosMostrados.setModel(model);
+            MostrarAlumnos();
+        }
+    }//GEN-LAST:event_comboCatMouseClicked
 
-    private void comboTempItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboTempItemStateChanged
-        // TODO add your handling code here:
-        /*DefaultListModel model = new DefaultListModel();
-         alumnosMostrados.setModel(model);
-         MostrarAlumnos();*/
-    }//GEN-LAST:event_comboTempItemStateChanged
+    private void comboCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCatActionPerformed
+    }//GEN-LAST:event_comboCatActionPerformed
 
-    private void comboEntrenadorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboEntrenadorItemStateChanged
+    private void comboTempMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboTempMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_comboEntrenadorItemStateChanged
+        if (PerteneceFundacion.isSelected()) {
+            DefaultListModel model = new DefaultListModel();
+            alumnosMostrados.setModel(model);
+            MostrarAlumnos();
+        }
+    }//GEN-LAST:event_comboTempMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        DefaultListModel modelo = new DefaultListModel();
+        DefaultListModel peta = new DefaultListModel();
+        List<Integer> listaseleccionados = new ArrayList<Integer>();
+        List<Integer> listaNOseleccionados = new ArrayList<Integer>();
+        List<String> frisk = new ArrayList<String>();
+        int indices[] = (int[]) alumnosSeleccionados.getSelectedIndices();
+
+        frisk = alumnosSeleccionados.getSelectedValuesList();
+        System.out.println("\nBonjorno" + frisk);
+        System.out.println("\nAIIIIII" + Integer.parseInt(nAlumnosSeleccionados.getText()));
+
+        for (int i = 0; i < Integer.parseInt(nAlumnosSeleccionados.getText()); i++) {
+            boolean existe = false;
+            for (int j = 0; j < indices.length && !existe; j++) {
+                if (indices[j] == i) {
+                    existe = true;
+                }
+            }
+            if (!existe) {
+                listaNOseleccionados.add(i + 1);
+            }
+        }
+
+
+        modelo = (DefaultListModel) alumnosMostrados.getModel();
+        modelo.addElement(alumnosSeleccionados.getSelectedValue());
+
+        System.out.print("\n\nBussca" + listaNOseleccionados);
+
+        for (int i = 0; i < listaNOseleccionados.size(); i++) {
+            //peta.addElement(alumnosSeleccionados.);
+        }
+
+        System.out.print("\n\nPuto calvo " + peta);
+        
+        alumnosSeleccionados.setModel(peta);
+        alumnosMostrados.setModel(modelo);
+    }//GEN-LAST:event_jButton1ActionPerformed
+    /**/
 
     /**
      * @param args the command line arguments
@@ -548,40 +643,49 @@ public class NuevoEquipo extends javax.swing.JFrame {
 
     private void MostrarAlumnos() {
 
+        List<Integer> listaIDAlumnos = new ArrayList<Integer>();
+        List<String> listaNombreAlumnos = new ArrayList<String>();
         int idCategoria = getIDCategoria();
         int idTemporada = getIDTemporada();
         DefaultListModel modelo = new DefaultListModel();
         ResultSet ret, retset;
-
-
         String consulta = "SELECT Alumno_idAlumno FROM alumnogrupo WHERE "
                 + "Grupo_idGrupo IN (SELECT idGrupo FROM grupo) AND "
                 + "Grupo_Categoria_idCategoria = " + idCategoria
                 + " AND Grupo_Usuario_idUsuario IN (SELECT idUsuario FROM usuario) AND"
                 + " Grupo_Temporada_idTemporada = " + idTemporada;
 
-        System.out.print("\n\nConsulta alumnos equipo " + consulta + "\n");
+        System.out.print(
+                "\n\nConsulta alumnos equipo " + consulta + "\n");
         ret = accesoBD.ejecutaConsulta(consulta);
+
+
         try {
             while (ret.next()) {
-                this.listaIDAlumnos.add(ret.getInt(1));
+                listaIDAlumnos.add(ret.getInt(1));
             }
         } catch (SQLException ex) {
             Logger.getLogger(NuevoEquipo.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+
         try {
-            this.listaNombreAlumnos = GestorAlumnos.getNombreAl(accesoBD, listaIDAlumnos);
+            listaNombreAlumnos = GestorAlumnos.getNombreAl(accesoBD, listaIDAlumnos);
         } catch (SQLException ex) {
             Logger.getLogger(NuevoEquipo.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        for (int i = 0; i < this.listaNombreAlumnos.size(); i++) {
-            modelo.addElement(this.listaNombreAlumnos.get(i));
+        for (int i = 0;
+                i
+                < listaNombreAlumnos.size();
+                i++) {
+            modelo.addElement(listaNombreAlumnos.get(i));
         }
 
         alumnosMostrados.validate();
+
         alumnosMostrados.setModel(modelo);
-        nAlumnosDisponibles.setText(Integer.toString(this.listaNombreAlumnos.size()));
+
+        nAlumnosDisponibles.setText(Integer.toString(listaNombreAlumnos.size()));
 
     }
 
@@ -596,9 +700,12 @@ public class NuevoEquipo extends javax.swing.JFrame {
         try {
             if (ret.next()) {
                 id = ret.getInt(1);
+
+
             }
         } catch (SQLException ex) {
-            Logger.getLogger(NuevoEquipo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NuevoEquipo.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
         return id;
@@ -614,9 +721,12 @@ public class NuevoEquipo extends javax.swing.JFrame {
         try {
             if (ret.next()) {
                 id = ret.getInt(1);
+
+
             }
         } catch (SQLException ex) {
-            Logger.getLogger(NuevoEquipo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NuevoEquipo.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
 
         return id;
@@ -674,7 +784,7 @@ public class NuevoEquipo extends javax.swing.JFrame {
         pApellido = entrenador.substring(0, entrenador.indexOf(" "));
         aux = entrenador.substring(entrenador.indexOf(" ") + 1, entrenador.length());
         sApellido = aux.substring(0, aux.indexOf(" "));
-        nombre = aux.substring(aux.indexOf(" "), aux.length());
+        nombre = aux.substring(aux.indexOf(" ") + 1, aux.length());
 
         String consulta = "SELECT primerApellido, segundoApellido, nombre FROM usuario"
                 + " WHERE idUsuario NOT IN (SELECT idUsuario FROM usuario WHERE"
@@ -686,37 +796,67 @@ public class NuevoEquipo extends javax.swing.JFrame {
         ResultSet retset = accesoBD.ejecutaConsulta(consulta);
         try {
             while (retset.next()) {
-                comboEntrenador2.addItem(retset.getString(1) + " " + retset.getString(2) + " "
-                        + retset.getString(3));
+                comboEntrenador2.addItem(retset.getString(3) + " " + retset.getString(2) + " "
+                        + retset.getString(1));
+
+
             }
         } catch (SQLException ex) {
-            Logger.getLogger(NuevoEquipo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NuevoEquipo.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     private void ActualizarJlist(List<String> ListaAlumnos) {
-        DefaultListModel modelo1=  new DefaultListModel();
+        int idCategoria = getIDCategoria();
+        int idTemporada = getIDTemporada();
+        String idAlu = "";
+        DefaultListModel modelo1 = new DefaultListModel();
         alumnosMostrados.setModel(modelo1);
         List<Integer> ListaIDAlumnosMostrados = new ArrayList<Integer>();
+        List<Integer> ListaIDAlumnosRestantes = new ArrayList<Integer>();
+        List<String> ListaAlumnosRestantes = new ArrayList<String>();
+        ResultSet ret;
+        int j = 0;
         try {
             ListaIDAlumnosMostrados = GestorAlumnos.getIdAl(accesoBD, ListaAlumnos);
+
+
         } catch (SQLException ex) {
             Logger.getLogger(NuevoEquipo.class.getName()).log(Level.SEVERE, null, ex);
         }
-            String Consulta = "SELECT primerApellido, segundoApellido, nombre FROM alumno WHERE idAlumno NOT IN ("
-                    + ListaIDAlumnosMostrados + ")";
-            ResultSet ret;
-            ret = accesoBD.ejecutaConsulta(Consulta);
-            try {
-                if (ret.next()) {
-                    modelo1.addElement(ret.getString(1) + " " + ret.getString(2) + " " + ret.getString(3));
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(NuevoEquipo.class.getName()).log(Level.SEVERE, null, ex);
+        for (int i = 0; i < ListaIDAlumnosMostrados.size(); i++) {
+            idAlu = idAlu + Integer.toString(ListaIDAlumnosMostrados.get(i)) + ",";
+        }
+        idAlu = idAlu.substring(0, idAlu.length() - 1);
+        String Consulta = "SELECT Alumno_idAlumno FROM alumnogrupo WHERE "
+                + "Grupo_idGrupo IN (SELECT idGrupo FROM grupo) AND "
+                + "Grupo_Categoria_idCategoria = " + idCategoria
+                + " AND Grupo_Temporada_idTemporada = " + idTemporada
+                + " AND Alumno_idAlumno NOT IN ("
+                + idAlu + ")";
+
+        System.out.println("Ola k ase " + Consulta);
+        ret = accesoBD.ejecutaConsulta(Consulta);
+        try {
+            while (ret.next()) {
+                ListaIDAlumnosRestantes.add(j, ret.getInt(1));
+                j++;
             }
-        
+        } catch (SQLException ex) {
+            Logger.getLogger(NuevoEquipo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            ListaAlumnosRestantes = GestorAlumnos.getNombreAl(accesoBD, ListaIDAlumnosRestantes);
+        } catch (SQLException ex) {
+            Logger.getLogger(NuevoEquipo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for (int i = 0; i < ListaIDAlumnosRestantes.size(); i++) {
+            modelo1.addElement(ListaAlumnosRestantes.get(i) + "\n");
+        }
 
         alumnosMostrados.setModel(modelo1);
-        nAlumnosDisponibles.setText(Integer.toString(ListaIDAlumnosMostrados.size()));
-}
+        nAlumnosDisponibles.setText(Integer.toString(ListaIDAlumnosRestantes.size()));
+    }
 }
