@@ -48,7 +48,7 @@ public class ModificarPartido extends javax.swing.JFrame {
         actualizaComboTemporada(temporadas);
         
         List<List<String>> categorias = new ArrayList<List<String>>();
-        categorias = principal.getListaCategorias();
+//        categorias = principal.getListaCategorias();
         actualizaComboCategoria(categorias);  
         
         List<String> instalaciones = new ArrayList<String>();
