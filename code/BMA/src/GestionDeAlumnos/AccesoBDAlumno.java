@@ -52,7 +52,7 @@ class AccesoBDAlumno {
     public static void insertarAlumnoBD(BaseDatos accesoBD, Alumno alumnoNuevo) throws SQLException {
         String dateString = String.format("%1$tY-%1$tm-%1$td", alumnoNuevo.getFechaNacimiento());
 
-        String inserccion = "INSERT INTO alumno (nombre, primerapellido, segundoapellido, fechanacimiento, colegio, email, localidad, provincia, codigoPostal, domicilio, "
+        String inserccion = "INSERT INTO alumno (nombre, primerApellido, segundoApellido, fechaNacimiento, colegio, email, localidad, provincia, codigoPostal, domicilio, "
                 + "nombrePadre, nombreMadre, numeroCuenta, talla, telFijo, telMovil) VALUES ('";
         inserccion = inserccion + alumnoNuevo.getNombre() + "', '" + alumnoNuevo.getPrimerApellido() + "', '" + alumnoNuevo.getSegundoApellido() + "','"
                 + dateString + "', '" + alumnoNuevo.getColegio() + "', '" + alumnoNuevo.getEmail() + "', '" + alumnoNuevo.getLocalidad() + "', '" + alumnoNuevo.getProvincia() + "', "
@@ -81,6 +81,26 @@ class AccesoBDAlumno {
             als.add(res.getString(2)+" "+res.getString(3)+" "+res.getString(1));
         
         return als;
+    }
+    
+    static List<String> getNombreAl(BaseDatos accesoBD, List<Integer> listaAlumnos) throws SQLException{
+        List<String> listaNombreAl = new ArrayList<String>();
+        
+        for (int s : listaAlumnos){
+            String query = "SELECT primerApellido, segundoApellido, nombre FROM alumno"
+                    + " WHERE idAlumno = " + s;
+            
+            System.out.print ("\n\nConsulta nombres jugadores " + query);
+            
+            ResultSet ret = accesoBD.ejecutaConsulta(query);
+            
+            if(ret.next()){
+                listaNombreAl.add(ret.getString(1) + " " + ret.getString(2) + " " + ret.getString(3));
+                System.out.print("\n\n" + listaNombreAl);
+            }
+        }
+        
+        return listaNombreAl;
     }
 
     static List<Integer> getIdAl(BaseDatos accesoBD, List<String> listaAlumnos) throws SQLException {

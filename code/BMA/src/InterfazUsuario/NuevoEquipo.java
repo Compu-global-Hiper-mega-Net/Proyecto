@@ -5,6 +5,7 @@
 package InterfazUsuario;
 
 import GestionDeAlumnos.Alumno;
+import GestionDeAlumnos.GestorAlumnos;
 import GestionDeCategorias.GestorCategorias;
 import GestionDeEquipos.GestorEquipos;
 import ServiciosAlmacenamiento.BaseDatos;
@@ -18,44 +19,18 @@ import javax.swing.DefaultListModel;
 
 /**
  *
- * @author 
+ * @author David
  */
-
-/*
- ******************************************************************************
-                   (c) Copyright 2013 
-                   * 
-                   * Moisés Gautier Gómez
-                   * Julio Ros Martínez
-                   * Francisco Javier Gómez del Olmo
-                   * Francisco Santolalla Quiñonero
-                   * Carlos Jesús Fernández Basso
-                   * Alexander Moreno Borrego
-                   * Jesús Manuel Contreras Siles
-                   * Diego Muñoz Rio
- 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ******************************************************************************
- */
-
 public class NuevoEquipo extends javax.swing.JFrame {
 
     private PantallaPrincipal creador;
-    private List<Alumno> alumnosSel;
-    private List<String> listaAlumnos;
-    private List<String> aux;
-    private BaseDatos accesoBD;
+    List<String> listaAlumnos = new ArrayList<String>();
+    List<String> listaAlumnosQuitados = new ArrayList<String>();
+    List<Integer> listaIDAlumnosQuitados = new ArrayList<Integer>();
+    public List<Integer> listaIDAlumnos = new ArrayList<Integer>();
+    public List<String> listaNombreAlumnos = new ArrayList<String>();
+    BaseDatos accesoBD;
+
     /**
      * Creates new form NuevoEquipo
      */
@@ -63,24 +38,23 @@ public class NuevoEquipo extends javax.swing.JFrame {
         initComponents();
     }
 
-    public NuevoEquipo(PantallaPrincipal v) throws SQLException {
+    public NuevoEquipo(BaseDatos acceso) throws SQLException {
+
         initComponents();
         this.setLocation(300, 300);
-        creador = v;
-        alumnosSel = new ArrayList<Alumno>();
-        listaAlumnos = new ArrayList<String>();
-        List<String> aux = new ArrayList<String>();
-        
-        //aux = creador.getListaCategorias();        
-        aux = GestorCategorias.getTipoCategorias(creador.accesoBD);
-        actualizaComboCat(aux);
-        
-        aux = creador.getListaTemps();        
-        actualizaComboTemp(aux);
-        
+        accesoBD = acceso;
+        PerteneceFundacion.setSelected(false);
+        textPrimerEnt.setEditable(false);
+        textSegundoEnt.setEditable(false);
+        jTextField1.setEditable(false);
+        comboEntrenador.removeAllItems();
+        comboEntrenador.addItem("-Entrenador-");
+        comboEntrenador2.removeAllItems();
+        comboEntrenador2.addItem("-Entrenador-");
         //alumnosMostrados();
-        
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -117,8 +91,12 @@ public class NuevoEquipo extends javax.swing.JFrame {
         comboEntrenador = new javax.swing.JComboBox();
         comboEntrenador2 = new javax.swing.JComboBox();
         jSeparator2 = new javax.swing.JSeparator();
+        PerteneceFundacion = new javax.swing.JCheckBox();
+        jLabel10 = new javax.swing.JLabel();
+        nAlumnosDisponibles = new javax.swing.JLabel();
+        nAlumnosSeleccionados = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Nuevo equipo");
@@ -127,16 +105,21 @@ public class NuevoEquipo extends javax.swing.JFrame {
 
         jLabel3.setText("Categoria:");
 
-        comboCat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Categoria-" }));
-        comboCat.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboCatActionPerformed(evt);
+        comboCat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Categoria" }));
+        comboCat.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboCatItemStateChanged(evt);
             }
         });
 
         jLabel4.setText("Temporada:");
 
-        comboTemp.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Temporada-" }));
+        comboTemp.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Temporada" }));
+        comboTemp.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboTempItemStateChanged(evt);
+            }
+        });
 
         jLabel5.setText("Primer Entrenador:");
 
@@ -190,6 +173,11 @@ public class NuevoEquipo extends javax.swing.JFrame {
         });
 
         botonAñadir.setText("Añadir");
+        botonAñadir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAñadirActionPerformed(evt);
+            }
+        });
 
         jScrollPane1.setViewportView(alumnosMostrados);
 
@@ -197,11 +185,39 @@ public class NuevoEquipo extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(alumnosSeleccionados);
 
-        jLabel8.setText("Alumnos");
+        jLabel8.setText("Alumnos seleccionados:");
 
         comboEntrenador.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Entrenador-" }));
+        comboEntrenador.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboEntrenadorItemStateChanged(evt);
+            }
+        });
+        comboEntrenador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboEntrenadorActionPerformed(evt);
+            }
+        });
 
         comboEntrenador2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Entrenador-" }));
+
+        PerteneceFundacion.setText("Fundacion");
+        PerteneceFundacion.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                PerteneceFundacionStateChanged(evt);
+            }
+        });
+        PerteneceFundacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PerteneceFundacionActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setText("Alumnos Disponibles: ");
+
+        nAlumnosDisponibles.setText("0");
+
+        nAlumnosSeleccionados.setText("0");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -216,54 +232,65 @@ public class NuevoEquipo extends javax.swing.JFrame {
                         .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(botonGuardar)
                                 .addGap(18, 18, 18)
                                 .addComponent(botonCancelar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(textSegundoEnt, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(comboEntrenador2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel1)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(textNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel3)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(comboCat, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(comboTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel7)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(18, 18, 18)
-                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(botonAñadir)
-                                                    .addComponent(jButton1)))
-                                            .addComponent(jLabel7))
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(jLabel10)
+                                                        .addGap(1, 1, 1)
+                                                        .addComponent(nAlumnosDisponibles))
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGap(18, 18, 18)
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                            .addComponent(botonAñadir)
+                                                            .addComponent(jButton1))))))
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabel8)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(nAlumnosSeleccionados)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(jLabel9))
                                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(layout.createSequentialGroup()
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addComponent(jLabel5)
                                         .addGap(29, 29, 29)
                                         .addComponent(textPrimerEnt, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(comboEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(comboEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(textNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(comboCat, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(comboTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(PerteneceFundacion))
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(textSegundoEnt, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(comboEntrenador2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
@@ -275,14 +302,15 @@ public class NuevoEquipo extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(jLabel1)
-                .addGap(35, 35, 35)
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(comboTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PerteneceFundacion))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -301,7 +329,8 @@ public class NuevoEquipo extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel9))
+                    .addComponent(jLabel9)
+                    .addComponent(nAlumnosSeleccionados))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -310,14 +339,18 @@ public class NuevoEquipo extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(botonGuardar)
-                            .addComponent(botonCancelar)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(botonGuardar)
+                                .addComponent(botonCancelar))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel10)
+                                .addComponent(nAlumnosDisponibles))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(botonAñadir)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1)))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -331,17 +364,13 @@ public class NuevoEquipo extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_textPrimerEntActionPerformed
 
-    private void comboCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCatActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboCatActionPerformed
-
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
         try {
-            GestorEquipos.InsertarDatosEquipo(creador.accesoBD, textNombre.getText(), comboTemp.getSelectedItem().toString(),
+            GestorEquipos.InsertarDatosEquipo(accesoBD, textNombre.getText(), comboTemp.getSelectedItem().toString(),
                     comboCat.getSelectedItem().toString(), textPrimerEnt.getText(), textSegundoEnt.getText());
         } catch (SQLException ex) {
             Logger.getLogger(NuevoEquipo.class.getName()).log(Level.SEVERE, null, ex);
@@ -367,6 +396,87 @@ public class NuevoEquipo extends javax.swing.JFrame {
         textSegundoEnt.setText("");
         textSegundoEnt.requestFocus();
     }//GEN-LAST:event_textSegundoEntMouseClicked
+
+    private void botonAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAñadirActionPerformed
+        // TODO add your handling code here:
+        List<String> ListaAlumnosSelec = new ArrayList<String>();
+        ListaAlumnosSelec.addAll(alumnosMostrados.getSelectedValuesList());
+
+        DefaultListModel modelo=  new DefaultListModel();
+        
+        alumnosMostrados.setModel(modelo);
+                
+        
+        for(int i = 0; i < ListaAlumnosSelec.size(); i++){
+            modelo.addElement(ListaAlumnosSelec.get(i));
+        }
+                
+        alumnosSeleccionados.setModel(modelo);
+        nAlumnosSeleccionados.setText(Integer.toString(ListaAlumnosSelec.size()));
+        ActualizarJlist(ListaAlumnosSelec);
+    }//GEN-LAST:event_botonAñadirActionPerformed
+/*
+    private void comboEntrenadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEntrenadorActionPerformed
+        // TODO add your handling code here:
+        comboEntrenador2.removeAllItems();
+        ActualizarCombo2Entrenador(comboEntrenador.getSelectedItem().toString());
+    }//GEN-LAST:event_comboEntrenadorActionPerformed
+*/
+    private void PerteneceFundacionStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_PerteneceFundacionStateChanged
+    }//GEN-LAST:event_PerteneceFundacionStateChanged
+
+    private void PerteneceFundacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PerteneceFundacionActionPerformed
+        // TODO add your handling code here:
+
+        if (PerteneceFundacion.isSelected() == true) {
+            try {
+                ActualizarPrimerEntrenador();
+                textPrimerEnt.setEditable(true);
+                textSegundoEnt.setEditable(true);
+                jTextField1.setEditable(true);
+                actualizarCategoria();
+                actualizarTemporada();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(NuevoEquipo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+        if (PerteneceFundacion.isSelected() == false) {
+            textPrimerEnt.setEditable(false);
+            textSegundoEnt.setEditable(false);
+            jTextField1.setEditable(false);
+            comboEntrenador.removeAllItems();
+            comboEntrenador.addItem("-Entrenador-");
+            comboEntrenador2.removeAllItems();
+            comboEntrenador2.addItem("-Entrenador-");
+            DefaultListModel model = new DefaultListModel();
+            alumnosMostrados.setModel(model);
+
+        }
+    }//GEN-LAST:event_PerteneceFundacionActionPerformed
+
+    private void comboCatItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboCatItemStateChanged
+        // TODO add your handling code here:
+        DefaultListModel model = new DefaultListModel();
+        alumnosMostrados.setModel(model);
+        MostrarAlumnos();
+    }//GEN-LAST:event_comboCatItemStateChanged
+    private void comboEntrenadorActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void comboTempItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboTempItemStateChanged
+        // TODO add your handling code here:
+        /*DefaultListModel model = new DefaultListModel();
+         alumnosMostrados.setModel(model);
+         MostrarAlumnos();*/
+    }//GEN-LAST:event_comboTempItemStateChanged
+
+    private void comboEntrenadorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboEntrenadorItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboEntrenadorItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -403,6 +513,7 @@ public class NuevoEquipo extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox PerteneceFundacion;
     private javax.swing.JList alumnosMostrados;
     private javax.swing.JList alumnosSeleccionados;
     private javax.swing.JButton botonAñadir;
@@ -414,6 +525,7 @@ public class NuevoEquipo extends javax.swing.JFrame {
     private javax.swing.JComboBox comboTemp;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -427,44 +539,184 @@ public class NuevoEquipo extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel nAlumnosDisponibles;
+    private javax.swing.JLabel nAlumnosSeleccionados;
     private javax.swing.JTextField textNombre;
     private javax.swing.JTextField textPrimerEnt;
     private javax.swing.JTextField textSegundoEnt;
     // End of variables declaration//GEN-END:variables
 
-    private void actualizaComboCat(List<String> categorias) throws SQLException {
-        comboCat.removeAllItems();
-        for(String s : categorias)
-            comboCat.addItem(s);
-    }
-    
-    private void actualizaComboTemp(List<String> temps) throws SQLException {
-        comboTemp.removeAllItems();
-        for(String s : temps)
-            comboTemp.addItem(s);
-    }
-    
-    private void alumnosMostrados() {
+    private void MostrarAlumnos() {
 
-        String consulta = ("SELECT nombre, primerApellido, segundoApellido FROM Alumno, AlumnoEquipo WHERE Alumno.idAlumno NOT IN "
-                + "(SELECT Alumno_idAlumno FROM AlumnoEquipo)");
-
-        int nAl = 0;
-
-        ResultSet res = accesoBD.ejecutaConsulta(consulta);
-
+        int idCategoria = getIDCategoria();
+        int idTemporada = getIDTemporada();
         DefaultListModel modelo = new DefaultListModel();
+        ResultSet ret, retset;
+
+
+        String consulta = "SELECT Alumno_idAlumno FROM alumnogrupo WHERE "
+                + "Grupo_idGrupo IN (SELECT idGrupo FROM grupo) AND "
+                + "Grupo_Categoria_idCategoria = " + idCategoria
+                + " AND Grupo_Usuario_idUsuario IN (SELECT idUsuario FROM usuario) AND"
+                + " Grupo_Temporada_idTemporada = " + idTemporada;
+
+        System.out.print("\n\nConsulta alumnos equipo " + consulta + "\n");
+        ret = accesoBD.ejecutaConsulta(consulta);
         try {
-            while (res.next()) {
-                modelo.addElement(res.getString("primerApellido")
-                        + " " + res.getString("segundoApellido") + " " + res.getString("nombre"));
-                nAl++;
+            while (ret.next()) {
+                this.listaIDAlumnos.add(ret.getInt(1));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AñadirAlumno.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NuevoEquipo.class.getName()).log(Level.SEVERE, null, ex);
         }
+        try {
+            this.listaNombreAlumnos = GestorAlumnos.getNombreAl(accesoBD, listaIDAlumnos);
+        } catch (SQLException ex) {
+            Logger.getLogger(NuevoEquipo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        for (int i = 0; i < this.listaNombreAlumnos.size(); i++) {
+            modelo.addElement(this.listaNombreAlumnos.get(i));
+        }
+
+        alumnosMostrados.validate();
         alumnosMostrados.setModel(modelo);
-        jLabel9.setText(Integer.toString(nAl));
+        nAlumnosDisponibles.setText(Integer.toString(this.listaNombreAlumnos.size()));
 
     }
+
+    private int getIDCategoria() {
+
+        String consulta = "SELECT idCategoria FROM categoria WHERE"
+                + " tipo ='" + comboCat.getSelectedItem().toString() + "'";
+        int id = 0;
+        ResultSet ret = accesoBD.ejecutaConsulta(consulta);
+
+        System.out.print("\n\nConsulta categoria" + consulta + "\n");
+        try {
+            if (ret.next()) {
+                id = ret.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(NuevoEquipo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return id;
+    }
+
+    private int getIDTemporada() {
+        String consulta = "SELECT idTemporada FROM temporada WHERE "
+                + "curso ='" + comboTemp.getSelectedItem().toString() + "'";
+        int id = 0;
+        ResultSet ret = accesoBD.ejecutaConsulta(consulta);
+
+        System.out.print("\n\nConsulta categoria" + consulta + "\n");
+        try {
+            if (ret.next()) {
+                id = ret.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(NuevoEquipo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return id;
+    }
+
+    private void actualizarTemporada() throws SQLException {
+        comboTemp.removeAllItems();
+        String consulta = "SELECT curso FROM temporada";
+        ResultSet retset = accesoBD.ejecutaConsulta(consulta);
+
+        while (retset.next()) {
+            comboTemp.addItem(retset.getString(1));
+        }
+    }
+
+    private void actualizarCategoria() throws SQLException {
+        comboCat.removeAllItems();
+        String consulta = "SELECT tipo FROM categoria";
+        ResultSet retset = accesoBD.ejecutaConsulta(consulta);
+
+
+        while (retset.next()) {
+            System.out.println("VECES OLA");
+            comboCat.addItem(retset.getString(1));
+        }
+    }
+
+    private void ActualizarPrimerEntrenador() throws SQLException {
+        comboEntrenador.removeAllItems();
+        String consulta = "SELECT primerApellido, segundoApellido, nombre FROM usuario";
+        ResultSet retset = accesoBD.ejecutaConsulta(consulta);
+
+        while (retset.next()) {
+            comboEntrenador.addItem(retset.getString(1) + " " + retset.getString(2) + " "
+                    + retset.getString(3));
+        }
+    }
+
+    private void ActualizaSegundoEntrenador() throws SQLException {
+        comboEntrenador2.removeAllItems();
+        String consulta = "SELECT primerApellido, segundoApellido, nombre FROM usuario";
+        ResultSet retset = accesoBD.ejecutaConsulta(consulta);
+
+        while (retset.next()) {
+            comboEntrenador2.addItem(retset.getString(1) + " " + retset.getString(2) + " "
+                    + retset.getString(3));
+        }
+    }
+
+    private void ActualizarCombo2Entrenador(String name) {
+        String entrenador = name;
+        comboEntrenador2.removeAllItems();
+        String aux, pApellido, sApellido, nombre;
+
+        pApellido = entrenador.substring(0, entrenador.indexOf(" "));
+        aux = entrenador.substring(entrenador.indexOf(" ") + 1, entrenador.length());
+        sApellido = aux.substring(0, aux.indexOf(" "));
+        nombre = aux.substring(aux.indexOf(" "), aux.length());
+
+        String consulta = "SELECT primerApellido, segundoApellido, nombre FROM usuario"
+                + " WHERE idUsuario NOT IN (SELECT idUsuario FROM usuario WHERE"
+                + " nombre ='" + nombre + "' AND primerApellido ='" + pApellido
+                + "' AND segundoApellido ='" + sApellido + "')";
+
+        System.out.print("\n\nConsulta 2º entrenador\n" + consulta);
+
+        ResultSet retset = accesoBD.ejecutaConsulta(consulta);
+        try {
+            while (retset.next()) {
+                comboEntrenador2.addItem(retset.getString(1) + " " + retset.getString(2) + " "
+                        + retset.getString(3));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(NuevoEquipo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void ActualizarJlist(List<String> ListaAlumnos) {
+        DefaultListModel modelo1=  new DefaultListModel();
+        alumnosMostrados.setModel(modelo1);
+        List<Integer> ListaIDAlumnosMostrados = new ArrayList<Integer>();
+        try {
+            ListaIDAlumnosMostrados = GestorAlumnos.getIdAl(accesoBD, ListaAlumnos);
+        } catch (SQLException ex) {
+            Logger.getLogger(NuevoEquipo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            String Consulta = "SELECT primerApellido, segundoApellido, nombre FROM alumno WHERE idAlumno NOT IN ("
+                    + ListaIDAlumnosMostrados + ")";
+            ResultSet ret;
+            ret = accesoBD.ejecutaConsulta(Consulta);
+            try {
+                if (ret.next()) {
+                    modelo1.addElement(ret.getString(1) + " " + ret.getString(2) + " " + ret.getString(3));
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(NuevoEquipo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+
+        alumnosMostrados.setModel(modelo1);
+        nAlumnosDisponibles.setText(Integer.toString(ListaIDAlumnosMostrados.size()));
+}
 }
