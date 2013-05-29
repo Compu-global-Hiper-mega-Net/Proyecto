@@ -102,6 +102,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         accesoBD = acceso;
         this.usuario = usuario;
         initComponents();
+        ocultarPaneles();
+        menuInicioMouseClicked(null);
         initComponentsSegunUsuario();
     }
 
@@ -2296,11 +2298,7 @@ private void menuJugadoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIR
 }//GEN-LAST:event_menuJugadoresMouseClicked
 
 private void menuInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuInicioMouseClicked
-    /*panelInicio.setVisible(true);
-     panelJugadores.setVisible(false);
-     panelUsuarios.setVisible(false);
-     panelTemporadas.setVisible(false);
-     panelGrupos.setVisible(false);*/
+
     ocultarPaneles();
     panelInicio.setVisible(true);
 }//GEN-LAST:event_menuInicioMouseClicked
