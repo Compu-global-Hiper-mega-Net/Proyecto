@@ -198,6 +198,7 @@ public class NuevoEquipo extends javax.swing.JFrame {
             }
         });
 
+        alumnosSeleccionados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(alumnosSeleccionados);
 
         jLabel8.setText("Alumnos seleccionados:");
@@ -394,9 +395,12 @@ public class NuevoEquipo extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
+        DefaultListModel modelo = new DefaultListModel();
+        modelo = (DefaultListModel) alumnosSeleccionados.getModel();
         try {
             GestorEquipos.InsertarDatosEquipo(accesoBD, textNombre.getText(), comboTemp.getSelectedItem().toString(),
                     comboCat.getSelectedItem().toString(), textPrimerEnt.getText(), textSegundoEnt.getText());
+            GestorEquipos.InsertarJugadoresEquipo(accesoBD, modelo);
         } catch (SQLException ex) {
             Logger.getLogger(NuevoEquipo.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -534,42 +538,25 @@ public class NuevoEquipo extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         DefaultListModel modelo = new DefaultListModel();
-        DefaultListModel peta = new DefaultListModel();
+        DefaultListModel ModeloAlumnos = new DefaultListModel();
         List<Integer> listaseleccionados = new ArrayList<Integer>();
         List<Integer> listaNOseleccionados = new ArrayList<Integer>();
-        List<String> frisk = new ArrayList<String>();
-        int indices[] = (int[]) alumnosSeleccionados.getSelectedIndices();
-
-        frisk = alumnosSeleccionados.getSelectedValuesList();
-        System.out.println("\nBonjorno" + frisk);
-        System.out.println("\nAIIIIII" + Integer.parseInt(nAlumnosSeleccionados.getText()));
-
-        for (int i = 0; i < Integer.parseInt(nAlumnosSeleccionados.getText()); i++) {
-            boolean existe = false;
-            for (int j = 0; j < indices.length && !existe; j++) {
-                if (indices[j] == i) {
-                    existe = true;
-                }
-            }
-            if (!existe) {
-                listaNOseleccionados.add(i + 1);
-            }
-        }
-
 
         modelo = (DefaultListModel) alumnosMostrados.getModel();
+        ModeloAlumnos = (DefaultListModel) alumnosSeleccionados.getModel();
+
         modelo.addElement(alumnosSeleccionados.getSelectedValue());
 
-        System.out.print("\n\nBussca" + listaNOseleccionados);
+        ModeloAlumnos.remove(alumnosSeleccionados.getSelectedIndex());
 
-        for (int i = 0; i < listaNOseleccionados.size(); i++) {
-            //peta.addElement(alumnosSeleccionados.);
-        }
 
-        System.out.print("\n\nPuto calvo " + peta);
-        
-        alumnosSeleccionados.setModel(peta);
         alumnosMostrados.setModel(modelo);
+        alumnosSeleccionados.setModel(ModeloAlumnos);
+        
+        System.out.print("\nModelo alumnos " + modelo);
+        
+       nAlumnosDisponibles.setText(Integer.toString(modelo.size()));
+       nAlumnosSeleccionados.setText(Integer.toString(ModeloAlumnos.size()));
     }//GEN-LAST:event_jButton1ActionPerformed
     /**/
 

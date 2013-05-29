@@ -3854,11 +3854,11 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
     }//GEN-LAST:event_comboCatEquipoActionPerformed
 
     private void botonNuevoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoEquipoActionPerformed
-        /*try {
-            new NuevoEquipo(this).setVisible(true);
+        try {
+            new NuevoEquipo(accesoBD).setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
     }//GEN-LAST:event_botonNuevoEquipoActionPerformed
 
     private void menuPagosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuPagosMouseClicked
