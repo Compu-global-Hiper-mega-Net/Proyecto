@@ -4193,7 +4193,11 @@ private void pagos_botonMostrarActionPerformed(java.awt.event.ActionEvent evt) {
                     }
                 }
                 tablaPagos.setValueAt(retset.getString("cuota.fecha"), i, 4);
-                tablaPagos.setValueAt(retset.getBoolean("cuota.pagado"), i, 5);
+                if(retset.getBoolean("cuota.pagado")==true){
+                    tablaPagos.setValueAt("Pagado", i, 5);
+                }else{
+                    tablaPagos.setValueAt("Debido", i, 5);
+                }              
                 tablaPagos.setValueAt(retset.getString("a.email"), i, 6);
                 tablaPagos.setValueAt(retset.getString("a.telfijo"), i, 7);
                 tablaPagos.setValueAt(retset.getString("a.telmovil"), i, 8);
@@ -4218,7 +4222,11 @@ private void pagos_botonMostrarActionPerformed(java.awt.event.ActionEvent evt) {
                     }
                 }
                 tablaPagos.setValueAt(retset.getString("cuota.fecha"), i, 4);
-                tablaPagos.setValueAt(retset.getBoolean("cuota.pagado"), i, 5);
+                if(retset.getBoolean("cuota.pagado")==true){
+                    tablaPagos.setValueAt("Pagado", i, 5);
+                }else{
+                    tablaPagos.setValueAt("Debido", i, 5);
+                } 
                 tablaPagos.setValueAt(retset.getString("a.email"), i, 6);
                 tablaPagos.setValueAt(retset.getString("a.telfijo"), i, 7);
                 tablaPagos.setValueAt(retset.getString("a.telmovil"), i, 8);
@@ -4376,7 +4384,11 @@ private void pagos_botonDeudoresActionPerformed(java.awt.event.ActionEvent evt) 
                     }
                 }
                 tablaPagos.setValueAt(retset.getString("cuota.fecha"), i, 4);
-                tablaPagos.setValueAt(retset.getBoolean("cuota.pagado"), i, 5);
+                if(retset.getBoolean("cuota.pagado")==true){
+                    tablaPagos.setValueAt("Pagado", i, 5);
+                }else{
+                    tablaPagos.setValueAt("Debido", i, 5);
+                } 
                 tablaPagos.setValueAt(retset.getString("a.email"), i, 6);
                 tablaPagos.setValueAt(retset.getString("a.telfijo"), i, 7);
                 tablaPagos.setValueAt(retset.getString("a.telmovil"), i, 8);
@@ -4401,7 +4413,11 @@ private void pagos_botonDeudoresActionPerformed(java.awt.event.ActionEvent evt) 
                     }
                 }
                 tablaPagos.setValueAt(retset.getString("cuota.fecha"), i, 4);
-                tablaPagos.setValueAt(retset.getBoolean("cuota.pagado"), i, 5);
+                if(retset.getBoolean("cuota.pagado")==true){
+                    tablaPagos.setValueAt("Pagado", i, 5);
+                }else{
+                    tablaPagos.setValueAt("Debido", i, 5);
+                } 
                 tablaPagos.setValueAt(retset.getString("a.email"), i, 6);
                 tablaPagos.setValueAt(retset.getString("a.telfijo"), i, 7);
                 tablaPagos.setValueAt(retset.getString("a.telmovil"), i, 8);
