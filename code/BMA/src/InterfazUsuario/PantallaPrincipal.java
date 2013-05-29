@@ -2428,6 +2428,11 @@ private void menuInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
         errorModifFijoUsuario.setVisible(false);
         errorEliminarUsuario.setVisible(false);
     }
+    
+    public void mostrarAdios(int a){
+        a = a + 1;
+        System.out.print(a);
+    }
 
 	public void mostrarSaludo(String a)
 	{
