@@ -2,6 +2,7 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
+DROP SCHEMA IF EXISTS `mydb` ;
 CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
 USE `mydb` ;
 
@@ -115,7 +116,7 @@ DROP TABLE IF EXISTS `mydb`.`liga` ;
 
 CREATE  TABLE IF NOT EXISTS `mydb`.`liga` (
   `idLiga` INT NOT NULL AUTO_INCREMENT ,
-  `nombre` VARCHAR(45) NOT NULL ,
+  `nombre` VARCHAR(45) NULL ,
   PRIMARY KEY (`idLiga`) )
 ENGINE = InnoDB;
 
@@ -129,14 +130,15 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`equipo` (
   `idEquipo` INT(11) NOT NULL AUTO_INCREMENT ,
   `Fundacion_idFundacion` INT(11) NOT NULL ,
   `Categoria_idCategoria` INT(11) NOT NULL ,
-  `Temporada_idTemporada` INT(11) NOT NULL ,
   `nombre` VARCHAR(45) NOT NULL ,
   `fundacion` TINYINT(1) NOT NULL ,
   `liga_idLiga` INT NOT NULL ,
-  PRIMARY KEY (`idEquipo`, `Fundacion_idFundacion`, `Categoria_idCategoria`, `Temporada_idTemporada`, `liga_idLiga`) ,
+  `temporada_idTemporada` INT(11) NOT NULL ,
+  PRIMARY KEY (`idEquipo`, `Fundacion_idFundacion`, `Categoria_idCategoria`, `liga_idLiga`, `temporada_idTemporada`) ,
   INDEX `fk_Equipo_Fundacion_idx` (`Fundacion_idFundacion` ASC) ,
   INDEX `fk_Equipo_Categoria1_idx` (`Categoria_idCategoria` ASC) ,
   INDEX `fk_equipo_liga1_idx` (`liga_idLiga` ASC) ,
+  INDEX `fk_equipo_temporada1_idx` (`temporada_idTemporada` ASC) ,
   CONSTRAINT `fk_Equipo_Categoria1`
     FOREIGN KEY (`Categoria_idCategoria` )
     REFERENCES `mydb`.`categoria` (`idCategoria` )
@@ -150,6 +152,11 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`equipo` (
   CONSTRAINT `fk_equipo_liga1`
     FOREIGN KEY (`liga_idLiga` )
     REFERENCES `mydb`.`liga` (`idLiga` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_equipo_temporada1`
+    FOREIGN KEY (`temporada_idTemporada` )
+    REFERENCES `mydb`.`temporada` (`idTemporada` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -179,21 +186,6 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`alumnoequipo` (
     REFERENCES `mydb`.`equipo` (`idEquipo` , `Fundacion_idFundacion` , `Categoria_idCategoria` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `mydb`.`temporada`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`temporada` ;
-
-CREATE  TABLE IF NOT EXISTS `mydb`.`temporada` (
-  `idTemporada` INT(11) NOT NULL AUTO_INCREMENT ,
-  `curso` VARCHAR(45) NOT NULL ,
-  `inicio` DATE NULL DEFAULT NULL ,
-  `fin` DATE NULL DEFAULT NULL ,
-  PRIMARY KEY (`idTemporada`) )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -334,12 +326,10 @@ DROP TABLE IF EXISTS `mydb`.`alumnotemporada` ;
 
 CREATE  TABLE IF NOT EXISTS `mydb`.`alumnotemporada` (
   `Alumno_idAlumno` INT(11) NOT NULL ,
-  `Alumno_Grupo_idGrupo` INT(11) NOT NULL ,
-  `Alumno_Grupo_Categoria_idCategoria` INT(11) NOT NULL ,
   `Temporada_idTemporada` INT(11) NOT NULL ,
-  PRIMARY KEY (`Alumno_idAlumno`, `Alumno_Grupo_idGrupo`, `Alumno_Grupo_Categoria_idCategoria`, `Temporada_idTemporada`) ,
+  PRIMARY KEY (`Alumno_idAlumno`, `Temporada_idTemporada`) ,
   INDEX `fk_Alumno_has_Temporada_Temporada1_idx` (`Temporada_idTemporada` ASC) ,
-  INDEX `fk_Alumno_has_Temporada_Alumno1_idx` (`Alumno_idAlumno` ASC, `Alumno_Grupo_idGrupo` ASC, `Alumno_Grupo_Categoria_idCategoria` ASC) ,
+  INDEX `fk_Alumno_has_Temporada_Alumno1_idx` (`Alumno_idAlumno` ASC) ,
   CONSTRAINT `fk_Alumno_has_Temporada_Alumno1`
     FOREIGN KEY (`Alumno_idAlumno` )
     REFERENCES `mydb`.`alumno` (`idAlumno` )
@@ -361,7 +351,6 @@ DROP TABLE IF EXISTS `mydb`.`cuota` ;
 
 CREATE  TABLE IF NOT EXISTS `mydb`.`cuota` (
   `idCuota` INT(11) NOT NULL AUTO_INCREMENT ,
-  `importe` FLOAT NOT NULL ,
   `fecha` DATE NOT NULL ,
   `pagado` TINYINT(1) NULL DEFAULT NULL ,
   PRIMARY KEY (`idCuota`) )
@@ -411,15 +400,13 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`pagotemporada` (
   `idPagoTemporada` INT(11) NOT NULL AUTO_INCREMENT ,
   `Cuota_idCuota` INT(11) NOT NULL ,
   `AlumnoTemporada_Alumno_idAlumno` INT(11) NOT NULL ,
-  `AlumnoTemporada_Alumno_Grupo_idGrupo` INT(11) NOT NULL ,
-  `AlumnoTemporada_Alumno_Grupo_Categoria_idCategoria` INT(11) NOT NULL ,
   `AlumnoTemporada_Temporada_idTemporada` INT(11) NOT NULL ,
-  PRIMARY KEY (`idPagoTemporada`, `Cuota_idCuota`, `AlumnoTemporada_Alumno_idAlumno`, `AlumnoTemporada_Alumno_Grupo_idGrupo`, `AlumnoTemporada_Alumno_Grupo_Categoria_idCategoria`, `AlumnoTemporada_Temporada_idTemporada`) ,
+  PRIMARY KEY (`idPagoTemporada`, `Cuota_idCuota`, `AlumnoTemporada_Alumno_idAlumno`, `AlumnoTemporada_Temporada_idTemporada`) ,
   INDEX `fk_PagoTemporada_Cuota1_idx` (`Cuota_idCuota` ASC) ,
-  INDEX `fk_PagoTemporada_AlumnoTemporada1_idx` (`AlumnoTemporada_Alumno_idAlumno` ASC, `AlumnoTemporada_Alumno_Grupo_idGrupo` ASC, `AlumnoTemporada_Alumno_Grupo_Categoria_idCategoria` ASC, `AlumnoTemporada_Temporada_idTemporada` ASC) ,
+  INDEX `fk_PagoTemporada_AlumnoTemporada1_idx` (`AlumnoTemporada_Alumno_idAlumno` ASC, `AlumnoTemporada_Temporada_idTemporada` ASC) ,
   CONSTRAINT `fk_PagoTemporada_AlumnoTemporada1`
-    FOREIGN KEY (`AlumnoTemporada_Alumno_idAlumno` , `AlumnoTemporada_Alumno_Grupo_idGrupo` , `AlumnoTemporada_Alumno_Grupo_Categoria_idCategoria` , `AlumnoTemporada_Temporada_idTemporada` )
-    REFERENCES `mydb`.`alumnotemporada` (`Alumno_idAlumno` , `Alumno_Grupo_idGrupo` , `Alumno_Grupo_Categoria_idCategoria` , `Temporada_idTemporada` )
+    FOREIGN KEY (`AlumnoTemporada_Alumno_idAlumno` , `AlumnoTemporada_Temporada_idTemporada` )
+    REFERENCES `mydb`.`alumnotemporada` (`Alumno_idAlumno` , `Temporada_idTemporada` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_PagoTemporada_Cuota1`
@@ -447,41 +434,13 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`rango` (
   INDEX `fk_Usuario_has_Equipo_Equipo1_idx` (`Equipo_idEquipo` ASC, `Equipo_Fundacion_idFundacion` ASC, `Equipo_Categoria_idCategoria` ASC, `Equipo_Temporada_idTemporada` ASC) ,
   INDEX `fk_Usuario_has_Equipo_Usuario1_idx` (`Usuario_idUsuario` ASC) ,
   CONSTRAINT `fk_Usuario_has_Equipo_Equipo1`
-    FOREIGN KEY (`Equipo_idEquipo` , `Equipo_Fundacion_idFundacion` , `Equipo_Categoria_idCategoria` , `Equipo_Temporada_idTemporada` )
-    REFERENCES `mydb`.`equipo` (`idEquipo` , `Fundacion_idFundacion` , `Categoria_idCategoria` , `Temporada_idTemporada` )
+    FOREIGN KEY (`Equipo_idEquipo` , `Equipo_Fundacion_idFundacion` , `Equipo_Categoria_idCategoria` )
+    REFERENCES `mydb`.`equipo` (`idEquipo` , `Fundacion_idFundacion` , `Categoria_idCategoria` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Usuario_has_Equipo_Usuario1`
     FOREIGN KEY (`Usuario_idUsuario` )
     REFERENCES `mydb`.`usuario` (`idUsuario` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `mydb`.`temporadaequipo`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`temporadaequipo` ;
-
-CREATE  TABLE IF NOT EXISTS `mydb`.`temporadaequipo` (
-  `Temporada_idTemporada` INT(11) NOT NULL ,
-  `Equipo_idEquipo` INT(11) NOT NULL ,
-  `Equipo_Fundacion_idFundacion` INT(11) NOT NULL ,
-  `Equipo_Categoria_idCategoria` INT(11) NOT NULL ,
-  `Equipo_Temporada_idTemporada` INT(11) NOT NULL ,
-  PRIMARY KEY (`Temporada_idTemporada`, `Equipo_idEquipo`, `Equipo_Fundacion_idFundacion`, `Equipo_Categoria_idCategoria`, `Equipo_Temporada_idTemporada`) ,
-  INDEX `fk_Temporada_has_Equipo_Equipo1_idx` (`Equipo_idEquipo` ASC, `Equipo_Fundacion_idFundacion` ASC, `Equipo_Categoria_idCategoria` ASC, `Equipo_Temporada_idTemporada` ASC) ,
-  INDEX `fk_Temporada_has_Equipo_Temporada1_idx` (`Temporada_idTemporada` ASC) ,
-  CONSTRAINT `fk_Temporada_has_Equipo_Equipo1`
-    FOREIGN KEY (`Equipo_idEquipo` , `Equipo_Fundacion_idFundacion` , `Equipo_Categoria_idCategoria` , `Equipo_Temporada_idTemporada` )
-    REFERENCES `mydb`.`equipo` (`idEquipo` , `Fundacion_idFundacion` , `Categoria_idCategoria` , `Temporada_idTemporada` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Temporada_has_Equipo_Temporada1`
-    FOREIGN KEY (`Temporada_idTemporada` )
-    REFERENCES `mydb`.`temporada` (`idTemporada` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -538,13 +497,13 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`partido` (
   INDEX `fk_equipo_has_equipo_equipo2_idx` (`idEquipoVisitante` ASC, `equipo_Fundacion_idFundacion1` ASC, `equipo_Categoria_idCategoria1` ASC, `equipo_Temporada_idTemporada1` ASC, `equipo_liga_idLiga1` ASC) ,
   INDEX `fk_equipo_has_equipo_equipo1_idx` (`idEquipo` ASC, `equipo_Fundacion_idFundacion` ASC, `equipo_Categoria_idCategoria` ASC, `equipo_Temporada_idTemporada` ASC, `equipo_liga_idLiga` ASC) ,
   CONSTRAINT `fk_equipo_has_equipo_equipo1`
-    FOREIGN KEY (`idEquipo` , `equipo_Fundacion_idFundacion` , `equipo_Categoria_idCategoria` , `equipo_Temporada_idTemporada` , `equipo_liga_idLiga` )
-    REFERENCES `mydb`.`equipo` (`idEquipo` , `Fundacion_idFundacion` , `Categoria_idCategoria` , `Temporada_idTemporada` , `liga_idLiga` )
+    FOREIGN KEY (`idEquipo` , `equipo_Fundacion_idFundacion` , `equipo_Categoria_idCategoria` , `equipo_liga_idLiga` )
+    REFERENCES `mydb`.`equipo` (`idEquipo` , `Fundacion_idFundacion` , `Categoria_idCategoria` , `liga_idLiga` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_equipo_has_equipo_equipo2`
-    FOREIGN KEY (`idEquipoVisitante` , `equipo_Fundacion_idFundacion1` , `equipo_Categoria_idCategoria1` , `equipo_Temporada_idTemporada1` , `equipo_liga_idLiga1` )
-    REFERENCES `mydb`.`equipo` (`idEquipo` , `Fundacion_idFundacion` , `Categoria_idCategoria` , `Temporada_idTemporada` , `liga_idLiga` )
+    FOREIGN KEY (`idEquipoVisitante` , `equipo_Fundacion_idFundacion1` , `equipo_Categoria_idCategoria1` , `equipo_liga_idLiga1` )
+    REFERENCES `mydb`.`equipo` (`idEquipo` , `Fundacion_idFundacion` , `Categoria_idCategoria` , `liga_idLiga` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -552,11 +511,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`partido_has_alumno`
+-- Table `mydb`.`EstadisticaAlumno`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`partido_has_alumno` ;
+DROP TABLE IF EXISTS `mydb`.`EstadisticaAlumno` ;
 
-CREATE  TABLE IF NOT EXISTS `mydb`.`partido_has_alumno` (
+CREATE  TABLE IF NOT EXISTS `mydb`.`EstadisticaAlumno` (
   `partido_idPartido` INT(11) NOT NULL ,
   `partido_idEquipo` INT(11) NOT NULL ,
   `partido_equipo_Fundacion_idFundacion` INT(11) NOT NULL ,
@@ -569,6 +528,12 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`partido_has_alumno` (
   `partido_equipo_Temporada_idTemporada1` INT(11) NOT NULL ,
   `partido_equipo_liga_idLiga1` INT NOT NULL ,
   `alumno_idAlumno` INT(11) NOT NULL ,
+  `puntos` INT NULL ,
+  `rebotesOfensivos` INT NULL ,
+  `rebotesDefensivos` INT NULL ,
+  `asistencias` INT NULL ,
+  `robos` INT NULL ,
+  `perdidas` INT NULL ,
   PRIMARY KEY (`partido_idPartido`, `partido_idEquipo`, `partido_equipo_Fundacion_idFundacion`, `partido_equipo_Categoria_idCategoria`, `partido_equipo_Temporada_idTemporada`, `partido_equipo_liga_idLiga`, `partido_idEquipoVisitante`, `partido_equipo_Fundacion_idFundacion1`, `partido_equipo_Categoria_idCategoria1`, `partido_equipo_Temporada_idTemporada1`, `partido_equipo_liga_idLiga1`, `alumno_idAlumno`) ,
   INDEX `fk_partido_has_alumno_alumno1_idx` (`alumno_idAlumno` ASC) ,
   INDEX `fk_partido_has_alumno_partido1_idx` (`partido_idPartido` ASC, `partido_idEquipo` ASC, `partido_equipo_Fundacion_idFundacion` ASC, `partido_equipo_Categoria_idCategoria` ASC, `partido_equipo_Temporada_idTemporada` ASC, `partido_equipo_liga_idLiga` ASC, `partido_idEquipoVisitante` ASC, `partido_equipo_Fundacion_idFundacion1` ASC, `partido_equipo_Categoria_idCategoria1` ASC, `partido_equipo_Temporada_idTemporada1` ASC, `partido_equipo_liga_idLiga1` ASC) ,
