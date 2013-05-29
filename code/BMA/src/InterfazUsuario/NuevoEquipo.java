@@ -399,16 +399,12 @@ public class NuevoEquipo extends javax.swing.JFrame {
         modelo = (DefaultListModel) alumnosSeleccionados.getModel();
         try {
             GestorEquipos.InsertarDatosEquipo(accesoBD, textNombre.getText(), comboTemp.getSelectedItem().toString(),
-                    comboCat.getSelectedItem().toString(), textPrimerEnt.getText(), textSegundoEnt.getText());
-            GestorEquipos.InsertarJugadoresEquipo(accesoBD, modelo);
+                    comboCat.getSelectedItem().toString(), textPrimerEnt.getText(), textSegundoEnt.getText(), PerteneceFundacion.isSelected());
+            GestorEquipos.InsertarJugadoresEquipo(accesoBD, modelo,comboCat.getSelectedItem().toString(),textNombre.getText());
         } catch (SQLException ex) {
             Logger.getLogger(NuevoEquipo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        try {
-            creador.actualizaTablaEquipos();
-        } catch (SQLException ex) {
-            Logger.getLogger(NuevoEquipo.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
         this.setVisible(false);
     }//GEN-LAST:event_botonGuardarActionPerformed
 

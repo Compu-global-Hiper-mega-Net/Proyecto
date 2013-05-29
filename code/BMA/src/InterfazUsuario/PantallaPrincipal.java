@@ -3945,36 +3945,7 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void botonEliminarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarEquipoActionPerformed
-        Equipo equipo;
-        String nombre, categoria, temporada, entrenador, entrenador2;
 
-        int filaSelec = tablaEquipos.getSelectedRow();
-
-        nombre = tablaEquipos.getValueAt(filaSelec, 0).toString();
-        categoria = tablaEquipos.getValueAt(filaSelec, 1).toString();
-        temporada = tablaEquipos.getValueAt(filaSelec, 2).toString();
-        entrenador = tablaEquipos.getValueAt(filaSelec, 3).toString();
-
-        System.out.println("\nNombre: " + nombre);
-        System.out.println("\nCategoria: " + categoria);
-        System.out.println("\nTemporada: " + temporada);
-        System.out.println("\nPrimer Entrenador: " + entrenador);
-
-        equipo = new Equipo(nombre, temporada, categoria, entrenador, "");
-
-        boolean equipoEliminado = false;
-
-        try {
-            equipoEliminado = GestorEquipos.EliminarEquipo(accesoBD, equipo);
-        } catch (SQLException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        if (equipoEliminado) {
-            JOptionPane.showMessageDialog(this, "Equipo eliminado con exito", "Exito", JOptionPane.NO_OPTION);
-        } else {
-            JOptionPane.showMessageDialog(this, "No se ha podido eliminar el equipo", "Error", JOptionPane.ERROR_MESSAGE);
-        }
     }//GEN-LAST:event_botonEliminarEquipoActionPerformed
 
     private void botonNuevaCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevaCatActionPerformed
@@ -5012,53 +4983,11 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     }
 
     public void actualizaTablaEquiposFiltro(String nombre, String temporada, String categoria, String entrenador) throws SQLException {
-        List<Equipo> equipos = new ArrayList<Equipo>();
 
-        equipos = GestorEquipos.ConsultaEquipo(accesoBD, nombre, temporada, categoria, entrenador);
-
-        DefaultTableModel dtm = new DefaultTableModel();
-        dtm.addColumn("Nombre");
-        dtm.addColumn("Categoria");
-        dtm.addColumn("Temporada");
-        dtm.addColumn("Primer Entrenador");
-
-        Object[] fila = new Object[4];
-        for (Equipo it : equipos) {
-            fila[0] = it.getNombre();
-            fila[1] = it.getCategoria().getNombreCategoria().toString();
-            fila[2] = it.getTemporada().getCurso().toString();
-            fila[3] = it.getEntrenador().getNombre().toString();
-            dtm.addRow(fila);
-        }
-
-        tablaEquipos.setModel(dtm);
-
-        labelNumeroEquipos.setText(Integer.toString(tablaEquipos.getRowCount()));
     }
 
     public void actualizaTablaEquipos() throws SQLException {
-        List<Equipo> equipos = new ArrayList<Equipo>();
 
-        equipos = GestorEquipos.getListaEquipos(accesoBD);
-
-        DefaultTableModel dtm = new DefaultTableModel();
-        dtm.addColumn("Nombre");
-        dtm.addColumn("Categoria");
-        dtm.addColumn("Temporada");
-        dtm.addColumn("Primer Entrenador");
-
-        Object[] fila = new Object[4];
-        for (Equipo it : equipos) {
-            fila[0] = it.getNombre();
-            fila[1] = it.getCategoria().getNombreCategoria().toString();
-            fila[2] = it.getTemporada().getCurso().toString();
-            fila[3] = it.getEntrenador().getNombre().toString();
-            dtm.addRow(fila);
-        }
-
-        tablaEquipos.setModel(dtm);
-
-        labelNumeroEquipos.setText(Integer.toString(tablaEquipos.getRowCount()));
     }
 
 

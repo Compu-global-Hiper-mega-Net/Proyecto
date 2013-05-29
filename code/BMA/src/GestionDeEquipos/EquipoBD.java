@@ -4,6 +4,7 @@
  */
 package GestionDeEquipos;
 
+import GestionActividades.AccesoBDActividad;
 import GestionDeCategorias.GestorCategorias;
 import GestionDeTemporadas.GestorTemporadas;
 import GestionDeTemporadas.TemporadaBD;
@@ -17,85 +18,85 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author 
+ * @author
  */
 
 /*
  ******************************************************************************
-                   (c) Copyright 2013 
-                   * 
-                   * Moisés Gautier Gómez
-                   * Julio Ros Martínez
-                   * Francisco Javier Gómez del Olmo
-                   * Francisco Santolalla Quiñonero
-                   * Carlos Jesús Fernández Basso
-                   * Alexander Moreno Borrego
-                   * Jesús Manuel Contreras Siles
-                   * Diego Muñoz Rio
+ (c) Copyright 2013 
+ * 
+ * Moisés Gautier Gómez
+ * Julio Ros Martínez
+ * Francisco Javier Gómez del Olmo
+ * Francisco Santolalla Quiñonero
+ * Carlos Jesús Fernández Basso
+ * Alexander Moreno Borrego
+ * Jesús Manuel Contreras Siles
+ * Diego Muñoz Rio
  
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************
  */
-
 public class EquipoBD {
 
     //Filtrar entrenador correctamente
     static ResultSet BuscarEquipos(BaseDatos accesoBD, String nombre, String temporada, String categoria, String entrenador) throws SQLException {
 
         int idCategoria = GestorCategorias.getIdCategoria(accesoBD, categoria);
-    
+
         String select = "SELECT DISTINCT Equipo.nombre, Categoria.tipo, Temporada.curso";
-        if(!"".equals(entrenador))
+        if (!"".equals(entrenador)) {
             select += ", Usuario.nombre ";
-        
+        }
+
         String from = "FROM Equipo, Categoria, Temporada, Rango, Usuario ";
-        
+
         String condicion = "WHERE ";
 
         if (!"".equals(nombre) || !"-Categoria-".equals(categoria) || !"-Temporada-".equals(temporada) || !"".equals(entrenador)) {
-            
+
             if (!"".equals(nombre)) {
                 condicion += "Equipo.nombre='" + nombre + "' AND ";
-            }       
+            }
             if (!"-Categoria-".equals(categoria)) {
                 condicion += "Categoria.idCategoria='" + idCategoria + "' AND ";
-            }           
+            }
             if (!"-Temporada-".equals(temporada)) {
                 condicion += "Temporada.idTemporada='" + GestorTemporadas.getIdTemporada(accesoBD, temporada) + "' AND ";
-            }            
+            }
             if (!"".equals(entrenador)) {
                 condicion += "Rango.Usuario_idUsuario='" + getIdUsuario(accesoBD, entrenador, "primero") + "' AND ";
-                condicion += "Usuario.idUsuario=Rango.Usuario_idUsuario AND ";   
-            }    
-            
+                condicion += "Usuario.idUsuario=Rango.Usuario_idUsuario AND ";
+            }
+
         }
-        condicion = condicion.substring(0, condicion.length()-5);
+        condicion = condicion.substring(0, condicion.length() - 5);
         select = select + from + condicion;
 
         System.out.println("\nLa consulta es: " + select);
         ResultSet listaEquipos = accesoBD.ejecutaConsulta(select);
- 
+
         return listaEquipos;
     }
-    
+
     //Correcta
     static int getIdEq(BaseDatos accesoBD, String nombre, String categoria) throws SQLException {
 
         int idEquipo = 0;
-        
+
         int idCategoria = GestorCategorias.getIdCategoria(accesoBD, categoria);
-        
+
         String consulta = "SELECT idEquipo FROM Equipo WHERE Equipo.nombre='" + nombre + "' AND Categoria_idCategoria='" + idCategoria + "'";
 
         ResultSet res = accesoBD.ejecutaConsulta(consulta);
@@ -122,41 +123,43 @@ public class EquipoBD {
 
         return id;
     }
-    
+
     //Filtrar entrenador
-    static List<Equipo> getListaEquipos(BaseDatos accesoBD) throws SQLException{
-        
+    static List<Equipo> getListaEquipos(BaseDatos accesoBD) throws SQLException {
+
         List<Equipo> equipos = new ArrayList();
-        
-        String consulta = "SELECT Equipo.nombre, Categoria.tipo, Temporada.curso, Usuario.nombre "
-                        + "FROM Equipo, Categoria, Temporada, Usuario, Rango "
-                        + "WHERE Equipo.Categoria_idCategoria = Categoria.idCategoria AND "
-                        + "Equipo.Temporada_idTemporada = Temporada.idTemporada AND "
-                        + "Usuario.idUsuario = Rango.Usuario_idUsuario AND "
-                        + "Rango.Equipo_idEquipo = Equipo.idEquipo AND "
-                        + "Rango.tipo = 'primero'";
-        
+
+        String consulta = "SELECT Equipo.nombre, Categoria.tipo, Temporada.curso, Usuario.nombre, Equipo.fundacion "
+                + "FROM Equipo, Categoria, Temporada, Usuario, Rango "
+                + "WHERE Equipo.Categoria_idCategoria = Categoria.idCategoria AND "
+                + "Equipo.Temporada_idTemporada = Temporada.idTemporada AND "
+                + "Usuario.idUsuario = Rango.Usuario_idUsuario AND "
+                + "Rango.Equipo_idEquipo = Equipo.idEquipo AND "
+                + "Rango.tipo = 'primero'";
+
         ResultSet res = accesoBD.ejecutaConsulta(consulta);
-        
+
         String n;
         String temp;
         String cat;
         String entrena;
-        String entrena2="";
+        String entrena2 = "";
+        boolean fundacion;
         Equipo eq;
-        
-        while(res.next()){
+
+        while (res.next()) {
             n = res.getString(1);
             cat = res.getString(2);
             temp = res.getString(3);
             entrena = res.getString(4);
-            eq = new Equipo(n, temp, cat, entrena, entrena2);
+            fundacion = res.getBoolean(5);
+            eq = new Equipo(n, temp, cat, entrena, entrena2, fundacion);
 
             equipos.add(eq);
         }
-            
+
         System.out.println("\nLa consulta es: " + consulta);
-        
+
         return equipos;
     }
 
@@ -165,9 +168,9 @@ public class EquipoBD {
 
         boolean equipoEliminado = true;
 
-        int idCategoria = GestorCategorias.getIdCategoria(accesoBD, e.getCategoria().getNombreCategoria());
-        int idEquipo = getIdEq(accesoBD, e.getNombre(), e.getCategoria().getNombreCategoria());
-        
+        int idCategoria = GestorCategorias.getIdCategoria(accesoBD, e.getCategoria());
+        int idEquipo = getIdEq(accesoBD, e.getNombre(), e.getCategoria());
+
         //String delete1 = "DELETE FROM Rango WHERE Equipo_idEquipo='" + idEquipo + "' AND Equipo_Categoria_idCategoria='"+idCategoria+"'";
         //String delete2 = "DELETE FROM TemporadaEquipo where temporadaequipo.Equipo_idEquipo= " + idEquipo;
         String delete3 = "DELETE FROM Equipo WHERE Equipo.idEquipo= " + idEquipo;
@@ -180,7 +183,7 @@ public class EquipoBD {
         //System.out.println("\nDELETE 1: " + delete1);
         //System.out.println("\nDELETE 2: " + delete2);
         System.out.println("\nDELETE 3: " + delete3);
-        
+
         return equipoEliminado;
     }
 
@@ -191,17 +194,17 @@ public class EquipoBD {
         boolean validar;
 
         int idCategoria = GestorCategorias.getIdCategoria(accesoBD, categoria);
-        
+
         String consulta = "SELECT Equipo.nombre, Categoria.tipo, Temporada.curso "
-                        + "FROM Equipo, Categoria, Temporada "
-                        + "WHERE Equipo.nombre='"+nombre+"' "
-                        + "AND Categoria.idCategoria='" + idCategoria + "' "
-                        + "AND Temporada.idTemporada='" + GestorTemporadas.getIdTemporada(accesoBD, temporada) + "'";
-                
+                + "FROM Equipo, Categoria, Temporada "
+                + "WHERE Equipo.nombre='" + nombre + "' "
+                + "AND Categoria.idCategoria='" + idCategoria + "' "
+                + "AND Temporada.idTemporada='" + GestorTemporadas.getIdTemporada(accesoBD, temporada) + "'";
+
         ResultSet res = accesoBD.ejecutaConsulta(consulta);
 
         System.out.println("\nLa consulta es: " + consulta);
-        
+
         if (res.next()) {
             validar = false;
         } else {
@@ -213,44 +216,66 @@ public class EquipoBD {
 
     //Correcta
     static void crearEquipoBD(BaseDatos accesoBD, Equipo equipo) throws SQLException {
-        
-        int idTemporada = GestorTemporadas.getIdTemporada(accesoBD, equipo.getTemporada().getCurso());
-        int idCategoria = GestorCategorias.getIdCategoria(accesoBD, equipo.getCategoria().getNombreCategoria());        
-        int idEntrenador = getIdUsuario(accesoBD, equipo.getEntrenador().getNombre(), "primero");
-        int idEntrenador2 = getIdUsuario(accesoBD, equipo.getEntrenador2().getNombre(), "segundo");
-        
+
+        int idTemporada = GestorTemporadas.getIdTemporada(accesoBD, equipo.getTemporada());
+        int idCategoria = GestorCategorias.getIdCategoria(accesoBD, equipo.getCategoria());
+        int idEntrenador = getIdUsuario(accesoBD, equipo.getEntrenador(), "primero");
+        int idEntrenador2 = getIdUsuario(accesoBD, equipo.getEntrenador2(), "segundo");
+        int idFundacion = getIDFundacion(accesoBD);
+        int idLiga = getIDLiga(accesoBD);
+
         //Insertar en Equipo
-        String consulta = "INSERT INTO Equipo (Fundacion_idFundacion, Categoria_idCategoria, Temporada_idTemporada, nombre)"
-                        + "VALUES (1, '"+idCategoria+"', '"+idTemporada+"', '"+equipo.getNombre()+"')";
+        String Consulta = "INSERT INTO equipo (Fundacion_idFundacion, Categoria_idCategoria, nombre, fundacion, liga_idLiga, "
+                + "temporada_idTemporada) VALUES ("
+                + idFundacion + ", " + idCategoria + ", '" + equipo.getNombre() + "', " + equipo.getFundacion() + ", "
+                + idLiga + ", " + idTemporada + ")";
+        System.out.print("\n\nAcanderMore " + Consulta);
+        
+        accesoBD.ejecutaActualizacion(Consulta);
 
-        int res1;
-        res1 = accesoBD.ejecutaActualizacion(consulta);
-        
-        int idEquipo = getIdEq(accesoBD, equipo.getNombre(), equipo.getCategoria().getNombreCategoria());
-        
-        if(!"".equals(equipo.getEntrenador().getNombre())){
-        //Insertar el Primer Entrenador en Rango
-            String consulta2 = "INSERT INTO Rango (Usuario_idUsuario, Equipo_idEquipo, Equipo_Fundacion_idFundacion, Equipo_Categoria_idCategoria, Equipo_Temporada_idTEmporada, tipo)"
-                + "VALUES ('"+idEntrenador+"', '"+ idEquipo +"', 1, '"+idCategoria+"', '"+idTemporada+"', 'primero')";
-        
-            int res2;
-            res2 = accesoBD.ejecutaActualizacion(consulta2);
-        }
-        
-        if(!"".equals(equipo.getEntrenador2().getNombre())){
-            //Insertar el Segundo Entrenador en Rango
-            String consulta3 = "INSERT INTO Rango (Usuario_idUsuario, Equipo_idEquipo, Equipo_Fundacion_idFundacion, Equipo_Categoria_idCategoria, Equipo_Temporada_idTEmporada, tipo)"
-                    + "VALUES ('"+idEntrenador2+"', '"+ idEquipo +"', 1, '"+idCategoria+"', '"+idTemporada+"', 'segundo')";
-
-            int res3;
-            res3 = accesoBD.ejecutaActualizacion(consulta3);
-        }
-        
-        String consulta4 = "INSERT INTO TemporadaEquipo (Temporada_idTemporada, Equipo_idEquipo, Equipo_Fundacion_idFundacion, Equipo_Categoria_idCategoria, Equipo_Temporada_idTEmporada)"
-                         + "VALUES ('"+idTemporada+"', '"+ idEquipo +"', 1, '"+idCategoria+"', '"+idTemporada+"')";
-        
-        int res4;
-        res4 = accesoBD.ejecutaActualizacion(consulta4);
     }
 
+    static void InsertarAlumno (BaseDatos acceso, int equipo, int alumno, int fundacion, int categoria) throws SQLException{
+        String consulta = "INSERT INTO alumnoequipo (Alumno_idAlumno, Equipo_idEquipo, Equipo_Fundacion_idFundacion,"
+                + "Equipo_Categoria_idCategoria) VALUES ("+
+                alumno + ", " + equipo + ", " + fundacion + ", " + categoria + ")";
+        
+        acceso.ejecutaActualizacion(consulta);
+        
+    }
+    
+    static int getIDFundacion(BaseDatos acceso) {
+        String consulta = "SELECT idFundacion FROM fundacion";
+        int id = 0;
+        ResultSet ret;
+
+        ret = acceso.ejecutaConsulta(consulta);
+        try {
+            if (ret.next()) {
+                id = ret.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EquipoBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return id;
+    }
+
+    private static int getIDLiga(BaseDatos acceso) {
+        String consulta = "SELECT idLiga FROM liga";
+        int id = 0;
+        ResultSet ret;
+
+        ret = acceso.ejecutaConsulta(consulta);
+        try {
+            if (ret.next()) {
+                id = ret.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EquipoBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return id;
+    }
+    
 }
