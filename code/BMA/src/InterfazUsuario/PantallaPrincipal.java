@@ -2431,6 +2431,7 @@ private void menuInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
     
     public void mostrarAdios(int a){
         a = a + 1;
+		a = a / a;
         System.out.print(a);
     }
 
