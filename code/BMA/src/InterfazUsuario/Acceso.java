@@ -13,8 +13,7 @@ import javax.swing.JOptionPane;
 /**
  * Interfaz de acceso
  * @author Francisco
- */
-
+ *
 /*
  ******************************************************************************
                    (c) Copyright 2013 

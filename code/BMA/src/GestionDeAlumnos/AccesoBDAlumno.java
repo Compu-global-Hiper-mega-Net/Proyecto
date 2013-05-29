@@ -136,6 +136,7 @@ class AccesoBDAlumno {
             
         String query = "SELECT idAlumno FROM Alumno WHERE primerApellido='"+apellido1+"'"
                 + " AND segundoApellido='"+apellido2+"'";
+
         ResultSet res = accesoBD.ejecutaConsulta(query);
           
         System.out.println(","+apellido1+","+apellido2+",");
