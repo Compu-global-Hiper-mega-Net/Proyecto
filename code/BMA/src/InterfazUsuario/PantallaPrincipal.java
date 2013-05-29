@@ -2378,6 +2378,11 @@ private void menuInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
         errorEliminarUsuario.setVisible(false);
     }
 
+	public void mostrarSaludo(String a)
+	{
+		System.out.println("Esto es una prueba de merge\n");
+	}
+
 private void botonMostrarAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarAlumnosActionPerformed
     try {
         String consulta_alumnos = leeConsultaAlumnosInterfaz();
