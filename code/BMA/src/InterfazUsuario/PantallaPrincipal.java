@@ -8,7 +8,6 @@
  *
  * Created on 16-mar-2013, 16:58:04
  */
-
 package InterfazUsuario;
 
 import GestionActividades.GestorActividad;
@@ -49,32 +48,31 @@ import javax.swing.table.DefaultTableModel;
 
 /*
  ******************************************************************************
-                   (c) Copyright 2013 
-                   * 
-                   * Moisés Gautier Gómez
-                   * Julio Ros Martínez
-                   * Francisco Javier Gómez del Olmo
-                   * Francisco Santolalla Quiñonero
-                   * Carlos Jesús Fernández Basso
-                   * Alexander Moreno Borrego
-                   * Jesús Manuel Contreras Siles
-                   * Diego Muñoz Rio
+ (c) Copyright 2013 
+ * 
+ * Moisés Gautier Gómez
+ * Julio Ros Martínez
+ * Francisco Javier Gómez del Olmo
+ * Francisco Santolalla Quiñonero
+ * Carlos Jesús Fernández Basso
+ * Alexander Moreno Borrego
+ * Jesús Manuel Contreras Siles
+ * Diego Muñoz Rio
  
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************
  */
-
 public class PantallaPrincipal extends javax.swing.JFrame {
 
     BaseDatos accesoBD;
@@ -91,6 +89,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     String consultaActividadesMostradas;
     Border bordeError;
     String consultaPagosMostrados;
+
     /**
      * Creates new form InterfazPrincipal
      */
@@ -973,12 +972,27 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         getContentPane().add(panelGrupos, gridBagConstraints);
 
         panelInstalaciones.setVisible(false);
+        panelInstalaciones.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        panelInstalaciones.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
+        TituloLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         TituloLabel.setText("Instalaciones");
 
         BuscarporLabel.setText("Buscar instalacion");
 
         NombreInsLabel.setText("Nombre");
+
+        nombreIns.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nombreInsKeyTyped(evt);
+            }
+        });
+
+        nombreCalleInst.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nombreCalleInstKeyTyped(evt);
+            }
+        });
 
         MenuDireccionLabel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "Calle", "Avenida", "Plaza", "Carretera" }));
         MenuDireccionLabel.addActionListener(new java.awt.event.ActionListener() {
@@ -996,6 +1010,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         capacidadInst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 capacidadInstActionPerformed(evt);
+            }
+        });
+        capacidadInst.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                capacidadInstKeyTyped(evt);
             }
         });
 
@@ -1112,17 +1131,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addComponent(eliminarButton))
                 .addGap(38, 38, 38)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.gridheight = 3;
-        gridBagConstraints.ipadx = 164;
-        gridBagConstraints.ipady = 92;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
+        gridBagConstraints.gridx = 4;
         getContentPane().add(panelInstalaciones, gridBagConstraints);
 
         panelEquipos.setVisible(false);
@@ -1521,17 +1534,31 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         getContentPane().add(panelPagos, gridBagConstraints);
 
         panelInstalaciones.setVisible(false);
+        panelActividades.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        panelActividades.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         panelActividades.setMinimumSize(new java.awt.Dimension(1300, 640));
 
+        actividadesLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         actividadesLabel.setText("Actividades");
 
         buscarLabel.setText("Buscar por");
 
         nombreLabel.setText("Nombre");
 
+        nombreTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nombreTextFieldKeyTyped(evt);
+            }
+        });
+
         fechaInicioLabel.setText("Fecha inicio");
 
         fechaInicioDateChooser.setDateFormatString("dd-MM-yyyy");
+        fechaInicioDateChooser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                fechaInicioDateChooserKeyTyped(evt);
+            }
+        });
 
         fechaFinLabel.setText("Fecha Fin");
 
@@ -1598,85 +1625,78 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         panelActividadesLayout.setHorizontalGroup(
             panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelActividadesLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelActividadesLayout.createSequentialGroup()
-                        .addComponent(AñaridAlumno)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Informacion))
-                    .addGroup(panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(300, 300, 300)
+                        .addComponent(fechaFinLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(fechaFinDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelActividadesLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buscarLabel)
+                            .addComponent(actividadesLabel)))
+                    .addGroup(panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(panelActividadesLayout.createSequentialGroup()
-                            .addGap(27, 27, 27)
-                            .addGroup(panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(buscarLabel)
-                                .addComponent(actividadesLabel)))
-                        .addGroup(panelActividadesLayout.createSequentialGroup()
-                            .addGap(129, 129, 129)
+                            .addContainerGap()
+                            .addComponent(AñaridAlumno)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(Informacion))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelActividadesLayout.createSequentialGroup()
+                            .addGap(81, 81, 81)
                             .addGroup(panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(panelActividadesLayout.createSequentialGroup()
                                     .addComponent(fechaInicioLabel)
                                     .addGap(18, 18, 18)
-                                    .addComponent(fechaInicioDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(37, 37, 37)
-                                    .addComponent(fechaFinLabel)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(fechaFinDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(fechaInicioDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(panelActividadesLayout.createSequentialGroup()
                                     .addComponent(nombreLabel)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(nombreTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(panelActividadesLayout.createSequentialGroup()
-                            .addGap(76, 76, 76)
-                            .addGroup(panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(nombreTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(panelActividadesLayout.createSequentialGroup()
                                     .addComponent(Insertar)
-                                    .addGap(18, 18, 18)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(Eliminar)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(Modificar))
                                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(909, Short.MAX_VALUE))
+                .addContainerGap(929, Short.MAX_VALUE))
         );
         panelActividadesLayout.setVerticalGroup(
             panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelActividadesLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(actividadesLabel)
+                .addGap(38, 38, 38)
+                .addComponent(buscarLabel)
+                .addGap(3, 3, 3)
+                .addGroup(panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nombreLabel)
+                    .addComponent(nombreTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(fechaInicioLabel)
                     .addComponent(fechaInicioDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelActividadesLayout.createSequentialGroup()
-                        .addComponent(actividadesLabel)
-                        .addGap(29, 29, 29)
-                        .addComponent(buscarLabel)
-                        .addGap(24, 24, 24)
-                        .addGroup(panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nombreLabel)
-                            .addComponent(nombreTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(34, 34, 34)
-                        .addComponent(fechaInicioLabel))
                     .addComponent(fechaFinLabel)
                     .addComponent(fechaFinDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                .addGap(18, 18, 18)
                 .addGroup(panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Insertar)
                     .addComponent(Eliminar)
                     .addComponent(Modificar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Informacion)
-                    .addComponent(AñaridAlumno))
-                .addContainerGap(363, Short.MAX_VALUE))
+                    .addComponent(AñaridAlumno)
+                    .addComponent(Informacion))
+                .addContainerGap(379, Short.MAX_VALUE))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.gridx = 4;
         gridBagConstraints.ipadx = 164;
         gridBagConstraints.ipady = 92;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
         gridBagConstraints.insets = new java.awt.Insets(22, 0, 22, 0);
         getContentPane().add(panelActividades, gridBagConstraints);
 
@@ -3736,7 +3756,7 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
             Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton5ActionPerformed
-    
+
     private void menuEquiposMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuEquiposMouseClicked
         ocultarPaneles();
         panelEquipos.setVisible(true);
@@ -3774,8 +3794,6 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
         }
         return idTemporada;
     }
-
-    
 
     private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarButtonActionPerformed
 
@@ -3913,25 +3931,25 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
     }//GEN-LAST:event_botonNuevoEquipoActionPerformed
 
     private void menuPagosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuPagosMouseClicked
-    ocultarPaneles();
-    panelPagos.setVisible(true);
-    ResultSet consulta;
-   
-    try {
-        consulta = accesoBD.ejecutaConsulta("SELECT * FROM grupo");
-        pago_grupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
-        while (consulta.next()) {
-            pago_grupo.addItem(consulta.getInt(1));
-        }
-        consulta = accesoBD.ejecutaConsulta("SELECT * FROM temporada");
-        pago_temporada.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
-        while (consulta.next()) {
-            pago_temporada.addItem(consulta.getString("curso"));
-        }
+        ocultarPaneles();
+        panelPagos.setVisible(true);
+        ResultSet consulta;
 
-    } catch (SQLException ex) {
-        System.out.print(ex.getMessage());
-    }
+        try {
+            consulta = accesoBD.ejecutaConsulta("SELECT * FROM grupo");
+            pago_grupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
+            while (consulta.next()) {
+                pago_grupo.addItem(consulta.getInt(1));
+            }
+            consulta = accesoBD.ejecutaConsulta("SELECT * FROM temporada");
+            pago_temporada.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
+            while (consulta.next()) {
+                pago_temporada.addItem(consulta.getString("curso"));
+            }
+
+        } catch (SQLException ex) {
+            System.out.print(ex.getMessage());
+        }
     }//GEN-LAST:event_menuPagosMouseClicked
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -3945,7 +3963,6 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void botonEliminarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarEquipoActionPerformed
-
     }//GEN-LAST:event_botonEliminarEquipoActionPerformed
 
     private void botonNuevaCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevaCatActionPerformed
@@ -4057,17 +4074,17 @@ private void pago_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         String tablasImplicadas = " FROM alumno a, cuota  ";
         String condicionesConsulta = " WHERE ";
 
-        if (pago_temporadaActividad.getSelectedItem().equals("Temporada")){
+        if (pago_temporadaActividad.getSelectedItem().equals("Temporada")) {
             //consulta por temporada y grupo
             consulta_pagos += " , temp.importeMensual, cuota.fecha, cuota.pagado, temp.curso ";
-            tablasImplicadas+= " , alumnotemporada altemp, pagotemporada pagotemp , temporada temp  ";
+            tablasImplicadas += " , alumnotemporada altemp, pagotemporada pagotemp , temporada temp  ";
             condicionesConsulta = condicionesConsulta + " altemp.Alumno_idAlumno=a.idAlumno AND "
-                        + "pagotemp.AlumnoTemporada_Alumno_idAlumno=altemp.Alumno_idAlumno AND pagotemp.AlumnoTemporada_Temporada_idTemporada=altemp.Temporada_idTemporada AND"
-                        + " pagotemp.cuota_idCuota=cuota.idCuota AND temp.idTemporada=altemp.Temporada_idTemporada AND ";
+                    + "pagotemp.AlumnoTemporada_Alumno_idAlumno=altemp.Alumno_idAlumno AND pagotemp.AlumnoTemporada_Temporada_idTemporada=altemp.Temporada_idTemporada AND"
+                    + " pagotemp.cuota_idCuota=cuota.idCuota AND temp.idTemporada=altemp.Temporada_idTemporada AND ";
             if (!pago_temporada.getSelectedItem().equals("")) {
-                condicionesConsulta = condicionesConsulta + " temp.curso='" + (String) pago_temporada.getSelectedItem() + "' AND ";                        
+                condicionesConsulta = condicionesConsulta + " temp.curso='" + (String) pago_temporada.getSelectedItem() + "' AND ";
             }
-            if (!pago_nombre.getText().equals("")) {              
+            if (!pago_nombre.getText().equals("")) {
                 condicionesConsulta = condicionesConsulta + " a.nombre LIKE'%" + pago_nombre.getText() + "%' AND ";
             }
             if (!pago_primer_apellido.getText().equals("")) {
@@ -4076,22 +4093,22 @@ private void pago_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
             if (!pago_segundo_apellido.getText().equals("")) {
                 condicionesConsulta = condicionesConsulta + " a.segundoApellido LIKE'%" + pago_segundo_apellido.getText() + "%' AND ";
             }
-            if(!pago_grupo.getSelectedItem().equals("")){
+            if (!pago_grupo.getSelectedItem().equals("")) {
                 tablasImplicadas = tablasImplicadas + " , alumnogrupo, grupo ";
-                condicionesConsulta = condicionesConsulta + " alumnogrupo.alumno_idalumno=a.idalumno AND alumnogrupo.grupo_idGrupo=grupo.idGrupo AND grupo.idGrupo="+ (Integer) pago_grupo.getSelectedItem()+" AND ";
+                condicionesConsulta = condicionesConsulta + " alumnogrupo.alumno_idalumno=a.idalumno AND alumnogrupo.grupo_idGrupo=grupo.idGrupo AND grupo.idGrupo=" + (Integer) pago_grupo.getSelectedItem() + " AND ";
             }
             condicionesConsulta = condicionesConsulta.substring(0, condicionesConsulta.length() - 4);
             tablasImplicadas = tablasImplicadas + condicionesConsulta;
-        }else{
+        } else {
             //Aqui consultamos los pagos de las actividades
             consulta_pagos += " , act.precioSocio, act.precioNoSocio, cuota.fecha, cuota.pagado, temp.idTemporada, a.idAlumno, temp.curso, act.nombre ";
-            tablasImplicadas+= " , pagoactividades pagoact , temporada temp, actividades act ";
+            tablasImplicadas += " , pagoactividades pagoact , temporada temp, actividades act ";
             condicionesConsulta = condicionesConsulta + " pagoact.actividades_idActividades=act.idActividades AND pagoact.alumno_idAlumno=a.idAlumno AND"
                     + " cuota.idCuota=pagoact.cuota_idCuota AND temp.idTemporada=act.temporada_idTemporada AND ";
             if (!pago_temporada.getSelectedItem().equals("")) {
-                condicionesConsulta = condicionesConsulta + " temp.curso='" + (String) pago_temporada.getSelectedItem() + "' AND ";                        
+                condicionesConsulta = condicionesConsulta + " temp.curso='" + (String) pago_temporada.getSelectedItem() + "' AND ";
             }
-            if (!pago_nombre.getText().equals("")) {              
+            if (!pago_nombre.getText().equals("")) {
                 condicionesConsulta = condicionesConsulta + " a.nombre LIKE'%" + pago_nombre.getText() + "%' AND ";
             }
             if (!pago_primer_apellido.getText().equals("")) {
@@ -4105,7 +4122,7 @@ private void pago_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
             }
             condicionesConsulta = condicionesConsulta.substring(0, condicionesConsulta.length() - 4);
             tablasImplicadas = tablasImplicadas + condicionesConsulta;
-            
+
         }
         consulta_pagos = consulta_pagos + tablasImplicadas;
 
@@ -4118,9 +4135,9 @@ private void pagos_botonMostrarActionPerformed(java.awt.event.ActionEvent evt) {
         consultaPagosMostrados = consulta_pagos;
         System.out.print("\nLA consulta a " + consulta_pagos + "; ");
         retset = GestorPagos.consultarPago(accesoBD, consulta_pagos);
-    if(consulta_pagos.indexOf("alumnotemporada")!=-1){    
-                tablaPagos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        if (consulta_pagos.indexOf("alumnotemporada") != -1) {
+            tablaPagos.setModel(new javax.swing.table.DefaultTableModel(
+                    new Object[][]{
                 {null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null},
@@ -4142,14 +4159,14 @@ private void pagos_botonMostrarActionPerformed(java.awt.event.ActionEvent evt) {
                 {null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null}
             },
-            new String [] {
+                    new String[]{
                 "Nombre", "Primer Apellido", "Segundo Apellido", "Importe", "Fecha", "Pagado/Debido", "Email", "Tel. Fijo", "Tel. Movil", "Temporada"
             }));
-                javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
-                modelo_tabla = tablaPagos.getModel();
-    }else{
-                tablaPagos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
+            modelo_tabla = tablaPagos.getModel();
+        } else {
+            tablaPagos.setModel(new javax.swing.table.DefaultTableModel(
+                    new Object[][]{
                 {null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null},
@@ -4171,38 +4188,38 @@ private void pagos_botonMostrarActionPerformed(java.awt.event.ActionEvent evt) {
                 {null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null}
             },
-            new String [] {
+                    new String[]{
                 "Nombre", "Primer Apellido", "Segundo Apellido", "Importe", "Fecha", "Pagado/Debido", "Email", "Tel. Fijo", "Tel. Movil", "Temporada", "Actividad"
             }));
-                javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
-                modelo_tabla = tablaPagos.getModel();        
-    }
+            javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
+            modelo_tabla = tablaPagos.getModel();
+        }
         int i = 0;
         while (retset.next()) {
             if (i < 20) {
                 tablaPagos.setValueAt(retset.getString("a.nombre"), i, 0);
                 tablaPagos.setValueAt(retset.getString("a.primerApellido"), i, 1);
-                tablaPagos.setValueAt(retset.getString("a.segundoApellido"), i, 2);    
-                if(consulta_pagos.indexOf("alumnotemporada")!=-1){
+                tablaPagos.setValueAt(retset.getString("a.segundoApellido"), i, 2);
+                if (consulta_pagos.indexOf("alumnotemporada") != -1) {
                     tablaPagos.setValueAt(retset.getFloat("temp.importeMensual"), i, 3);
-                }else{
-                    if(GestorPagos.compruebaSiAlumnoEraSocioEnEsaTemporada(accesoBD, retset.getInt("a.idAlumno"), retset.getInt("temp.idTemporada"))==true){
+                } else {
+                    if (GestorPagos.compruebaSiAlumnoEraSocioEnEsaTemporada(accesoBD, retset.getInt("a.idAlumno"), retset.getInt("temp.idTemporada")) == true) {
                         tablaPagos.setValueAt(retset.getFloat("act.precioSocio"), i, 3);
-                    }else{
+                    } else {
                         tablaPagos.setValueAt(retset.getFloat("act.precioNoSocio"), i, 3);
                     }
                 }
                 tablaPagos.setValueAt(retset.getString("cuota.fecha"), i, 4);
-                if(retset.getBoolean("cuota.pagado")==true){
+                if (retset.getBoolean("cuota.pagado") == true) {
                     tablaPagos.setValueAt("Pagado", i, 5);
-                }else{
+                } else {
                     tablaPagos.setValueAt("Debido", i, 5);
-                }              
+                }
                 tablaPagos.setValueAt(retset.getString("a.email"), i, 6);
                 tablaPagos.setValueAt(retset.getString("a.telfijo"), i, 7);
                 tablaPagos.setValueAt(retset.getString("a.telmovil"), i, 8);
                 tablaPagos.setValueAt(retset.getString("temp.curso"), i, 9);
-                if(consulta_pagos.indexOf("alumnotemporada")==-1){
+                if (consulta_pagos.indexOf("alumnotemporada") == -1) {
                     tablaPagos.setValueAt(retset.getString("act.nombre"), i, 10);
                 }
             } else {
@@ -4211,27 +4228,27 @@ private void pagos_botonMostrarActionPerformed(java.awt.event.ActionEvent evt) {
                 temp.addRow(nuevo);
                 tablaPagos.setValueAt(retset.getString("a.nombre"), i, 0);
                 tablaPagos.setValueAt(retset.getString("a.primerApellido"), i, 1);
-                tablaPagos.setValueAt(retset.getString("a.segundoApellido"), i, 2);    
-                if(consulta_pagos.indexOf("alumnotemporada")!=-1){
+                tablaPagos.setValueAt(retset.getString("a.segundoApellido"), i, 2);
+                if (consulta_pagos.indexOf("alumnotemporada") != -1) {
                     tablaPagos.setValueAt(retset.getFloat("temp.importeMensual"), i, 3);
-                }else{
-                    if(GestorPagos.compruebaSiAlumnoEraSocioEnEsaTemporada(accesoBD, retset.getInt("a.idAlumno"), retset.getInt("temp.idTemporada"))==true){
+                } else {
+                    if (GestorPagos.compruebaSiAlumnoEraSocioEnEsaTemporada(accesoBD, retset.getInt("a.idAlumno"), retset.getInt("temp.idTemporada")) == true) {
                         tablaPagos.setValueAt(retset.getFloat("act.precioSocio"), i, 3);
-                    }else{
+                    } else {
                         tablaPagos.setValueAt(retset.getFloat("act.precioNoSocio"), i, 3);
                     }
                 }
                 tablaPagos.setValueAt(retset.getString("cuota.fecha"), i, 4);
-                if(retset.getBoolean("cuota.pagado")==true){
+                if (retset.getBoolean("cuota.pagado") == true) {
                     tablaPagos.setValueAt("Pagado", i, 5);
-                }else{
+                } else {
                     tablaPagos.setValueAt("Debido", i, 5);
-                } 
+                }
                 tablaPagos.setValueAt(retset.getString("a.email"), i, 6);
                 tablaPagos.setValueAt(retset.getString("a.telfijo"), i, 7);
                 tablaPagos.setValueAt(retset.getString("a.telmovil"), i, 8);
                 tablaPagos.setValueAt(retset.getString("temp.curso"), i, 9);
-                if(consulta_pagos.indexOf("alumnotemporada")==-1){
+                if (consulta_pagos.indexOf("alumnotemporada") == -1) {
                     tablaPagos.setValueAt(retset.getString("act.nombre"), i, 10);
                 }
             }
@@ -4249,17 +4266,17 @@ private void pagos_botonMostrarActionPerformed(java.awt.event.ActionEvent evt) {
         String tablasImplicadas = " FROM alumno a, cuota  ";
         String condicionesConsulta = " WHERE ";
 
-        if (pago_temporadaActividad.getSelectedItem().equals("Temporada")){
+        if (pago_temporadaActividad.getSelectedItem().equals("Temporada")) {
             //consulta por temporada y grupo
             consulta_pagos += " , temp.importeMensual, cuota.fecha, cuota.pagado, temp.curso ";
-            tablasImplicadas+= " , alumnotemporada altemp, pagotemporada pagotemp , temporada temp  ";
+            tablasImplicadas += " , alumnotemporada altemp, pagotemporada pagotemp , temporada temp  ";
             condicionesConsulta = condicionesConsulta + " altemp.Alumno_idAlumno=a.idAlumno AND "
-                        + "pagotemp.AlumnoTemporada_Alumno_idAlumno=altemp.Alumno_idAlumno AND pagotemp.AlumnoTemporada_Temporada_idTemporada=altemp.Temporada_idTemporada AND"
-                        + " pagotemp.cuota_idCuota=cuota.idCuota AND temp.idTemporada=altemp.Temporada_idTemporada AND cuota.pagado=false AND ";
+                    + "pagotemp.AlumnoTemporada_Alumno_idAlumno=altemp.Alumno_idAlumno AND pagotemp.AlumnoTemporada_Temporada_idTemporada=altemp.Temporada_idTemporada AND"
+                    + " pagotemp.cuota_idCuota=cuota.idCuota AND temp.idTemporada=altemp.Temporada_idTemporada AND cuota.pagado=false AND ";
             if (!pago_temporada.getSelectedItem().equals("")) {
-                condicionesConsulta = condicionesConsulta + " temp.curso='" + (String) pago_temporada.getSelectedItem() + "' AND ";                        
+                condicionesConsulta = condicionesConsulta + " temp.curso='" + (String) pago_temporada.getSelectedItem() + "' AND ";
             }
-            if (!pago_nombre.getText().equals("")) {              
+            if (!pago_nombre.getText().equals("")) {
                 condicionesConsulta = condicionesConsulta + " a.nombre LIKE'%" + pago_nombre.getText() + "%' AND ";
             }
             if (!pago_primer_apellido.getText().equals("")) {
@@ -4268,22 +4285,22 @@ private void pagos_botonMostrarActionPerformed(java.awt.event.ActionEvent evt) {
             if (!pago_segundo_apellido.getText().equals("")) {
                 condicionesConsulta = condicionesConsulta + " a.segundoApellido LIKE'%" + pago_segundo_apellido.getText() + "%' AND ";
             }
-            if(!pago_grupo.getSelectedItem().equals("")){
+            if (!pago_grupo.getSelectedItem().equals("")) {
                 tablasImplicadas = tablasImplicadas + " , alumnogrupo, grupo ";
-                condicionesConsulta = condicionesConsulta + " alumnogrupo.alumno_idalumno=a.idalumno AND alumnogrupo.grupo_idGrupo=grupo.idGrupo AND grupo.idGrupo="+ (Integer) pago_grupo.getSelectedItem()+" AND ";
+                condicionesConsulta = condicionesConsulta + " alumnogrupo.alumno_idalumno=a.idalumno AND alumnogrupo.grupo_idGrupo=grupo.idGrupo AND grupo.idGrupo=" + (Integer) pago_grupo.getSelectedItem() + " AND ";
             }
             condicionesConsulta = condicionesConsulta.substring(0, condicionesConsulta.length() - 4);
             tablasImplicadas = tablasImplicadas + condicionesConsulta;
-        }else{
+        } else {
             //Aqui consultamos los pagos de las actividades
             consulta_pagos += " , act.precioSocio, act.precioNoSocio, cuota.fecha, cuota.pagado, temp.idTemporada, a.idAlumno, temp.curso, act.nombre ";
-            tablasImplicadas+= " , pagoactividades pagoact , temporada temp, actividades act ";
+            tablasImplicadas += " , pagoactividades pagoact , temporada temp, actividades act ";
             condicionesConsulta = condicionesConsulta + " pagoact.actividades_idActividades=act.idActividades AND pagoact.alumno_idAlumno=a.idAlumno AND"
                     + " cuota.idCuota=pagoact.cuota_idCuota AND temp.idTemporada=act.temporada_idTemporada AND cuota.pagado=false AND ";
             if (!pago_temporada.getSelectedItem().equals("")) {
-                condicionesConsulta = condicionesConsulta + " temp.curso='" + (String) pago_temporada.getSelectedItem() + "' AND ";                        
+                condicionesConsulta = condicionesConsulta + " temp.curso='" + (String) pago_temporada.getSelectedItem() + "' AND ";
             }
-            if (!pago_nombre.getText().equals("")) {              
+            if (!pago_nombre.getText().equals("")) {
                 condicionesConsulta = condicionesConsulta + " a.nombre LIKE'%" + pago_nombre.getText() + "%' AND ";
             }
             if (!pago_primer_apellido.getText().equals("")) {
@@ -4297,7 +4314,7 @@ private void pagos_botonMostrarActionPerformed(java.awt.event.ActionEvent evt) {
             }
             condicionesConsulta = condicionesConsulta.substring(0, condicionesConsulta.length() - 4);
             tablasImplicadas = tablasImplicadas + condicionesConsulta;
-            
+
         }
         consulta_pagos = consulta_pagos + tablasImplicadas;
 
@@ -4309,9 +4326,9 @@ private void pagos_botonDeudoresActionPerformed(java.awt.event.ActionEvent evt) 
         consultaPagosMostrados = consulta_pagos;
         System.out.print("\nLA consulta a " + consulta_pagos + "; ");
         retset = GestorPagos.consultarPago(accesoBD, consulta_pagos);
-    if(consulta_pagos.indexOf("alumnotemporada")!=-1){    
-                tablaPagos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        if (consulta_pagos.indexOf("alumnotemporada") != -1) {
+            tablaPagos.setModel(new javax.swing.table.DefaultTableModel(
+                    new Object[][]{
                 {null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null},
@@ -4333,14 +4350,14 @@ private void pagos_botonDeudoresActionPerformed(java.awt.event.ActionEvent evt) 
                 {null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null}
             },
-            new String [] {
+                    new String[]{
                 "Nombre", "Primer Apellido", "Segundo Apellido", "Importe", "Fecha", "Pagado/Debido", "Email", "Tel. Fijo", "Tel. Movil", "Temporada"
             }));
-                javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
-                modelo_tabla = tablaPagos.getModel();
-    }else{
-                tablaPagos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+            javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
+            modelo_tabla = tablaPagos.getModel();
+        } else {
+            tablaPagos.setModel(new javax.swing.table.DefaultTableModel(
+                    new Object[][]{
                 {null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null},
@@ -4362,38 +4379,38 @@ private void pagos_botonDeudoresActionPerformed(java.awt.event.ActionEvent evt) 
                 {null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null}
             },
-            new String [] {
+                    new String[]{
                 "Nombre", "Primer Apellido", "Segundo Apellido", "Importe", "Fecha", "Pagado/Debido", "Email", "Tel. Fijo", "Tel. Movil", "Temporada", "Actividad"
             }));
-                javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
-                modelo_tabla = tablaPagos.getModel();        
-    }
+            javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
+            modelo_tabla = tablaPagos.getModel();
+        }
         int i = 0;
         while (retset.next()) {
             if (i < 20) {
                 tablaPagos.setValueAt(retset.getString("a.nombre"), i, 0);
                 tablaPagos.setValueAt(retset.getString("a.primerApellido"), i, 1);
-                tablaPagos.setValueAt(retset.getString("a.segundoApellido"), i, 2);    
-                if(consulta_pagos.indexOf("alumnotemporada")!=-1){
+                tablaPagos.setValueAt(retset.getString("a.segundoApellido"), i, 2);
+                if (consulta_pagos.indexOf("alumnotemporada") != -1) {
                     tablaPagos.setValueAt(retset.getFloat("temp.importeMensual"), i, 3);
-                }else{
-                    if(GestorPagos.compruebaSiAlumnoEraSocioEnEsaTemporada(accesoBD, retset.getInt("a.idAlumno"), retset.getInt("temp.idTemporada"))==true){
+                } else {
+                    if (GestorPagos.compruebaSiAlumnoEraSocioEnEsaTemporada(accesoBD, retset.getInt("a.idAlumno"), retset.getInt("temp.idTemporada")) == true) {
                         tablaPagos.setValueAt(retset.getFloat("act.precioSocio"), i, 3);
-                    }else{
+                    } else {
                         tablaPagos.setValueAt(retset.getFloat("act.precioNoSocio"), i, 3);
                     }
                 }
                 tablaPagos.setValueAt(retset.getString("cuota.fecha"), i, 4);
-                if(retset.getBoolean("cuota.pagado")==true){
+                if (retset.getBoolean("cuota.pagado") == true) {
                     tablaPagos.setValueAt("Pagado", i, 5);
-                }else{
+                } else {
                     tablaPagos.setValueAt("Debido", i, 5);
-                } 
+                }
                 tablaPagos.setValueAt(retset.getString("a.email"), i, 6);
                 tablaPagos.setValueAt(retset.getString("a.telfijo"), i, 7);
                 tablaPagos.setValueAt(retset.getString("a.telmovil"), i, 8);
                 tablaPagos.setValueAt(retset.getString("temp.curso"), i, 9);
-                if(consulta_pagos.indexOf("alumnotemporada")==-1){
+                if (consulta_pagos.indexOf("alumnotemporada") == -1) {
                     tablaPagos.setValueAt(retset.getString("act.nombre"), i, 10);
                 }
             } else {
@@ -4402,27 +4419,27 @@ private void pagos_botonDeudoresActionPerformed(java.awt.event.ActionEvent evt) 
                 temp.addRow(nuevo);
                 tablaPagos.setValueAt(retset.getString("a.nombre"), i, 0);
                 tablaPagos.setValueAt(retset.getString("a.primerApellido"), i, 1);
-                tablaPagos.setValueAt(retset.getString("a.segundoApellido"), i, 2);    
-                if(consulta_pagos.indexOf("alumnotemporada")!=-1){
+                tablaPagos.setValueAt(retset.getString("a.segundoApellido"), i, 2);
+                if (consulta_pagos.indexOf("alumnotemporada") != -1) {
                     tablaPagos.setValueAt(retset.getFloat("temp.importeMensual"), i, 3);
-                }else{
-                    if(GestorPagos.compruebaSiAlumnoEraSocioEnEsaTemporada(accesoBD, retset.getInt("a.idAlumno"), retset.getInt("temp.idTemporada"))==true){
+                } else {
+                    if (GestorPagos.compruebaSiAlumnoEraSocioEnEsaTemporada(accesoBD, retset.getInt("a.idAlumno"), retset.getInt("temp.idTemporada")) == true) {
                         tablaPagos.setValueAt(retset.getFloat("act.precioSocio"), i, 3);
-                    }else{
+                    } else {
                         tablaPagos.setValueAt(retset.getFloat("act.precioNoSocio"), i, 3);
                     }
                 }
                 tablaPagos.setValueAt(retset.getString("cuota.fecha"), i, 4);
-                if(retset.getBoolean("cuota.pagado")==true){
+                if (retset.getBoolean("cuota.pagado") == true) {
                     tablaPagos.setValueAt("Pagado", i, 5);
-                }else{
+                } else {
                     tablaPagos.setValueAt("Debido", i, 5);
-                } 
+                }
                 tablaPagos.setValueAt(retset.getString("a.email"), i, 6);
                 tablaPagos.setValueAt(retset.getString("a.telfijo"), i, 7);
                 tablaPagos.setValueAt(retset.getString("a.telmovil"), i, 8);
                 tablaPagos.setValueAt(retset.getString("temp.curso"), i, 9);
-                if(consulta_pagos.indexOf("alumnotemporada")==-1){
+                if (consulta_pagos.indexOf("alumnotemporada") == -1) {
                     tablaPagos.setValueAt(retset.getString("act.nombre"), i, 10);
                 }
             }
@@ -4435,58 +4452,58 @@ private void pagos_botonDeudoresActionPerformed(java.awt.event.ActionEvent evt) 
 }//GEN-LAST:event_pagos_botonDeudoresActionPerformed
 
 private void pagos_botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagos_botonModificarActionPerformed
-        if (tablaPagos.getSelectedRow() == -1) {
-             JOptionPane.showMessageDialog(null,
-                    "No ha seleccionado ningún pago", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-        } else {
-            int posTabla = tablaPagos.getSelectedRow();
+    if (tablaPagos.getSelectedRow() == -1) {
+        JOptionPane.showMessageDialog(null,
+                "No ha seleccionado ningún pago", "Error",
+                JOptionPane.ERROR_MESSAGE);
+    } else {
+        int posTabla = tablaPagos.getSelectedRow();
 
-            try {
-                ResultSet pagosMostrados = GestorPagos.consultarPago(accesoBD, consultaPagosMostrados);
-                int i = 0;
-                while (i <= posTabla) {
-                    pagosMostrados.next();
-                    i++;
-                }
-                int idcuota = pagosMostrados.getInt("cuota.idCuota");
-                System.out.print("\n Hemos cogido el idCuota que vale "+idcuota);  
-                
-                if(consultaPagosMostrados.indexOf("alumnotemporada")!=-1){
-                    new ModificarPago(accesoBD, idcuota, pagosMostrados.getString("a.nombre"), pagosMostrados.getString("a.primerApellido"),
-                        pagosMostrados.getString("a.segundoApellido"), pagosMostrados.getString("temp.curso"), pagosMostrados.getString("cuota.fecha"),
-                        pagosMostrados.getBoolean("cuota.pagado")).setVisible(true);  
-                    if(consultaPagosMostrados.indexOf("pagado=false")!=-1){
-                        System.out.print("\nESTAMOS EN 1");
-                        pagos_botonDeudoresActionPerformed(null);
-                    }else{
-                        System.out.print("\nESTAMOS EN 2");
-                        pagos_botonMostrarActionPerformed(null);
-                    }
-                }else{
-                    new ModificarPago(accesoBD, idcuota, pagosMostrados.getString("a.nombre"), pagosMostrados.getString("a.primerApellido"),
-                        pagosMostrados.getString("a.segundoApellido"), pagosMostrados.getString("temp.curso"), pagosMostrados.getString("cuota.fecha"),
-                        pagosMostrados.getBoolean("cuota.pagado"), pagosMostrados.getString("act.nombre")).setVisible(true);  
-                    if(consultaPagosMostrados.indexOf("pagado=false")!=-1){
-                        System.out.print("\nESTAMOS EN 3");
-                        pagos_botonDeudoresActionPerformed(null);
-                    }else{
-                        System.out.print("\nESTAMOS EN 4");
-                        pagos_botonMostrarActionPerformed(null);
-                    }
-                }
-            } catch (SQLException ex) {
-                System.out.print(ex.getMessage());
+        try {
+            ResultSet pagosMostrados = GestorPagos.consultarPago(accesoBD, consultaPagosMostrados);
+            int i = 0;
+            while (i <= posTabla) {
+                pagosMostrados.next();
+                i++;
             }
-        }
+            int idcuota = pagosMostrados.getInt("cuota.idCuota");
+            System.out.print("\n Hemos cogido el idCuota que vale " + idcuota);
 
- 
+            if (consultaPagosMostrados.indexOf("alumnotemporada") != -1) {
+                new ModificarPago(accesoBD, idcuota, pagosMostrados.getString("a.nombre"), pagosMostrados.getString("a.primerApellido"),
+                        pagosMostrados.getString("a.segundoApellido"), pagosMostrados.getString("temp.curso"), pagosMostrados.getString("cuota.fecha"),
+                        pagosMostrados.getBoolean("cuota.pagado")).setVisible(true);
+                if (consultaPagosMostrados.indexOf("pagado=false") != -1) {
+                    System.out.print("\nESTAMOS EN 1");
+                    pagos_botonDeudoresActionPerformed(null);
+                } else {
+                    System.out.print("\nESTAMOS EN 2");
+                    pagos_botonMostrarActionPerformed(null);
+                }
+            } else {
+                new ModificarPago(accesoBD, idcuota, pagosMostrados.getString("a.nombre"), pagosMostrados.getString("a.primerApellido"),
+                        pagosMostrados.getString("a.segundoApellido"), pagosMostrados.getString("temp.curso"), pagosMostrados.getString("cuota.fecha"),
+                        pagosMostrados.getBoolean("cuota.pagado"), pagosMostrados.getString("act.nombre")).setVisible(true);
+                if (consultaPagosMostrados.indexOf("pagado=false") != -1) {
+                    System.out.print("\nESTAMOS EN 3");
+                    pagos_botonDeudoresActionPerformed(null);
+                } else {
+                    System.out.print("\nESTAMOS EN 4");
+                    pagos_botonMostrarActionPerformed(null);
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.print(ex.getMessage());
+        }
+    }
+
+
 }//GEN-LAST:event_pagos_botonModificarActionPerformed
 
 private void menuPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPagosActionPerformed
     panelPagos.setVisible(true);
     ResultSet consulta;
-   
+
     try {
         consulta = accesoBD.ejecutaConsulta("SELECT * FROM grupo");
         pago_grupo = new javax.swing.JComboBox();
@@ -4506,16 +4523,16 @@ private void menuPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 }//GEN-LAST:event_menuPagosActionPerformed
 
 private void pago_temporadaActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pago_temporadaActividadActionPerformed
-    if(pago_temporadaActividad.getSelectedItem().equals("Temporada")){
+    if (pago_temporadaActividad.getSelectedItem().equals("Temporada")) {
         pagos_etiqActividad.setVisible(false);
         pagos_actividad.setVisible(false);
         pagos_etiqGrupo.setVisible(true);
         pago_grupo.setVisible(true);
-    }else{
+    } else {
         pagos_etiqActividad.setVisible(true);
         pagos_actividad.setVisible(true);
         pagos_etiqGrupo.setVisible(false);
-        pago_grupo.setVisible(false);        
+        pago_grupo.setVisible(false);
     }
 }//GEN-LAST:event_pago_temporadaActividadActionPerformed
 
@@ -4527,25 +4544,25 @@ private void pago_temporadaActionPerformed(java.awt.event.ActionEvent evt) {//GE
 
     ResultSet consulta;
     try {
-        if(! pago_temporada.getSelectedItem().equals("")){
-            consulta = accesoBD.ejecutaConsulta("SELECT * FROM grupo, temporada WHERE grupo.Temporada_idTemporada=temporada.idTemporada AND temporada.curso='"+(String) pago_temporada.getSelectedItem()+"'");
+        if (!pago_temporada.getSelectedItem().equals("")) {
+            consulta = accesoBD.ejecutaConsulta("SELECT * FROM grupo, temporada WHERE grupo.Temporada_idTemporada=temporada.idTemporada AND temporada.curso='" + (String) pago_temporada.getSelectedItem() + "'");
             pago_grupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
             while (consulta.next()) {
-                System.out.println("\nconsulta.next()"+consulta.getInt(1));
+                System.out.println("\nconsulta.next()" + consulta.getInt(1));
                 pago_grupo.addItem(consulta.getInt(1));
             }
-        }else{
+        } else {
             consulta = accesoBD.ejecutaConsulta("SELECT * FROM grupo");
             pago_grupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
             while (consulta.next()) {
                 pago_grupo.addItem(consulta.getInt(1));
-            }            
+            }
         }
     } catch (SQLException ex) {
         System.out.print(ex.getMessage());
     }
 
-    
+
 }//GEN-LAST:event_pago_temporadaActionPerformed
 
 private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagos_actividadActionPerformed
@@ -4578,11 +4595,356 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         // TODO add your handling code here:
         ocultarMensajesError();
         try {
-            new NuevoPartido(accesoBD,this).setVisible(true);
+            new NuevoPartido(accesoBD, this).setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_BotonNPartidoActionPerformed
+
+    private void nombreInsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreInsKeyTyped
+        // TODO add your handling code here:
+        String nombre = nombreIns.getText();
+        String consulta = "SELECT nombre, capacidadEquipos, localizacion FROM"
+                + " Instalacion WHERE nombre LIKE '%" + nombre + "%'";
+        ResultSet ret;
+
+        ret = accesoBD.ejecutaConsulta(consulta);
+
+        tablaInstalacion.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null}
+        },
+                new String[]{
+            "Nombre", "Direccion", "Capacidad para Equipos"
+        }));
+        javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
+        modelo_tabla = tablaInstalacion.getModel();
+        int i = 0;
+        try {
+            while (ret.next()) {
+
+
+                if (i < 25) {
+                    tablaInstalacion.setValueAt(ret.getString("nombre"), i, 0);
+                    tablaInstalacion.setValueAt(ret.getString("localizacion"), i, 1);
+                    tablaInstalacion.setValueAt(ret.getString("capacidadEquipos"), i, 2);
+                } else {
+                    javax.swing.table.DefaultTableModel temp = (javax.swing.table.DefaultTableModel) tablaInstalacion.getModel();
+                    Object nuevo[] = {"", "", ""};
+                    temp.addRow(nuevo);
+                    tablaInstalacion.setValueAt(ret.getString("nombre"), i, 0);
+                    tablaInstalacion.setValueAt(ret.getString("localizacion"), i, 1);
+                    tablaInstalacion.setValueAt(ret.getString("capacidadEquipos"), i, 2);
+                }
+                i++;
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+    }//GEN-LAST:event_nombreInsKeyTyped
+
+    private void nombreCalleInstKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreCalleInstKeyTyped
+        // TODO add your handling code here:
+        String nombre = MenuDireccionLabel.getSelectedItem().toString() + " " + nombreCalleInst.getText();
+        if (MenuDireccionLabel.getSelectedItem().toString().equals("-") && nombreCalleInst.getText().equals("")) {
+            nombre = "";
+        } else if (MenuDireccionLabel.getSelectedItem().toString().equals("-") && !nombreCalleInst.getText().equals("")) {
+            nombre = nombreCalleInst.getText();
+        }
+        String consulta = "SELECT nombre, capacidadEquipos, localizacion FROM"
+                + " Instalacion WHERE localizacion LIKE '%" + nombre + "%'";
+        ResultSet ret;
+
+        ret = accesoBD.ejecutaConsulta(consulta);
+
+        tablaInstalacion.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null}
+        },
+                new String[]{
+            "Nombre", "Direccion", "Capacidad para Equipos"
+        }));
+        javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
+        modelo_tabla = tablaInstalacion.getModel();
+        int i = 0;
+        try {
+            while (ret.next()) {
+
+
+                if (i < 25) {
+                    tablaInstalacion.setValueAt(ret.getString("nombre"), i, 0);
+                    tablaInstalacion.setValueAt(ret.getString("localizacion"), i, 1);
+                    tablaInstalacion.setValueAt(ret.getString("capacidadEquipos"), i, 2);
+                } else {
+                    javax.swing.table.DefaultTableModel temp = (javax.swing.table.DefaultTableModel) tablaInstalacion.getModel();
+                    Object nuevo[] = {"", "", ""};
+                    temp.addRow(nuevo);
+                    tablaInstalacion.setValueAt(ret.getString("nombre"), i, 0);
+                    tablaInstalacion.setValueAt(ret.getString("localizacion"), i, 1);
+                    tablaInstalacion.setValueAt(ret.getString("capacidadEquipos"), i, 2);
+                }
+                i++;
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+    }//GEN-LAST:event_nombreCalleInstKeyTyped
+
+    private void capacidadInstKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_capacidadInstKeyTyped
+        // TODO add your handling code here:
+        String nombre = capacidadInst.getText();
+        String consulta = "SELECT nombre, capacidadEquipos, localizacion FROM"
+                + " Instalacion WHERE capacidadEquipos LIKE '%" + nombre + "%'";
+        ResultSet ret;
+
+        System.out.print("Consulta capacidad: " + consulta);
+
+        ret = accesoBD.ejecutaConsulta(consulta);
+
+        tablaInstalacion.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null}
+        },
+                new String[]{
+            "Nombre", "Direccion", "Capacidad para Equipos"
+        }));
+        javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
+        modelo_tabla = tablaInstalacion.getModel();
+        int i = 0;
+        try {
+            while (ret.next()) {
+
+
+                if (i < 25) {
+                    tablaInstalacion.setValueAt(ret.getString("nombre"), i, 0);
+                    tablaInstalacion.setValueAt(ret.getString("localizacion"), i, 1);
+                    tablaInstalacion.setValueAt(ret.getString("capacidadEquipos"), i, 2);
+                } else {
+                    javax.swing.table.DefaultTableModel temp = (javax.swing.table.DefaultTableModel) tablaInstalacion.getModel();
+                    Object nuevo[] = {"", "", ""};
+                    temp.addRow(nuevo);
+                    tablaInstalacion.setValueAt(ret.getString("nombre"), i, 0);
+                    tablaInstalacion.setValueAt(ret.getString("localizacion"), i, 1);
+                    tablaInstalacion.setValueAt(ret.getString("capacidadEquipos"), i, 2);
+                }
+                i++;
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_capacidadInstKeyTyped
+
+    private void nombreTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreTextFieldKeyTyped
+        // TODO add your handling code here:
+        String nombre = nombreTextField.getText();
+        String consulta = "SELECT nombre, fechaInicio, fechaFin FROM actividades"
+                + " WHERE nombre LIKE '%" + nombre + "%'";
+        ResultSet retset;
+
+        retset = accesoBD.ejecutaConsulta(consulta);
+
+        actividadesTable.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null}
+        },
+                new String[]{
+            "Nombre", "Fecha Inicio", "Fecha Fin"
+        }));
+        javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
+        modelo_tabla = actividadesTable.getModel();
+        int i = 0;
+        try {
+            while (retset.next()) {
+
+                if (i < 25) {
+                    actividadesTable.setValueAt(retset.getString("nombre"), i, 0);
+                    actividadesTable.setValueAt(retset.getString("fechaInicio"), i, 1);
+                    actividadesTable.setValueAt(retset.getString("fechaFin"), i, 2);
+                } else {
+                    javax.swing.table.DefaultTableModel temp = (javax.swing.table.DefaultTableModel) tablaInstalacion.getModel();
+                    Object nuevo[] = {"", "", ""};
+                    temp.addRow(nuevo);
+                    actividadesTable.setValueAt(retset.getString("nombre"), i, 0);
+                    actividadesTable.setValueAt(retset.getString("fechaInicio"), i, 1);
+                    actividadesTable.setValueAt(retset.getString("fechaFin"), i, 2);
+                }
+                i++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_nombreTextFieldKeyTyped
+
+    private void fechaInicioDateChooserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fechaInicioDateChooserKeyTyped
+        // TODO add your handling code here:
+        Date nombre = (java.sql.Date) fechaInicioDateChooser.getDate();
+        String consulta = "SELECT nombre, fechaInicio, fechaFin FROM actividades"
+                + " WHERE fechaInicio LIKE '%" + nombre + "%'";
+        ResultSet retset;
+        
+        System.out.println("Consulta Fecha " + consulta);
+
+        retset = accesoBD.ejecutaConsulta(consulta);
+
+        actividadesTable.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null}
+        },
+                new String[]{
+            "Nombre", "Fecha Inicio", "Fecha Fin"
+        }));
+        javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
+        modelo_tabla = actividadesTable.getModel();
+        int i = 0;
+        try {
+            while (retset.next()) {
+
+                if (i < 25) {
+                    actividadesTable.setValueAt(retset.getString("nombre"), i, 0);
+                    actividadesTable.setValueAt(retset.getString("fechaInicio"), i, 1);
+                    actividadesTable.setValueAt(retset.getString("fechaFin"), i, 2);
+                } else {
+                    javax.swing.table.DefaultTableModel temp = (javax.swing.table.DefaultTableModel) tablaInstalacion.getModel();
+                    Object nuevo[] = {"", "", ""};
+                    temp.addRow(nuevo);
+                    actividadesTable.setValueAt(retset.getString("nombre"), i, 0);
+                    actividadesTable.setValueAt(retset.getString("fechaInicio"), i, 1);
+                    actividadesTable.setValueAt(retset.getString("fechaFin"), i, 2);
+                }
+                i++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_fechaInicioDateChooserKeyTyped
 
     /**
      * @param args the command line arguments
@@ -4922,8 +5284,8 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         res = GestorTemporadas.getListaTemporadas(accesoBD);
         return res;
     }
-    
-   List<List<String>> getListaCategorias() throws SQLException {
+
+    List<List<String>> getListaCategorias() throws SQLException {
         List<List<String>> cats = new ArrayList<List<String>>();
         cats = GestorCategorias.getListaCategorias(accesoBD);
         return cats;
@@ -4999,13 +5361,10 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     }
 
     public void actualizaTablaEquiposFiltro(String nombre, String temporada, String categoria, String entrenador) throws SQLException {
-
     }
 
     public void actualizaTablaEquipos() throws SQLException {
-
     }
-
 
     private String getCategoria(String s) throws SQLException {
 
@@ -5023,7 +5382,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
 
         return GestorTemporadas.getTemporada(accesoBD, s);
     }
-    
+
     private int getIDActividad() {
 
         int indiceTabla = actividadesTable.getSelectedRow();

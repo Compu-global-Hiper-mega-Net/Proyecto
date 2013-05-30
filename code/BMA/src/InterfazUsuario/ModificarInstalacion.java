@@ -21,36 +21,33 @@ import javax.swing.border.Border;
  *
  * @author jesusmcs
  */
-
-
 /*
  ******************************************************************************
-                   (c) Copyright 2013 
-                   * 
-                   * Moisés Gautier Gómez
-                   * Julio Ros Martínez
-                   * Francisco Javier Gómez del Olmo
-                   * Francisco Santolalla Quiñonero
-                   * Carlos Jesús Fernández Basso
-                   * Alexander Moreno Borrego
-                   * Jesús Manuel Contreras Siles
-                   * Diego Muñoz Rio
+ (c) Copyright 2013 
+ * 
+ * Moisés Gautier Gómez
+ * Julio Ros Martínez
+ * Francisco Javier Gómez del Olmo
+ * Francisco Santolalla Quiñonero
+ * Carlos Jesús Fernández Basso
+ * Alexander Moreno Borrego
+ * Jesús Manuel Contreras Siles
+ * Diego Muñoz Rio
  
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************
  */
-
 public class ModificarInstalacion extends javax.swing.JFrame {
 
     BaseDatos accesoBD;
@@ -87,11 +84,15 @@ public class ModificarInstalacion extends javax.swing.JFrame {
         numero = localizacion.substring(aux);
         aux1 = localizacion.indexOf(" ");
 
-        
+
         String tipodevia = localizacion.substring(0, localizacion.indexOf(" "));
-        String direccion = localizacion.substring(localizacion.indexOf(" "), localizacion.length());
+        String auxiliar = localizacion.substring(localizacion.indexOf(" ") + 1, localizacion.length());
+        String direccion = auxiliar.substring(0, auxiliar.indexOf(" ") + 1);
+        String n = auxiliar.substring(direccion.indexOf(" ") + 1, auxiliar.length());
+
         tipoDeVia.setSelectedItem(tipodevia);
         direccionTextField.setText(direccion);
+        numeroJtext.setText(n);
         //numeroTextField.setText(localizacion.substring(aux1 + 1));
         capacidadTextField.setText(capacidad);
     }
@@ -115,6 +116,8 @@ public class ModificarInstalacion extends javax.swing.JFrame {
         Guardar = new javax.swing.JButton();
         Cancelar = new javax.swing.JButton();
         tipoDeVia = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
+        numeroJtext = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Modificar Instalacion");
@@ -143,6 +146,14 @@ public class ModificarInstalacion extends javax.swing.JFrame {
 
         tipoDeVia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Calle", "Avenida", "Plaza", "Carretera" }));
 
+        jLabel1.setText("Nº");
+
+        numeroJtext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numeroJtextActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -153,13 +164,10 @@ public class ModificarInstalacion extends javax.swing.JFrame {
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(nombreLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(nombreTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(modificarLabel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE))
+                                .addComponent(nombreLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(nombreTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(modificarLabel)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(layout.createSequentialGroup()
@@ -171,12 +179,17 @@ public class ModificarInstalacion extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(capacidadTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(direccionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(direccionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Guardar)
+                        .addComponent(Guardar)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Cancelar)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Cancelar)))
+                        .addComponent(numeroJtext, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
@@ -192,7 +205,9 @@ public class ModificarInstalacion extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(direccionLabel)
                     .addComponent(direccionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tipoDeVia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tipoDeVia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(numeroJtext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(capacidadLabel)
@@ -225,25 +240,28 @@ public class ModificarInstalacion extends javax.swing.JFrame {
             errores = errores + "La longitud del campo 'Nombre' no puede superar los 45 caracteres\n";
             nombreTextField.setBorder(bordeError);
         }
-        if (direccionTextField.getText().isEmpty()) {
+        if ((tipoDeVia.getSelectedItem().toString() + direccionTextField.getText() + numeroJtext.getText()).isEmpty()) {
             errores = errores + "Debes rellenar el campo 'Direccion'\n";
             direccionTextField.setBorder(bordeError);
-        } else if (direccionTextField.getText().length() > 140) {
+        } else if ((tipoDeVia.getSelectedItem().toString() + direccionTextField.getText() + numeroJtext.getText()).length() > 140) {
             errores = errores + "La longitud del campo 'Direccion' no puede superar los 140 caracteres\n";
             direccionTextField.setBorder(bordeError);
-
+        }else if(!isNumeric(numeroJtext.getText())){
+            errores = errores + "Insertar valor numérico en el campo \"Nº\"\n";
         }
         if (capacidadTextField.getText().isEmpty()) {
             errores = errores + "Debes rellenar el campo 'Capacidad'\n";
             capacidadTextField.setBorder(bordeError);
+        }else if(!isNumeric(capacidadTextField.getText())){
+            errores = errores + "Insertar valor numérico en el campo \"Capacidad\"\n";
         }
 
         if (errores.isEmpty()) {
 
 
             boolean exito = GestorInstalacion.modificaInstalacion(accesoBD, id,
-                    nombreTextField.getText(), capacidadTextField.getText(), 
-                    tipoDeVia.getSelectedItem().toString()+ " " + direccionTextField.getText());
+                    nombreTextField.getText(), capacidadTextField.getText(),
+                    tipoDeVia.getSelectedItem().toString() + " " + direccionTextField.getText() + " " + numeroJtext.getText());
 
             if (!exito) {
                 JOptionPane.showMessageDialog(null, "Ha habido un error en la base de datos",
@@ -266,6 +284,10 @@ public class ModificarInstalacion extends javax.swing.JFrame {
         Pprincipal.ActualizarTabla();
 
     }//GEN-LAST:event_GuardarActionPerformed
+
+    private void numeroJtextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numeroJtextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_numeroJtextActionPerformed
 
     /**
      * @param args the command line arguments
@@ -308,9 +330,20 @@ public class ModificarInstalacion extends javax.swing.JFrame {
     private javax.swing.JTextField capacidadTextField;
     private javax.swing.JLabel direccionLabel;
     private javax.swing.JTextField direccionTextField;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel modificarLabel;
     private javax.swing.JLabel nombreLabel;
     private javax.swing.JTextField nombreTextField;
+    private javax.swing.JTextField numeroJtext;
     private javax.swing.JComboBox tipoDeVia;
     // End of variables declaration//GEN-END:variables
+
+    private static boolean isNumeric(String cadena) {
+        try {
+            Integer.parseInt(cadena);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
 }

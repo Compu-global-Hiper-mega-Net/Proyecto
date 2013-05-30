@@ -18,32 +18,31 @@ import javax.swing.border.Border;
 
 /*
  ******************************************************************************
-                   (c) Copyright 2013 
-                   * 
-                   * Moisés Gautier Gómez
-                   * Julio Ros Martínez
-                   * Francisco Javier Gómez del Olmo
-                   * Francisco Santolalla Quiñonero
-                   * Carlos Jesús Fernández Basso
-                   * Alexander Moreno Borrego
-                   * Jesús Manuel Contreras Siles
-                   * Diego Muñoz Rio
+ (c) Copyright 2013 
+ * 
+ * Moisés Gautier Gómez
+ * Julio Ros Martínez
+ * Francisco Javier Gómez del Olmo
+ * Francisco Santolalla Quiñonero
+ * Carlos Jesús Fernández Basso
+ * Alexander Moreno Borrego
+ * Jesús Manuel Contreras Siles
+ * Diego Muñoz Rio
  
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************
  */
-
 public class AltaInstalacion extends javax.swing.JFrame {
 
     BaseDatos accesoBD;
@@ -54,17 +53,18 @@ public class AltaInstalacion extends javax.swing.JFrame {
      * Creates new form AltaInstalacion
      */
     public AltaInstalacion() {
-       
+
         initComponents();
         bordeError = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.red);
     }
-    
+
     public AltaInstalacion(BaseDatos acceso, PantallaPrincipal p) {
         accesoBD = acceso;
         initComponents();
         principal = p;
         bordeError = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.red);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -195,7 +195,7 @@ public class AltaInstalacion extends javax.swing.JFrame {
         if (nombreTextField.getText().isEmpty()) {
             errores = errores + "Debes rellenar el campo 'Nombre'\n";
             nombreTextField.setBorder(bordeError);
-        }else if (nombreTextField.getText().length() > 85) {
+        } else if (nombreTextField.getText().length() > 85) {
             errores = errores + "La longitud del campo 'Nombre' no puede superar los 45 caracteres\n";
             nombreTextField.setBorder(bordeError);
         }
@@ -207,29 +207,33 @@ public class AltaInstalacion extends javax.swing.JFrame {
             errores = errores + "Debes rellenar el campo 'Nombre'\n";
             direccionTextField.setBorder(bordeError);
             numeroTextField.setBorder(bordeError);
-        }else if ((direccionTextField.getText().length() + numeroTextField.getText().length()) > 136) {
+        } else if ((direccionTextField.getText().length() + numeroTextField.getText().length()) > 136) {
             errores = errores + "La longitud del campo 'Direccion' no puede superar los 140 caracteres\n";
             direccionTextField.setBorder(bordeError);
             numeroTextField.setBorder(bordeError);
+        } else if (!isNumeric(numeroTextField.getText())) {
+            errores = errores + "Insertado un valor no numérico en el número de la direccion\n";
         }
         if (capacidadTextField.getText().isEmpty()) {
             errores = errores + "Debes rellenar el campo 'Capacidad'\n";
             capacidadTextField.setBorder(bordeError);
+        }else if(!isNumeric(capacidadTextField.getText())){
+            errores = errores + "Se debe insertar un valor numérico en el campo \"Capacidad\"\n";
         }
         if (errores.isEmpty()) {
-            String direccion = (String) direccionComboBox.getSelectedItem() + " " +
-                    direccionTextField.getText()+ " " + numeroTextField.getText();
-            boolean error = GestorInstalacion.darAltaInstalacion(accesoBD,nombreTextField.getText(),
-                    Integer.parseInt(capacidadTextField.getText()),direccion);
+            String direccion = (String) direccionComboBox.getSelectedItem() + " "
+                    + direccionTextField.getText() + " " + numeroTextField.getText();
+            boolean error = GestorInstalacion.darAltaInstalacion(accesoBD, nombreTextField.getText(),
+                    Integer.parseInt(capacidadTextField.getText()), direccion);
             if (!error) {
                 JOptionPane.showMessageDialog(null, "Ha habido un error en la base de datos",
                         "Error", JOptionPane.ERROR_MESSAGE);
-            }else {
+            } else {
                 JOptionPane.showMessageDialog(null, "Instalacion creado con exito",
                         "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-                        this.setVisible(false);
-                        //this.setEnabled(false);
-            this.dispose();
+                this.setVisible(false);
+                //this.setEnabled(false);
+                this.dispose();
             }
         } else {
             JOptionPane.showMessageDialog(null,
@@ -239,11 +243,9 @@ public class AltaInstalacion extends javax.swing.JFrame {
         principal.ActualizarTabla();
     }//GEN-LAST:event_GuardarActionPerformed
 
-        /**
-         * @param args the command line arguments
-         */
-    
-
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -289,4 +291,13 @@ public class AltaInstalacion extends javax.swing.JFrame {
     private javax.swing.JLabel numeroLabel;
     private javax.swing.JTextField numeroTextField;
     // End of variables declaration//GEN-END:variables
+
+    private static boolean isNumeric(String cadena) {
+        try {
+            Integer.parseInt(cadena);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
 }
