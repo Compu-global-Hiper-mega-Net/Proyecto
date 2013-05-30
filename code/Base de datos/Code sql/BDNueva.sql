@@ -72,7 +72,6 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`alumno` (
   `domicilio` VARCHAR(100) NULL DEFAULT NULL ,
   `email` VARCHAR(75) NULL DEFAULT NULL ,
   `fechaNacimiento` DATE NOT NULL ,
-  `Alumnocol` VARCHAR(45) NULL DEFAULT NULL ,
   PRIMARY KEY (`idAlumno`) )
 ENGINE = InnoDB
 AUTO_INCREMENT = 2
