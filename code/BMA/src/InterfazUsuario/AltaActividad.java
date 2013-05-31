@@ -23,32 +23,31 @@ import javax.swing.border.Border;
 
 /*
  ******************************************************************************
-                   (c) Copyright 2013 
-                   * 
-                   * Moisés Gautier Gómez
-                   * Julio Ros Martínez
-                   * Francisco Javier Gómez del Olmo
-                   * Francisco Santolalla Quiñonero
-                   * Carlos Jesús Fernández Basso
-                   * Alexander Moreno Borrego
-                   * Jesús Manuel Contreras Siles
-                   * Diego Muñoz Rio
+ (c) Copyright 2013 
+ * 
+ * Moisés Gautier Gómez
+ * Julio Ros Martínez
+ * Francisco Javier Gómez del Olmo
+ * Francisco Santolalla Quiñonero
+ * Carlos Jesús Fernández Basso
+ * Alexander Moreno Borrego
+ * Jesús Manuel Contreras Siles
+ * Diego Muñoz Rio
  
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************
  */
-
 public class AltaActividad extends javax.swing.JFrame {
 
     BaseDatos accesoBD;
@@ -72,8 +71,8 @@ public class AltaActividad extends javax.swing.JFrame {
         bordeError = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.red);
         ((JTextFieldDateEditor) fechaInicioDateChooser.getComponents()[1]).setEditable(false);
         ((JTextFieldDateEditor) fechaFinDateChooser.getComponents()[1]).setEditable(false);
-         temporadaComboBox.removeAllItems();
-         instalacion.removeAllItems();
+        temporadaComboBox.removeAllItems();
+        instalacion.removeAllItems();
 
         ResultSet retset;
         String consulta = "SELECT nombre FROM instalacion";
@@ -320,10 +319,13 @@ public class AltaActividad extends javax.swing.JFrame {
         if (plazasTextField.getText().isEmpty()) {
             error = error + "Debes rellenar el campo 'Plazas'\n";
             plazasTextField.setBorder(bordeError);
+        } else if (!isNumeric(plazasTextField.getText())) {
+            error = error + "El campo 'Plazas' debe tener un valor numerico\n";
+            plazasTextField.setBorder(bordeError);
         }
 
         if (jTextArea1.getText().isEmpty()) {
-            error = error + "Debes rellenar el campo 'Plazas'\n";
+            error = error + "Debes rellenar el campo 'Descripcion'\n";
             jTextArea1.setBorder(bordeError);
         }
 
@@ -356,18 +358,18 @@ public class AltaActividad extends javax.swing.JFrame {
                     + instalacion.getSelectedItem() + "'");
 
             /*int idInstalacion = 0;
-            try {
-                if (rts.next()) {
-                    idInstalacion = rts.getInt(1);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(AltaActividad.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                insertarInstalacion(idInstalacion, idTemporada);
-            } catch (SQLException ex) {
-                Logger.getLogger(AltaActividad.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
+             try {
+             if (rts.next()) {
+             idInstalacion = rts.getInt(1);
+             }
+             } catch (SQLException ex) {
+             Logger.getLogger(AltaActividad.class.getName()).log(Level.SEVERE, null, ex);
+             }
+             try {
+             insertarInstalacion(idInstalacion, idTemporada);
+             } catch (SQLException ex) {
+             Logger.getLogger(AltaActividad.class.getName()).log(Level.SEVERE, null, ex);
+             }*/
             if (!errores) {
                 JOptionPane.showMessageDialog(null, "Ha habido un error en la base de datos",
                         "Error", JOptionPane.ERROR_MESSAGE);
@@ -396,9 +398,9 @@ public class AltaActividad extends javax.swing.JFrame {
         if (retset.next()) {
             idActividad = retset.getInt(1);
         }
-        
+
         String insert = "INSERT INTO actividadesInstalacion (actividades_idActividades, actividades_Temporada_idTemporada"
-                + ", Instalacion_idInstalacion) VALUES ("+ idActividad + ", " + idtem + ", " + idInst + ")" ;
+                + ", Instalacion_idInstalacion) VALUES (" + idActividad + ", " + idtem + ", " + idInst + ")";
         rts = accesoBD.ejecutaConsulta(insert);
     }
     private void temporadaComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporadaComboBoxActionPerformed
@@ -463,4 +465,13 @@ public class AltaActividad extends javax.swing.JFrame {
     private javax.swing.JTextField plazasTextField;
     private javax.swing.JComboBox temporadaComboBox;
     // End of variables declaration//GEN-END:variables
+
+    private static boolean isNumeric(String cadena) {
+        try {
+            Integer.parseInt(cadena);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
 }

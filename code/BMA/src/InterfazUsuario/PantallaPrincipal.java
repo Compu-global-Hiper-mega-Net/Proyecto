@@ -3800,18 +3800,21 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
         String error = "";
 
         int indiceTabla = tablaInstalacion.getSelectedRow();
-        int selection = JOptionPane.showConfirmDialog(this, "Desea eliminar la Instalacion?", "Instalacion usuario", JOptionPane.YES_NO_OPTION);
-        if (selection == JOptionPane.YES_OPTION) {
-            if (Integer.parseInt(tablaInstalacion.getValueAt(indiceTabla, 2).toString()) <= 0) {
-                error = "Numero de capacidad menor o igual que cero";
-                eliminarButton.setBorder(bordeError);
+        if (indiceTabla >= 0) {
+            int selection = JOptionPane.showConfirmDialog(this, "Desea eliminar la Instalacion?", "Instalacion usuario", JOptionPane.YES_NO_OPTION);
+            if (selection == JOptionPane.YES_OPTION) {
+                if (Integer.parseInt(tablaInstalacion.getValueAt(indiceTabla, 2).toString()) <= 0) {
+                    error = "Numero de capacidad menor o igual que cero";
+                    eliminarButton.setBorder(bordeError);
+                }
+                GestorInstalacion.eliminaInstalacion(accesoBD, tablaInstalacion.getValueAt(indiceTabla, 0).toString(),
+                        Integer.parseInt(tablaInstalacion.getValueAt(indiceTabla, 2).toString()),
+                        tablaInstalacion.getValueAt(indiceTabla, 1).toString());
+
             }
-            GestorInstalacion.eliminaInstalacion(accesoBD, tablaInstalacion.getValueAt(indiceTabla, 0).toString(),
-                    Integer.parseInt(tablaInstalacion.getValueAt(indiceTabla, 2).toString()),
-                    tablaInstalacion.getValueAt(indiceTabla, 1).toString());
-
+        } else if (indiceTabla == -1) {
+            JOptionPane.showMessageDialog(this, "No se ha seleccionado ninguna instalacion", "Error", JOptionPane.ERROR_MESSAGE);
         }
-
         ActualizarTabla();
     }//GEN-LAST:event_eliminarButtonActionPerformed
 
@@ -4017,50 +4020,53 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
         String descripcion = "";
         int temporada = 0;
         int plazas = 0;
-        int idActividad = getIDActividad();
 
-        SimpleDateFormat formato = new java.text.SimpleDateFormat("yyyy-MM-dd");
-        java.sql.Date fechaInicio = null;
-        java.sql.Date fechafin = null;
-        try {
-            fechaInicio = new java.sql.Date(formato.parse(actividadesTable.getValueAt(nTabla, 1).toString()).getTime());
-            System.out.print(fechaInicio);
-        } catch (ParseException ex) {
-        }
-        try {
-            fechafin = new java.sql.Date(formato.parse(actividadesTable.getValueAt(nTabla, 2).toString()).getTime());
-        } catch (ParseException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-
-        String consulta = "SELECT Temporada_idTemporada, nAlumnos, descripcion FROM actividades where idActividades = "
-                + idActividad;
-
-        /*nombre = ' "
-         + actividadesTable.getValueAt(nTabla, 0) + "' AND fechaInicio ='" + actividadesTable.getValueAt(nTabla, 1)
-         + "' AND fechaFin = '" + actividadesTable.getValueAt(nTabla, 2) + "'"*/
-
-        System.out.print("\n\n" + consulta);
-        System.out.print("\n\n" + actividadesTable.getValueAt(nTabla, 1));
-        System.out.print("\n\n" + actividadesTable.getValueAt(nTabla, 2));
-        retset = accesoBD.ejecutaConsulta(consulta);
-        int selection = JOptionPane.showConfirmDialog(this, "Desea eliminar la Instalacion?", "Instalacion usuario", JOptionPane.YES_NO_OPTION);
-        if (selection == JOptionPane.YES_OPTION) {
+        if(nTabla >= 0){
+           int idActividad = getIDActividad();
+            SimpleDateFormat formato = new java.text.SimpleDateFormat("yyyy-MM-dd");
+            java.sql.Date fechaInicio = null;
+            java.sql.Date fechafin = null;
             try {
-                if (retset.next()) {
-                    temporada = retset.getInt(1);
-                    plazas = retset.getInt(2);
-                    descripcion = retset.getString(3);
-                }
-            } catch (SQLException ex) {
+                fechaInicio = new java.sql.Date(formato.parse(actividadesTable.getValueAt(nTabla, 1).toString()).getTime());
+                System.out.print(fechaInicio);
+            } catch (ParseException ex) {
+            }
+            try {
+                fechafin = new java.sql.Date(formato.parse(actividadesTable.getValueAt(nTabla, 2).toString()).getTime());
+            } catch (ParseException ex) {
                 Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            GestorActividad.eliminaActividad(accesoBD, descripcion, plazas, precioS, precioNS, temporada, fechaInicio, fechafin, (String) actividadesTable.getValueAt(nTabla, 0));
 
+            String consulta = "SELECT Temporada_idTemporada, nAlumnos, descripcion FROM actividades where idActividades = "
+                    + idActividad;
+
+            /*nombre = ' "
+            + actividadesTable.getValueAt(nTabla, 0) + "' AND fechaInicio ='" + actividadesTable.getValueAt(nTabla, 1)
+            + "' AND fechaFin = '" + actividadesTable.getValueAt(nTabla, 2) + "'"*/
+
+            System.out.print("\n\n" + consulta);
+            System.out.print("\n\n" + actividadesTable.getValueAt(nTabla, 1));
+            System.out.print("\n\n" + actividadesTable.getValueAt(nTabla, 2));
+            retset = accesoBD.ejecutaConsulta(consulta);
+            int selection = JOptionPane.showConfirmDialog(this, "Desea eliminar la Instalacion?", "Instalacion usuario", JOptionPane.YES_NO_OPTION);
+            if (selection == JOptionPane.YES_OPTION) {
+                try {
+                    if (retset.next()) {
+                        temporada = retset.getInt(1);
+                        plazas = retset.getInt(2);
+                        descripcion = retset.getString(3);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }   
+
+                GestorActividad.eliminaActividad(accesoBD, descripcion, plazas, precioS, precioNS, temporada, fechaInicio, fechafin, (String) actividadesTable.getValueAt(nTabla, 0));
+
+             }
+        }else if (nTabla == -1) {
+            JOptionPane.showMessageDialog(this, "No se ha seleccionado ninguna instalacion", "Error", JOptionPane.ERROR_MESSAGE);
         }
-
         mostrarActividades();
     }//GEN-LAST:event_EliminarActionPerformed
 
@@ -4885,7 +4891,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         String consulta = "SELECT nombre, fechaInicio, fechaFin FROM actividades"
                 + " WHERE fechaInicio LIKE '%" + nombre + "%'";
         ResultSet retset;
-        
+
         System.out.println("Consulta Fecha " + consulta);
 
         retset = accesoBD.ejecutaConsulta(consulta);

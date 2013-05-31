@@ -24,37 +24,36 @@ import javax.swing.border.Border;
 
 /*
  ******************************************************************************
-                   (c) Copyright 2013 
-                   * 
-                   * Moisés Gautier Gómez
-                   * Julio Ros Martínez
-                   * Francisco Javier Gómez del Olmo
-                   * Francisco Santolalla Quiñonero
-                   * Carlos Jesús Fernández Basso
-                   * Alexander Moreno Borrego
-                   * Jesús Manuel Contreras Siles
-                   * Diego Muñoz Rio
+ (c) Copyright 2013 
+ * 
+ * Moisés Gautier Gómez
+ * Julio Ros Martínez
+ * Francisco Javier Gómez del Olmo
+ * Francisco Santolalla Quiñonero
+ * Carlos Jesús Fernández Basso
+ * Alexander Moreno Borrego
+ * Jesús Manuel Contreras Siles
+ * Diego Muñoz Rio
  
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************
  */
-
-
 public class ModificarActividad extends javax.swing.JFrame {
 
     BaseDatos accesoBD;
     int idActividad;
+    Border bordeError;
     PantallaPrincipal Pprincipal;
 
     /**
@@ -67,6 +66,7 @@ public class ModificarActividad extends javax.swing.JFrame {
     public ModificarActividad(BaseDatos acceso, String nombre, String fechaInicio, String fechaFin, int id, String descp, int plazas, PantallaPrincipal p) {
         accesoBD = acceso;
         initComponents();
+        bordeError = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.red);
         nombreTextField.setText(nombre);
         fechaInicioInicial.setText(fechaInicio);
         FechaFinInicial.setText(fechaFin);
@@ -316,52 +316,84 @@ public class ModificarActividad extends javax.swing.JFrame {
     }
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
         // TODO add your handling code here:
-        boolean exito;
+        boolean exito = false;
         String errores = "";
         int idTemporada = getIDTemporada();
+
         String FechaInicio = (Integer.toString(fechaInicioDateChooser.getCalendar().get(java.util.Calendar.YEAR)) + "-"
                 + Integer.toString(fechaInicioDateChooser.getCalendar().get(java.util.Calendar.MONTH)) + "-"
                 + Integer.toString(fechaInicioDateChooser.getCalendar().get(java.util.Calendar.DATE)));
-
         System.out.print(FechaInicio);
+        System.out.println(fechaFinDateChooser.getDateFormatString());
 
         String FechaFin = (Integer.toString(fechaFinDateChooser.getCalendar().get(java.util.Calendar.YEAR)) + "-"
                 + Integer.toString(fechaFinDateChooser.getCalendar().get(java.util.Calendar.MONTH)) + "-"
                 + Integer.toString(fechaFinDateChooser.getCalendar().get(java.util.Calendar.DATE)));
 
-        if (FechaInicio.equals("")) {
-            System.out.print("\n\nA entrado en el primer if\n");
-            JOptionPane.showMessageDialog(this, "No has seleccionado una fecha de inicio",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-        }else
-            System.out.print("\n\nNo ha entrado en el primer if\n");
-        
-        if (FechaFin.equals("")) {
-            System.out.print("\n\nA entrado en el segundo if\n");
-            JOptionPane.showMessageDialog(this, "No has seleccionado una fecha de finalizacion",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-        }else
-            System.out.print("\n\nNo ha entrado en el segundo if\n");
+        if ((Date) fechaInicioDateChooser.getDate() == null) {
+            errores = errores + "Campo \"Fecha Inicio\" vacio\n";
+            fechaInicioDateChooser.setBorder(bordeError);
+        } /*else if (!fechaInicioDateChooser.getDateFormatString().equals("dd/MMM/yyyy")) {
+         errores = errores + "Formato de Campo \"Fecha Inicio\" incorrecto\n";
+         }*/
 
-        exito = GestorActividad.modificaActividad(accesoBD, idActividad, jTextArea1.getText(), plazasTextField.getText(),
-                "50", "70", Integer.toString(idTemporada), FechaInicio, FechaFin, nombreTextField.getText());
+        if ((Date) fechaFinDateChooser.getDate() == null) {
+            errores = errores + "Campo \"Fecha Fin\" vacio\n";
+            fechaFinDateChooser.setBorder(bordeError);
+        } /*else if (!fechaFinDateChooser.getDateFormatString().equals("dd/MMM/yyyy")) {
+         errores = errores + "Formato de Campo \"Fecha Fin\" incorrecto\n";
+         }*/
 
-        if (!exito) {
-            JOptionPane.showMessageDialog(null, "Ha habido un error en la base de datos",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-        } else if (fechaInicioDateChooser.getDate() == null || fechaFinDateChooser.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Nuevas fechas no introducidas",
-                    "Aviso", JOptionPane.ERROR_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "Actividad modificada con exito",
-                    "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
+        if (nombreTextField.getText().isEmpty()) {
+            errores = errores + "Campo \"Nombre\" vacio\n";
+            nombreTextField.setBorder(bordeError);
+        } else if (nombreTextField.getText().length() > 140) {
+            errores = errores + "Campo \"Nombre\" ha superado el límite\n";
+            nombreTextField.setBorder(bordeError);
+        }
+
+        if (plazasTextField.getText().isEmpty()) {
+            errores = errores + "Campo \"Plazas\" esta vacio\n";
+            plazasTextField.setBorder(bordeError);
+        } else if (!isNumeric(plazasTextField.getText())) {
+            errores = errores + "Campo \"Plazas\" necesita un valor numérico\n";
+            plazasTextField.setBorder(bordeError);
+        }
+
+        if (jTextArea1.getText().length() > 140) {
+            errores = errores + "Campo \"Descripción\" ha superado el límite\n";
+            jTextArea1.setBorder(bordeError);
+        } else if (jTextArea1.getText().isEmpty()) {
+            errores = errores + "Campo \"Descripción\" está vacio\n";
+            jTextArea1.setBorder(bordeError);
+        }
+
+        if (errores.isEmpty()) {
+
+            exito = GestorActividad.modificaActividad(accesoBD, idActividad, jTextArea1.getText(), plazasTextField.getText(),
+                    "50", "70", Integer.toString(idTemporada), FechaInicio, FechaFin, nombreTextField.getText());
+
+            if (!exito) {
+                JOptionPane.showMessageDialog(null, "Ha habido un error en la base de datos",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (fechaInicioDateChooser.getDate() == null || fechaFinDateChooser.getDate() == null) {
+                JOptionPane.showMessageDialog(null, "Nuevas fechas no introducidas",
+                        "Aviso", JOptionPane.ERROR_MESSAGE);
+            } else {
+
+                JOptionPane.showMessageDialog(null, "Actividad modificada con exito",
+                        "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
+            }
 
             //InterfazUsuario.PantallaPrincipal.ActualizarTabla();
             this.setVisible(false);
             //this.setEnabled(false);
             this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null,
+                    errores.substring(0, errores.length() - 1),
+                    "Errores en el formulario", JOptionPane.ERROR_MESSAGE);
         }
-
         Pprincipal.mostrarActividades();
     }//GEN-LAST:event_GuardarActionPerformed
 
@@ -421,4 +453,13 @@ public class ModificarActividad extends javax.swing.JFrame {
     private javax.swing.JTextField nombreTextField;
     private javax.swing.JTextField plazasTextField;
     // End of variables declaration//GEN-END:variables
+
+    private static boolean isNumeric(String cadena) {
+        try {
+            Integer.parseInt(cadena);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
 }

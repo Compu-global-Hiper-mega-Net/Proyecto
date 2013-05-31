@@ -9,6 +9,7 @@ import GestionDeAlumnos.GestorAlumnos;
 import GestionDeCategorias.GestorCategorias;
 import GestionDeEquipos.GestorEquipos;
 import ServiciosAlmacenamiento.BaseDatos;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
@@ -17,7 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import javax.swing.border.Border;
 
 /**
  *
@@ -30,6 +34,8 @@ public class NuevoEquipo extends javax.swing.JFrame {
     List<String> listaAlumnosQuitados = new ArrayList<String>();
     List<Integer> listaIDAlumnosQuitados = new ArrayList<Integer>();
     BaseDatos accesoBD;
+    DefaultListModel modeloGuardar = new DefaultListModel(); 
+    Border bordeError;
 
     /**
      * Creates new form NuevoEquipo
@@ -43,6 +49,8 @@ public class NuevoEquipo extends javax.swing.JFrame {
         initComponents();
         this.setLocation(300, 300);
         accesoBD = acceso;
+        Error.setVisible(false);
+        bordeError = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.red);
         PerteneceFundacion.setSelected(false);
         if (comboCat.getSelectedItem().toString().equals("Categoria") && comboTemp.getSelectedItem().toString().equals("Temporada")) {
                 try {
@@ -95,6 +103,7 @@ public class NuevoEquipo extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         nAlumnosDisponibles = new javax.swing.JLabel();
         nAlumnosSeleccionados = new javax.swing.JLabel();
+        Error = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -245,6 +254,10 @@ public class NuevoEquipo extends javax.swing.JFrame {
 
         nAlumnosSeleccionados.setText("0");
 
+        Error.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        Error.setForeground(new java.awt.Color(204, 0, 0));
+        Error.setText("Equipo completo");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -285,11 +298,15 @@ public class NuevoEquipo extends javax.swing.JFrame {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabel8)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(nAlumnosSeleccionados)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel9))
-                                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addGap(18, 18, 18)
+                                                        .addComponent(jLabel9))
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(nAlumnosSeleccionados))))
+                                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(Error)))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addComponent(jLabel5)
                                         .addGap(29, 29, 29)
@@ -351,13 +368,20 @@ public class NuevoEquipo extends javax.swing.JFrame {
                     .addComponent(comboEntrenador2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9)
-                    .addComponent(nAlumnosSeleccionados))
-                .addGap(18, 18, 18)
+                .addGap(4, 4, 4)
+                .addComponent(Error)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel9))
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(nAlumnosSeleccionados))
+                        .addGap(9, 9, 9)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -376,7 +400,7 @@ public class NuevoEquipo extends javax.swing.JFrame {
                         .addComponent(botonAñadir)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         pack();
@@ -395,17 +419,56 @@ public class NuevoEquipo extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
-        DefaultListModel modelo = new DefaultListModel();
-        modelo = (DefaultListModel) alumnosSeleccionados.getModel();
+
+        String errores = "";
+             
+        if (textNombre.getText().isEmpty()){
+            errores = errores + "Campo \"Nombre\" vacio\n";
+            textNombre.setBorder(bordeError);
+        }else if(textNombre.getText().length() > 140){
+            errores = errores + "Campo \"Nombre\" supera el límite\n";
+            textNombre.setBorder(bordeError);
+        }
+        
+        if(PerteneceFundacion.isSelected()){
+        
+        try{
+            modeloGuardar = (DefaultListModel) alumnosSeleccionados.getModel();
+        }catch (NullPointerException ex){
+          errores = errores + "No hay jugadores suficientes\n";  
+        }
+            
+            
+            
+            if(comboEntrenador2.getSelectedItem().toString().isEmpty()){
+                errores = errores + "Segundo entrenador no seleccionado\n";
+            }
+            if(comboEntrenador.getSelectedItem().toString().isEmpty()){
+                errores = errores + "Primer entrenador no seleccionado\n";
+            }
+            if(Integer.parseInt(nAlumnosSeleccionados.getText()) < 8){
+                errores = errores + "No se ha seleccionado el mínimo de jugadores\n";
+                alumnosSeleccionados.setBorder(bordeError);
+            }
+        }
+        
+        if(errores.isEmpty()){
+        
         try {
             GestorEquipos.InsertarDatosEquipo(accesoBD, textNombre.getText(), comboTemp.getSelectedItem().toString(),
                     comboCat.getSelectedItem().toString(), textPrimerEnt.getText(), textSegundoEnt.getText(), PerteneceFundacion.isSelected());
-            GestorEquipos.InsertarJugadoresEquipo(accesoBD, modelo,comboCat.getSelectedItem().toString(),textNombre.getText());
+            GestorEquipos.InsertarJugadoresEquipo(accesoBD, modeloGuardar,comboCat.getSelectedItem().toString(),textNombre.getText());
         } catch (SQLException ex) {
             Logger.getLogger(NuevoEquipo.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         this.setVisible(false);
+        
+        }else{
+            JOptionPane.showMessageDialog(null,
+                    errores.substring(0, errores.length() - 1),
+                    "Errores en el formulario", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_botonGuardarActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -436,6 +499,10 @@ public class NuevoEquipo extends javax.swing.JFrame {
         alumnosSeleccionados.setModel(modelo);
         nAlumnosSeleccionados.setText(Integer.toString(ListaAlumnosSelec.size()));
         ActualizarJlist(ListaAlumnosSelec);
+        
+        if(Integer.parseInt(nAlumnosSeleccionados.getText()) > 12){
+            Error.setVisible(true);
+        }
     }//GEN-LAST:event_botonAñadirActionPerformed
 /*
     private void comboEntrenadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEntrenadorActionPerformed
@@ -548,11 +615,11 @@ public class NuevoEquipo extends javax.swing.JFrame {
 
         alumnosMostrados.setModel(modelo);
         alumnosSeleccionados.setModel(ModeloAlumnos);
-        
+
         System.out.print("\nModelo alumnos " + modelo);
-        
-       nAlumnosDisponibles.setText(Integer.toString(modelo.size()));
-       nAlumnosSeleccionados.setText(Integer.toString(ModeloAlumnos.size()));
+
+        nAlumnosDisponibles.setText(Integer.toString(modelo.size()));
+        nAlumnosSeleccionados.setText(Integer.toString(ModeloAlumnos.size()));
     }//GEN-LAST:event_jButton1ActionPerformed
     /**/
 
@@ -591,6 +658,7 @@ public class NuevoEquipo extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Error;
     private javax.swing.JCheckBox PerteneceFundacion;
     private javax.swing.JList alumnosMostrados;
     private javax.swing.JList alumnosSeleccionados;
