@@ -7,6 +7,7 @@ package GestionDePartidos;
 import ServiciosAlmacenamiento.BaseDatos;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -48,19 +49,31 @@ public class PartidoBD {
     
     public static void insertarPartido(BaseDatos accesoBD, Partido nuevoPartido) throws SQLException {
         
-        String insercion = "INSERT INTO Partido (fecha, hora, "
-                + "resultadoLocal, resultadoVisitante) VALUES (\"";
-        insercion = insercion + nuevoPartido.getFecha() + "\","
-                + nuevoPartido.getHora() + ",\""
-                + nuevoPartido.getResultadoLocal() + ",\""
-                + nuevoPartido.getResultadoVisitante() + "\");";
+        String insercion = "INSERT INTO partido (idEquipo, equipo_Fundacion_idFundacion, equipo_Categoria_idCategoria, "
+                + "equipo_Temporada_idTemporada, equipo_liga_idLiga, idEquipoVisitante, equipo_Fundacion_idFundacion1, "
+                + "equipo_Categoria_idCategoria1, equipo_Temporada_idTemporada1, equipo_liga_idLiga1, fecha, hora, "
+                + "resultadoLocal, resultadoVisitante) VALUES (";
+        insercion = insercion + nuevoPartido.getIdEquipoLocal() + ", "
+                + nuevoPartido.getIdEquipoLocalFundacion() + ", "
+                + nuevoPartido.getIdEquipoLocalCategoria() + ", "
+                + nuevoPartido.getIdEquipoLocalTemporada() + ", "
+                + nuevoPartido.getIdEquipoLocalLiga() + ", "
+                + nuevoPartido.getIdEquipoVisitante() + ", "
+                + nuevoPartido.getIdEquipoVisitanteFundacion() + ", "
+                + nuevoPartido.getIdEquipoVisitanteCategoria() + ", "
+                + nuevoPartido.getIdEquipoVisitanteTemporada() + ", "
+                + nuevoPartido.getIdEquipoVisitanteLiga() + ", \""
+                + nuevoPartido.getFecha() + "\", \""
+                + nuevoPartido.getHora() + "\", "
+                + nuevoPartido.getResultadoLocal() + ", "
+                + nuevoPartido.getResultadoVisitante() + ");";
         
         System.out.print("\n inser " + insercion);
         accesoBD.ejecutaActualizacion(insercion);
     }
     
     
-    static int getIdPartido(BaseDatos accesoBD, Date fch, Date hr) throws SQLException {
+    static int getIdPartido(BaseDatos accesoBD, Date fch, Time hr) throws SQLException {
         String query = "SELECT idPartido FROM Partido WHERE "
                 + "fecha='" + fch + "'"
                 + " AND hora='"+ hr + "'";
@@ -97,7 +110,7 @@ public class PartidoBD {
     }
        
     public static boolean modificarDatosPartidoBD(BaseDatos accesoBD, int idPartido,
-            Date fecha, Date hora, int resultadoLocal, int resultadoVisitante) {
+            Date fecha, Time hora, int resultadoLocal, int resultadoVisitante) {
 
         boolean exito = true;
         String actualizacion = "UPDATE Partido SET ";
