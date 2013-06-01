@@ -311,6 +311,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jSeparator6 = new javax.swing.JSeparator();
         BotonNPartido = new javax.swing.JButton();
         botonMostrarPartidos = new javax.swing.JButton();
+        jLabel16 = new javax.swing.JLabel();
+        comboTemporadaPartidos = new javax.swing.JComboBox();
+        comboCategoriaPartidos = new javax.swing.JComboBox();
+        jLabel26 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        ComboEntrenadorPartidos = new javax.swing.JComboBox();
+        jButton4 = new javax.swing.JButton();
         barraMenu = new javax.swing.JMenuBar();
         menuInicio = new javax.swing.JMenu();
         menuJugadores = new javax.swing.JMenu();
@@ -1102,7 +1109,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addGroup(panelInstalacionesLayout.createSequentialGroup()
                         .addGap(53, 53, 53)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelInstalacionesLayout.setVerticalGroup(
             panelInstalacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1131,7 +1138,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addComponent(eliminarButton))
                 .addGap(38, 38, 38)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1796,23 +1803,23 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         tablaPartidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Fecha", "Hora", "Equipo Local", "Equipo Visitante"
+                "Fecha", "Hora", "Categoría", "Temporada", "Equipo Local", "Equipo Visitante"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1821,14 +1828,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         });
         jScrollPane8.setViewportView(tablaPartidos);
 
-        BotonModificarPartido.setText("Modificar");
+        BotonModificarPartido.setText("Modificar Partido");
         BotonModificarPartido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotonModificarPartidoActionPerformed(evt);
             }
         });
 
-        jButton9.setText("Eliminar");
+        jButton9.setText("Eliminar Partido");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
@@ -1851,6 +1858,30 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         botonMostrarPartidos.setText("Mostrar Partidos");
 
+        jLabel16.setText("Buscar");
+
+        comboTemporadaPartidos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        comboCategoriaPartidos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel26.setText("Filtrar Entrenador");
+
+        jTextField1.setText("Buscar...");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        ComboEntrenadorPartidos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jButton4.setText("Filtrar Partidos");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelPartidosLayout = new javax.swing.GroupLayout(PanelPartidos);
         PanelPartidos.setLayout(PanelPartidosLayout);
         PanelPartidosLayout.setHorizontalGroup(
@@ -1858,43 +1889,71 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             .addGroup(PanelPartidosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(PanelPartidosLayout.createSequentialGroup()
-                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(PanelPartidosLayout.createSequentialGroup()
-                                    .addComponent(BotonModificarPartido)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jButton9))
-                                .addComponent(BotonJPartido)))
+                    .addGroup(PanelPartidosLayout.createSequentialGroup()
                         .addComponent(Partidos)
-                        .addComponent(jSeparator6))
-                    .addComponent(BotonNPartido)
-                    .addComponent(botonMostrarPartidos))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(PanelPartidosLayout.createSequentialGroup()
+                        .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(PanelPartidosLayout.createSequentialGroup()
+                                .addComponent(BotonNPartido)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(BotonModificarPartido)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton9))
+                            .addGroup(PanelPartidosLayout.createSequentialGroup()
+                                .addComponent(botonMostrarPartidos)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton4)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(PanelPartidosLayout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(comboTemporadaPartidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(comboCategoriaPartidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(54, 54, 54)
+                        .addComponent(jLabel26)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ComboEntrenadorPartidos, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21))
+                    .addGroup(PanelPartidosLayout.createSequentialGroup()
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BotonJPartido)
+                        .addGap(36, 36, 36))))
         );
         PanelPartidosLayout.setVerticalGroup(
             PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelPartidosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Partidos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(comboTemporadaPartidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboCategoriaPartidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel26)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ComboEntrenadorPartidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(PanelPartidosLayout.createSequentialGroup()
-                        .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BotonModificarPartido)
-                            .addComponent(jButton9))
-                        .addGap(18, 18, 18)
-                        .addComponent(BotonJPartido)))
+                    .addComponent(BotonJPartido))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonMostrarPartidos)
+                .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonMostrarPartidos)
+                    .addComponent(jButton4))
                 .addGap(19, 19, 19)
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(BotonNPartido)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BotonNPartido)
+                    .addComponent(BotonModificarPartido)
+                    .addComponent(jButton9))
+                .addContainerGap())
         );
 
         getContentPane().add(PanelPartidos, new java.awt.GridBagConstraints());
@@ -4578,34 +4637,17 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private void menuPartidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuPartidosMouseClicked
         // TODO add your handling code here:
         ocultarPaneles();
+        
+        try{
+            List<String> entrenadores = GestorUsuarios.getEntrenadores(accesoBD, "");
+            actualizaComboTemporadaPartidos();
+            actualizaComboCategoriaPartidos();
+            actualizaComboEntrenadorPartidos(entrenadores);
+        } catch(SQLException e){
+            Logger.getLogger(NuevaTemporada.class.getName()).log(Level.SEVERE, null, e);
+        }
         PanelPartidos.setVisible(true);
     }//GEN-LAST:event_menuPartidosMouseClicked
-
-    private void BotonModificarPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonModificarPartidoActionPerformed
-        // TODO add your handling code here:
-        ocultarMensajesError();
-        new ModificarPartido().setVisible(true);
-    }//GEN-LAST:event_BotonModificarPartidoActionPerformed
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
-
-    private void BotonJPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonJPartidoActionPerformed
-        // TODO add your handling code here:
-        ocultarMensajesError();
-        new JugarPartido().setVisible(true);
-    }//GEN-LAST:event_BotonJPartidoActionPerformed
-
-    private void BotonNPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonNPartidoActionPerformed
-        // TODO add your handling code here:
-        ocultarMensajesError();
-        try {
-            new NuevoPartido(accesoBD, this).setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_BotonNPartidoActionPerformed
 
     private void nombreInsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreInsKeyTyped
         // TODO add your handling code here:
@@ -4952,6 +4994,40 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         }
     }//GEN-LAST:event_fechaInicioDateChooserKeyTyped
 
+    private void BotonModificarPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonModificarPartidoActionPerformed
+        // TODO add your handling code here:
+        ocultarMensajesError();
+        new ModificarPartido().setVisible(true);
+    }//GEN-LAST:event_BotonModificarPartidoActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void BotonJPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonJPartidoActionPerformed
+        // TODO add your handling code here:
+        ocultarMensajesError();
+        new JugarPartido().setVisible(true);
+    }//GEN-LAST:event_BotonJPartidoActionPerformed
+
+    private void BotonNPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonNPartidoActionPerformed
+        // TODO add your handling code here:
+        ocultarMensajesError();
+        try {
+            new NuevoPartido(accesoBD, this).setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_BotonNPartidoActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -4995,6 +5071,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JButton BotonModificarPartido;
     private javax.swing.JButton BotonNPartido;
     private javax.swing.JLabel BuscarporLabel;
+    private javax.swing.JComboBox ComboEntrenadorPartidos;
     private javax.swing.JButton Eliminar;
     private javax.swing.JButton Informacion;
     private javax.swing.JButton Insertar;
@@ -5037,10 +5114,12 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JButton cerrarSesion;
     private javax.swing.JComboBox comboCatEquipo;
     private javax.swing.JComboBox comboCatGrup;
+    private javax.swing.JComboBox comboCategoriaPartidos;
     private javax.swing.JComboBox comboEntGrup;
     private javax.swing.JComboBox comboTempEntr;
     private javax.swing.JComboBox comboTempEquipo;
     private javax.swing.JComboBox comboTempo;
+    private javax.swing.JComboBox comboTemporadaPartidos;
     private javax.swing.JComboBox consultaCategoria;
     private javax.swing.JComboBox consultaCategoriaUsuario;
     private javax.swing.JComboBox consultaEntrenador;
@@ -5073,6 +5152,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton9;
     private javax.swing.JComboBox jComboBox1;
@@ -5083,6 +5163,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -5093,6 +5174,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
@@ -5122,6 +5204,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel labelEquiposMostrados;
     private javax.swing.JLabel labelNumeroEquipos;
     private javax.swing.JLabel mensajeErrorEliminarAlumno;
@@ -5240,6 +5323,17 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
             comboTempEquipo.addItem(res.getString(1));
         }
     }
+    
+    private void actualizaComboTemporadaPartidos() throws SQLException{
+        comboTemporadaPartidos.removeAllItems();
+        comboTemporadaPartidos.addItem("-Temporada-");
+        
+        String query = "SELECT curso FROM Temporada";
+        ResultSet res = accesoBD.ejecutaConsulta(query);
+        while(res.next()){
+            comboTemporadaPartidos.addItem(res.getString(1));
+        }
+    }
 
     private void actualizaComboCatGrup() throws SQLException {
         comboCatGrup.removeAllItems();
@@ -5263,6 +5357,25 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         while (res.next()) {
             comboCatEquipo.addItem(res.getString(1));
         }
+    }
+    
+    private void actualizaComboCategoriaPartidos() throws SQLException {
+        comboCategoriaPartidos.removeAllItems();
+        comboCategoriaPartidos.addItem("-Categoría-");
+        
+        String query = "SELECT tipo FROM Categoria";
+        ResultSet res = accesoBD.ejecutaConsulta(query);
+        while (res.next()){
+            comboCategoriaPartidos.addItem(res.getString(1));
+        }
+    }
+    
+    private void actualizaComboEntrenadorPartidos(List<String> ents){
+        ComboEntrenadorPartidos.removeAllItems();
+        ComboEntrenadorPartidos.addItem("-Entrenador-");
+        
+        for(String s : ents)
+            ComboEntrenadorPartidos.addItem(s);
     }
 
     void actualizaComboBoxTemporadas(List<String> temps) {
@@ -5335,6 +5448,27 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
 
         return inst;
     }
+    /*
+     * Futuro getListaEquipos (pa cuando esté)
+     */
+    /*List<String> getListaEquipos(String s) throws SQLException {
+        List<String> equipos = new ArrayList<String>();
+        equipos = GestorEquipo.getListaInstalaciones(accesoBD);
+        return equipos.
+    }*/
+    
+    /*
+     * Método provisional para obtener equipos
+     */
+     List<String> getListaEquipos() throws SQLException {
+        List<String> equipos = new ArrayList<String>();
+        String query = "SELECT nombre FROM Equipo";
+        ResultSet res = accesoBD.ejecutaConsulta(query);
+        while (res.next()) {
+            equipos.add(res.getString(1));
+        }
+        return equipos;
+     }
 
     public void actualizaTablaGrupos() throws SQLException {
         List<List<String>> grupos = new ArrayList<List<String>>();
