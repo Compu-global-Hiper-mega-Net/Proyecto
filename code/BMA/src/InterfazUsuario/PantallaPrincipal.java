@@ -5012,7 +5012,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
 
     private void BotonNPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonNPartidoActionPerformed
         // TODO add your handling code here:
-        ocultarMensajesError();
+        ocultarMensajesError();        
         try {
             new NuevoPartido(accesoBD, this).setVisible(true);
         } catch (SQLException ex) {
@@ -5460,9 +5460,16 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     /*
      * Método provisional para obtener equipos
      */
-     List<String> getListaEquipos() throws SQLException {
+     List<String> getListaEquipos(int idCat, int idTemp) throws SQLException {
         List<String> equipos = new ArrayList<String>();
-        String query = "SELECT nombre FROM Equipo";
+        String query;
+        if(idCat == 0 && idTemp != 0){
+           query = "SELECT nombre FROM Equipo WHERE (temporada_idTemporada = " + idTemp + ");"; 
+        } else if(idCat != 0 && idTemp == 0){
+           query = "SELECT nombre FROM Equipo WHERE (Categoria_IdCategoria = " + idCat + ");"; 
+        } else{
+           query = "SELECT nombre FROM Equipo WHERE (Categoria_IdCategoria = " + idCat + " AND temporada_idTemporada = " + idTemp + ");"; 
+        }        
         ResultSet res = accesoBD.ejecutaConsulta(query);
         while (res.next()) {
             equipos.add(res.getString(1));

@@ -15,6 +15,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 
@@ -29,6 +31,8 @@ public class NuevoPartido extends javax.swing.JFrame {
     private Border bordeDatePicker;
     PantallaPrincipal principal;
     Object equipoAnterior1, equipoAnterior2;
+    int idCat, idTemp;
+    boolean noEntry;
 
     /**
      * Creates new form NuevoPartido
@@ -43,6 +47,7 @@ public class NuevoPartido extends javax.swing.JFrame {
         initComponents();
         principal = p;
         bordeError = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.red);
+        noEntry = true;
         
         List<String> temporadas = new ArrayList<String>();
         temporadas = principal.getListaTemps();
@@ -56,16 +61,15 @@ public class NuevoPartido extends javax.swing.JFrame {
         instalaciones = principal.getListaInstalaciones(null);
         actualizaComboInstalacion(instalaciones);
         
-        /*
-         * Faltan equipos
-         */
-        
+        idCat = idTemp = 0;
         List<String> equipos = new ArrayList<String>();
-        equipos = principal.getListaEquipos();
+        equipos = principal.getListaEquipos(idCat,idTemp);
         actualizaComboEquipo(equipos, 1);
         actualizaComboEquipo(equipos, 2);
         equipoAnterior1 = "";
         equipoAnterior2 = "";
+        
+        noEntry = false;
     }
 
     /**
@@ -103,10 +107,20 @@ public class NuevoPartido extends javax.swing.JFrame {
 
         ComboTemporada.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         ComboTemporada.setName(""); // NOI18N
+        ComboTemporada.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ComboTemporadaItemStateChanged(evt);
+            }
+        });
 
         CategoriaLabel.setText("Categoría: ");
 
         ComboCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ComboCategoria.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ComboCategoriaItemStateChanged(evt);
+            }
+        });
 
         EquipoLocalLabel.setText("Equipo Local: ");
 
@@ -284,33 +298,114 @@ public class NuevoPartido extends javax.swing.JFrame {
 
     private void ComboEquipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboEquipoItemStateChanged
         // TODO add your handling code here:
-        if(ComboEquipo.getSelectedItem() != "-Equipo Local-"){
-            if(equipoAnterior1 == ""){
-                equipoAnterior1 = ComboEquipo.getSelectedItem();
-                ComboEquipo2.removeItem(equipoAnterior1);
+        if(!noEntry){
+            if(ComboEquipo.getSelectedItem() != "-Equipo Local-"){
+                if(equipoAnterior1 == ""){
+                    equipoAnterior1 = ComboEquipo.getSelectedItem();
+                    ComboEquipo2.removeItem(equipoAnterior1);
 
-            }else {
-                ComboEquipo2.addItem(equipoAnterior1);
-                equipoAnterior1 = ComboEquipo.getSelectedItem();
-                ComboEquipo2.removeItem(equipoAnterior1); 
+                }else {
+                    ComboEquipo2.addItem(equipoAnterior1);
+                    equipoAnterior1 = ComboEquipo.getSelectedItem();
+                    ComboEquipo2.removeItem(equipoAnterior1); 
+                }
+            } else{
+                if(equipoAnterior1 != ""){
+                    ComboEquipo2.addItem(equipoAnterior1);
+                    equipoAnterior1 = "";
+                }
             }
         }
     }//GEN-LAST:event_ComboEquipoItemStateChanged
 
     private void ComboEquipo2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboEquipo2ItemStateChanged
         // TODO add your handling code here:
-        if(ComboEquipo2.getSelectedItem() != "-Equipo Visitante-"){
-            if(equipoAnterior1 == ""){
-                equipoAnterior2 = ComboEquipo2.getSelectedItem();
-                ComboEquipo.removeItem(equipoAnterior2);
+        if(!noEntry){
+            if(ComboEquipo2.getSelectedItem() != "-Equipo Visitante-"){
+                if(equipoAnterior2 == ""){
+                    equipoAnterior2 = ComboEquipo2.getSelectedItem();
+                    ComboEquipo.removeItem(equipoAnterior2);
 
-            }else {
-                ComboEquipo.addItem(equipoAnterior2);
-                equipoAnterior2 = ComboEquipo2.getSelectedItem();
-                ComboEquipo.removeItem(equipoAnterior2); 
+                }else {
+                    ComboEquipo.addItem(equipoAnterior2);
+                    equipoAnterior2 = ComboEquipo2.getSelectedItem();
+                    ComboEquipo.removeItem(equipoAnterior2); 
+                }
+            } else{
+                if(equipoAnterior2 != ""){
+                    ComboEquipo.addItem(equipoAnterior2);
+                    equipoAnterior2 = "";
+                }
             }
         }
     }//GEN-LAST:event_ComboEquipo2ItemStateChanged
+
+    private void ComboTemporadaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboTemporadaItemStateChanged
+        // TODO add your handling code here:
+        
+        if(!noEntry){
+            if(ComboTemporada.getSelectedItem() != "-Temporada-"){
+                try {            
+                    idTemp = GestorTemporadas.getIdTemporada(accesoBD, ComboTemporada.getSelectedItem().toString());
+                } catch (SQLException ex) {
+                   Logger.getLogger(NuevoPartido.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                List<String> equipos = new ArrayList<String>();
+                try {
+                    equipos = principal.getListaEquipos(idCat,idTemp);
+                    actualizaComboEquipo(equipos, 1);
+                    actualizaComboEquipo(equipos, 2);
+                } catch (SQLException ex) {
+                    Logger.getLogger(NuevoPartido.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else{
+                idTemp = 0;
+                List<String> equipos = new ArrayList<String>();
+                try {
+                    equipos = principal.getListaEquipos(idCat,idTemp);
+                    actualizaComboEquipo(equipos, 1);
+                    actualizaComboEquipo(equipos, 2);
+                } catch (SQLException ex) {
+                    Logger.getLogger(NuevoPartido.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+                equipoAnterior1 = "";
+                equipoAnterior2 = "";   
+        }
+    }//GEN-LAST:event_ComboTemporadaItemStateChanged
+
+    private void ComboCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboCategoriaItemStateChanged
+        // TODO add your handling code here:
+        if(!noEntry){
+            if(ComboCategoria.getSelectedItem() != "-Categoria-"){
+                try {            
+                    idCat = GestorCategorias.getIdCategoria(accesoBD, ComboCategoria.getSelectedItem().toString());
+                } catch (SQLException ex) {
+                    Logger.getLogger(NuevoPartido.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                List<String> equipos = new ArrayList<String>();
+                try {
+                    equipos = principal.getListaEquipos(idCat,idTemp);
+                    actualizaComboEquipo(equipos, 1);
+                    actualizaComboEquipo(equipos, 2);
+                } catch (SQLException ex) {
+                    Logger.getLogger(NuevoPartido.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else{
+                idCat = 0;
+                List<String> equipos = new ArrayList<String>();
+                try {
+                    equipos = principal.getListaEquipos(idCat,idTemp);
+                    actualizaComboEquipo(equipos, 1);
+                    actualizaComboEquipo(equipos, 2);
+                } catch (SQLException ex) {
+                    Logger.getLogger(NuevoPartido.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+                equipoAnterior1 = "";
+                equipoAnterior2 = "";
+        }
+    }//GEN-LAST:event_ComboCategoriaItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -400,7 +495,6 @@ public class NuevoPartido extends javax.swing.JFrame {
             ComboEquipo2.addItem("-Equipo Visitante-");
             for(String s : equipos)
                 ComboEquipo2.addItem(s);
-            
         }
     }
 }
