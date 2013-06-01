@@ -1194,6 +1194,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jScrollPane5.setViewportView(tablaEquipos);
 
         botonModificarEquipo.setText("Modificar");
+        botonModificarEquipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonModificarEquipoActionPerformed(evt);
+            }
+        });
 
         botonEliminarEquipo.setText("Eliminar");
         botonEliminarEquipo.addActionListener(new java.awt.event.ActionListener() {
@@ -5027,6 +5032,16 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void botonModificarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarEquipoActionPerformed
+        // TODO add your handling code here:
+        ocultarMensajesError();
+        try{
+            new ModificarEquipo(accesoBD).setVisible(true);
+        }catch (SQLException ex){
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_botonModificarEquipoActionPerformed
 
     /**
      * @param args the command line arguments

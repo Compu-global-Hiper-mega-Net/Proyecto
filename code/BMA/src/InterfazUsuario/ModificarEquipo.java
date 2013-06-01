@@ -4,6 +4,13 @@
  */
 package InterfazUsuario;
 
+import ServiciosAlmacenamiento.BaseDatos;
+import java.awt.Color;
+import java.sql.SQLException;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
+import javax.swing.border.Border;
+
 /**
  *
  * @author 
@@ -39,11 +46,27 @@ package InterfazUsuario;
 
 public class ModificarEquipo extends javax.swing.JFrame {
 
+    /* Declaracion de variables */
+    
+    BaseDatos accesoBD;
+    DefaultListModel modeloGuardar = new DefaultListModel(); 
+    Border bordeError;
+    
     /**
      * Creates new form ModificarEquipo
      */
     public ModificarEquipo() {
         initComponents();
+    }
+    
+    public ModificarEquipo(BaseDatos acceso) throws SQLException
+    {
+        initComponents();
+          initComponents();
+        this.setLocation(300, 300);
+        accesoBD = acceso;
+        bordeError = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.red);
+        
     }
 
     /**
