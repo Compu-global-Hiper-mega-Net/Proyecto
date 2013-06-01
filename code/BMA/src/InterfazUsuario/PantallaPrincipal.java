@@ -2377,7 +2377,7 @@ private void menuInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
     private String leeConsultaAlumnosInterfaz() {
         String consulta_alumnos = "SELECT a.idAlumno, a.talla, a.nombre, a.primerApellido, a.segundoApellido, a.nombrePadre, a.nombreMadre, a.numeroCuenta,"
                 + "a.telMovil, a.telFijo, a.observaciones, a.provincia, a.localidad, a.codigoPostal, a.colegio, a.domicilio, a.email, a.fechaNacimiento, "
-                + "a.Alumnocol FROM ";
+                + "a.sexo FROM ";
         String tablasImplicadas = " alumno a ";
         String condicionesConsulta = " WHERE ";
 
