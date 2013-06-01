@@ -85,6 +85,10 @@ public class GestorEquipos {
         return equipos;
     }
     
+    public static int getIdEquipo(BaseDatos accesoBD, String equipo, String cat) throws SQLException{
+        return EquipoBD.getIdEq(accesoBD, equipo, cat);
+    }
+    
     public static boolean EliminarEquipo(BaseDatos accesoBD, Equipo e) throws SQLException {
         
         return EquipoBD.EliminarEquipoBD(accesoBD, e);

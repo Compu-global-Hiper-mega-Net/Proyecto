@@ -42,14 +42,19 @@ import java.util.List;
  */
 public class GestorPartidos {
     
-   public static boolean darAltaPartido(BaseDatos accesoBD, Date fecha,
-            Date hora, int resultadoLocal, int resultadoVisitante) {
+   public static boolean introducirPartido(BaseDatos accesoBD, int idEquipoLocal, int idEquipoLocalFundacion,
+           int idEquipoLocalCategoria, int idEquipoLocalTemporada, int idEquipoLocalLiga, int idEquipoVisitante,
+           int idEquipoVisitanteFundacion, int idEquipoVisitanteCategoria, int idEquipoVisitanteTemporada, 
+           int idEquipoVisitanteLiga, Date fecha, Time hora, int resultadoLocal, int resultadoVisitante) {
 
         boolean exito = true;
-        Partido instalacion = new Partido(fecha, hora, resultadoLocal, resultadoVisitante);
+        Partido part = new Partido(idEquipoLocal, idEquipoLocalFundacion,
+           idEquipoLocalCategoria, idEquipoLocalTemporada, idEquipoLocalLiga, idEquipoVisitante,
+           idEquipoVisitanteFundacion, idEquipoVisitanteCategoria, idEquipoVisitanteTemporada, 
+           idEquipoVisitanteLiga, fecha, hora, resultadoLocal, resultadoVisitante);
 
         try {
-            PartidoBD.insertarPartido(accesoBD, instalacion);
+            PartidoBD.insertarPartido(accesoBD, part);
         } catch (SQLException ex) {
             exito = false;
         }
@@ -65,25 +70,29 @@ public class GestorPartidos {
     }
     
     public static boolean modificaPartido(BaseDatos accesoBD,int idPartido, 
-            Date fecha, Date hora, int resultadoLocal, int resultadoVisitante) {
+            Date fecha, Time hora, int resultadoLocal, int resultadoVisitante) {
 
         return PartidoBD.modificarDatosPartidoBD(accesoBD, idPartido, fecha, 
                 hora, resultadoLocal, resultadoVisitante);
     }
         
-    public static void eliminaPartido(BaseDatos accesoBD, Date fecha, Date hora,
-            int resultadoLocal, int resultadoVisitante){
+    public static void eliminaPartido(BaseDatos accesoBD, int idEquipoLocal, int idEquipoLocalFundacion,
+           int idEquipoLocalCategoria, int idEquipoLocalTemporada, int idEquipoLocalLiga, int idEquipoVisitante,
+           int idEquipoVisitanteFundacion, int idEquipoVisitanteCategoria, int idEquipoVisitanteTemporada, 
+           int idEquipoVisitanteLiga, Date fecha, Time hora, int resultadoLocal, int resultadoVisitante){
         
         PartidoBD partBD = new PartidoBD();
         
-        Partido partidoEliminar = Partido.crearPartido(fecha, hora,
-            resultadoLocal, resultadoVisitante);
+        Partido partidoEliminar = Partido.crearPartido(idEquipoLocal, idEquipoLocalFundacion,
+           idEquipoLocalCategoria, idEquipoLocalTemporada, idEquipoLocalLiga, idEquipoVisitante,
+           idEquipoVisitanteFundacion, idEquipoVisitanteCategoria, idEquipoVisitanteTemporada, 
+           idEquipoVisitanteLiga, fecha, hora, resultadoLocal, resultadoVisitante);
         
         partBD.eliminarPartidoBD(accesoBD, partidoEliminar);
         
     }
     
-    public static int getIdPartido(BaseDatos accesoBD, Date fecha, Date hora) throws SQLException {
+    public static int getIdPartido(BaseDatos accesoBD, Date fecha, Time hora) throws SQLException {
         return PartidoBD.getIdPartido(accesoBD, fecha, hora);
     }
 

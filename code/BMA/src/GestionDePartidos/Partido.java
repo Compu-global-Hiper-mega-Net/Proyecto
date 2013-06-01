@@ -4,6 +4,7 @@
  */
 package GestionDePartidos;
 
+import java.sql.Time;
 import java.util.Date;
 /**
  *
@@ -40,25 +41,51 @@ public class Partido {
     
     private int idPartido;
     private Date fecha;
-    private Date hora;
+    private Time hora;
     private int resultadoLocal;
     private int resultadoVisitante;
-    private int equipoLocal;
-    private int equipoVisitante;
+    private int idEquipoLocal;
+    private int idEquipoLocalFundacion;
+    private int idEquipoLocalCategoria;
+    private int idEquipoLocalTemporada; 
+    private int idEquipoLocalLiga; 
+    private int idEquipoVisitante;
+    private int idEquipoVisitanteFundacion; 
+    private int idEquipoVisitanteCategoria; 
+    private int idEquipoVisitanteTemporada; 
+    private int idEquipoVisitanteLiga;
     
         
-    public static Partido crearPartido (Date fecha, Date hora,
-            int resultadoLocal, int resultadoVisitante){
+    public static Partido crearPartido (int idEqLocal, int idEqLocalFundacion,
+           int idEqLocalCategoria, int idEqLocalTemporada, int idEqLocalLiga, int idEqVisitante,
+           int idEqVisitanteFundacion, int idEqVisitanteCategoria, int idEqVisitanteTemporada, 
+           int idEqVisitanteLiga, Date fch, Time hr, int resLocal, int resVisitante){
         
-        return new Partido(fecha, hora,
-            resultadoLocal, resultadoVisitante);
+        return new Partido(idEqLocal, idEqLocalFundacion,
+           idEqLocalCategoria, idEqLocalTemporada, idEqLocalLiga, idEqVisitante,
+           idEqVisitanteFundacion, idEqVisitanteCategoria,idEqVisitanteTemporada, 
+           idEqVisitanteLiga, fch, hr, resLocal, resVisitante);
     }
    
-    public Partido(Date f, Date h, int rL, int rV){
-        fecha = f;
-        hora = h;
-        resultadoLocal = rL;
-        resultadoVisitante = rV;
+    public Partido(int idEqLocal, int idEqLocalFundacion,
+           int idEqLocalCategoria, int idEqLocalTemporada, int idEqLocalLiga, int idEqVisitante,
+           int idEqVisitanteFundacion, int idEqVisitanteCategoria, int idEqVisitanteTemporada, 
+           int idEqVisitanteLiga, Date fch, Time hr, int resLocal, int resVisitante){
+        
+        idEquipoLocal = idEqLocal;
+        idEquipoLocalFundacion = idEqLocalFundacion;
+        idEquipoLocalCategoria = idEqLocalCategoria;
+        idEquipoLocalTemporada = idEqLocalTemporada;
+        idEquipoLocalLiga = idEqLocalLiga;
+        idEquipoVisitante = idEqVisitante;
+        idEquipoVisitanteFundacion = idEqVisitanteFundacion;
+        idEquipoVisitanteCategoria = idEqVisitanteCategoria;
+        idEquipoVisitanteTemporada = idEqVisitanteTemporada;
+        idEquipoVisitanteLiga = idEqVisitanteLiga;
+        fecha = fch;
+        hora = hr;
+        resultadoLocal = resLocal;
+        resultadoVisitante = resVisitante;
     }
 
     public int getIdPartido() {
@@ -81,7 +108,7 @@ public class Partido {
         return hora;
     }
 
-    public void setHora(Date hora) {
+    public void setHora(Time hora) {
         this.hora = hora;
     }
 
@@ -101,20 +128,84 @@ public class Partido {
         this.resultadoVisitante = resultadoVisitante;
     }
 
-    public int getEquipoLocal() {
-        return equipoLocal;
+    public int getIdEquipoLocal() {
+        return idEquipoLocal;
     }
 
-    public void setEquipoLocal(int equipoLocal) {
-        this.equipoLocal = equipoLocal;
+    public void setIdEquipoLocal(int idEquipoLocal) {
+        this.idEquipoLocal = idEquipoLocal;
     }
 
-    public int getEquipoVisitante() {
-        return equipoVisitante;
+    public int getIdEquipoLocalFundacion() {
+        return idEquipoLocalFundacion;
     }
 
-    public void setEquipoVisitante(int equipoVisitante) {
-        this.equipoVisitante = equipoVisitante;
+    public void setIdEquipoLocalFundacion(int idEquipoLocalFundacion) {
+        this.idEquipoLocalFundacion = idEquipoLocalFundacion;
+    }
+
+    public int getIdEquipoLocalCategoria() {
+        return idEquipoLocalCategoria;
+    }
+
+    public void setIdEquipoLocalCategoria(int idEquipoLocalCategoria) {
+        this.idEquipoLocalCategoria = idEquipoLocalCategoria;
+    }
+
+    public int getIdEquipoLocalTemporada() {
+        return idEquipoLocalTemporada;
+    }
+
+    public void setIdEquipoLocalTemporada(int idEquipoLocalTemporada) {
+        this.idEquipoLocalTemporada = idEquipoLocalTemporada;
+    }
+
+    public int getIdEquipoLocalLiga() {
+        return idEquipoLocalLiga;
+    }
+
+    public void setIdEquipoLocalLiga(int idEquipoLocalLiga) {
+        this.idEquipoLocalLiga = idEquipoLocalLiga;
+    }
+
+    public int getIdEquipoVisitante() {
+        return idEquipoVisitante;
+    }
+
+    public void setIdEquipoVisitante(int idEquipoVisitante) {
+        this.idEquipoVisitante = idEquipoVisitante;
+    }
+
+    public int getIdEquipoVisitanteFundacion() {
+        return idEquipoVisitanteFundacion;
+    }
+
+    public void setIdEquipoVisitanteFundacion(int idEquipoVisitanteFundacion) {
+        this.idEquipoVisitanteFundacion = idEquipoVisitanteFundacion;
+    }
+
+    public int getIdEquipoVisitanteCategoria() {
+        return idEquipoVisitanteCategoria;
+    }
+
+    public void setIdEquipoVisitanteCategoria(int idEquipoVisitanteCategoria) {
+        this.idEquipoVisitanteCategoria = idEquipoVisitanteCategoria;
+    }
+
+    public int getIdEquipoVisitanteTemporada() {
+        return idEquipoVisitanteTemporada;
+    }
+
+    public void setIdEquipoVisitanteTemporada(int idEquipoVisitanteTemporada) {
+        this.idEquipoVisitanteTemporada = idEquipoVisitanteTemporada;
+    }
+
+    public int getIdEquipoVisitanteLiga() {
+        return idEquipoVisitanteLiga;
+    }
+
+    public void setIdEquipoVisitanteLiga(int idEquipoVisitanteLiga) {
+        this.idEquipoVisitanteLiga = idEquipoVisitanteLiga;
     }
     
 }
