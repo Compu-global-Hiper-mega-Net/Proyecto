@@ -161,6 +161,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         errorModifCP = new javax.swing.JLabel();
         botonEliminarAlumno = new javax.swing.JButton();
         mensajeErrorEliminarAlumno = new javax.swing.JLabel();
+        estadisticasJugador = new javax.swing.JButton();
         panelUsuarios = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         botonNuevoUsuario = new javax.swing.JButton();
@@ -539,6 +540,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         mensajeErrorEliminarAlumno.setText("No ha seleccionado ningún alumno para ser eliminado");
         panelJugadores.add(mensajeErrorEliminarAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 610, -1, -1));
         mensajeErrorEliminarAlumno.setVisible(false);
+
+        estadisticasJugador.setText("Estadisticas");
+        estadisticasJugador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                estadisticasJugadorActionPerformed(evt);
+            }
+        });
+        panelJugadores.add(estadisticasJugador, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 160, 100, -1));
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -5109,6 +5118,33 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
             new EstadisticasEntrenador(accesoBD, retset, usuarioElegido).setVisible(true);
         }
     }//GEN-LAST:event_verEstadisticasEntrenadorActionPerformed
+
+    private void estadisticasJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estadisticasJugadorActionPerformed
+        
+        String jugadorElegido;
+        ocultarMensajesError();
+        
+        int i =tablaAlumnos.getSelectedRow();
+        if(i==-1){
+            JOptionPane.showMessageDialog(null,"Seleccione un jugador para ver estadisticas");
+        }else{
+            String nombre=(String)tablaAlumnos.getValueAt(i,0);
+            String primerApellido=(String)tablaAlumnos.getValueAt(i,1);
+            String segundoApellido=(String)tablaAlumnos.getValueAt(i, 2);
+   
+            String numCuenta=(String)tablaAlumnos.getValueAt(i,6);
+            
+            jugadorElegido = nombre+" "+primerApellido+" "+segundoApellido;
+           
+            try {
+                retset = GestorAlumnos.consultarEstadisticasAlumno(accesoBD, nombre, primerApellido, segundoApellido, numCuenta);
+            } catch (SQLException ex) {
+                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            new EstadisticasJugador(accesoBD, retset, jugadorElegido).setVisible(true);
+        }     
+    }//GEN-LAST:event_estadisticasJugadorActionPerformed
     //***************************************JAVI******************************************************//
     
     
@@ -5227,6 +5263,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JLabel errorModifFijoUsuario;
     private javax.swing.JLabel errorModifMovil;
     private javax.swing.JLabel errorModifMovilUsuario;
+    private javax.swing.JButton estadisticasJugador;
     private com.toedter.calendar.JDateChooser fechaFinDateChooser;
     private javax.swing.JLabel fechaFinLabel;
     private com.toedter.calendar.JDateChooser fechaInicioDateChooser;
