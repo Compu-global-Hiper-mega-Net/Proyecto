@@ -190,6 +190,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         consultaEntrenadorUsuario = new javax.swing.JComboBox();
         botonEliminarUsuario = new javax.swing.JButton();
         errorEliminarUsuario = new javax.swing.JLabel();
+        verEstadisticasEntrenador = new javax.swing.JButton();
         panelTemporadas = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         botonNuevaTemp = new javax.swing.JButton();
@@ -709,6 +710,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         errorEliminarUsuario.setText("No ha seleccionado ningún usuario para ser eliminado");
         panelUsuarios.add(errorEliminarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 610, -1, -1));
         errorEliminarUsuario.setVisible(false);
+
+        verEstadisticasEntrenador.setText("Estadisticas");
+        verEstadisticasEntrenador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                verEstadisticasEntrenadorActionPerformed(evt);
+            }
+        });
+        panelUsuarios.add(verEstadisticasEntrenador, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 160, 100, -1));
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -5043,6 +5052,41 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         }
     }//GEN-LAST:event_botonModificarEquipoActionPerformed
 
+    
+    //***************************************JAVI******************************************************//
+    private void verEstadisticasEntrenadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verEstadisticasEntrenadorActionPerformed
+       
+        String usuarioElegido;
+        ocultarMensajesError();
+        
+        int i =tablaUsuarios.getSelectedRow();
+        if(i==-1){
+            JOptionPane.showMessageDialog(null,"Seleccione un entrenador para ver estadisticas");
+        }else{
+            String nombre=(String)tablaUsuarios.getValueAt(i,0);
+            String primerApellido=(String)tablaUsuarios.getValueAt(i,1);
+            String segundoApellido=(String)tablaUsuarios.getValueAt(i, 2);
+            String DNI=(String)tablaUsuarios.getValueAt(i, 3);
+            
+            String tipo=(String)tablaUsuarios.getValueAt(i,5);
+            if (!"Entrenador".equals(tipo))
+                 usuarioElegido ="Este usuario no tiene estadisticas ya que no es entrenador ";
+            else
+                 usuarioElegido = nombre+" "+primerApellido+" "+segundoApellido;
+           
+            try {
+                retset = GestorUsuarios.consultarEstadisticasEntrenador(accesoBD, nombre, primerApellido, segundoApellido, DNI);
+            } catch (SQLException ex) {
+                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            new EstadisticasEntrenador(accesoBD, retset, usuarioElegido).setVisible(true);
+        }
+    }//GEN-LAST:event_verEstadisticasEntrenadorActionPerformed
+    //***************************************JAVI******************************************************//
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -5285,6 +5329,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JTextField textfield_apellidoSegundoUsuario;
     private javax.swing.JTextField textfield_nombreUsuario;
     private javax.swing.JTextField tfGrupEnt;
+    private javax.swing.JButton verEstadisticasEntrenador;
     // End of variables declaration//GEN-END:variables
 
     private void ocultarPaneles() {
