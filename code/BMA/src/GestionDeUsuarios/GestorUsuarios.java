@@ -129,4 +129,11 @@ public class GestorUsuarios {
         
         return ent;
     }
+    
+    //***************************************JAVI******************************************************//  
+     public static ResultSet consultarEstadisticasEntrenador(BaseDatos accesoBD, String nombre, String apellido1, String apellido2, String DNI) throws SQLException {
+         
+        return AccesoBDUsuario.generarEstadisticas(accesoBD, nombre, apellido1, apellido2, DNI);  
+    }
+   //***************************************JAVI******************************************************//  
 }

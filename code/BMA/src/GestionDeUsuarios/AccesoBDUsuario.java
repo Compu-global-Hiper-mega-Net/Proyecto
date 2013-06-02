@@ -193,4 +193,28 @@ class AccesoBDUsuario {
         }
         
     }
+    
+    //***************************************JAVI******************************************************//
+      public static ResultSet generarEstadisticas(BaseDatos accesoBD, String nombre, String apellido1, String apellido2, String DNI) throws SQLException{
+         
+         String consulta ;
+         
+         consulta = "SELECT idUsuario FROM usuario "
+                   +"WHERE nombre='"+nombre+"' AND primerApellido='"+apellido1+"' AND segundoApellido='"+apellido2+"'"
+                   + " AND DNI='"+DNI+"' AND entrenador=1";
+         ResultSet rst = accesoBD.ejecutaConsulta(consulta); 
+         
+         if (!rst.next()) {
+            return null;
+         }
+         else{
+           int idUsu = rst.getInt(1);  
+           consulta = "SELECT fecha, idEquipo ,idEquipoVisitante, resultadoLocal, resultadoVisitante FROM  partido , rango "
+                     +"WHERE Usuario_idUsuario='"+idUsu+"' AND Equipo_idEquipo=idEquipo";
+           rst = accesoBD.ejecutaConsulta(consulta); 
+                 
+           return rst;
+         }   
+    }
+    //***************************************JAVI******************************************************//   
 }
