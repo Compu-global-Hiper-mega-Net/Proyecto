@@ -199,6 +199,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         botonModTem = new javax.swing.JButton();
         botonElimTemp = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        estadisticasTemporada = new javax.swing.JButton();
         panelGrupos = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -767,23 +768,32 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        estadisticasTemporada.setText("Estadisticas");
+        estadisticasTemporada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                estadisticasTemporadaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelTemporadasLayout = new javax.swing.GroupLayout(panelTemporadas);
         panelTemporadas.setLayout(panelTemporadasLayout);
         panelTemporadasLayout.setHorizontalGroup(
             panelTemporadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTemporadasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelTemporadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelTemporadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel3)
-                        .addGroup(panelTemporadasLayout.createSequentialGroup()
-                            .addComponent(comboTempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(botonModTem)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(botonElimTemp))
-                        .addComponent(jSeparator1))
-                    .addComponent(botonNuevaTemp))
+                .addGroup(panelTemporadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel3)
+                    .addGroup(panelTemporadasLayout.createSequentialGroup()
+                        .addComponent(comboTempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(botonModTem)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonElimTemp))
+                    .addComponent(jSeparator1)
+                    .addGroup(panelTemporadasLayout.createSequentialGroup()
+                        .addComponent(botonNuevaTemp)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(estadisticasTemporada, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelTemporadasLayout.setVerticalGroup(
@@ -799,7 +809,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(botonNuevaTemp)
+                .addGroup(panelTemporadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonNuevaTemp)
+                    .addComponent(estadisticasTemporada))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -5145,6 +5157,19 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
             new EstadisticasJugador(accesoBD, retset, jugadorElegido).setVisible(true);
         }     
     }//GEN-LAST:event_estadisticasJugadorActionPerformed
+
+    private void estadisticasTemporadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estadisticasTemporadaActionPerformed
+        
+         ocultarMensajesError();
+        
+        if(comboTempo.getSelectedItem().equals(" "))
+            JOptionPane.showMessageDialog(null,"Seleccione una temporada para ver estadisticas ");
+        else{
+            String temporadaElegida = (String)comboTempo.getSelectedItem();
+             
+            new EstadisticasTemporada(accesoBD, temporadaElegida).setVisible(true);
+        }
+    }//GEN-LAST:event_estadisticasTemporadaActionPerformed
     //***************************************JAVI******************************************************//
     
     
@@ -5264,6 +5289,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JLabel errorModifMovil;
     private javax.swing.JLabel errorModifMovilUsuario;
     private javax.swing.JButton estadisticasJugador;
+    private javax.swing.JButton estadisticasTemporada;
     private com.toedter.calendar.JDateChooser fechaFinDateChooser;
     private javax.swing.JLabel fechaFinLabel;
     private com.toedter.calendar.JDateChooser fechaInicioDateChooser;
