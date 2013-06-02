@@ -79,7 +79,7 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
         if(res2.next()) 
             idCate = res2.getInt(1);
                 
-        retset = GestorTemporadas.consultarEstadisticasTemporada(accesoBD, idTemp, idCate);
+        //retset = GestorTemporadas.consultarEstadisticasTemporada(accesoBD, idTemp, idCate);
       
         if(retset == null)
             System.out.println("La consulta final es vacia"); 
