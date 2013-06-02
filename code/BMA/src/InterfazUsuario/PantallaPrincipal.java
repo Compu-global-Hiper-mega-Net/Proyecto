@@ -5033,14 +5033,40 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void mostrarMensajeError(String mensaje)
+    {
+     JOptionPane.showMessageDialog(null,
+                    mensaje, "Error",
+                    JOptionPane.ERROR_MESSAGE);   
+    }
+    
     private void botonModificarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarEquipoActionPerformed
         // TODO add your handling code here:
-        ocultarMensajesError();
-        try{
-            new ModificarEquipo(accesoBD).setVisible(true);
-        }catch (SQLException ex){
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+       
+        if(tablaEquipos.getSelectedRow() > 1)
+        {
+            String nombreEquipo = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 0);
+            String selecCat = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 1);
+            String selecTemp = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 2);
+            String primerEntr = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 3);
+            String segundoEntr = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 4);
+
+            if(!nombreEquipo.isEmpty() || !selecCat.isEmpty() || !selecTemp.isEmpty() || !primerEntr.isEmpty() || !segundoEntr.isEmpty())
+            {
+                ocultarMensajesError();
+
+                try{
+                    new ModificarEquipo(accesoBD,nombreEquipo,selecCat,selecTemp,primerEntr,segundoEntr).setVisible(true);
+                }catch (SQLException ex){
+                    Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else
+                mostrarMensajeError("Falta algún campo por editar");
+
         }
+        else
+            mostrarMensajeError("No se ha seleccionado ninguna fila de la tabla");
     }//GEN-LAST:event_botonModificarEquipoActionPerformed
 
     /**
@@ -5075,7 +5101,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
             @Override
             public void run() {
                 new PantallaPrincipal().setVisible(true);
-                System.out.println("Pues aquí OLA K DISE");
 
             }
         });

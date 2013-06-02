@@ -278,4 +278,10 @@ public class EquipoBD {
         return id;
     }
     
+    private static boolean modificarDatosEquipo(BaseDatos accesoBD)
+    {
+        boolean exito = true;
+        
+        return exito;
+    }
 }
