@@ -297,4 +297,29 @@ class AccesoBDAlumno {
         }
         
     }
+    
+    //***************************************JAVI******************************************************//
+      public static ResultSet buscarEstadisticas(BaseDatos accesoBD, String nombre, String apellido1, String apellido2, String numCuenta) throws SQLException{
+         
+         String consulta ;
+         
+         consulta = "SELECT idAlumno FROM Alumno "
+                   +"WHERE nombre='"+nombre+"' AND primerApellido='"+apellido1+"' AND segundoApellido='"+apellido2+"'"
+                   + " AND numeroCuenta='"+numCuenta+"'";
+         ResultSet rst = accesoBD.ejecutaConsulta(consulta); 
+         
+         if (!rst.next()) {
+            return null;
+         }
+         else{
+           int idAlumno = rst.getInt(1);  
+           consulta = "SELECT p.idEquipo, p.idEquipoVisitante, e.asistencias, e.rebotesOfensivos, e.rebotesDefensivos, e.robos, e.perdidas, e.puntos FROM "
+                    + "EstadisticaAlumno e, partido p "
+                    + "WHERE e.alumno_idAlumno='"+idAlumno+"' AND e.partido_idPartido=p.idPartido";
+           rst = accesoBD.ejecutaConsulta(consulta); 
+                 
+           return rst;
+         }   
+    }
+    //***************************************JAVI******************************************************//      
 }
