@@ -113,6 +113,12 @@ public class GestorAlumnos {
         
         return als;
     }
-
     
+    
+    //***************************************JAVI******************************************************//  
+     public static ResultSet consultarEstadisticasAlumno(BaseDatos accesoBD, String nombre, String apellido1, String apellido2, String numCuenta) throws SQLException {
+         
+        return AccesoBDAlumno.buscarEstadisticas(accesoBD, nombre, apellido1, apellido2, numCuenta);  
+    }
+   //***************************************JAVI******************************************************//     
 }

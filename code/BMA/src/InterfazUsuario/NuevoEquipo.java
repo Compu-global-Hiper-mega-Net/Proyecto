@@ -800,7 +800,6 @@ public class NuevoEquipo extends javax.swing.JFrame {
 
 
         while (retset.next()) {
-            System.out.println("VECES OLA");
             comboCat.addItem(retset.getString(1));
         }
     }
