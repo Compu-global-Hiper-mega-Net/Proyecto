@@ -24,51 +24,35 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="151" max="-2" attributes="0"/>
-                      <Component id="entrenadorElegidoTexto" min="-2" pref="303" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                      <Component id="entrenadorLab" min="-2" pref="98" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-              <EmptySpace pref="524" max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="botonRetroceder" min="-2" pref="92" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                       <Component id="botonSalir" min="-2" pref="92" max="-2" attributes="0"/>
+                      <Component id="panelTabEstEntr" min="-2" pref="716" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="panelTabEstEntr" min="-2" pref="902" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="entrenadorLab" min="-2" pref="66" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="nombreApellidosEntrenador" min="-2" pref="491" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="19" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="76" max="32767" attributes="0"/>
+              <EmptySpace pref="52" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="entrenadorLab" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="entrenadorElegidoTexto" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="nombreApellidosEntrenador" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-              <Component id="panelTabEstEntr" min="-2" pref="314" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+              <Component id="panelTabEstEntr" min="-2" pref="266" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="botonSalir" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="botonRetroceder" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="botonSalir" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -92,22 +76,16 @@
               </Border>
             </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="6" rowCount="25">
+              <Table columnCount="5" rowCount="15">
                 <Column editable="true" title="Fecha" type="java.lang.String"/>
                 <Column editable="true" title="Equipo local" type="java.lang.String"/>
                 <Column editable="true" title="Equipo visitante" type="java.lang.String"/>
-                <Column editable="true" title="Resultado local" type="java.lang.Integer"/>
-                <Column editable="true" title="Resultado visitante" type="java.lang.Integer"/>
-                <Column editable="true" title="Ganado" type="java.lang.Boolean"/>
+                <Column editable="true" title="Resultado local" type="java.lang.String"/>
+                <Column editable="true" title="Resultado visitante" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="2">
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
@@ -143,14 +121,6 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JToggleButton" name="botonRetroceder">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&lt;&lt;&lt;Atras"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonRetrocederActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JToggleButton" name="botonSalir">
       <Properties>
         <Property name="text" type="java.lang.String" value="Salir"/>
@@ -164,10 +134,7 @@
         <Property name="text" type="java.lang.String" value="Entrenador:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="entrenadorElegidoTexto">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="entrenadorElegidoTextoActionPerformed"/>
-      </Events>
+    <Component class="javax.swing.JLabel" name="nombreApellidosEntrenador">
     </Component>
   </SubComponents>
 </Form>

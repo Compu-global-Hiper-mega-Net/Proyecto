@@ -28,16 +28,19 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="botonRetroceder" min="-2" pref="92" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="133" max="-2" attributes="0"/>
                       <Component id="botonSalir" min="-2" pref="92" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jugadorLab" min="-2" pref="72" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jugadorElegidoTexto" min="-2" pref="313" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jugadorLab" min="-2" pref="72" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="nombreAlumnoElegido" min="-2" pref="381" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="panelTabEstJug" alignment="0" min="-2" pref="936" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="panelTabEstJug" alignment="0" min="-2" pref="936" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="29" max="32767" attributes="0"/>
           </Group>
@@ -46,18 +49,15 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="103" max="32767" attributes="0"/>
+              <EmptySpace pref="106" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jugadorLab" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jugadorElegidoTexto" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="nombreAlumnoElegido" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
               <Component id="panelTabEstJug" min="-2" pref="314" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="botonSalir" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="botonRetroceder" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="botonSalir" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -70,14 +70,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonSalirActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JToggleButton" name="botonRetroceder">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&lt;&lt;&lt;Atras"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonRetrocederActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="panelTabEstJug">
@@ -98,42 +90,18 @@
               </Border>
             </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="11" rowCount="25">
+              <Table columnCount="7" rowCount="25">
                 <Column editable="true" title="Partido " type="java.lang.String"/>
-                <Column editable="true" title="Asistencias" type="java.lang.Integer"/>
-                <Column editable="true" title="Rebotes ofe" type="java.lang.Integer"/>
-                <Column editable="true" title="Rebotes def" type="java.lang.Integer"/>
-                <Column editable="true" title="%Tiros de campo" type="java.lang.Double"/>
-                <Column editable="true" title="%Tiros libres" type="java.lang.Double"/>
-                <Column editable="true" title="%Triples" type="java.lang.Double"/>
-                <Column editable="true" title="Robos" type="java.lang.Integer"/>
-                <Column editable="true" title="P&#xe9;rdidas" type="java.lang.Integer"/>
-                <Column editable="true" title="Puntos" type="java.lang.Integer"/>
-                <Column editable="true" title="Valoraci&#xf3;n" type="java.lang.String"/>
+                <Column editable="true" title="Asistencias" type="java.lang.String"/>
+                <Column editable="true" title="Rebotes ofensivos" type="java.lang.String"/>
+                <Column editable="true" title="Rebotes defensivos" type="java.lang.String"/>
+                <Column editable="true" title="Robos" type="java.lang.String"/>
+                <Column editable="true" title="Perdidas" type="java.lang.String"/>
+                <Column editable="true" title="Puntos" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="2">
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
@@ -184,10 +152,7 @@
         <Property name="text" type="java.lang.String" value="Jugador:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jugadorElegidoTexto">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jugadorElegidoTextoActionPerformed"/>
-      </Events>
+    <Component class="javax.swing.JLabel" name="nombreAlumnoElegido">
     </Component>
   </SubComponents>
 </Form>
