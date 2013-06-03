@@ -589,9 +589,4 @@ public class NuevoPartido extends javax.swing.JFrame {
         
         return horaDate;
     }
-    
-    private String dateToMYSQLDate (Date fch){
-        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
-        return sdf.format(fch);
-    }
 }

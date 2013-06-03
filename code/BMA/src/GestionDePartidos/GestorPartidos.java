@@ -100,4 +100,8 @@ public class GestorPartidos {
         return PartidoBD.getListaPartidos(accesoBD);
     }
     
+    public static List<List<String>> getListaPartidosFiltro(BaseDatos accesoBD, String fecha, String temporada, String categoria, String equipoLoc, String equipoVis) throws SQLException{
+        return PartidoBD.getListaPartidosFiltro(accesoBD, fecha, temporada, categoria, equipoLoc, equipoVis);
+    }
+    
 }
