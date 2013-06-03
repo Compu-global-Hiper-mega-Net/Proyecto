@@ -256,7 +256,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         botonEliminarEquipo = new javax.swing.JButton();
         botonInfoEquipo = new javax.swing.JButton();
         botonNuevoEquipo = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        botonMostrarEquipos = new javax.swing.JButton();
         labelEquiposMostrados = new javax.swing.JLabel();
         labelNumeroEquipos = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
@@ -1220,13 +1220,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         tablaEquipos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Categoria", "Temporada", "Primer Entrenador", "Segundo Entrenador"
+                "Nombre", "Categoria", "Temporada", "Primer Entrenador", "Segundo Entrenador", "Sexo"
             }
         ));
         jScrollPane5.setViewportView(tablaEquipos);
@@ -1254,10 +1254,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Mostrar Todos");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        botonMostrarEquipos.setText("Mostrar Todos");
+        botonMostrarEquipos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                botonMostrarEquiposActionPerformed(evt);
             }
         });
 
@@ -1283,7 +1283,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                                 .addGap(113, 113, 113)
                                 .addComponent(botonBuscar)
                                 .addGap(45, 45, 45)
-                                .addComponent(jButton3))
+                                .addComponent(botonMostrarEquipos))
                             .addGroup(panelEquiposLayout.createSequentialGroup()
                                 .addGap(62, 62, 62)
                                 .addGroup(panelEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1306,18 +1306,18 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(comboTempEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panelEquiposLayout.createSequentialGroup()
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40)
+                                .addGap(157, 157, 157)
+                                .addComponent(labelEquiposMostrados)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelNumeroEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelEquiposLayout.createSequentialGroup()
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addGroup(panelEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(botonModificarEquipo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(botonInfoEquipo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(botonEliminarEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(botonNuevoEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(panelEquiposLayout.createSequentialGroup()
-                                .addGap(157, 157, 157)
-                                .addComponent(labelEquiposMostrados)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelNumeroEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(botonNuevoEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -1344,7 +1344,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(panelEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonBuscar)
-                    .addComponent(jButton3))
+                    .addComponent(botonMostrarEquipos))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -4090,7 +4090,7 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
         }
     }//GEN-LAST:event_menuPagosMouseClicked
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void botonMostrarEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarEquiposActionPerformed
         try {
             actualizaTablaEquipos();
             labelEquiposMostrados.setVisible(true);
@@ -4098,7 +4098,7 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
         } catch (SQLException ex) {
             Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_botonMostrarEquiposActionPerformed
 
     private void botonEliminarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarEquipoActionPerformed
     }//GEN-LAST:event_botonEliminarEquipoActionPerformed
@@ -5354,6 +5354,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JButton botonModTem;
     private javax.swing.JButton botonModificarEquipo;
     private javax.swing.JButton botonMostrarAlumnos;
+    private javax.swing.JButton botonMostrarEquipos;
     private javax.swing.JButton botonMostrarPartidos;
     private javax.swing.JButton botonNuevaCat;
     private javax.swing.JButton botonNuevaTemp;
@@ -5411,7 +5412,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JButton introducirButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton9;
@@ -5783,6 +5783,38 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     }
 
     public void actualizaTablaEquipos() throws SQLException {
+        List<Equipo> equipos = new ArrayList<Equipo>();
+        equipos = GestorEquipos.getListaEquipos(accesoBD);
+        
+        DefaultTableModel dtm = new DefaultTableModel();
+        dtm.addColumn("Nombre");
+        dtm.addColumn("Categoria");
+        dtm.addColumn("Temporada");
+        dtm.addColumn("Primer Entrenador");
+        dtm.addColumn("Segundo Entrenador");
+        dtm.addColumn("Sexo");
+        
+        /*String aux;
+        Object[] fila = new Object[5];
+        for (Equipo it : equipos) {
+            aux = it.getCategoria();
+            fila[0] = aux.substring(0, aux.indexOf(","));
+            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
+            fila[1] = aux.substring(0, aux.indexOf(","));
+            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
+            fila[2] = getCategoria(aux.substring(0, aux.indexOf(",")));
+            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
+            fila[3] = getEntrenador(aux.substring(0, aux.indexOf(",")));
+            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
+            fila[4] = getTemporada(aux);
+            dtm.addRow(fila);
+        }*/
+
+        tablaEquipos.setModel(dtm);
+        
+        
+        
+        
     }
 
     private String getCategoria(String s) throws SQLException {
