@@ -65,11 +65,11 @@ public class GestorTemporadas {
         existe = existeCurso(accesoBD, cursoNuevoComp);
         
         
-        while(cursoNuevo.length() != 4 || Character.isLetter(cursoNuevo.charAt(0))
-                || Character.isLetter(cursoNuevo.charAt(1))
-                || Character.isLetter(cursoNuevo.charAt(2))
-                || Character.isLetter(cursoNuevo.charAt(3))
-                || existe){
+        while(cursoNuevo.length() != 4 && Character.isLetter(cursoNuevo.charAt(0))
+                && Character.isLetter(cursoNuevo.charAt(1))
+                && Character.isLetter(cursoNuevo.charAt(2))
+                && Character.isLetter(cursoNuevo.charAt(3))
+                && existe){
             if(existe)
                 JOptionPane.showMessageDialog(new PantallaPrincipal(), "La temporada ya existe", "Error", JOptionPane.ERROR_MESSAGE);
             else
