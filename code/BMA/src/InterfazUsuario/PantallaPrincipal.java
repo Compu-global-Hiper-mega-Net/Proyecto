@@ -5105,6 +5105,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
        
         String usuarioElegido;
         ocultarMensajesError();
+        ResultSet retset = null;
         
         int i =tablaUsuarios.getSelectedRow();
         if(i==-1){
@@ -5121,13 +5122,13 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
             else
                  usuarioElegido = nombre+" "+primerApellido+" "+segundoApellido;
            
-            try {
+            /*try {
                 retset = GestorUsuarios.consultarEstadisticasEntrenador(accesoBD, nombre, primerApellido, segundoApellido, DNI);
             } catch (SQLException ex) {
                 Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            }*/
             
-            new EstadisticasEntrenador(accesoBD, retset, usuarioElegido).setVisible(true);
+            //new EstadisticasEntrenador(accesoBD, retset, usuarioElegido).setVisible(true);
         }
     }//GEN-LAST:event_verEstadisticasEntrenadorActionPerformed
 
@@ -5148,13 +5149,13 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
             
             jugadorElegido = nombre+" "+primerApellido+" "+segundoApellido;
            
-            try {
+            /*try {
                 retset = GestorAlumnos.consultarEstadisticasAlumno(accesoBD, nombre, primerApellido, segundoApellido, numCuenta);
             } catch (SQLException ex) {
                 Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            new EstadisticasJugador(accesoBD, retset, jugadorElegido).setVisible(true);
+            new EstadisticasJugador(accesoBD, retset, jugadorElegido).setVisible(true);*/
         }     
     }//GEN-LAST:event_estadisticasJugadorActionPerformed
 

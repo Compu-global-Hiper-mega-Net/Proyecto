@@ -1,4 +1,3 @@
-
 package InterfazUsuario;
 
 import GestionDeTemporadas.GestorTemporadas;
@@ -13,35 +12,30 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Javier
  */
-
-/******************************************************************************
-                   (c) Copyright 2013 
-                   * 
-                   * Moisés Gautier Gómez
-                   * Julio Ros Martínez
-                   * Francisco Javier Gómez del Olmo
-                   * Francisco Santolalla Quiñonero
-                   * Carlos Jesús Fernández Basso
-                   * Alexander Moreno Borrego
-                   * Jesús Manuel Contreras Siles
-                   * Diego Muñoz Rio
- 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ******************************************************************************/
-
+/**
+ * ****************************************************************************
+ * (c) Copyright 2013
+ *
+ * Moisés Gautier Gómez Julio Ros Martínez Francisco Javier Gómez del Olmo
+ * Francisco Santolalla Quiñonero Carlos Jesús Fernández Basso Alexander Moreno
+ * Borrego Jesús Manuel Contreras Siles Diego Muñoz Rio
+ *
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
+ *****************************************************************************
+ */
 public class EstadisticasTemporada extends javax.swing.JFrame {
-    
+
     BaseDatos accesoBD;
     ResultSet retset;
     String temporadaElegida;
@@ -49,82 +43,83 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
     public EstadisticasTemporada() {
         initComponents();
     }
-    
-    
+
     public EstadisticasTemporada(BaseDatos acceso, String tempElegida) {
-        
-        initComponents();
+
         accesoBD = acceso;
+        initComponents();
         temporadaElegida = tempElegida;
         temporadaElegidaTexto.setText(temporadaElegida);
-        try { 
+        try {
             actualizaComboCategoria();
         } catch (SQLException ex) {
             Logger.getLogger(EstadisticasTemporada.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
-    private  void actualizaTablaEstadisticas() throws SQLException {
-        
+
+    private void actualizaTablaEstadisticas() throws SQLException {
+
         int idTemp = 0, idCate = 0;
-        
-        String consulta = "SELECT idTemporada FROM mydb.temporada WHERE curso='"+temporadaElegida+"';";
+
+        String consulta = "SELECT idTemporada FROM mydb.temporada WHERE curso='" + temporadaElegida + "';";
         ResultSet res1 = accesoBD.ejecutaConsulta(consulta);
-        if(res1.next()) 
+        if (res1.next()) {
             idTemp = res1.getInt(1);
-    
-        consulta = "SELECT idCategoria FROM mydb.categoria WHERE tipo='"+elegirCategoriaLista.getSelectedItem().toString()+"';";
+        }
+
+        consulta = "SELECT idCategoria FROM mydb.categoria WHERE tipo='" + elegirCategoriaLista.getSelectedItem().toString() + "';";
         ResultSet res2 = accesoBD.ejecutaConsulta(consulta);
-        if(res2.next()) 
+        if (res2.next()) {
             idCate = res2.getInt(1);
-                
+        }
+
         //retset = GestorTemporadas.consultarEstadisticasTemporada(accesoBD, idTemp, idCate);
-      
-        if(retset == null)
-            System.out.println("La consulta final es vacia"); 
 
-        else{ 
-              DefaultTableModel dtm = new DefaultTableModel();
-              dtm.addColumn("Equipo");
-              dtm.addColumn("Entrenador");
-              dtm.addColumn("Partidos ganados");
-              dtm.addColumn("Partidos perdidos");
-              dtm.addColumn("Total puntos liga");
+        if (retset == null) {
+            System.out.println("La consulta final es vacia");
+        } else {
+            DefaultTableModel dtm = new DefaultTableModel();
+            dtm.addColumn("Equipo");
+            dtm.addColumn("Entrenador");
+            dtm.addColumn("Partidos ganados");
+            dtm.addColumn("Partidos perdidos");
+            dtm.addColumn("Total puntos liga");
 
-              Object[] fila = new Object[6];
+            Object[] fila = new Object[6];
 
-              while(retset.next()){
+            while (retset.next()) {
 
-                  fila[0] = retset.getString(1);
-                  
-                  String entrenador = retset.getString(2)+" "+retset.getString(3)+" "+retset.getString(4);
-                  fila[1] = entrenador;
-                  
-                  String consulta3 = "SELECT COUNT(*) FROM partido p, equipo e WHERE (resultadoLocal > resultadoVisitante)" +
-                             "AND p.idEquipo=e.idEquipo AND e.nombre='"+(String) fila[0]+"'";     System.out.printf(consulta3);
-                  ResultSet res3 = accesoBD.ejecutaConsulta(consulta3);
-                  if(res3.next())
-                        fila[2] = res3.getString(1);
-                  
-                  String consulta4 = "SELECT COUNT(*) FROM partido p, equipo e WHERE (resultadoLocal < resultadoVisitante)" +
-                             "AND p.idEquipo=e.idEquipo AND e.nombre='"+(String) fila[0]+"'";         System.out.printf(consulta4);
-                  ResultSet res4 = accesoBD.ejecutaConsulta(consulta4);
-                  if(res4.next())
-                        fila[3] = res4.getString(1);
-                  
-                  fila[4] = retset.getString(5);
+                fila[0] = retset.getString(1);
 
-                  dtm.addRow(fila);
-              }
+                String entrenador = retset.getString(2) + " " + retset.getString(3) + " " + retset.getString(4);
+                fila[1] = entrenador;
 
-              tablaTemporadaEstadisticas.setModel(dtm);
+                String consulta3 = "SELECT COUNT(*) FROM partido p, equipo e WHERE (resultadoLocal > resultadoVisitante)"
+                        + "AND p.idEquipo=e.idEquipo AND e.nombre='" + (String) fila[0] + "'";
+                System.out.printf(consulta3);
+                ResultSet res3 = accesoBD.ejecutaConsulta(consulta3);
+                if (res3.next()) {
+                    fila[2] = res3.getString(1);
+                }
+
+                String consulta4 = "SELECT COUNT(*) FROM partido p, equipo e WHERE (resultadoLocal < resultadoVisitante)"
+                        + "AND p.idEquipo=e.idEquipo AND e.nombre='" + (String) fila[0] + "'";
+                System.out.printf(consulta4);
+                ResultSet res4 = accesoBD.ejecutaConsulta(consulta4);
+                if (res4.next()) {
+                    fila[3] = res4.getString(1);
+                }
+
+                fila[4] = retset.getString(5);
+
+                dtm.addRow(fila);
+            }
+
+            tablaTemporadaEstadisticas.setModel(dtm);
         }
     }
-    
-    
-    
-     private void actualizaComboCategoria() throws SQLException {
+
+    private void actualizaComboCategoria() throws SQLException {
         elegirCategoriaLista.removeAllItems();
         elegirCategoriaLista.addItem(" ");
 
@@ -134,7 +129,6 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
             elegirCategoriaLista.addItem(res.getString(1));
         }
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -277,26 +271,25 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
-        
+
         this.setVisible(false);
     }//GEN-LAST:event_botonSalirActionPerformed
 
     private void elegirCategoriaListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elegirCategoriaListaActionPerformed
-
     }//GEN-LAST:event_elegirCategoriaListaActionPerformed
 
-    
     private void botonMostrarEstadisticasTemporadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarEstadisticasTemporadaActionPerformed
-      
-        if(elegirCategoriaLista.getSelectedItem().equals(" "))
-            JOptionPane.showMessageDialog(null,"Seleccione una categoria para ver estadisticas");
-        else
+
+        if (elegirCategoriaLista.getSelectedItem().equals(" ")) {
+            JOptionPane.showMessageDialog(null, "Seleccione una categoria para ver estadisticas");
+        } else {
             try {
-            actualizaTablaEstadisticas();
-        } catch (SQLException ex) {
-            Logger.getLogger(EstadisticasTemporada.class.getName()).log(Level.SEVERE, null, ex);
+                actualizaTablaEstadisticas();
+            } catch (SQLException ex) {
+                Logger.getLogger(EstadisticasTemporada.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        
+
     }//GEN-LAST:event_botonMostrarEstadisticasTemporadaActionPerformed
 
     /**

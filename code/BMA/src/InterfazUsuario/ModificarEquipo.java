@@ -69,11 +69,11 @@ public class ModificarEquipo extends javax.swing.JFrame {
         bordeError = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.red);
         this.actualizarCategoria();
         this.actualizarTemporada();
-        this.fieldNombreEquipo.setName(nombreEquip);
-        this.comboCat.setName(selecCat);
-        this.comboTemp.setName(selecTemp);
-        this.fieldPrimerEntrenador.setName(primerEntr);
-        this.fieldSegundoEntrenador.setName(segundoEntr);
+        this.fieldNombreEquipo.setText(nombreEquip);
+        this.comboCat.setSelectedItem(selecCat);
+        this.comboTemp.setSelectedItem(selecTemp);
+        this.fieldPrimerEntrenador.setText(primerEntr);
+        this.fieldSegundoEntrenador.setText(segundoEntr);
         
         
         
