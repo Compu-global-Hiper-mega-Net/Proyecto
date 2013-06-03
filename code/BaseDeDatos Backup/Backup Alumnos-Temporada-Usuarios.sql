@@ -105,7 +105,7 @@ CREATE TABLE `alumno` (
   `fechaNacimiento` date NOT NULL,
   `sexo` char(1) NOT NULL,
   PRIMARY KEY (`idAlumno`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -114,7 +114,7 @@ CREATE TABLE `alumno` (
 
 LOCK TABLES `alumno` WRITE;
 /*!40000 ALTER TABLE `alumno` DISABLE KEYS */;
-INSERT INTO `alumno` VALUES (2,'M','carlos','Fernandez','Basso','Juan','Yolanda','12312213',667787267,977827606,'gran jugador','Granada','Granada',12345,'san idelfonso','C/ luis','carlos@gmail.com','2000-02-03','M'),(3,'L','Juan','Gomez','Gomez','Luis','Juana','23434553',666777888,968776655,NULL,'Granada','Maracena',18023,'Mulacen','C/ pedro','CDS@gmail.com','2001-02-06','M'),(4,'S','Luis','Hernandez','Sierra','Esteban','Luisa','54675545',657898734,958473277,NULL,'Granada','Granada',12098,'Francisco Ayala','C/ del Olmo','vvau@hotmail.com','2005-02-07','M'),(5,'XL','Manuel','Garcia','Fernandez','Manuel','Maria','23421451',677897654,958776898,NULL,'Granada','Granada',12089,'Generalife','C/ Galera','Maga@gmail.com','1998-02-03','M'),(6,'M','Marta','Garcia','Garrido','Luis','Julia','12342344',678398297,987325436,NULL,'Granada','Granada',12083,'Ave Maria','C/ olgoso','Mtarti@gmail.com','1999-02-09','F'),(7,'S','Luisa','Garcia','Ruano','Eladio','Carmen','23423141',678288289,958762839,NULL,'Granada','Granada',12345,'Monaita','C/ lupistre','olgora@gmail.com','2003-08-09','F'),(8,'M','Sebastian','Fernandez','Sierra','Sebastian','Isabel','43524532',653897654,968654346,NULL,'Granada','Maracena',12342,'Francisco Ayala','C/ leonor','Seba@gmail.com','2005-05-06','M'),(9,'L','Maria','Fernandez','Garcia','Luis','Maria','98984308',637824682,962747372,NULL,'Granada','Cajar',13456,'Luis Olmo','C/ Leopete','Marii@gmail.com','2007-06-04','F'),(10,'XL','Elena','Hernandez','Mesa','Juan','Eva','98676377',678265673,978525615,NULL,'Granada','Otura',14525,'Luis Crespo','C/ Gongora','Lssu@gmail.com','1997-07-08','F'),(11,'M','Eva','Fina','Segura','Esteban','Juana','97874847',693829838,978665544,NULL,'Granada','Granada',18097,'Monaita','C/ Herza','efs@gmail.com','1997-09-07','F');
+INSERT INTO `alumno` VALUES (2,'M','carlos','Fernandez','Basso','Juan','Yolanda','12312213',667787267,977827606,'gran jugador','Granada','Granada',12345,'san idelfonso','C/ luis','carlos@gmail.com','2000-02-03','M'),(3,'L','Juan','Gomez','Gomez','Luis','Juana','23434553',666777888,968776655,NULL,'Granada','Maracena',18023,'Mulacen','C/ pedro','CDS@gmail.com','2001-02-06','M'),(4,'S','Luis','Hernandez','Sierra','Esteban','Luisa','54675545',657898734,958473277,NULL,'Granada','Granada',12098,'Francisco Ayala','C/ del Olmo','vvau@hotmail.com','2005-02-07','M'),(5,'XL','Manuel','Garcia','Fernandez','Manuel','Maria','23421451',677897654,958776898,NULL,'Granada','Granada',12089,'Generalife','C/ Galera','Maga@gmail.com','1998-02-03','M'),(6,'M','Marta','Garcia','Garrido','Luis','Julia','12342344',678398297,987325436,NULL,'Granada','Granada',12083,'Ave Maria','C/ olgoso','Mtarti@gmail.com','1999-02-09','F'),(7,'S','Luisa','Garcia','Ruano','Eladio','Carmen','23423141',678288289,958762839,NULL,'Granada','Granada',12345,'Monaita','C/ lupistre','olgora@gmail.com','2003-08-09','F'),(8,'M','Sebastian','Fernandez','Sierra','Sebastian','Isabel','43524532',653897654,968654346,NULL,'Granada','Maracena',12342,'Francisco Ayala','C/ leonor','Seba@gmail.com','2005-05-06','M'),(9,'L','Maria','Fernandez','Garcia','Luis','Maria','98984308',637824682,962747372,NULL,'Granada','Cajar',13456,'Luis Olmo','C/ Leopete','Marii@gmail.com','2007-06-04','F'),(10,'XL','Elena','Hernandez','Mesa','Juan','Eva','98676377',678265673,978525615,NULL,'Granada','Otura',14525,'Luis Crespo','C/ Gongora','Lssu@gmail.com','1997-07-08','F'),(11,'M','Eva','Fina','Segura','Esteban','Juana','97874847',693829838,978665544,NULL,'Granada','Granada',18097,'Monaita','C/ Herza','efs@gmail.com','1997-09-07','F'),(12,'L','Marcos','Mesa','Fernandez','Luis','Yolanda','98782738',675445454,987545345,'Problemas de rodilla','Granada','Alfacar',15712,'Elisuar','C/ Tensa','Marc@gmail.com','1997-09-14','M'),(13,'M','Pablo','Pozo','Mesa','Francisco','Rosa','12842988',672873872,972637267,NULL,'Granada','Otura',13122,'Generalife','C/ Sensa','Pab@hotmail.com','1998-08-17','M'),(14,'XL','Luis Manuel','Garcia','Pozo','Manuel','Francisca','43356454',687267783,987626661,NULL,'Granada','Granada',18092,'Generalife','C/ Gran capitan','ALsk@gmail.com','2003-09-25','M'),(15,'M','Alfonso','Ortega','Carrillo','Jose','Adela','56345345',678839291,938231827,NULL,'Granada','Granada',18047,'Virgen de gracia','C/ Barriada','alfo@gmail.com','2000-07-06','M'),(16,'XL','Adela','Fernandez','Gomez','Jose Maria ','Jessica','76765176',654323233,967262716,NULL,'Granada','Maracena',18290,'San Jose','C/ Consolacion','ade@hotmail.com','1999-08-12','F'),(17,'M','Carla','Fernandez','Gomez','Carlos Jesus','Jessica','59862445',662578963,952785412,NULL,'Granada','Albolote',18200,'Sagrado Corazon','C/Juan Miguel','carlafg@hotmail.com','2002-01-19','F'),(18,'L','Sergio','Rodriguez','Galvez','Juan','Aurora','87752465',668745230,985632577,NULL,'Granada','Armilla',18662,'Juan XXIII','C/Alhondiga','sergito@hotmail.com','1999-10-12','M'),(19,'S','Juan','Sanchez','Alonso','Carlos','Cristina','15788562',633258746,926548465,NULL,'Granada','Huetor',15825,'Sagrada Corazon','C/Justino','alonsofd@hotmail.com','1998-04-15','M'),(20,'M','Esther','Zamora','Lopez','Daniel','Esther','52335645',665874524,987545223,NULL,'Granada','Zagra',14788,'Emilio Carmona','C/San Sebastian','esther23@hotmail.com','1997-02-01','M');
 /*!40000 ALTER TABLE `alumno` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -554,8 +554,9 @@ CREATE TABLE `partido` (
   `equipo_liga_idLiga1` int(11) NOT NULL,
   `idPartido` int(11) NOT NULL AUTO_INCREMENT,
   `fecha` date NOT NULL,
-  `resultadoLocal` int(11) NOT NULL,
-  `resultadoVisitante` int(11) NOT NULL,
+  `resultadoLocal` int(11) DEFAULT NULL,
+  `resultadoVisitante` int(11) DEFAULT NULL,
+  `hora` time DEFAULT NULL,
   PRIMARY KEY (`idPartido`,`idEquipo`,`equipo_Fundacion_idFundacion`,`equipo_Categoria_idCategoria`,`equipo_Temporada_idTemporada`,`equipo_liga_idLiga`,`idEquipoVisitante`,`equipo_Fundacion_idFundacion1`,`equipo_Categoria_idCategoria1`,`equipo_Temporada_idTemporada1`,`equipo_liga_idLiga1`),
   KEY `fk_equipo_has_equipo_equipo2_idx` (`idEquipoVisitante`,`equipo_Fundacion_idFundacion1`,`equipo_Categoria_idCategoria1`,`equipo_Temporada_idTemporada1`,`equipo_liga_idLiga1`),
   KEY `fk_equipo_has_equipo_equipo1_idx` (`idEquipo`,`equipo_Fundacion_idFundacion`,`equipo_Categoria_idCategoria`,`equipo_Temporada_idTemporada`,`equipo_liga_idLiga`),
@@ -654,7 +655,7 @@ CREATE TABLE `usuario` (
   `email` varchar(45) DEFAULT NULL,
   `user` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -663,7 +664,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Jose','Mouriño','Garcia','22331133F','123',1,'123112311',667879878,967884324,'top@gmail.com','mou'),(2,'Jesus','Garcia','Domingo','33786754C','clave',0,'678873978',678954532,958776689,'xus@gmail.com','jesus'),(3,'Ruben','Fernandez','Gomez','34562439S','clave',1,'890027928',667827828,958772652,'Rus@gmail.com','ruben'),(4,'Daniel','Ruiz','Basso','23432523G','clave',1,'848238743',678524314,958776162,'Danii@gmail.com','dani'),(5,'Jose Luis','Torejon','Pareja','12331231K','jose',1,'884988398',668738201,957882718,'joselillo@gmail.com','jose');
+INSERT INTO `usuario` VALUES (1,'Jose','Mouriño','Garcia','22331133F','123',1,'123112311',667879878,967884324,'top@gmail.com','mou'),(2,'Jesus','Garcia','Domingo','33786754C','clave',0,'678873978',678954532,958776689,'xus@gmail.com','jesus'),(3,'Ruben','Fernandez','Gomez','34562439S','clave',1,'890027928',667827828,958772652,'Rus@gmail.com','ruben'),(4,'Daniel','Ruiz','Basso','23432523G','clave',1,'848238743',678524314,958776162,'Danii@gmail.com','dani'),(5,'Jose Luis','Torejon','Pareja','12331231K','jose',1,'884988398',668738201,957882718,'joselillo@gmail.com','jose'),(6,'Francisco','Fernandez','Pozo','43423498L','clave',0,'987726567',677867256,982781772,'Frr@gmail.com','Paco');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -676,4 +677,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-05-30 19:21:06
+-- Dump completed on 2013-06-02  1:10:50

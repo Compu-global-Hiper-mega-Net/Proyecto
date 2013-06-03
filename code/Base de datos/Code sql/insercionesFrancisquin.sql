@@ -1,4 +1,3 @@
-
 INSERT INTO usuario (nombre, primerapellido, segundoapellido, dni, clave, user)
 VALUES ("paco", "fernandez" , "fernandez2", "77777777q","clave", "paco");
 INSERT INTO usuario (nombre, primerapellido, segundoapellido, dni, clave, entrenador)

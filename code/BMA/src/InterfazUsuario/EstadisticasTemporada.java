@@ -1,18 +1,140 @@
 
 package InterfazUsuario;
 
+import GestionDeTemporadas.GestorTemporadas;
+import ServiciosAlmacenamiento.BaseDatos;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Javier
  */
-public class EstadisticasTemporada extends javax.swing.JFrame {
 
-    /**
-     * Creates new form EstadisticasTemporada
-     */
+/******************************************************************************
+                   (c) Copyright 2013 
+                   * 
+                   * Moisés Gautier Gómez
+                   * Julio Ros Martínez
+                   * Francisco Javier Gómez del Olmo
+                   * Francisco Santolalla Quiñonero
+                   * Carlos Jesús Fernández Basso
+                   * Alexander Moreno Borrego
+                   * Jesús Manuel Contreras Siles
+                   * Diego Muñoz Rio
+ 
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ******************************************************************************/
+
+public class EstadisticasTemporada extends javax.swing.JFrame {
+    
+    BaseDatos accesoBD;
+    ResultSet retset;
+    String temporadaElegida;
+
     public EstadisticasTemporada() {
         initComponents();
     }
+    
+    
+    public EstadisticasTemporada(BaseDatos acceso, String tempElegida) {
+        
+        initComponents();
+        accesoBD = acceso;
+        temporadaElegida = tempElegida;
+        temporadaElegidaTexto.setText(temporadaElegida);
+        try { 
+            actualizaComboCategoria();
+        } catch (SQLException ex) {
+            Logger.getLogger(EstadisticasTemporada.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    private  void actualizaTablaEstadisticas() throws SQLException {
+        
+        int idTemp = 0, idCate = 0;
+        
+        String consulta = "SELECT idTemporada FROM mydb.temporada WHERE curso='"+temporadaElegida+"';";
+        ResultSet res1 = accesoBD.ejecutaConsulta(consulta);
+        if(res1.next()) 
+            idTemp = res1.getInt(1);
+    
+        consulta = "SELECT idCategoria FROM mydb.categoria WHERE tipo='"+elegirCategoriaLista.getSelectedItem().toString()+"';";
+        ResultSet res2 = accesoBD.ejecutaConsulta(consulta);
+        if(res2.next()) 
+            idCate = res2.getInt(1);
+                
+        //retset = GestorTemporadas.consultarEstadisticasTemporada(accesoBD, idTemp, idCate);
+      
+        if(retset == null)
+            System.out.println("La consulta final es vacia"); 
+
+        else{ 
+              DefaultTableModel dtm = new DefaultTableModel();
+              dtm.addColumn("Equipo");
+              dtm.addColumn("Entrenador");
+              dtm.addColumn("Partidos ganados");
+              dtm.addColumn("Partidos perdidos");
+              dtm.addColumn("Total puntos liga");
+
+              Object[] fila = new Object[6];
+
+              while(retset.next()){
+
+                  fila[0] = retset.getString(1);
+                  
+                  String entrenador = retset.getString(2)+" "+retset.getString(3)+" "+retset.getString(4);
+                  fila[1] = entrenador;
+                  
+                  String consulta3 = "SELECT COUNT(*) FROM partido p, equipo e WHERE (resultadoLocal > resultadoVisitante)" +
+                             "AND p.idEquipo=e.idEquipo AND e.nombre='"+(String) fila[0]+"'";     System.out.printf(consulta3);
+                  ResultSet res3 = accesoBD.ejecutaConsulta(consulta3);
+                  if(res3.next())
+                        fila[2] = res3.getString(1);
+                  
+                  String consulta4 = "SELECT COUNT(*) FROM partido p, equipo e WHERE (resultadoLocal < resultadoVisitante)" +
+                             "AND p.idEquipo=e.idEquipo AND e.nombre='"+(String) fila[0]+"'";         System.out.printf(consulta4);
+                  ResultSet res4 = accesoBD.ejecutaConsulta(consulta4);
+                  if(res4.next())
+                        fila[3] = res4.getString(1);
+                  
+                  fila[4] = retset.getString(5);
+
+                  dtm.addRow(fila);
+              }
+
+              tablaTemporadaEstadisticas.setModel(dtm);
+        }
+    }
+    
+    
+    
+     private void actualizaComboCategoria() throws SQLException {
+        elegirCategoriaLista.removeAllItems();
+        elegirCategoriaLista.addItem(" ");
+
+        String consulta = "SELECT DISTINCT tipo FROM categoria;";
+        ResultSet res = accesoBD.ejecutaConsulta(consulta);
+        while (res.next()) {
+            elegirCategoriaLista.addItem(res.getString(1));
+        }
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -25,13 +147,12 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
 
         panelTabEstTemp = new javax.swing.JScrollPane();
         tablaTemporadaEstadisticas = new javax.swing.JTable();
-        botonRetroceder = new javax.swing.JToggleButton();
         botonSalir = new javax.swing.JToggleButton();
         temporadaLab = new javax.swing.JLabel();
         elegirCategoriaLab = new javax.swing.JLabel();
         elegirCategoriaLista = new javax.swing.JComboBox();
         botonMostrarEstadisticasTemporada = new javax.swing.JButton();
-        temporadaElegidaTexto = new javax.swing.JTextField();
+        temporadaElegidaTexto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -40,38 +161,38 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
         tablaTemporadaEstadisticas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tablaTemporadaEstadisticas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Equipo", "Entrenador 1", "Entrenador 2", "Partidos ganados", "Partidos perdidos", "Total  puntos  liga"
+                "Equipo", "Entrenador ", "Partidos ganados", "Partidos perdidos", "Total  puntos  liga"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -81,13 +202,6 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
         tablaTemporadaEstadisticas.setColumnSelectionAllowed(true);
         panelTabEstTemp.setViewportView(tablaTemporadaEstadisticas);
         tablaTemporadaEstadisticas.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-
-        botonRetroceder.setText("<<<Atras");
-        botonRetroceder.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonRetrocederActionPerformed(evt);
-            }
-        });
 
         botonSalir.setText("Salir");
         botonSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -108,10 +222,9 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
         });
 
         botonMostrarEstadisticasTemporada.setText("Mostrar");
-
-        temporadaElegidaTexto.addActionListener(new java.awt.event.ActionListener() {
+        botonMostrarEstadisticasTemporada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                temporadaElegidaTextoActionPerformed(evt);
+                botonMostrarEstadisticasTemporadaActionPerformed(evt);
             }
         });
 
@@ -120,28 +233,24 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(temporadaLab)
-                                .addGap(18, 18, 18)
-                                .addComponent(temporadaElegidaTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(129, 129, 129)
-                                .addComponent(elegirCategoriaLab)
-                                .addGap(18, 18, 18)
-                                .addComponent(elegirCategoriaLista, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(botonMostrarEstadisticasTemporada))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(botonRetroceder, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(81, 81, 81)
-                                .addComponent(botonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(temporadaLab)
+                        .addGap(18, 18, 18)
+                        .addComponent(temporadaElegidaTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(elegirCategoriaLab)
+                        .addGap(18, 18, 18)
+                        .addComponent(elegirCategoriaLista, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonMostrarEstadisticasTemporada))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(41, Short.MAX_VALUE)
-                        .addComponent(panelTabEstTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 926, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(panelTabEstTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 856, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,34 +261,43 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
                     .addComponent(elegirCategoriaLab)
                     .addComponent(elegirCategoriaLista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonMostrarEstadisticasTemporada)
-                    .addComponent(temporadaElegidaTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
-                .addComponent(panelTabEstTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonSalir)
-                    .addComponent(botonRetroceder))
-                .addGap(23, 23, 23))
+                    .addComponent(temporadaElegidaTexto))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(panelTabEstTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(81, 81, 81))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonSalir)
+                        .addGap(32, 32, 32))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botonRetrocederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRetrocederActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonRetrocederActionPerformed
-
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
-        // TODO add your handling code here:
+        
+        this.setVisible(false);
     }//GEN-LAST:event_botonSalirActionPerformed
 
     private void elegirCategoriaListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elegirCategoriaListaActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_elegirCategoriaListaActionPerformed
 
-    private void temporadaElegidaTextoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporadaElegidaTextoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_temporadaElegidaTextoActionPerformed
+    
+    private void botonMostrarEstadisticasTemporadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarEstadisticasTemporadaActionPerformed
+      
+        if(elegirCategoriaLista.getSelectedItem().equals(" "))
+            JOptionPane.showMessageDialog(null,"Seleccione una categoria para ver estadisticas");
+        else
+            try {
+            actualizaTablaEstadisticas();
+        } catch (SQLException ex) {
+            Logger.getLogger(EstadisticasTemporada.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_botonMostrarEstadisticasTemporadaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -210,6 +328,7 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new EstadisticasTemporada().setVisible(true);
             }
@@ -217,13 +336,12 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonMostrarEstadisticasTemporada;
-    private javax.swing.JToggleButton botonRetroceder;
     private javax.swing.JToggleButton botonSalir;
     private javax.swing.JLabel elegirCategoriaLab;
     private javax.swing.JComboBox elegirCategoriaLista;
     private javax.swing.JScrollPane panelTabEstTemp;
     private javax.swing.JTable tablaTemporadaEstadisticas;
-    private javax.swing.JTextField temporadaElegidaTexto;
+    private javax.swing.JLabel temporadaElegidaTexto;
     private javax.swing.JLabel temporadaLab;
     // End of variables declaration//GEN-END:variables
 }

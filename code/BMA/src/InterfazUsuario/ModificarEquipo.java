@@ -4,6 +4,14 @@
  */
 package InterfazUsuario;
 
+import ServiciosAlmacenamiento.BaseDatos;
+import java.awt.Color;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
+import javax.swing.border.Border;
+
 /**
  *
  * @author 
@@ -39,11 +47,37 @@ package InterfazUsuario;
 
 public class ModificarEquipo extends javax.swing.JFrame {
 
+    /* Declaracion de variables */
+    
+    BaseDatos accesoBD;
+    DefaultListModel modeloGuardar = new DefaultListModel(); 
+    Border bordeError;
+    String nombreEquipo, campoCategoria, campoTemporada, campoPrimerEntr, campoSegundoEntr;
+    
     /**
      * Creates new form ModificarEquipo
      */
     public ModificarEquipo() {
         initComponents();
+    }
+    
+    public ModificarEquipo(BaseDatos acceso, String nombreEquip, String selecCat, String selecTemp, String primerEntr, String segundoEntr) throws SQLException
+    {
+        initComponents();
+        this.setLocation(300, 300);
+        accesoBD = acceso;
+        bordeError = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.red);
+        this.actualizarCategoria();
+        this.actualizarTemporada();
+        this.fieldNombreEquipo.setName(nombreEquip);
+        this.comboCat.setName(selecCat);
+        this.comboTemp.setName(selecTemp);
+        this.fieldPrimerEntrenador.setName(primerEntr);
+        this.fieldSegundoEntrenador.setName(segundoEntr);
+        
+        
+        
+        
     }
 
     /**
@@ -55,46 +89,52 @@ public class ModificarEquipo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        labelModificarEquipo = new javax.swing.JLabel();
+        labelNombreEquipo = new javax.swing.JLabel();
+        labelCategoria = new javax.swing.JLabel();
+        labelTemporada = new javax.swing.JLabel();
+        labelPrimerEntrenador = new javax.swing.JLabel();
+        laberSegundoEntrenador = new javax.swing.JLabel();
+        fieldPrimerEntrenador = new javax.swing.JTextField();
+        fieldSegundoEntrenador = new javax.swing.JTextField();
+        comboCat = new javax.swing.JComboBox();
+        comboTemp = new javax.swing.JComboBox();
+        botonGuardar = new javax.swing.JButton();
+        botonCancelar = new javax.swing.JButton();
+        fieldNombreEquipo = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setName("ModificarEquipo"); // NOI18N
 
-        jLabel1.setText("Modificar equipo:");
+        labelModificarEquipo.setText("Modificar equipo:");
 
-        jLabel2.setText("Nombre:");
+        labelNombreEquipo.setText("Nombre:");
 
-        jLabel3.setText("Categoria:");
+        labelCategoria.setText("Categoria:");
 
-        jLabel4.setText("Temporada:");
+        labelTemporada.setText("Temporada:");
 
-        jLabel5.setText("Primer Entrenador:");
+        labelPrimerEntrenador.setText("Primer Entrenador:");
 
-        jLabel6.setText("Segundo Entrenador:");
+        laberSegundoEntrenador.setText("Segundo Entrenador:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        comboCat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        comboTemp.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        botonGuardar.setText("Guardar");
+        botonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                botonGuardarActionPerformed(evt);
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jButton1.setText("Guardar");
-
-        jButton2.setText("Cancelar");
+        botonCancelar.setText("Cancelar");
+        botonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -104,71 +144,103 @@ public class ModificarEquipo extends javax.swing.JFrame {
                 .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(labelModificarEquipo)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
+                                .addComponent(labelPrimerEntrenador)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(fieldPrimerEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(78, 78, 78)
-                                .addComponent(jLabel3)))
+                                .addComponent(labelNombreEquipo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(fieldNombreEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(labelCategoria)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(comboCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(35, 35, 35)
-                                .addComponent(jLabel4)
+                                .addComponent(labelTemporada)
                                 .addGap(18, 18, 18)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(comboTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(62, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton2)
-                                    .addComponent(jLabel6))
+                                    .addComponent(botonCancelar)
+                                    .addComponent(laberSegundoEntrenador))
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(fieldSegundoEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(136, 136, 136)
-                .addComponent(jButton1)
+                .addComponent(botonGuardar)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addComponent(jLabel1)
+                .addComponent(labelModificarEquipo)
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelNombreEquipo)
+                    .addComponent(labelCategoria)
+                    .addComponent(labelTemporada)
+                    .addComponent(comboCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldNombreEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelPrimerEntrenador)
+                    .addComponent(laberSegundoEntrenador)
+                    .addComponent(fieldPrimerEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldSegundoEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(botonGuardar)
+                    .addComponent(botonCancelar))
                 .addContainerGap(98, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_botonCancelarActionPerformed
 
+    private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
+        // TODO add your handling code here:
+        nombreEquipo = this.fieldNombreEquipo.getText();
+        campoCategoria = this.comboCat.getSelectedItem().toString();
+        
+    }//GEN-LAST:event_botonGuardarActionPerformed
+
+    private void actualizarCategoria() throws SQLException {
+        comboCat.removeAllItems();
+        String consulta = "SELECT tipo FROM categoria";
+        ResultSet retset = accesoBD.ejecutaConsulta(consulta);
+
+
+        while (retset.next()) {
+            comboCat.addItem(retset.getString(1));
+        }
+    }
+    
+    private void actualizarTemporada() throws SQLException {
+        comboTemp.removeAllItems();
+        String consulta = "SELECT curso FROM temporada";
+        ResultSet retset = accesoBD.ejecutaConsulta(consulta);
+
+        while (retset.next()) {
+            comboTemp.addItem(retset.getString(1));
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -204,17 +276,18 @@ public class ModificarEquipo extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JButton botonCancelar;
+    private javax.swing.JButton botonGuardar;
+    private javax.swing.JComboBox comboCat;
+    private javax.swing.JComboBox comboTemp;
+    private javax.swing.JTextField fieldNombreEquipo;
+    private javax.swing.JTextField fieldPrimerEntrenador;
+    private javax.swing.JTextField fieldSegundoEntrenador;
+    private javax.swing.JLabel labelCategoria;
+    private javax.swing.JLabel labelModificarEquipo;
+    private javax.swing.JLabel labelNombreEquipo;
+    private javax.swing.JLabel labelPrimerEntrenador;
+    private javax.swing.JLabel labelTemporada;
+    private javax.swing.JLabel laberSegundoEntrenador;
     // End of variables declaration//GEN-END:variables
 }

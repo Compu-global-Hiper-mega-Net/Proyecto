@@ -162,6 +162,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         errorModifCP = new javax.swing.JLabel();
         botonEliminarAlumno = new javax.swing.JButton();
         mensajeErrorEliminarAlumno = new javax.swing.JLabel();
+        estadisticasJugador = new javax.swing.JButton();
         panelUsuarios = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         botonNuevoUsuario = new javax.swing.JButton();
@@ -191,6 +192,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         consultaEntrenadorUsuario = new javax.swing.JComboBox();
         botonEliminarUsuario = new javax.swing.JButton();
         errorEliminarUsuario = new javax.swing.JLabel();
+        verEstadisticasEntrenador = new javax.swing.JButton();
         panelTemporadas = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         botonNuevaTemp = new javax.swing.JButton();
@@ -198,6 +200,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         botonModTem = new javax.swing.JButton();
         botonElimTemp = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        estadisticasTemporada = new javax.swing.JButton();
         panelGrupos = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -543,6 +546,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         panelJugadores.add(mensajeErrorEliminarAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 610, -1, -1));
         mensajeErrorEliminarAlumno.setVisible(false);
 
+        estadisticasJugador.setText("Estadisticas");
+        estadisticasJugador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                estadisticasJugadorActionPerformed(evt);
+            }
+        });
+        panelJugadores.add(estadisticasJugador, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 160, 100, -1));
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -714,6 +725,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         panelUsuarios.add(errorEliminarUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 610, -1, -1));
         errorEliminarUsuario.setVisible(false);
 
+        verEstadisticasEntrenador.setText("Estadisticas");
+        verEstadisticasEntrenador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                verEstadisticasEntrenadorActionPerformed(evt);
+            }
+        });
+        panelUsuarios.add(verEstadisticasEntrenador, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 160, 100, -1));
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -753,23 +772,32 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        estadisticasTemporada.setText("Estadisticas");
+        estadisticasTemporada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                estadisticasTemporadaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelTemporadasLayout = new javax.swing.GroupLayout(panelTemporadas);
         panelTemporadas.setLayout(panelTemporadasLayout);
         panelTemporadasLayout.setHorizontalGroup(
             panelTemporadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTemporadasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelTemporadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelTemporadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel3)
-                        .addGroup(panelTemporadasLayout.createSequentialGroup()
-                            .addComponent(comboTempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(botonModTem)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(botonElimTemp))
-                        .addComponent(jSeparator1))
-                    .addComponent(botonNuevaTemp))
+                .addGroup(panelTemporadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel3)
+                    .addGroup(panelTemporadasLayout.createSequentialGroup()
+                        .addComponent(comboTempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(botonModTem)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonElimTemp))
+                    .addComponent(jSeparator1)
+                    .addGroup(panelTemporadasLayout.createSequentialGroup()
+                        .addComponent(botonNuevaTemp)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(estadisticasTemporada, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelTemporadasLayout.setVerticalGroup(
@@ -785,7 +813,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(botonNuevaTemp)
+                .addGroup(panelTemporadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonNuevaTemp)
+                    .addComponent(estadisticasTemporada))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1198,6 +1228,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jScrollPane5.setViewportView(tablaEquipos);
 
         botonModificarEquipo.setText("Modificar");
+        botonModificarEquipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonModificarEquipoActionPerformed(evt);
+            }
+        });
 
         botonEliminarEquipo.setText("Eliminar");
         botonEliminarEquipo.addActionListener(new java.awt.event.ActionListener() {
@@ -5068,6 +5103,117 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         // TODO add your handling code here:
     }//GEN-LAST:event_botonMostrarPartidosActionPerformed
 
+    private void mostrarMensajeError(String mensaje)
+    {
+     JOptionPane.showMessageDialog(null,
+                    mensaje, "Error",
+                    JOptionPane.ERROR_MESSAGE);   
+    }
+    
+    private void botonModificarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarEquipoActionPerformed
+        // TODO add your handling code here:
+       
+        if(tablaEquipos.getSelectedRow() > 1)
+        {
+            String nombreEquipo = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 0);
+            String selecCat = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 1);
+            String selecTemp = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 2);
+            String primerEntr = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 3);
+            String segundoEntr = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 4);
+
+            if(!nombreEquipo.isEmpty() || !selecCat.isEmpty() || !selecTemp.isEmpty() || !primerEntr.isEmpty() || !segundoEntr.isEmpty())
+            {
+                ocultarMensajesError();
+
+                try{
+                    new ModificarEquipo(accesoBD,nombreEquipo,selecCat,selecTemp,primerEntr,segundoEntr).setVisible(true);
+                }catch (SQLException ex){
+                    Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else
+                mostrarMensajeError("Falta algún campo por editar");
+
+        }
+        else
+            mostrarMensajeError("No se ha seleccionado ninguna fila de la tabla");
+    }//GEN-LAST:event_botonModificarEquipoActionPerformed
+
+    
+    //***************************************JAVI******************************************************//
+    private void verEstadisticasEntrenadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verEstadisticasEntrenadorActionPerformed
+       
+        String usuarioElegido;
+        ocultarMensajesError();
+        
+        int i =tablaUsuarios.getSelectedRow();
+        if(i==-1){
+            JOptionPane.showMessageDialog(null,"Seleccione un entrenador para ver estadisticas");
+        }else{
+            String nombre=(String)tablaUsuarios.getValueAt(i,0);
+            String primerApellido=(String)tablaUsuarios.getValueAt(i,1);
+            String segundoApellido=(String)tablaUsuarios.getValueAt(i, 2);
+            String DNI=(String)tablaUsuarios.getValueAt(i, 3);
+            
+            String tipo=(String)tablaUsuarios.getValueAt(i,5);
+            if (!"Entrenador".equals(tipo))
+                 usuarioElegido ="Este usuario no tiene estadisticas ya que no es entrenador ";
+            else
+                 usuarioElegido = nombre+" "+primerApellido+" "+segundoApellido;
+           
+            try {
+                retset = GestorUsuarios.consultarEstadisticasEntrenador(accesoBD, nombre, primerApellido, segundoApellido, DNI);
+            } catch (SQLException ex) {
+                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            new EstadisticasEntrenador(accesoBD, retset, usuarioElegido).setVisible(true);
+        }
+    }//GEN-LAST:event_verEstadisticasEntrenadorActionPerformed
+
+    private void estadisticasJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estadisticasJugadorActionPerformed
+        
+        String jugadorElegido;
+        ocultarMensajesError();
+        
+        int i =tablaAlumnos.getSelectedRow();
+        if(i==-1){
+            JOptionPane.showMessageDialog(null,"Seleccione un jugador para ver estadisticas");
+        }else{
+            String nombre=(String)tablaAlumnos.getValueAt(i,0);
+            String primerApellido=(String)tablaAlumnos.getValueAt(i,1);
+            String segundoApellido=(String)tablaAlumnos.getValueAt(i, 2);
+   
+            String numCuenta=(String)tablaAlumnos.getValueAt(i,6);
+            
+            jugadorElegido = nombre+" "+primerApellido+" "+segundoApellido;
+           
+            try {
+                retset = GestorAlumnos.consultarEstadisticasAlumno(accesoBD, nombre, primerApellido, segundoApellido, numCuenta);
+            } catch (SQLException ex) {
+                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            new EstadisticasJugador(accesoBD, retset, jugadorElegido).setVisible(true);
+        }     
+    }//GEN-LAST:event_estadisticasJugadorActionPerformed
+
+    private void estadisticasTemporadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estadisticasTemporadaActionPerformed
+        
+         ocultarMensajesError();
+        
+        if(comboTempo.getSelectedItem().equals(" "))
+            JOptionPane.showMessageDialog(null,"Seleccione una temporada para ver estadisticas ");
+        else{
+            String temporadaElegida = (String)comboTempo.getSelectedItem();
+             
+            new EstadisticasTemporada(accesoBD, temporadaElegida).setVisible(true);
+        }
+    }//GEN-LAST:event_estadisticasTemporadaActionPerformed
+    //***************************************JAVI******************************************************//
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -5100,7 +5246,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
             @Override
             public void run() {
                 new PantallaPrincipal().setVisible(true);
-                System.out.println("Pues aquí OLA K DISE");
 
             }
         });
@@ -5184,6 +5329,8 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JLabel errorModifFijoUsuario;
     private javax.swing.JLabel errorModifMovil;
     private javax.swing.JLabel errorModifMovilUsuario;
+    private javax.swing.JButton estadisticasJugador;
+    private javax.swing.JButton estadisticasTemporada;
     private com.toedter.calendar.JDateChooser fechaFinDateChooser;
     private javax.swing.JLabel fechaFinLabel;
     private com.toedter.calendar.JDateChooser fechaInicioDateChooser;
@@ -5313,6 +5460,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JTextField textfield_apellidoSegundoUsuario;
     private javax.swing.JTextField textfield_nombreUsuario;
     private javax.swing.JTextField tfGrupEnt;
+    private javax.swing.JButton verEstadisticasEntrenador;
     // End of variables declaration//GEN-END:variables
 
     private void ocultarPaneles() {

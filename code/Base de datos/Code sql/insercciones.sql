@@ -18,27 +18,27 @@ INSERT INTO categoria (tipo,descripcion) VALUES ("junior", "");
 INSERT INTO `alumno` (`idAlumno`,`talla`,`nombre`,`primerApellido`,`segundoApellido`,`nombrePadre`,`nombreMadre`,`numeroCuenta`,
 `telMovil`,`telFijo`,`observaciones`,`provincia`,`localidad`,`codigoPostal`,`colegio`,`domicilio`,`email`,`fechaNacimiento`,
 `Alumnocol`) VALUES (1,'XL','Antonio','Ruiz','Carvajal','Juan','Juana',NULL,657847765,958154741,NULL,NULL,NULL,NULL,NULL,NULL,
-'sucorreo','1990-12-07',NULL);
+'curro@hotmail.com','1998-12-07',NULL);
 INSERT INTO `alumno` (`idAlumno`,`talla`,`nombre`,`primerApellido`,`segundoApellido`,`nombrePadre`,`nombreMadre`,`numeroCuenta`,
 `telMovil`,`telFijo`,`observaciones`,`provincia`,`localidad`,`codigoPostal`,`colegio`,`domicilio`,`email`,`fechaNacimiento`,
-`Alumnocol`) VALUES (2,'XL','Antonio','Ruiz','Carvajal','Juan','Juana',NULL,657847765,958154741,NULL,NULL,NULL,NULL,NULL,NULL,
-'sucorreo','1990-12-07',NULL);
+`Alumnocol`) VALUES (2,'L','Manuel','Gonzalez','Rubio','Pedro','Manuela',NULL,657443322,958474125,NULL,NULL,NULL,NULL,NULL,NULL,
+'manu@ugr.es','1999-10-28',NULL);
 INSERT INTO `alumno` (`idAlumno`,`talla`,`nombre`,`primerApellido`,`segundoApellido`,`nombrePadre`,`nombreMadre`,`numeroCuenta`,
 `telMovil`,`telFijo`,`observaciones`,`provincia`,`localidad`,`codigoPostal`,`colegio`,`domicilio`,`email`,`fechaNacimiento`,
-`Alumnocol`) VALUES (3,'XL','Antonio','Ruiz','Carvajal','Juan','Juana',NULL,657847765,958154741,NULL,NULL,NULL,NULL,NULL,NULL,
-'sucorreo','1990-12-07',NULL);
+`Alumnocol`) VALUES (3,'M','Francisco Javier','De la Cruz','Santiago','Moisés','Carmen',NULL,698776511,956152219,NULL,NULL,NULL,NULL,NULL,NULL,
+'sur_morenito19@hotmail.es','1998-08-12',NULL);
 INSERT INTO `alumno` (`idAlumno`,`talla`,`nombre`,`primerApellido`,`segundoApellido`,`nombrePadre`,`nombreMadre`,`numeroCuenta`,
 `telMovil`,`telFijo`,`observaciones`,`provincia`,`localidad`,`codigoPostal`,`colegio`,`domicilio`,`email`,`fechaNacimiento`,
-`Alumnocol`) VALUES (4,'XL','Antonio','Ruiz','Carvajal','Juan','Juana',NULL,657847765,958154741,NULL,NULL,NULL,NULL,NULL,NULL,
-'sucorreo','1990-12-07',NULL);
+`Alumnocol`) VALUES (4,'XS','Julio','Potter','Ron','John','Dolores',NULL,667847765,955104388,NULL,NULL,NULL,NULL,NULL,NULL,
+'julito_ugr@ugr.es','1997-11-30',NULL);
 INSERT INTO `alumno` (`idAlumno`,`talla`,`nombre`,`primerApellido`,`segundoApellido`,`nombrePadre`,`nombreMadre`,`numeroCuenta`,
 `telMovil`,`telFijo`,`observaciones`,`provincia`,`localidad`,`codigoPostal`,`colegio`,`domicilio`,`email`,`fechaNacimiento`,
-`Alumnocol`) VALUES (5,'XL','Antonio','Ruiz','Carvajal','Juan','Juana',NULL,657847765,958154741,NULL,NULL,NULL,NULL,NULL,NULL,
-'sucorreo','1990-12-07',NULL);
+`Alumnocol`) VALUES (5,'XL','Gonzalo','Gallas','de Tapas','Francisco Javier','Elena',NULL,611842365,954119931,NULL,NULL,NULL,NULL,NULL,NULL,
+'gonzalo_tapasgratis@tapas.es','2000-03-15',NULL);
 INSERT INTO `alumno` (`idAlumno`,`talla`,`nombre`,`primerApellido`,`segundoApellido`,`nombrePadre`,`nombreMadre`,`numeroCuenta`,
 `telMovil`,`telFijo`,`observaciones`,`provincia`,`localidad`,`codigoPostal`,`colegio`,`domicilio`,`email`,`fechaNacimiento`,
-`Alumnocol`) VALUES (6,'XL','Antonio','Ruiz','Carvajal','Juan','Juana',NULL,657847765,958154741,NULL,NULL,NULL,NULL,NULL,NULL,
-'sucorreo','1990-12-07',NULL);
+`Alumnocol`) VALUES (6,'S','Adrian','Perrico','Perrico','Juan','Mari Paz',NULL,657129956,958027414,NULL,NULL,NULL,NULL,NULL,NULL,
+'adri@hola.es','1999-12-31',NULL);
 
 insert into liga values (1);
 

@@ -156,4 +156,10 @@ public class GestorTemporadas {
         
     }
     
+     //***************************************JAVI******************************************************//  
+    public static ResultSet consultarEstadisticasTemporada(BaseDatos accesoBD, int idTemp, int idCate)throws SQLException{
+        
+        return TemporadaBD.generaEstadisticasTemporada(accesoBD, idTemp, idCate);  
+    }
+    //***************************************JAVI******************************************************//   
 }
