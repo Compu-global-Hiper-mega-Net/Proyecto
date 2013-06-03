@@ -49,6 +49,8 @@ public class EstadisticasJugador extends javax.swing.JFrame {
     ResultSet retset; 
     JFreeChart Grafica;
     DefaultCategoryDataset Datos = new DefaultCategoryDataset();
+    ChartPanel Panel ;
+    JFrame Ventana ;
             
     public EstadisticasJugador() {
         initComponents();
@@ -238,6 +240,7 @@ public class EstadisticasJugador extends javax.swing.JFrame {
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
         
         this.setVisible(false);
+        Ventana.setVisible(false);
     }//GEN-LAST:event_botonSalirActionPerformed
 
     private void verGraficasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verGraficasActionPerformed
@@ -253,8 +256,8 @@ public class EstadisticasJugador extends javax.swing.JFrame {
         Grafica = ChartFactory.createBarChart3D("Gráfica de puntos conseguidos", "Partidos jugados", "Puntos conseguidos",
                                                Datos, PlotOrientation.HORIZONTAL, true, true, false);
         
-        ChartPanel Panel = new ChartPanel(Grafica);
-        JFrame Ventana = new JFrame("Gráficas");
+        Panel = new ChartPanel(Grafica);
+        Ventana = new JFrame("Gráficas");
         Ventana.getContentPane().add(Panel);
         Ventana.pack();
         Ventana.setVisible(true);

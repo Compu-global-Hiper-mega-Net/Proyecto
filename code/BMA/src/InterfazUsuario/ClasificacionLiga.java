@@ -25,7 +25,6 @@ public class ClasificacionLiga extends javax.swing.JFrame {
 
         clasificacionLab = new javax.swing.JLabel();
         botonSalir = new javax.swing.JToggleButton();
-        botonRetroceder = new javax.swing.JToggleButton();
         elegirCategoriaLab = new javax.swing.JLabel();
         elegirCategoriaLis = new javax.swing.JComboBox();
         panelTabClasificacion = new javax.swing.JScrollPane();
@@ -41,13 +40,6 @@ public class ClasificacionLiga extends javax.swing.JFrame {
         botonSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonSalirActionPerformed(evt);
-            }
-        });
-
-        botonRetroceder.setText("<<<Atras");
-        botonRetroceder.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonRetrocederActionPerformed(evt);
             }
         });
 
@@ -130,10 +122,7 @@ public class ClasificacionLiga extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(botonMostrarClasificacion))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(botonRetroceder, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(95, 95, 95)
-                            .addComponent(botonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(botonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(panelTabClasificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 921, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
@@ -150,9 +139,7 @@ public class ClasificacionLiga extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addComponent(panelTabClasificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonSalir)
-                    .addComponent(botonRetroceder))
+                .addComponent(botonSalir)
                 .addGap(31, 31, 31))
         );
 
@@ -162,10 +149,6 @@ public class ClasificacionLiga extends javax.swing.JFrame {
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_botonSalirActionPerformed
-
-    private void botonRetrocederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRetrocederActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonRetrocederActionPerformed
 
     private void elegirCategoriaLisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elegirCategoriaLisActionPerformed
         // TODO add your handling code here:
@@ -207,7 +190,6 @@ public class ClasificacionLiga extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonMostrarClasificacion;
-    private javax.swing.JToggleButton botonRetroceder;
     private javax.swing.JToggleButton botonSalir;
     private javax.swing.JLabel clasificacionLab;
     private javax.swing.JLabel elegirCategoriaLab;
