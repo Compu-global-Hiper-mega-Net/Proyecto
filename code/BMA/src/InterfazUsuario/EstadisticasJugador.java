@@ -4,6 +4,9 @@ package InterfazUsuario;
 import ServiciosAlmacenamiento.BaseDatos;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -48,9 +51,10 @@ public class EstadisticasJugador extends javax.swing.JFrame {
     BaseDatos accesoBD;
     ResultSet retset; 
     JFreeChart Grafica;
-    DefaultCategoryDataset Datos = new DefaultCategoryDataset();
+    List partidosJug = new ArrayList();
     ChartPanel Panel ;
     JFrame Ventana ;
+    DefaultCategoryDataset Datos = new DefaultCategoryDataset();
             
     public EstadisticasJugador() {
         initComponents();
@@ -71,7 +75,7 @@ public class EstadisticasJugador extends javax.swing.JFrame {
    
     
     private  void actualizaTablaEstadisticas() throws SQLException {
-       
+        
        if(retset == null)
            System.out.println("La consulta final es vacia"); 
        
@@ -85,7 +89,7 @@ public class EstadisticasJugador extends javax.swing.JFrame {
              dtm.addColumn("Perdidas");
              dtm.addColumn("Puntos");
 
-             Object[] fila = new Object[7];
+             Object[] fila = new Object[5];
 
              while(retset.next()){       
                  
@@ -100,6 +104,8 @@ public class EstadisticasJugador extends javax.swing.JFrame {
                  if(rst1.next()&& rst2.next()){
                     String nombrePartido = (rst1.getString(1)+"-"+rst2.getString(1));
                     fila[0] = nombrePartido;
+                    
+                    partidosJug.add(nombrePartido);
                  }
                  fila[1] = retset.getString(3);
                  fila[2] = retset.getString(4);
@@ -112,6 +118,7 @@ public class EstadisticasJugador extends javax.swing.JFrame {
              }
 
              tablaJugadoresEstadisticas.setModel(dtm);
+             retset.first();
         }
     }
 
@@ -244,14 +251,16 @@ public class EstadisticasJugador extends javax.swing.JFrame {
     }//GEN-LAST:event_botonSalirActionPerformed
 
     private void verGraficasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verGraficasActionPerformed
-       
-        Datos.addValue(3, "Puntos", "Partido 1");
-        Datos.addValue(5, "Puntos", "Partido 2");
-        Datos.addValue(11, "Puntos", "Partido 3");
-        Datos.addValue(16, "Puntos", "Partido 4");
-        Datos.addValue(10, "Puntos", "Partido 5");
-        Datos.addValue(3, "Puntos", "Partido 6");
-        Datos.addValue(7, "Puntos", "Partido 7");    
+ 
+        int i=1;
+        try {
+           while(retset.next()){
+                Datos.addValue(retset.getInt(8), "Puntos", (Comparable) partidosJug.get(i));
+                i++;
+           }
+        } catch (SQLException ex) {
+            Logger.getLogger(EstadisticasJugador.class.getName()).log(Level.SEVERE, null, ex);
+        }    
         
         Grafica = ChartFactory.createBarChart3D("Gráfica de puntos conseguidos", "Partidos jugados", "Puntos conseguidos",
                                                Datos, PlotOrientation.HORIZONTAL, true, true, false);
