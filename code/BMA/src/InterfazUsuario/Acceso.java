@@ -50,6 +50,7 @@ public class Acceso extends javax.swing.JFrame {
     /** Creates new form InterfazAcceso */
     public Acceso() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to
@@ -84,6 +85,7 @@ public class Acceso extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         userTextfield.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {

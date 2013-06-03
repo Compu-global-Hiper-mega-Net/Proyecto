@@ -104,6 +104,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         accesoBD = acceso;
         this.usuario = usuario;
         initComponents();
+        this.setLocationRelativeTo(null);
         ocultarPaneles();
         menuInicioMouseClicked(null);
         initComponentsSegunUsuario();
@@ -363,7 +364,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cerrarSesion)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(556, Short.MAX_VALUE))
+                .addContainerGap(633, Short.MAX_VALUE))
         );
         panelInicioLayout.setVerticalGroup(
             panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1746,7 +1747,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         gridBagConstraints.gridx = 4;
         gridBagConstraints.ipadx = 164;
         gridBagConstraints.ipady = 92;
-        gridBagConstraints.insets = new java.awt.Insets(22, 0, 22, 0);
         getContentPane().add(panelActividades, gridBagConstraints);
 
         panelCategorias.setVisible(false);
@@ -3733,6 +3733,7 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
         // TODO add your handling code here:
         ocultarPaneles();
         panelActividades.setVisible(true);
+        panelActividades.setLocation(500,250);
         mostrarActividades();
     }//GEN-LAST:event_menuActividadesMouseClicked
 
