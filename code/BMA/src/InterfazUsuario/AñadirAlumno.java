@@ -62,6 +62,7 @@ public class AñadirAlumno extends javax.swing.JFrame {
     List<String> listaAlumnosQuitados = new ArrayList<String>();
     List<Integer> listaIDAlumnos = new ArrayList<Integer>();
     List<Integer> listaIDAlumnosQuitados = new ArrayList<Integer>();
+    int sizeModelo;
 
     /**
      * Creates new form AñadirAlumno
@@ -105,7 +106,7 @@ public class AñadirAlumno extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         AlumnosMostrados = new javax.swing.JList();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        AlumnosMostradosLabel = new javax.swing.JLabel();
         Quitar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -151,23 +152,13 @@ public class AñadirAlumno extends javax.swing.JFrame {
 
         AlumnosSelecionados.setText("0");
 
-        ListaAlumnos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ListaAlumnosMouseClicked(evt);
-            }
-        });
-        ListaAlumnos.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                ListaAlumnosKeyPressed(evt);
-            }
-        });
         jScrollPane2.setViewportView(ListaAlumnos);
 
         jScrollPane1.setViewportView(AlumnosMostrados);
 
         jLabel2.setText("Alumnos Apuntados:");
 
-        jLabel3.setText("0");
+        AlumnosMostradosLabel.setText("0");
 
         Quitar.setText("Quitar");
         Quitar.addActionListener(new java.awt.event.ActionListener() {
@@ -227,7 +218,7 @@ public class AñadirAlumno extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3))
+                        .addComponent(AlumnosMostradosLabel))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29))
         );
@@ -252,7 +243,7 @@ public class AñadirAlumno extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
-                        .addComponent(jLabel3))
+                        .addComponent(AlumnosMostradosLabel))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
                         .addComponent(AlumnosSelecionados)))
@@ -283,12 +274,15 @@ public class AñadirAlumno extends javax.swing.JFrame {
         DefaultListModel modelo = new DefaultListModel();
         DefaultListModel model = new DefaultListModel();
         modelo = (DefaultListModel) AlumnosMostrados.getModel();
+        sizeModelo = modelo.size();
         for (int i = 0; i < listaAlumnos.size(); i++) {
             modelo.addElement(listaAlumnos.get(i));
         }
         AlumnosMostrados.setModel(modelo);
-        
-        
+
+        ActualizarJlist();
+
+
     }//GEN-LAST:event_AñadirActionPerformed
 
     private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
@@ -347,7 +341,7 @@ public class AñadirAlumno extends javax.swing.JFrame {
             Logger.getLogger(AñadirAlumno.class.getName()).log(Level.SEVERE, null, ex);
         }
         AlumnosMostrados.setModel(modelo);
-        jLabel3.setText(Integer.toString(nAl));
+        AlumnosMostradosLabel.setText(Integer.toString(nAl));
 
     }
 
@@ -384,6 +378,7 @@ public class AñadirAlumno extends javax.swing.JFrame {
     }
 
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
+
         System.out.print("\n Antes del try" + listaAlumnos);
         try {
             System.out.print("\n En el try" + listaAlumnos);
@@ -480,17 +475,6 @@ public class AñadirAlumno extends javax.swing.JFrame {
         ListaAlumnos.setModel(modelo);
     }//GEN-LAST:event_NombreTextFieldKeyTyped
 
-    private void ListaAlumnosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ListaAlumnosKeyPressed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_ListaAlumnosKeyPressed
-
-    private void ListaAlumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaAlumnosMouseClicked
-        // TODO add your handling code here:
-        int i = Integer.parseInt(AlumnosSelecionados.getText());
-        AlumnosSelecionados.setText(Integer.toString(i+1));
-    }//GEN-LAST:event_ListaAlumnosMouseClicked
-
     /**
      * @param args the command line arguments
      */
@@ -533,6 +517,7 @@ public class AñadirAlumno extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList AlumnosMostrados;
+    private javax.swing.JLabel AlumnosMostradosLabel;
     private javax.swing.JLabel AlumnosSelecionados;
     private javax.swing.JButton Añadir;
     private javax.swing.JLabel Buscar;
@@ -549,8 +534,54 @@ public class AñadirAlumno extends javax.swing.JFrame {
     private javax.swing.JLabel Titulo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
+
+    private void ActualizarJlist() {
+
+        DefaultListModel modelo = new DefaultListModel();
+        DefaultListModel modeloFinal = new DefaultListModel();
+        List<Integer> ListaIDAlumnosMostrados = new ArrayList<Integer>();
+        List<String> ListaAlumnosMostrados = new ArrayList<String>();
+        String idAlum = "";
+        String consulta = "";
+        ResultSet retset;
+
+        modelo = (DefaultListModel) AlumnosMostrados.getModel();
+        ListaAlumnos.setModel(modeloFinal);
+
+        for (int i = 0; i < modelo.size(); i++) {
+            ListaAlumnosMostrados.add((String) modelo.get(i));
+        }
+        try {
+            ListaIDAlumnosMostrados = GestorAlumnos.getIdAl(accesoBD, ListaAlumnosMostrados);
+        } catch (SQLException ex) {
+            Logger.getLogger(AñadirAlumno.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        for(int i = 0; i < ListaIDAlumnosMostrados.size(); i++){
+            idAlum = idAlum + Integer.toString(ListaIDAlumnosMostrados.get(i)) + ", ";
+        }
+        
+        idAlum = idAlum.substring(0, idAlum.length() - 2);
+        
+        consulta = "SELECT primerApellido, segundoApellido, nombre FROM alumno WHERE "
+                + "idAlumno NOT IN (" + idAlum + ")";
+        
+        System.out.println("Stark " + consulta);
+        
+        retset = accesoBD.ejecutaConsulta(consulta);
+        try {
+            while(retset.next()){
+                modeloFinal.addElement(retset.getString(1) + " " + retset.getString(2) + " " + retset.getString(3));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AñadirAlumno.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        ListaAlumnos.setModel(modeloFinal);
+        AlumnosMostradosLabel.setText(Integer.toString(modelo.size()));
+        
+    }
 }

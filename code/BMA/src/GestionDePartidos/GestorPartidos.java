@@ -96,7 +96,7 @@ public class GestorPartidos {
         return PartidoBD.getIdPartido(accesoBD, fecha, hora);
     }
 
-    public static List<Date> getListaPartidos(BaseDatos accesoBD) throws SQLException {
+    public static List<List<String>> getListaPartidos(BaseDatos accesoBD) throws SQLException {
         return PartidoBD.getListaPartidos(accesoBD);
     }
     

@@ -4,13 +4,11 @@
  */
 package InterfazUsuario;
 
-import InterfazUsuario.PantallaPrincipal;
 import GestionActividades.*;
 import ServiciosAlmacenamiento.BaseDatos;
 import java.awt.Color;
 import java.sql.*;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
@@ -319,30 +317,43 @@ public class ModificarActividad extends javax.swing.JFrame {
         boolean exito = false;
         String errores = "";
         int idTemporada = getIDTemporada();
+        String FechaInicio = "";
+        String FechaFin = "";
 
-        String FechaInicio = (Integer.toString(fechaInicioDateChooser.getCalendar().get(java.util.Calendar.YEAR)) + "-"
-                + Integer.toString(fechaInicioDateChooser.getCalendar().get(java.util.Calendar.MONTH)) + "-"
-                + Integer.toString(fechaInicioDateChooser.getCalendar().get(java.util.Calendar.DATE)));
-        System.out.print(FechaInicio);
+
+        try {
+            FechaInicio = (Integer.toString(fechaInicioDateChooser.getCalendar().get(java.util.Calendar.YEAR)) + "-"
+                    + Integer.toString(fechaInicioDateChooser.getCalendar().get(java.util.Calendar.MONTH+1)) + "-"
+                    + Integer.toString(fechaInicioDateChooser.getCalendar().get(java.util.Calendar.DATE)));
+            System.out.print(FechaInicio);
+
+        } catch (NullPointerException ex) {
+            errores = errores + "Campo \"Fecha Inicio\" vacío\n";
+            fechaInicioDateChooser.setBorder(bordeError);
+        }
+
+
+        try {
+            FechaFin = (Integer.toString(fechaFinDateChooser.getCalendar().get(java.util.Calendar.YEAR)) + "-"
+                    + Integer.toString(fechaFinDateChooser.getCalendar().get(java.util.Calendar.MONTH+1)) + "-"
+                    + Integer.toString(fechaFinDateChooser.getCalendar().get(java.util.Calendar.DATE)));
+        } catch (NullPointerException ex) {
+            errores = errores + "Campo \"Fecha Fin\" vacío\n";
+            fechaFinDateChooser.setBorder(bordeError);
+        }
+
+
         System.out.println(fechaFinDateChooser.getDateFormatString());
 
-        String FechaFin = (Integer.toString(fechaFinDateChooser.getCalendar().get(java.util.Calendar.YEAR)) + "-"
-                + Integer.toString(fechaFinDateChooser.getCalendar().get(java.util.Calendar.MONTH)) + "-"
-                + Integer.toString(fechaFinDateChooser.getCalendar().get(java.util.Calendar.DATE)));
-
-        if ((Date) fechaInicioDateChooser.getDate() == null) {
-            errores = errores + "Campo \"Fecha Inicio\" vacio\n";
+        if (!fechaInicioDateChooser.getDateFormatString().equals("dd-MMM-yyyy")) {
+            errores = errores + "Formato de Campo \"Fecha Inicio\" incorrecto\n";
             fechaInicioDateChooser.setBorder(bordeError);
-        } /*else if (!fechaInicioDateChooser.getDateFormatString().equals("dd/MMM/yyyy")) {
-         errores = errores + "Formato de Campo \"Fecha Inicio\" incorrecto\n";
-         }*/
+        }
 
-        if ((Date) fechaFinDateChooser.getDate() == null) {
-            errores = errores + "Campo \"Fecha Fin\" vacio\n";
+        if (!fechaFinDateChooser.getDateFormatString().equals("dd-MMM-yyyy")) {
+            errores = errores + "Formato de Campo \"Fecha Fin\" incorrecto\n";
             fechaFinDateChooser.setBorder(bordeError);
-        } /*else if (!fechaFinDateChooser.getDateFormatString().equals("dd/MMM/yyyy")) {
-         errores = errores + "Formato de Campo \"Fecha Fin\" incorrecto\n";
-         }*/
+        }
 
         if (nombreTextField.getText().isEmpty()) {
             errores = errores + "Campo \"Nombre\" vacio\n";
