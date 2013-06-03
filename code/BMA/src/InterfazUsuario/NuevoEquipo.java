@@ -806,7 +806,7 @@ public class NuevoEquipo extends javax.swing.JFrame {
 
     private void ActualizarPrimerEntrenador() throws SQLException {
         comboEntrenador.removeAllItems();
-        String consulta = "SELECT primerApellido, segundoApellido, nombre FROM usuario";
+        String consulta = "SELECT primerApellido, segundoApellido, nombre FROM usuario WHERE entrenador = 1";
         ResultSet retset = accesoBD.ejecutaConsulta(consulta);
 
         while (retset.next()) {
@@ -817,7 +817,7 @@ public class NuevoEquipo extends javax.swing.JFrame {
 
     private void ActualizaSegundoEntrenador() throws SQLException {
         comboEntrenador2.removeAllItems();
-        String consulta = "SELECT primerApellido, segundoApellido, nombre FROM usuario";
+        String consulta = "SELECT primerApellido, segundoApellido, nombre FROM usuario WHERE entrenador = 1";
         ResultSet retset = accesoBD.ejecutaConsulta(consulta);
 
         while (retset.next()) {

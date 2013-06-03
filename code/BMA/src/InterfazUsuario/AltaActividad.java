@@ -306,13 +306,13 @@ public class AltaActividad extends javax.swing.JFrame {
         }
         Date dateFromDateChooser = fechaInicioDateChooser.getDate();
         String dateString = String.format("%1$tY-%1$tm-%1$td", dateFromDateChooser);
-        if (dateString.equals("null-null-null")) {
+        if (fechaInicioDateChooser.getDate() == null) {
             error = error + "Debes rellenar el campo 'Fecha de inicio'\n";
             fechaInicioDateChooser.setBorder(bordeError);
         }
         Date dateFromDateChooser1 = fechaFinDateChooser.getDate();
         String dateString1 = String.format("%1$tY-%1$tm-%1$td", dateFromDateChooser1);
-        if (dateString1.equals("null-null-null")) {
+        if (fechaFinDateChooser.getDate() == null) {
             error = error + "Debes rellenar el campo 'Fecha de fin'\n";
             fechaFinDateChooser.setBorder(bordeError);
         }
