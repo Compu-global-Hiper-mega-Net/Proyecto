@@ -61,23 +61,41 @@ public class GestorTemporadas {
         
         cursoAnterior = cursoAnterior.substring(0, 4);
         String cursoNuevo = JOptionPane.showInputDialog(new PantallaPrincipal(), "Introduzca el nuevo año del curso", cursoAnterior);
-        cursoNuevoComp = cursoNuevo +"/"+Integer.toString(Integer.parseInt(cursoNuevo)+1);
-        existe = existeCurso(accesoBD, cursoNuevoComp);
+        if(!Character.isLetter(cursoNuevo.charAt(0))
+                && !Character.isLetter(cursoNuevo.charAt(1))
+                && !Character.isLetter(cursoNuevo.charAt(2))
+                && !Character.isLetter(cursoNuevo.charAt(3))){
+            cursoNuevoComp = cursoNuevo +"/"+Integer.toString(Integer.parseInt(cursoNuevo)+1);
+            existe = existeCurso(accesoBD, cursoNuevoComp);
+        }
         
-        
-        while(cursoNuevo.length() != 4 && Character.isLetter(cursoNuevo.charAt(0))
-                && Character.isLetter(cursoNuevo.charAt(1))
-                && Character.isLetter(cursoNuevo.charAt(2))
-                && Character.isLetter(cursoNuevo.charAt(3))
-                && existe){
+        System.out.println();
+        System.out.println("cursoNuevoComp vale: "+cursoNuevoComp);
+  
+        while(cursoNuevo.length() != 4 || Character.isLetter(cursoNuevo.charAt(0))
+                || Character.isLetter(cursoNuevo.charAt(1))
+                || Character.isLetter(cursoNuevo.charAt(2))
+                || Character.isLetter(cursoNuevo.charAt(3))
+                || existe){
+            /*System.out.println("La longitud es: "+cursoNuevo.length());
+            System.out.println("Letra1: "+Character.isLetter(cursoNuevo.charAt(0)));
+            System.out.println("Letra2: "+Character.isLetter(cursoNuevo.charAt(1)));
+            System.out.println("Letra3: "+Character.isLetter(cursoNuevo.charAt(2)));
+            System.out.println("Letra4: "+Character.isLetter(cursoNuevo.charAt(3)));*/
+            
             if(existe)
                 JOptionPane.showMessageDialog(new PantallaPrincipal(), "La temporada ya existe", "Error", JOptionPane.ERROR_MESSAGE);
             else
                 JOptionPane.showMessageDialog(new PantallaPrincipal(), "Digitos introducidos incorrectamente", "Error", JOptionPane.ERROR_MESSAGE);
             
-            cursoNuevo = JOptionPane.showInputDialog(new PantallaPrincipal(), "Introduzca el nuevo año del curso", cursoAnterior);
-            cursoNuevoComp = cursoNuevo +"/"+Integer.toString(Integer.parseInt(cursoNuevo)+1);
-            existe = existeCurso(accesoBD, cursoNuevoComp);
+            cursoNuevo = JOptionPane.showInputDialog(new PantallaPrincipal(), "Introduzca el nuevo año del curso", cursoAnterior); 
+            if(cursoNuevo.length() == 4 && !Character.isLetter(cursoNuevo.charAt(0))
+                    && !Character.isLetter(cursoNuevo.charAt(1))
+                    && !Character.isLetter(cursoNuevo.charAt(2))
+                    && !Character.isLetter(cursoNuevo.charAt(3))){
+                cursoNuevoComp = cursoNuevo +"/"+Integer.toString(Integer.parseInt(cursoNuevo)+1);
+                existe = existeCurso(accesoBD, cursoNuevoComp);
+            }
         }
         
         cursoNuevoComp = cursoNuevo +"/"+Integer.toString(Integer.parseInt(cursoAnterior)+1);
@@ -95,7 +113,6 @@ public class GestorTemporadas {
 
     public static boolean eliminarTemporada(BaseDatos accesoBD, Temporada t) {
         boolean correcto = false;
-        System.out.println("hola");
         int conf = JOptionPane.showConfirmDialog(new PantallaPrincipal(), "¿Desea eliminar la temporada "+t.getCurso()+"?");
         if(conf == JOptionPane.YES_OPTION)
             correcto = TemporadaBD.eliminarTemporadaBD(accesoBD, t);
