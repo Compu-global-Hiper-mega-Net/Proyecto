@@ -23,6 +23,8 @@ import GestionDeInstalaciones.GestorInstalacion;
 import GestionDePagos.GestorPagos;
 import GestionDePagos.PagoActividad;
 import GestionDePagos.PagoTemporada;
+import GestionDePartidos.GestorPartidos;
+import GestionDePartidos.Partido;
 import ServiciosAlmacenamiento.BaseDatos;
 import java.awt.event.ActionEvent;
 import java.sql.Date;
@@ -319,12 +321,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         comboTemporadaPartidos = new javax.swing.JComboBox();
         comboCategoriaPartidos = new javax.swing.JComboBox();
         jLabel26 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        botonFiltrarPartido = new javax.swing.JButton();
         jLabel27 = new javax.swing.JLabel();
         comboEquipoLocal = new javax.swing.JComboBox();
         comboEquipoVisitante = new javax.swing.JComboBox();
         jLabel28 = new javax.swing.JLabel();
         fechaPartido = new com.toedter.calendar.JDateChooser();
+        jButton6 = new javax.swing.JButton();
         barraMenu = new javax.swing.JMenuBar();
         menuInicio = new javax.swing.JMenu();
         menuJugadores = new javax.swing.JMenu();
@@ -360,7 +363,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cerrarSesion)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(599, Short.MAX_VALUE))
+                .addContainerGap(556, Short.MAX_VALUE))
         );
         panelInicioLayout.setVerticalGroup(
             panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1910,10 +1913,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         jLabel26.setText("Equipo Local");
 
-        jButton4.setText("Filtrar Partidos");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        botonFiltrarPartido.setText("Filtrar Partidos");
+        botonFiltrarPartido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                botonFiltrarPartidoActionPerformed(evt);
             }
         });
 
@@ -1930,6 +1933,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 fechaPartidoFocusLost(evt);
             }
         });
+
+        jButton6.setText("Introducir XML al Partido");
 
         javax.swing.GroupLayout PanelPartidosLayout = new javax.swing.GroupLayout(PanelPartidos);
         PanelPartidos.setLayout(PanelPartidosLayout);
@@ -1950,12 +1955,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                             .addGroup(PanelPartidosLayout.createSequentialGroup()
                                 .addComponent(botonMostrarPartidos)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton4)))
+                                .addComponent(botonFiltrarPartido)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(PanelPartidosLayout.createSequentialGroup()
                         .addComponent(jScrollPane8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BotonJPartido)
+                        .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BotonJPartido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(36, 36, 36))
                     .addGroup(PanelPartidosLayout.createSequentialGroup()
                         .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1966,7 +1973,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                                 .addComponent(comboTemporadaPartidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(comboCategoriaPartidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(54, 54, 54)
+                                .addGap(28, 28, 28)
                                 .addComponent(jLabel26)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(comboEquipoLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1974,11 +1981,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                                 .addComponent(jLabel27)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(comboEquipoVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(36, 36, 36)
                                 .addComponent(jLabel28)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(fechaPartido, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(61, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         PanelPartidosLayout.setVerticalGroup(
             PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2000,11 +2007,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BotonJPartido))
+                    .addGroup(PanelPartidosLayout.createSequentialGroup()
+                        .addComponent(BotonJPartido)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton6)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonMostrarPartidos)
-                    .addComponent(jButton4))
+                    .addComponent(botonFiltrarPartido))
                 .addGap(19, 19, 19)
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -5059,9 +5069,9 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         }
     }//GEN-LAST:event_fechaInicioDateChooserKeyTyped
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void botonFiltrarPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFiltrarPartidoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_botonFiltrarPartidoActionPerformed
 
     private void BotonNPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonNPartidoActionPerformed
         // TODO add your handling code here:
@@ -5101,6 +5111,64 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
 
     private void botonMostrarPartidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarPartidosActionPerformed
         // TODO add your handling code here:
+        List<List<String>> lpar = new ArrayList<List<String>>();
+        try {
+            lpar = GestorPartidos.getListaPartidos(accesoBD);
+        } catch (SQLException ex) {
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        DefaultTableModel dtm = new DefaultTableModel();
+        dtm.addColumn("Fecha");
+        dtm.addColumn("Hora");
+        dtm.addColumn("Categoría");
+        dtm.addColumn("Temporada");
+        dtm.addColumn("Equipo Local");
+        dtm.addColumn("Equipo Visitante");
+        dtm.addColumn("Resultado Local");
+        dtm.addColumn("Resultado Visitante");
+        
+        String aux;
+        Object[] fila = new Object[8];
+        for (List<String> it : lpar) {
+            aux = it.get(0);
+            fila[0] = aux.substring(0, aux.indexOf(","));
+            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
+            fila[1] = aux.substring(0, aux.indexOf(","));
+            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
+            try {
+                fila[2] = getCategoria(aux.substring(0, aux.indexOf(",")));
+            } catch (SQLException ex) {
+                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
+            try {
+                fila[3] = getTemporada(aux.substring(0, aux.indexOf(",")));
+            } catch (SQLException ex) {
+                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
+            try {
+                fila[4] = getEquipo(aux.substring(0, aux.indexOf(",")));
+            } catch (SQLException ex) {
+                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
+            try {
+                fila[5] = getEquipo(aux.substring(0, aux.indexOf(",")));
+            } catch (SQLException ex) {
+                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
+            fila[6] = aux.substring(0, aux.indexOf(","));
+            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
+            fila[7] = aux;
+            dtm.addRow(fila);
+        }
+
+        tablaPartidos.setModel(dtm);
+        
+        
+        
     }//GEN-LAST:event_botonMostrarPartidosActionPerformed
 
     private void mostrarMensajeError(String mensaje)
@@ -5276,6 +5344,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JButton botonEliminarAlumno;
     private javax.swing.JButton botonEliminarEquipo;
     private javax.swing.JButton botonEliminarUsuario;
+    private javax.swing.JButton botonFiltrarPartido;
     private javax.swing.JButton botonGuardarCambiosAl;
     private javax.swing.JButton botonGuardarCambiosUsuario;
     private javax.swing.JButton botonInfoEquipo;
@@ -5341,8 +5410,8 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton9;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
@@ -5729,6 +5798,10 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private String getTemporada(String s) throws SQLException {
 
         return GestorTemporadas.getTemporada(accesoBD, s);
+    }
+    
+    private String getEquipo(String s) throws SQLException {
+        return GestorEquipos.getEquipo(accesoBD, s);
     }
 
     private int getIDActividad() {

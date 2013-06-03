@@ -162,8 +162,6 @@ public class NuevoPartido extends javax.swing.JFrame {
 
         lugarLabel.setText("Lugar: ");
 
-        ComboInstalacion.setEditable(true);
-
         Cancelar.setText("Cancelar");
         Cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -162,6 +162,16 @@ public class EquipoBD {
 
         return equipos;
     }
+    
+    static String getEquipo(BaseDatos accesoBD, String s) throws SQLException{
+        String nombreEquipo = "";
+        String query = "SELECT nombre FROM Equipo WHERE idEquipo = "+s+ ";";
+        ResultSet res = accesoBD.ejecutaConsulta(query);
+        while(res.next()){
+            nombreEquipo = res.getString(1);
+        }
+        return nombreEquipo;
+    }
 
     //Probar con cascade
     static boolean EliminarEquipoBD(BaseDatos accesoBD, Equipo e) throws SQLException {

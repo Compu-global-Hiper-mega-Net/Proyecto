@@ -89,17 +89,22 @@ public class PartidoBD {
     }
     
     
-    static List<Date> getListaPartidos(BaseDatos accesoBD) throws SQLException { //DUDAS EVERYWHERE
-        List<Date> part = new ArrayList<Date>();
-        String query = "SELECT fecha, hora FROM Partido";
+    static List<List<String>> getListaPartidos(BaseDatos accesoBD) throws SQLException { //DUDAS EVERYWHERE
+        List<List<String>> partidos = new ArrayList<List<String>>();
+        String query = "SELECT fecha, hora, equipo_Categoria_idCategoria, equipo_Temporada_idTemporada, "
+                + "idEquipo, idEquipoVisitante, resultadoLocal, resultadoVisitante FROM Partido";
         ResultSet res = accesoBD.ejecutaConsulta(query);
+        
+        List<String> aux;
 
         while (res.next()) {
-            part.add(res.getDate(1));
-            part.add(res.getDate(2));
+            aux = new ArrayList<String>();
+            aux.add(res.getString(1)+","+res.getString(2)+","+res.getString(3)+","+res.getString(4)+
+                    ","+res.getString(5)+","+res.getString(6)+","+res.getString(7)+","+res.getString(8));
+            partidos.add(aux);
         }
 
-        return part;
+        return partidos;
     }
     
     public ResultSet consultaPartidoBD(BaseDatos accesoBD, String consulta) {
