@@ -6,7 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.*;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -43,6 +47,10 @@ public class EstadisticasJugador extends javax.swing.JFrame {
    
     BaseDatos accesoBD;
     ResultSet retset; 
+    JFreeChart Grafica;
+    DefaultCategoryDataset Datos = new DefaultCategoryDataset();
+    ChartPanel Panel ;
+    JFrame Ventana ;
             
     public EstadisticasJugador() {
         initComponents();
@@ -121,6 +129,7 @@ public class EstadisticasJugador extends javax.swing.JFrame {
         tablaJugadoresEstadisticas = new javax.swing.JTable();
         jugadorLab = new javax.swing.JLabel();
         nombreAlumnoElegido = new javax.swing.JLabel();
+        verGraficas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -180,6 +189,13 @@ public class EstadisticasJugador extends javax.swing.JFrame {
 
         jugadorLab.setText("Jugador:");
 
+        verGraficas.setText("Graficas");
+        verGraficas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                verGraficasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -189,6 +205,8 @@ public class EstadisticasJugador extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(verGraficas, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
                         .addComponent(botonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,7 +228,9 @@ public class EstadisticasJugador extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addComponent(panelTabEstJug, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
-                .addComponent(botonSalir)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonSalir)
+                    .addComponent(verGraficas))
                 .addContainerGap())
         );
 
@@ -220,7 +240,29 @@ public class EstadisticasJugador extends javax.swing.JFrame {
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
         
         this.setVisible(false);
+        Ventana.setVisible(false);
     }//GEN-LAST:event_botonSalirActionPerformed
+
+    private void verGraficasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verGraficasActionPerformed
+       
+        Datos.addValue(3, "Puntos", "Partido 1");
+        Datos.addValue(5, "Puntos", "Partido 2");
+        Datos.addValue(11, "Puntos", "Partido 3");
+        Datos.addValue(16, "Puntos", "Partido 4");
+        Datos.addValue(10, "Puntos", "Partido 5");
+        Datos.addValue(3, "Puntos", "Partido 6");
+        Datos.addValue(7, "Puntos", "Partido 7");    
+        
+        Grafica = ChartFactory.createBarChart3D("Gráfica de puntos conseguidos", "Partidos jugados", "Puntos conseguidos",
+                                               Datos, PlotOrientation.HORIZONTAL, true, true, false);
+        
+        Panel = new ChartPanel(Grafica);
+        Ventana = new JFrame("Gráficas");
+        Ventana.getContentPane().add(Panel);
+        Ventana.pack();
+        Ventana.setVisible(true);
+        Ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }//GEN-LAST:event_verGraficasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -263,5 +305,6 @@ public class EstadisticasJugador extends javax.swing.JFrame {
     private javax.swing.JLabel nombreAlumnoElegido;
     private javax.swing.JScrollPane panelTabEstJug;
     private javax.swing.JTable tablaJugadoresEstadisticas;
+    private javax.swing.JButton verGraficas;
     // End of variables declaration//GEN-END:variables
 }

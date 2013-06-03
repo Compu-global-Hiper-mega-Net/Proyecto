@@ -106,6 +106,81 @@ public class PartidoBD {
 
         return partidos;
     }
+    public static List<List<String>> getListaPartidosFiltro(BaseDatos accesoBD, String fecha, String temporada, String categoria, String equipoLoc, String equipoVis) throws SQLException{
+        List<List<String>> partidos = new ArrayList<List<String>>();
+        boolean and = false;
+        boolean primeraVez = true;
+        String query = "SELECT fecha, hora, equipo_Categoria_idCategoria, equipo_Temporada_idTemporada, "
+                + "idEquipo, idEquipoVisitante, resultadoLocal, resultadoVisitante FROM Partido"; 
+        if(fecha != null){
+            if(primeraVez){
+                query += " WHERE ";
+                primeraVez = false;
+            }
+            query += "fecha = \""+fecha+ "\" ";
+            and = true;
+        }
+        if(!temporada.equals("0")){
+            if(primeraVez){
+                query += " WHERE ";
+                primeraVez = false;
+            }
+            if(and){
+                query+="AND ";
+            }
+            query += "equipo_Temporada_idTemporada = "+temporada+" ";
+            and = true;
+        }
+            
+        if(!categoria.equals("0")){
+            if(primeraVez){
+                query += " WHERE ";
+                primeraVez = false;
+            }
+            if(and){
+                query+="AND ";
+            }
+            query += "equipo_Categoria_idCategoria = "+categoria+" ";
+            and = true;
+        }
+        if(!equipoLoc.equals("0")){
+            if(primeraVez){
+                query += " WHERE ";
+                primeraVez = false;
+            }
+            if(and){
+                query+="AND ";
+            }
+            query += "idEquipo = "+equipoLoc+" ";
+            and = true;
+        }
+        if(!equipoVis.equals("0")){
+            if(primeraVez){
+                query += " WHERE ";
+                primeraVez = false;
+            }
+            if(and){
+                query+="AND ";
+            }
+            query += "idEquipoVisitante = "+equipoVis;
+        }
+        query+= ";";
+        
+        System.out.println();
+        System.out.println(query);
+        
+        ResultSet res = accesoBD.ejecutaConsulta(query);
+        
+        List<String> aux;
+
+        while (res.next()) {
+            aux = new ArrayList<String>();
+            aux.add(res.getString(1)+","+res.getString(2)+","+res.getString(3)+","+res.getString(4)+
+                    ","+res.getString(5)+","+res.getString(6)+","+res.getString(7)+","+res.getString(8));
+            partidos.add(aux);
+        }
+        return partidos;
+    }
     
     public ResultSet consultaPartidoBD(BaseDatos accesoBD, String consulta) {
         ResultSet retset;

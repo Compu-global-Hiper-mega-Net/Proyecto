@@ -5072,6 +5072,37 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
 
     private void botonFiltrarPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFiltrarPartidoActionPerformed
         // TODO add your handling code here:
+        String fecha, temporada, categoria, equipoLoc, equipoVis;
+        if(fechaPartido.getDate() != null){
+            java.sql.Date sqlFechaPartido = new java.sql.Date(fechaPartido.getDate().getTime());
+            fecha = sqlFechaPartido.toString();
+        } else{
+            fecha = null;
+        }
+        if(comboTemporadaPartidos.getSelectedItem() != "-Temporada-")
+            temporada = comboTemporadaPartidos.getSelectedItem().toString();
+        else
+            temporada = null;
+        
+        if(comboCategoriaPartidos.getSelectedItem() != "-Categoria-")
+            categoria = comboCategoriaPartidos.getSelectedItem().toString();
+        else
+            categoria = null;
+        
+        if(comboEquipoLocal.getSelectedItem() != "-Equipo Local-")
+            equipoLoc = comboEquipoLocal.getSelectedItem().toString();
+        else
+            equipoLoc = null;
+        
+        if(comboEquipoVisitante.getSelectedItem() != "-Equipo Visitante-")
+            equipoVis = comboEquipoVisitante.getSelectedItem().toString();
+        else
+            equipoVis = null;
+        try {
+            actualizaTablaPartidosFiltro(fecha, temporada, categoria, equipoLoc, equipoVis); 
+        } catch (SQLException ex) {
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_botonFiltrarPartidoActionPerformed
 
     private void BotonNPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonNPartidoActionPerformed
@@ -5112,6 +5143,12 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
 
     private void botonMostrarPartidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarPartidosActionPerformed
         // TODO add your handling code here:
+        
+        actualizaTablaPartidos();       
+        
+    }//GEN-LAST:event_botonMostrarPartidosActionPerformed
+    
+    private void actualizaTablaPartidos(){
         List<List<String>> lpar = new ArrayList<List<String>>();
         try {
             lpar = GestorPartidos.getListaPartidos(accesoBD);
@@ -5168,10 +5205,70 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
 
         tablaPartidos.setModel(dtm);
         
+    }
+    
+    private void actualizaTablaPartidosFiltro(String fecha, String temporada, String categoria, String equipoLoc, String equipoVis ) throws SQLException{
+        List<List<String>> lpar = new ArrayList<List<String>>();
+        int idCat = 0;
+        idCat = GestorCategorias.getIdCategoria(accesoBD, categoria);
+        try {
+            lpar = GestorPartidos.getListaPartidosFiltro(accesoBD, fecha, String.valueOf(GestorTemporadas.getIdTemporada(accesoBD, temporada)), 
+                    String.valueOf(idCat), String.valueOf(GestorEquipos.getIdEquipo(accesoBD, equipoLoc, categoria)), 
+                    String.valueOf(GestorEquipos.getIdEquipo(accesoBD, equipoVis, categoria)));
+        } catch (SQLException ex) {
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        DefaultTableModel dtm = new DefaultTableModel();
+        dtm.addColumn("Fecha");
+        dtm.addColumn("Hora");
+        dtm.addColumn("Categoría");
+        dtm.addColumn("Temporada");
+        dtm.addColumn("Equipo Local");
+        dtm.addColumn("Equipo Visitante");
+        dtm.addColumn("Resultado Local");
+        dtm.addColumn("Resultado Visitante");
         
-        
-    }//GEN-LAST:event_botonMostrarPartidosActionPerformed
+        String aux;
+        Object[] fila = new Object[8];
+        for (List<String> it : lpar) {
+            aux = it.get(0);
+            fila[0] = aux.substring(0, aux.indexOf(","));
+            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
+            fila[1] = aux.substring(0, aux.indexOf(","));
+            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
+            try {
+                fila[2] = getCategoria(aux.substring(0, aux.indexOf(",")));
+            } catch (SQLException ex) {
+                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
+            try {
+                fila[3] = getTemporada(aux.substring(0, aux.indexOf(",")));
+            } catch (SQLException ex) {
+                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
+            try {
+                fila[4] = getEquipo(aux.substring(0, aux.indexOf(",")));
+            } catch (SQLException ex) {
+                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
+            try {
+                fila[5] = getEquipo(aux.substring(0, aux.indexOf(",")));
+            } catch (SQLException ex) {
+                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
+            fila[6] = aux.substring(0, aux.indexOf(","));
+            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
+            fila[7] = aux;
+            dtm.addRow(fila);
+        }
 
+        tablaPartidos.setModel(dtm);
+        
+    }
     private void mostrarMensajeError(String mensaje)
     {
      JOptionPane.showMessageDialog(null,
@@ -5231,13 +5328,13 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
             else
                  usuarioElegido = nombre+" "+primerApellido+" "+segundoApellido;
            
-            /*try {
+            try {
                 retset = GestorUsuarios.consultarEstadisticasEntrenador(accesoBD, nombre, primerApellido, segundoApellido, DNI);
             } catch (SQLException ex) {
                 Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
+            }
             
-            //new EstadisticasEntrenador(accesoBD, retset, usuarioElegido).setVisible(true);
+            new EstadisticasEntrenador(accesoBD, retset, usuarioElegido).setVisible(true);
         }
     }//GEN-LAST:event_verEstadisticasEntrenadorActionPerformed
 
@@ -5258,13 +5355,13 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
             
             jugadorElegido = nombre+" "+primerApellido+" "+segundoApellido;
            
-            /*try {
+            try {
                 retset = GestorAlumnos.consultarEstadisticasAlumno(accesoBD, nombre, primerApellido, segundoApellido, numCuenta);
             } catch (SQLException ex) {
                 Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            new EstadisticasJugador(accesoBD, retset, jugadorElegido).setVisible(true);*/
+            new EstadisticasJugador(accesoBD, retset, jugadorElegido).setVisible(true);
         }     
     }//GEN-LAST:event_estadisticasJugadorActionPerformed
 
@@ -5633,21 +5730,21 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     }
     
     private void actualizaComboEquipoPartidos(int numEquipo) throws SQLException {
-        String query = "SELECT nombre FROM Equipo";
-        ResultSet res = accesoBD.ejecutaConsulta(query);
-        if(numEquipo == 1){
-            comboEquipoLocal.removeAllItems();
-            comboEquipoLocal.addItem("-Equipo Local-");
-            while(res.next()){
-                comboEquipoLocal.addItem(res.getString(1));
+            String query = "SELECT nombre FROM Equipo";
+            ResultSet res = accesoBD.ejecutaConsulta(query);
+            if(numEquipo == 1){
+                comboEquipoLocal.removeAllItems();
+                comboEquipoLocal.addItem("-Equipo Local-");
+                while(res.next()){
+                    comboEquipoLocal.addItem(res.getString(1));
+                }
+            } else{
+                comboEquipoVisitante.removeAllItems();
+                comboEquipoVisitante.addItem("-Equipo Visitante-");
+                while(res.next()){
+                    comboEquipoVisitante.addItem(res.getString(1));
+                }
             }
-        } else{
-            comboEquipoVisitante.removeAllItems();
-            comboEquipoVisitante.addItem("-Equipo Visitante-");
-            while(res.next()){
-                comboEquipoVisitante.addItem(res.getString(1));
-            }
-        }
     }
 
     void actualizaComboBoxTemporadas(List<String> temps) {
@@ -5725,7 +5822,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
      */
     /*List<String> getListaEquipos(String s) throws SQLException {
         List<String> equipos = new ArrayList<String>();
-        equipos = GestorEquipo.getListaInstalaciones(accesoBD);
+        equipos = GestorEquipo.getListaEquipos(accesoBD);
         return equipos.
     }*/
     
