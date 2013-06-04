@@ -291,11 +291,13 @@ public class AltaActividad extends javax.swing.JFrame {
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
         // TODO add your handling code here:
         String error = "";
-        ResultSet retset, rts = null;
+        ResultSet retset;
 
         float precioSocio = 50;
         float precioNoSocio = 70;
         int idTemporada = 0;
+        int idInstalacion = getIDInstalacion();
+       
 
         if (nombreTextField.getText().isEmpty()) {
             error = error + "Debes rellenar el campo 'Nombre'\n";
@@ -338,38 +340,26 @@ public class AltaActividad extends javax.swing.JFrame {
             System.out.print("\n\n" + consulta);
 
             retset = accesoBD.ejecutaConsulta(consulta);
-
-            //System.out.print("\n\n" + retset);
             try {
-                if (retset.next()) {
-                    idTemporada = retset.getInt("idTemporada");
-                }
-
+                //System.out.print("\n\n" + retset);
+                    if (retset.next()) {
+                        idTemporada = retset.getInt("idTemporada");
+                    }
             } catch (SQLException ex) {
                 Logger.getLogger(AltaActividad.class.getName()).log(Level.SEVERE, null, ex);
             }
+
             System.out.print("\n\n cod temporada " + idTemporada);
 
             boolean errores = GestorActividad.darAltaActividad(accesoBD, jTextArea1.getText(), Integer.parseInt(plazasTextField.getText()),
                     precioSocio, precioNoSocio, idTemporada,
                     dateFromDateChooser, dateFromDateChooser1, nombreTextField.getText());
-
-            retset = accesoBD.ejecutaConsulta("SELECT idInstalacion FROM instalacion WHERE nombre = '"
-                    + instalacion.getSelectedItem() + "'");
-
-            /*int idInstalacion = 0;
-             try {
-             if (rts.next()) {
-             idInstalacion = rts.getInt(1);
-             }
-             } catch (SQLException ex) {
-             Logger.getLogger(AltaActividad.class.getName()).log(Level.SEVERE, null, ex);
-             }
-             try {
-             insertarInstalacion(idInstalacion, idTemporada);
-             } catch (SQLException ex) {
-             Logger.getLogger(AltaActividad.class.getName()).log(Level.SEVERE, null, ex);
-             }*/
+            
+            try {
+                insertarInstalacion(idInstalacion, idTemporada);
+            } catch (SQLException ex) {
+                Logger.getLogger(AltaActividad.class.getName()).log(Level.SEVERE, null, ex);
+            }
             if (!errores) {
                 JOptionPane.showMessageDialog(null, "Ha habido un error en la base de datos",
                         "Error", JOptionPane.ERROR_MESSAGE);
@@ -391,7 +381,7 @@ public class AltaActividad extends javax.swing.JFrame {
 
     private void insertarInstalacion(int idInst, int idtem) throws SQLException {
         ResultSet retset, rts;
-        String consulta = "SELECT MAX(idActividad) from actividades";
+        String consulta = "SELECT MAX(idActividades) from actividades";
         retset = accesoBD.ejecutaConsulta(consulta);
 
         int idActividad = 0;
@@ -401,7 +391,7 @@ public class AltaActividad extends javax.swing.JFrame {
 
         String insert = "INSERT INTO actividadesInstalacion (actividades_idActividades, actividades_Temporada_idTemporada"
                 + ", Instalacion_idInstalacion) VALUES (" + idActividad + ", " + idtem + ", " + idInst + ")";
-        rts = accesoBD.ejecutaConsulta(insert);
+        accesoBD.ejecutaActualizacion(insert);
     }
     private void temporadaComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporadaComboBoxActionPerformed
         // TODO add your handling code here:
@@ -473,5 +463,23 @@ public class AltaActividad extends javax.swing.JFrame {
         } catch (NumberFormatException nfe) {
             return false;
         }
+    }
+    
+    private int getIDInstalacion (){
+         String instalacionConsulta = "SELECT idInstalacion FROM instalacion WHERE nombre = '" 
+                    + instalacion.getSelectedItem().toString() + "'";
+         ResultSet retset;
+         int id = 0;
+         
+         retset = accesoBD.ejecutaConsulta(instalacionConsulta);
+        try {
+            if(retset.next()){
+                id = retset.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AltaActividad.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return id;
     }
 }

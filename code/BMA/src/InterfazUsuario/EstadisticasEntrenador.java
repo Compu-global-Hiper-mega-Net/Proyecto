@@ -118,7 +118,7 @@ public class EstadisticasEntrenador extends javax.swing.JFrame {
         entrenadorLab = new javax.swing.JLabel();
         nombreApellidosEntrenador = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         panelTabEstEntr.setAutoscrolls(true);
 
