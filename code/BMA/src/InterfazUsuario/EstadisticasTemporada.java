@@ -279,7 +279,17 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
     }//GEN-LAST:event_elegirCategoriaListaActionPerformed
 
     private void botonMostrarEstadisticasTemporadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarEstadisticasTemporadaActionPerformed
-
+        
+        DefaultTableModel dtm = new DefaultTableModel();
+        dtm.addColumn("Posicion");
+        dtm.addColumn("Nombre equipo");
+        dtm.addColumn("Partidos jugados");
+        dtm.addColumn("Partidos ganados");
+        dtm.addColumn("Partidos perdidos");
+        dtm.addColumn("Puntos a favor");
+        dtm.addColumn("Puntos en contra");
+        tablaTemporadaEstadisticas.setModel(dtm);
+        
         if (elegirCategoriaLista.getSelectedItem().equals(" ")) {
             JOptionPane.showMessageDialog(null, "Seleccione una categoria para ver estadisticas");
         } else {

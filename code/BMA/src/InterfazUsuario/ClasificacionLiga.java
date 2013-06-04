@@ -301,6 +301,16 @@ public class ClasificacionLiga extends javax.swing.JFrame {
 
     private void botonMostrarClasificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarClasificacionActionPerformed
         
+        DefaultTableModel dtm = new DefaultTableModel();
+        dtm.addColumn("Posicion");
+        dtm.addColumn("Nombre equipo");
+        dtm.addColumn("Partidos jugados");
+        dtm.addColumn("Partidos ganados");
+        dtm.addColumn("Partidos perdidos");
+        dtm.addColumn("Puntos a favor");
+        dtm.addColumn("Puntos en contra");
+        tablaClasificacion.setModel(dtm);
+   
         if (elegirTemporadaLis.getSelectedItem().equals(" ") || elegirCategoriaLis.getSelectedItem().equals(" ")) {
             JOptionPane.showMessageDialog(null, "Seleccione temporada y categoria para ver clasificacion");
         } else {

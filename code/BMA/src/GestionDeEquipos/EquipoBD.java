@@ -307,8 +307,11 @@ public class EquipoBD {
                           "WHERE e.temporada_idTemporada='"+idTemp+"' AND e.Categoria_idCategoria='"+idCate+"' " +
                           "AND e.idEquipo=p.idEquipo GROUP BY p.idEquipo; ";
         ResultSet resSet = accesoBD.ejecutaConsulta(consulta);
-       
-        return resSet;
+        
+        if (!resSet.next())
+            return null;
+        else
+            return resSet;
     }
     //***************************************JAVI******************************************************//  
 }

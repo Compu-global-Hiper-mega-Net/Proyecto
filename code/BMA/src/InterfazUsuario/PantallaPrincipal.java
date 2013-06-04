@@ -5337,10 +5337,8 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
             String DNI=(String)tablaUsuarios.getValueAt(i, 3);
             
             String tipo=(String)tablaUsuarios.getValueAt(i,5);
-            if (!"Entrenador".equals(tipo))
-                 usuarioElegido ="Este usuario no tiene estadisticas ya que no es entrenador ";
-            else
-                 usuarioElegido = nombre+" "+primerApellido+" "+segundoApellido;
+            
+            usuarioElegido = nombre+" "+primerApellido+" "+segundoApellido;
            
             try {
                 retset = GestorUsuarios.consultarEstadisticasEntrenador(accesoBD, nombre, primerApellido, segundoApellido, DNI);
@@ -5348,7 +5346,14 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
                 Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            new EstadisticasEntrenador(accesoBD, retset, usuarioElegido).setVisible(true);
+            if(retset == null || !"Entrenador".equals(tipo))
+                if (!"Entrenador".equals(tipo))
+                    JOptionPane.showMessageDialog(null,"Este usuario no tiene estadisticas ya que no es entrenador");
+                else
+                    JOptionPane.showMessageDialog(null,"No hay datos que mostrar para el usuario"); 
+            else
+                new EstadisticasEntrenador(accesoBD, retset, usuarioElegido).setVisible(true);
+                
         }
     }//GEN-LAST:event_verEstadisticasEntrenadorActionPerformed
 
@@ -5377,7 +5382,10 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
                 Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            new EstadisticasJugador(accesoBD, retset, jugadorElegido).setVisible(true);
+            if(retset != null)
+                new EstadisticasJugador(accesoBD, retset, jugadorElegido).setVisible(true);
+            else
+                JOptionPane.showMessageDialog(null,"No hay datos que mostrar para el jugador"); 
         }     
     }//GEN-LAST:event_estadisticasJugadorActionPerformed
 
