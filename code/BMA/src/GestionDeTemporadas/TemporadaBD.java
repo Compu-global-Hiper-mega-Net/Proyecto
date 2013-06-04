@@ -132,7 +132,7 @@ public class TemporadaBD {
         
         String consulta = "SELECT e.nombre,  u.nombre, u.primerApellido, u.segundoApellido, SUM(p.resultadoLocal) FROM equipo e, usuario u, rango r, partido p " +
                           "WHERE e.temporada_idTemporada='"+idTemp+"' AND e.Categoria_idCategoria='"+idCate+"' " +
-                          "AND e.idEquipo=r.Equipo_idEquipo AND u.idUsuario=r.Usuario_idUsuario AND r.tipo='PRIMERO'\n" +
+                          "AND e.idEquipo=r.Equipo_idEquipo AND u.idUsuario=r.Usuario_idUsuario AND r.tipo='PRIMERO' " +
                           "AND e.idEquipo=p.idEquipo GROUP BY p.idEquipo; ";
         ResultSet resSet = accesoBD.ejecutaConsulta(consulta);
        

@@ -303,9 +303,8 @@ public class EquipoBD {
     //***************************************JAVI******************************************************//  
     public static ResultSet generaClasificacion(BaseDatos accesoBD,int idTemp, int idCate)throws SQLException{
         
-        String consulta = "SELECT e.nombre,  u.nombre, u.primerApellido, u.segundoApellido, SUM(p.resultadoLocal) FROM equipo e, usuario u, rango r, partido p " +
+        String consulta = "SELECT e.nombre, SUM(p.resultadoLocal), SUM(p.resultadoVisitante) FROM equipo e, partido p " +
                           "WHERE e.temporada_idTemporada='"+idTemp+"' AND e.Categoria_idCategoria='"+idCate+"' " +
-                          "AND e.idEquipo=r.Equipo_idEquipo AND u.idUsuario=r.Usuario_idUsuario AND r.tipo='PRIMERO'\n" +
                           "AND e.idEquipo=p.idEquipo GROUP BY p.idEquipo; ";
         ResultSet resSet = accesoBD.ejecutaConsulta(consulta);
        

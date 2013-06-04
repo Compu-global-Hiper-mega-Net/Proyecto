@@ -2,6 +2,7 @@
 package InterfazUsuario;
 
 
+import GestionDeEquipos.GestorEquipos;
 import ServiciosAlmacenamiento.BaseDatos;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -64,7 +65,7 @@ public class ClasificacionLiga extends javax.swing.JFrame {
     
     private void actualizaTablaClasificacion() throws SQLException {
 
-        int idTemp = 0, idCate = 0;
+        int idTemp = 0, idCate = 0, i=1;
 
         String consulta = "SELECT idTemporada FROM mydb.temporada WHERE curso='"+elegirTemporadaLis.getSelectedItem().toString()+"';";
         ResultSet res1 = accesoBD.ejecutaConsulta(consulta);
@@ -96,28 +97,31 @@ public class ClasificacionLiga extends javax.swing.JFrame {
 
             while (retset.next()) {
 
-                fila[0] = retset.getString(1);
-
-                String entrenador = retset.getString(2) + " " + retset.getString(3) + " " + retset.getString(4);
-                fila[1] = entrenador;
+                fila[0] = i;
+                i++;
+                
+                fila[1] = retset.getString(1);
 
                 String consulta3 = "SELECT COUNT(*) FROM partido p, equipo e WHERE (resultadoLocal > resultadoVisitante)"
-                        + "AND p.idEquipo=e.idEquipo AND e.nombre='" + (String) fila[0] + "'";
+                        + "AND p.idEquipo=e.idEquipo AND e.nombre='"+(String) fila[1]+"'";
                 System.out.printf(consulta3);
                 ResultSet res3 = accesoBD.ejecutaConsulta(consulta3);
                 if (res3.next()) {
-                    fila[2] = res3.getString(1);
+                    fila[3] = res3.getString(1);
                 }
 
                 String consulta4 = "SELECT COUNT(*) FROM partido p, equipo e WHERE (resultadoLocal < resultadoVisitante)"
-                        + "AND p.idEquipo=e.idEquipo AND e.nombre='" + (String) fila[0] + "'";
+                        + "AND p.idEquipo=e.idEquipo AND e.nombre='"+(String) fila[1]+"'";
                 System.out.printf(consulta4);
                 ResultSet res4 = accesoBD.ejecutaConsulta(consulta4);
                 if (res4.next()) {
-                    fila[3] = res4.getString(1);
+                    fila[4] = res4.getString(1);
                 }
+                
+                fila[2] = res3.getInt(1)+res4.getInt(1);
 
-                fila[4] = retset.getString(5);
+                fila[5] = retset.getString(2);
+                fila[6] = retset.getString(3);
 
                 dtm.addRow(fila);
             }
@@ -238,6 +242,11 @@ public class ClasificacionLiga extends javax.swing.JFrame {
         elegirTemporadaLis.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         botonMostrarClasificacion.setText("Mostrar");
+        botonMostrarClasificacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonMostrarClasificacionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -289,6 +298,19 @@ public class ClasificacionLiga extends javax.swing.JFrame {
     private void elegirCategoriaLisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elegirCategoriaLisActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_elegirCategoriaLisActionPerformed
+
+    private void botonMostrarClasificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarClasificacionActionPerformed
+        
+        if (elegirTemporadaLis.getSelectedItem().equals(" ") || elegirCategoriaLis.getSelectedItem().equals(" ")) {
+            JOptionPane.showMessageDialog(null, "Seleccione temporada y categoria para ver clasificacion");
+        } else {
+            try {
+                actualizaTablaClasificacion();
+            } catch (SQLException ex) {
+                Logger.getLogger(EstadisticasTemporada.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_botonMostrarClasificacionActionPerformed
 
     /**
      * @param args the command line arguments
