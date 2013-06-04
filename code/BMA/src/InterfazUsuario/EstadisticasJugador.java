@@ -137,7 +137,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
         nombreAlumnoElegido = new javax.swing.JLabel();
         verGraficas = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         botonSalir.setText("Salir");
         botonSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -269,7 +269,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
         Ventana.getContentPane().add(Panel);
         Ventana.pack();
         Ventana.setVisible(true);
-        Ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_verGraficasActionPerformed
 
     /**
