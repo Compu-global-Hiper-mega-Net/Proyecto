@@ -1,18 +1,153 @@
 
 package InterfazUsuario;
 
+
+import ServiciosAlmacenamiento.BaseDatos;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+
 /**
  *
  * @author Javier
  */
-public class ClasificacionLiga extends javax.swing.JFrame {
+/**
+ * ****************************************************************************
+ * (c) Copyright 2013
+ *
+ * Moisés Gautier Gómez Julio Ros Martínez Francisco Javier Gómez del Olmo
+ * Francisco Santolalla Quiñonero Carlos Jesús Fernández Basso Alexander Moreno
+ * Borrego Jesús Manuel Contreras Siles Diego Muñoz Rio
+ *
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
+ *****************************************************************************
+ */
 
-    /**
-     * Creates new form ClasificacionLiga
-     */
+public class ClasificacionLiga extends javax.swing.JFrame {
+    
+    BaseDatos accesoBD;
+    ResultSet retset;
+    String temporadaElegida;
+    String categoriaElegida;
+
     public ClasificacionLiga() {
         initComponents();
     }
+    
+    public ClasificacionLiga(BaseDatos acceso) {
+        
+        accesoBD = acceso;
+        initComponents();
+        
+        try {
+            actualizaComboTemporada();
+            actualizaComboCategoria();
+        } catch (SQLException ex) {
+            Logger.getLogger(EstadisticasTemporada.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void actualizaTablaClasificacion() throws SQLException {
+
+        int idTemp = 0, idCate = 0;
+
+        String consulta = "SELECT idTemporada FROM mydb.temporada WHERE curso='"+elegirTemporadaLis.getSelectedItem().toString()+"';";
+        ResultSet res1 = accesoBD.ejecutaConsulta(consulta);
+        if (res1.next()) {
+            idTemp = res1.getInt(1);
+        }
+
+        consulta = "SELECT idCategoria FROM mydb.categoria WHERE tipo='"+elegirCategoriaLis.getSelectedItem().toString()+"';";
+        ResultSet res2 = accesoBD.ejecutaConsulta(consulta);
+        if (res2.next()) {
+            idCate = res2.getInt(1);
+        }
+
+        retset = GestorEquipos.consultarClasificacion(accesoBD, idTemp, idCate);
+
+        if (retset == null) {
+           JOptionPane.showMessageDialog(null,"No hay datos que mostrar en la tabla de clasificacion");  
+        } else {
+            DefaultTableModel dtm = new DefaultTableModel();
+            dtm.addColumn("Posicion");
+            dtm.addColumn("Nombre equipo");
+            dtm.addColumn("Partidos jugados");
+            dtm.addColumn("Partidos ganados");
+            dtm.addColumn("Partidos perdidos");
+            dtm.addColumn("Puntos a favor");
+            dtm.addColumn("Puntos en contra");
+
+            Object[] fila = new Object[7];
+
+            while (retset.next()) {
+
+                fila[0] = retset.getString(1);
+
+                String entrenador = retset.getString(2) + " " + retset.getString(3) + " " + retset.getString(4);
+                fila[1] = entrenador;
+
+                String consulta3 = "SELECT COUNT(*) FROM partido p, equipo e WHERE (resultadoLocal > resultadoVisitante)"
+                        + "AND p.idEquipo=e.idEquipo AND e.nombre='" + (String) fila[0] + "'";
+                System.out.printf(consulta3);
+                ResultSet res3 = accesoBD.ejecutaConsulta(consulta3);
+                if (res3.next()) {
+                    fila[2] = res3.getString(1);
+                }
+
+                String consulta4 = "SELECT COUNT(*) FROM partido p, equipo e WHERE (resultadoLocal < resultadoVisitante)"
+                        + "AND p.idEquipo=e.idEquipo AND e.nombre='" + (String) fila[0] + "'";
+                System.out.printf(consulta4);
+                ResultSet res4 = accesoBD.ejecutaConsulta(consulta4);
+                if (res4.next()) {
+                    fila[3] = res4.getString(1);
+                }
+
+                fila[4] = retset.getString(5);
+
+                dtm.addRow(fila);
+            }
+
+            tablaClasificacion.setModel(dtm);
+        }
+    }
+    
+    private void actualizaComboTemporada() throws SQLException {
+        elegirTemporadaLis.removeAllItems();
+        elegirTemporadaLis.addItem(" ");
+
+        String consulta = "SELECT DISTINCT curso FROM temporada;";
+        ResultSet res = accesoBD.ejecutaConsulta(consulta);
+        while (res.next()) {
+            elegirTemporadaLis.addItem(res.getString(1));
+        }
+    }
+
+    private void actualizaComboCategoria() throws SQLException {
+        elegirCategoriaLis.removeAllItems();
+        elegirCategoriaLis.addItem(" ");
+
+        String consulta = "SELECT DISTINCT tipo FROM categoria;";
+        ResultSet res = accesoBD.ejecutaConsulta(consulta);
+        while (res.next()) {
+            elegirCategoriaLis.addItem(res.getString(1));
+        }
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -147,7 +282,8 @@ public class ClasificacionLiga extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
-        // TODO add your handling code here:
+        
+        this.setVisible(false);
     }//GEN-LAST:event_botonSalirActionPerformed
 
     private void elegirCategoriaLisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elegirCategoriaLisActionPerformed
@@ -183,6 +319,7 @@ public class ClasificacionLiga extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new ClasificacionLiga().setVisible(true);
             }

@@ -131,7 +131,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="entrenadorLab">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Entrenador:"/>
+        <Property name="text" type="java.lang.String" value=" Usuario:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="nombreApellidosEntrenador">
