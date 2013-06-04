@@ -125,7 +125,19 @@ public class AñadirAlumno extends javax.swing.JFrame {
 
         PrimerApellido.setText("Primer Apellido");
 
+        PrimerApellidoTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                PrimerApellidoTextFieldKeyTyped(evt);
+            }
+        });
+
         SegundoApellido.setText("Segudno Apellido");
+
+        SegundoApellidoTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                SegundoApellidoTextFieldKeyTyped(evt);
+            }
+        });
 
         Añadir.setText("Añadir");
         Añadir.addActionListener(new java.awt.event.ActionListener() {
@@ -391,7 +403,7 @@ public class AñadirAlumno extends javax.swing.JFrame {
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
             Calendar cal1 = Calendar.getInstance();
             for (int i = 0; i < listaIDAlumnos.size(); i++) {
-                String insert = new String("INSERT INTO cuota (importe, fecha, pagado) VALUES (50, \""
+                String insert = new String("INSERT INTO cuota (fecha, pagado) VALUES (\""
                         + cal1.get(Calendar.YEAR) + "-" + cal1.get(Calendar.MONTH) + "-" + cal1.get(Calendar.DATE) + "\", 0)");
                 System.out.print(insert);
                 try {
@@ -474,6 +486,46 @@ public class AñadirAlumno extends javax.swing.JFrame {
         System.out.print("\nModelo \n" + modelo);
         ListaAlumnos.setModel(modelo);
     }//GEN-LAST:event_NombreTextFieldKeyTyped
+
+    private void PrimerApellidoTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PrimerApellidoTextFieldKeyTyped
+        // TODO add your handling code here:
+        String apellido = PrimerApellidoTextField.getText();
+        DefaultListModel modelo = new DefaultListModel();
+        String consulta = "SELECT primerApellido, segundoApellido, nombre FROM "
+                + "alumno WHERE primerApellido LIKE '%" + apellido + "%'";
+        ResultSet retset = accesoBD.ejecutaConsulta(consulta);
+
+        List<String> nuevosAlumnos = new ArrayList<String>();
+        try {
+            while (retset.next()) {
+                modelo.addElement(retset.getString(1) + " " + retset.getString(2) + " " + retset.getString(3));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AñadirAlumno.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.print("\nModelo \n" + modelo);
+        ListaAlumnos.setModel(modelo);
+    }//GEN-LAST:event_PrimerApellidoTextFieldKeyTyped
+
+    private void SegundoApellidoTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SegundoApellidoTextFieldKeyTyped
+        // TODO add your handling code here:
+        String apellido = SegundoApellidoTextField.getText();
+        DefaultListModel modelo = new DefaultListModel();
+        String consulta = "SELECT primerApellido, segundoApellido, nombre FROM "
+                + "alumno WHERE segundoApellido LIKE '%" + apellido + "%'";
+        ResultSet retset = accesoBD.ejecutaConsulta(consulta);
+
+        List<String> nuevosAlumnos = new ArrayList<String>();
+        try {
+            while (retset.next()) {
+                modelo.addElement(retset.getString(1) + " " + retset.getString(2) + " " + retset.getString(3));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AñadirAlumno.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.print("\nModelo \n" + modelo);
+        ListaAlumnos.setModel(modelo);
+    }//GEN-LAST:event_SegundoApellidoTextFieldKeyTyped
 
     /**
      * @param args the command line arguments
@@ -559,29 +611,29 @@ public class AñadirAlumno extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(AñadirAlumno.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        for(int i = 0; i < ListaIDAlumnosMostrados.size(); i++){
+
+        for (int i = 0; i < ListaIDAlumnosMostrados.size(); i++) {
             idAlum = idAlum + Integer.toString(ListaIDAlumnosMostrados.get(i)) + ", ";
         }
-        
+
         idAlum = idAlum.substring(0, idAlum.length() - 2);
-        
+
         consulta = "SELECT primerApellido, segundoApellido, nombre FROM alumno WHERE "
                 + "idAlumno NOT IN (" + idAlum + ")";
-        
+
         System.out.println("Stark " + consulta);
-        
+
         retset = accesoBD.ejecutaConsulta(consulta);
         try {
-            while(retset.next()){
+            while (retset.next()) {
                 modeloFinal.addElement(retset.getString(1) + " " + retset.getString(2) + " " + retset.getString(3));
             }
         } catch (SQLException ex) {
             Logger.getLogger(AñadirAlumno.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         ListaAlumnos.setModel(modeloFinal);
         AlumnosMostradosLabel.setText(Integer.toString(modelo.size()));
-        
+
     }
 }

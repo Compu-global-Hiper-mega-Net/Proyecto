@@ -173,6 +173,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="PrimerApellidoTextField">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="PrimerApellidoTextFieldKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="SegundoApellido">
       <Properties>
@@ -180,6 +183,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="SegundoApellidoTextField">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="SegundoApellidoTextFieldKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="A&#xf1;adir">
       <Properties>
