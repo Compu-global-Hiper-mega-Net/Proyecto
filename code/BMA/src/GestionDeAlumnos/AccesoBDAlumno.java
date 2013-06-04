@@ -318,7 +318,10 @@ class AccesoBDAlumno {
                     + "WHERE e.alumno_idAlumno='"+idAlumno+"' AND e.partido_idPartido=p.idPartido";
            rst = accesoBD.ejecutaConsulta(consulta); 
                  
-           return rst;
+           if (!rst.next())
+                return null;
+           else
+                return rst;
          }   
     }
     //***************************************JAVI******************************************************//      
