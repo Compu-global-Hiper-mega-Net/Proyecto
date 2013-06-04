@@ -4,12 +4,12 @@ package InterfazUsuario;
 import ServiciosAlmacenamiento.BaseDatos;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.jfree.chart.*;
 import org.jfree.chart.plot.PlotOrientation;
@@ -46,7 +46,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 
-public class EstadisticasJugador extends javax.swing.JFrame {  
+ public class EstadisticasJugador extends javax.swing.JFrame {  
    
     BaseDatos accesoBD;
     ResultSet retset; 
@@ -77,8 +77,7 @@ public class EstadisticasJugador extends javax.swing.JFrame {
     private  void actualizaTablaEstadisticas() throws SQLException {
         
        if(retset == null)
-           System.out.println("La consulta final es vacia"); 
-       
+           JOptionPane.showMessageDialog(null,"No hay datos que mostrar para el jugador");  
        else{ 
              DefaultTableModel dtm = new DefaultTableModel();
              dtm.addColumn("Partido");
@@ -89,7 +88,7 @@ public class EstadisticasJugador extends javax.swing.JFrame {
              dtm.addColumn("Perdidas");
              dtm.addColumn("Puntos");
 
-             Object[] fila = new Object[5];
+             Object[] fila = new Object[7];
 
              while(retset.next()){       
                  
@@ -252,7 +251,7 @@ public class EstadisticasJugador extends javax.swing.JFrame {
 
     private void verGraficasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verGraficasActionPerformed
  
-        int i=1;
+        int i=0;
         try {
            while(retset.next()){
                 Datos.addValue(retset.getInt(8), "Puntos", (Comparable) partidosJug.get(i));

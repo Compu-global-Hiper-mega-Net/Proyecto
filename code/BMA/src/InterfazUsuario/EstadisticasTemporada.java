@@ -76,7 +76,7 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
         retset = GestorTemporadas.consultarEstadisticasTemporada(accesoBD, idTemp, idCate);
 
         if (retset == null) {
-            System.out.println("La consulta final es vacia");
+           JOptionPane.showMessageDialog(null,"No hay datos que mostrar para la temporada");  
         } else {
             DefaultTableModel dtm = new DefaultTableModel();
             dtm.addColumn("Equipo");

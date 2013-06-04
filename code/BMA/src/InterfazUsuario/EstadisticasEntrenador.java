@@ -5,6 +5,7 @@ import ServiciosAlmacenamiento.BaseDatos;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -65,8 +66,7 @@ public class EstadisticasEntrenador extends javax.swing.JFrame {
     private  void actualizaTablaEstadisticas() throws SQLException {
        
        if(retset == null)
-           System.out.println("La consulta final es vacia"); 
-       
+           JOptionPane.showMessageDialog(null,"No hay datos que mostrar para el entrenador");  
        else{ 
              DefaultTableModel dtm = new DefaultTableModel();
              dtm.addColumn("Fecha");
