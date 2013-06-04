@@ -299,4 +299,19 @@ public class EquipoBD {
         
         return exito;
     }
+    
+    //***************************************JAVI******************************************************//  
+    public static ResultSet generaClasificacion(BaseDatos accesoBD,int idTemp, int idCate)throws SQLException{
+        
+        String consulta = "SELECT e.nombre, SUM(p.resultadoLocal), SUM(p.resultadoVisitante) FROM equipo e, partido p " +
+                          "WHERE e.temporada_idTemporada='"+idTemp+"' AND e.Categoria_idCategoria='"+idCate+"' " +
+                          "AND e.idEquipo=p.idEquipo GROUP BY p.idEquipo; ";
+        ResultSet resSet = accesoBD.ejecutaConsulta(consulta);
+        
+        if (!resSet.next())
+            return null;
+        else
+            return resSet;
+    }
+    //***************************************JAVI******************************************************//  
 }

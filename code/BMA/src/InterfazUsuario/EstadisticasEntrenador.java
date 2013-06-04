@@ -164,7 +164,7 @@ public class EstadisticasEntrenador extends javax.swing.JFrame {
             }
         });
 
-        entrenadorLab.setText("Entrenador:");
+        entrenadorLab.setText(" Usuario:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

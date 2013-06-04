@@ -152,4 +152,11 @@ public class GestorEquipos {
         
         
     }
+    
+     //***************************************JAVI******************************************************//  
+    public static ResultSet consultarClasificacion(BaseDatos accesoBD, int idTemp, int idCate)throws SQLException{
+        
+        return EquipoBD.generaClasificacion(accesoBD, idTemp, idCate);  
+    }
+    //***************************************JAVI******************************************************//
 }

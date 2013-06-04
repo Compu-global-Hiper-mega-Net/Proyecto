@@ -213,10 +213,10 @@ class AccesoBDUsuario {
             rst = accesoBD.ejecutaConsulta(consulta);
         }
 
-
-
-        return rst;
-
+        if (!rst.next())
+            return null;
+        else
+            return rst;
     }
     //***************************************JAVI******************************************************//   
 }
