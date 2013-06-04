@@ -50,7 +50,7 @@ import javax.swing.JOptionPane;
 public class GestorEquipos {
 
     public static List<Equipo> ConsultaEquipo(BaseDatos accesoBD, String nombre,
-                            String temporada, String categoria, String entrenador,boolean fundacion) throws SQLException {
+                            String temporada, String categoria, String entrenador,boolean fundacion, char sexo) throws SQLException {
 
         List<Equipo> listaEquipos = new ArrayList();
         Equipo eq;
@@ -68,7 +68,7 @@ public class GestorEquipos {
             cat = res.getString(2);
             temp = res.getString(3);
             entrena = res.getString(4);
-            eq = new Equipo(n, temp, cat, entrena, entrena2,fundacion);
+            eq = new Equipo(n, temp, cat, entrena, entrena2,fundacion, sexo);
 
             listaEquipos.add(eq);
         }
@@ -99,7 +99,7 @@ public class GestorEquipos {
     }
     
     public static void InsertarDatosEquipo(BaseDatos accesoBD, String nombre,
-            String temporada, String categoria, String entrenador, String entrenador2, boolean fundacion) throws SQLException{
+            String temporada, String categoria, String entrenador, String entrenador2, boolean fundacion,char sexo) throws SQLException{
                 
         boolean validar = EquipoBD.ConsultarEquipo(accesoBD, nombre, temporada, categoria);
         
@@ -107,7 +107,7 @@ public class GestorEquipos {
             JOptionPane.showMessageDialog(new NuevoEquipo(), "El equipo ya existe", "Error", JOptionPane.ERROR_MESSAGE);
         else{
             Equipo equipo;
-            equipo = new Equipo(nombre, temporada, categoria, entrenador, entrenador2, fundacion);
+            equipo = new Equipo(nombre, temporada, categoria, entrenador, entrenador2, fundacion, sexo);
             
             EquipoBD.crearEquipoBD(accesoBD, equipo);
         }
@@ -126,14 +126,20 @@ public class GestorEquipos {
             ResultSet ret;
             int idAlumno = 0;
             nombreCompleto = (String) modelo.getElementAt(i);
-            nombreJugador = nombreCompleto.substring(0, nombreCompleto.indexOf(" "));
-            nombreCompleto = nombreCompleto.substring(nombreCompleto.indexOf(" ")+1, nombreCompleto.length());
             pApellido = nombreCompleto.substring(0, nombreCompleto.indexOf(" "));
-            sApellido = nombreCompleto.substring(nombreCompleto.indexOf(" "), nombreCompleto.length());
+            nombreCompleto = nombreCompleto.substring(nombreCompleto.indexOf(" ")+1, nombreCompleto.length());
+            sApellido = nombreCompleto.substring(0, nombreCompleto.indexOf(" "));
+            nombreJugador = nombreCompleto.substring(nombreCompleto.indexOf(" ")+1, nombreCompleto.length());
+            
+            System.out.print("Nombre\n\n"+nombreJugador);
+            System.out.print("Nombre\n\n"+pApellido);
+            System.out.print("Nombre\n\n"+sApellido);
             
             String consulta = "SELECT idAlumno FROM alumno WHERE nombre = '" + nombreJugador + 
                     "' AND primerApellido = '" + pApellido + "' AND segundoApellido = '"
                     + sApellido + "'";
+            
+            System.out.print("Consuelo \n\n"+consulta);
             
             ret = accesoBD.ejecutaConsulta(consulta);
             

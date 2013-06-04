@@ -5342,6 +5342,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         
         String jugadorElegido;
         ocultarMensajesError();
+        ResultSet retset = null;
         
         int i =tablaAlumnos.getSelectedRow();
         if(i==-1){
@@ -5367,7 +5368,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
 
     private void estadisticasTemporadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estadisticasTemporadaActionPerformed
         
-         ocultarMensajesError();
+        ocultarMensajesError();
         
         if(comboTempo.getSelectedItem().equals(" "))
             JOptionPane.showMessageDialog(null,"Seleccione una temporada para ver estadisticas ");

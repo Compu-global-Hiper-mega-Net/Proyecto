@@ -55,12 +55,12 @@ public class EquipoBD {
 
         int idCategoria = GestorCategorias.getIdCategoria(accesoBD, categoria);
 
-        String select = "SELECT DISTINCT Equipo.nombre, Categoria.tipo, Temporada.curso";
+        String select = "SELECT DISTINCT Equipo.nombre, Categoria.tipo, Temporada.curso,";
         if (!"".equals(entrenador)) {
             select += ", Usuario.nombre ";
         }
 
-        String from = "FROM Equipo, Categoria, Temporada, Rango, Usuario ";
+        String from = "Equipo.sexo FROM Equipo, Categoria, Temporada, Rango, Usuario ";
 
         String condicion = "WHERE ";
 
@@ -145,6 +145,7 @@ public class EquipoBD {
         String entrena;
         String entrena2 = "";
         boolean fundacion;
+        char sexo;
         Equipo eq;
 
         while (res.next()) {
@@ -153,7 +154,8 @@ public class EquipoBD {
             temp = res.getString(3);
             entrena = res.getString(4);
             fundacion = res.getBoolean(5);
-            eq = new Equipo(n, temp, cat, entrena, entrena2, fundacion);
+            sexo = res.getObject(6, char.class);
+            eq = new Equipo(n, temp, cat, entrena, entrena2, fundacion, sexo);
 
             equipos.add(eq);
         }
@@ -208,8 +210,8 @@ public class EquipoBD {
         String consulta = "SELECT Equipo.nombre, Categoria.tipo, Temporada.curso "
                 + "FROM Equipo, Categoria, Temporada "
                 + "WHERE Equipo.nombre='" + nombre + "' "
-                + "AND Categoria.idCategoria='" + idCategoria + "' "
-                + "AND Temporada.idTemporada='" + GestorTemporadas.getIdTemporada(accesoBD, temporada) + "'";
+                + "AND Categoria.idCategoria=" + idCategoria
+                + " AND Temporada.idTemporada=" + GestorTemporadas.getIdTemporada(accesoBD, temporada);
 
         ResultSet res = accesoBD.ejecutaConsulta(consulta);
 
@@ -233,12 +235,13 @@ public class EquipoBD {
         int idEntrenador2 = getIdUsuario(accesoBD, equipo.getEntrenador2(), "segundo");
         int idFundacion = getIDFundacion(accesoBD);
         int idLiga = getIDLiga(accesoBD);
+        char sexo = equipo.getSexo();
 
         //Insertar en Equipo
         String Consulta = "INSERT INTO equipo (Fundacion_idFundacion, Categoria_idCategoria, nombre, fundacion, liga_idLiga, "
-                + "temporada_idTemporada) VALUES ("
+                + "temporada_idTemporada, sexo) VALUES ("
                 + idFundacion + ", " + idCategoria + ", '" + equipo.getNombre() + "', " + equipo.getFundacion() + ", "
-                + idLiga + ", " + idTemporada + ")";
+                + idLiga + ", " + idTemporada + ", '" + sexo + "')";
         System.out.print("\n\nAcanderMore " + Consulta);
         
         accesoBD.ejecutaActualizacion(Consulta);
@@ -249,6 +252,8 @@ public class EquipoBD {
         String consulta = "INSERT INTO alumnoequipo (Alumno_idAlumno, Equipo_idEquipo, Equipo_Fundacion_idFundacion,"
                 + "Equipo_Categoria_idCategoria) VALUES ("+
                 alumno + ", " + equipo + ", " + fundacion + ", " + categoria + ")";
+        
+        System.out.println("Yao "+consulta);
         
         acceso.ejecutaActualizacion(consulta);
         

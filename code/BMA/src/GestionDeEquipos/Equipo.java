@@ -49,14 +49,16 @@ public class Equipo {
     private boolean Fundacion;
     private String entrenador;
     private String entrenador2;
+    private char sexo;
 
-    public Equipo(String nombre, String temporada, String categoria, String entrenador, String entrenador2, boolean fundacion) {
+    public Equipo(String nombre, String temporada, String categoria, String entrenador, String entrenador2, boolean fundacion, char sexo) {
         this.nombre = nombre;
         this.temporada = temporada;
         this.categoria = categoria;
         this.entrenador = entrenador;
         this.entrenador2 = entrenador2;
         this.Fundacion = fundacion;
+        this.sexo = sexo;
     }
 
     /**
@@ -100,11 +102,18 @@ public class Equipo {
     public String getEntrenador2() {
         return entrenador2;
     }
-    
-        /**
+
+    /**
      * @return the Pertenece fundacion
      */
     public boolean getFundacion() {
         return Fundacion;
+    }
+
+    /**
+     * @return the sexo
+     */
+    public char getSexo() {
+        return sexo;
     }
 }
