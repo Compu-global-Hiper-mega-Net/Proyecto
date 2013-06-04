@@ -5891,8 +5891,8 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         dtm.addColumn("Segundo Entrenador");
         dtm.addColumn("Sexo");
         
-        /*String aux;
-        Object[] fila = new Object[5];
+        String aux;
+        Object[] fila = new Object[6];
         for (Equipo it : equipos) {
             aux = it.getCategoria();
             fila[0] = aux.substring(0, aux.indexOf(","));
@@ -5905,7 +5905,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
             aux = aux.substring(aux.indexOf(",") + 1, aux.length());
             fila[4] = getTemporada(aux);
             dtm.addRow(fila);
-        }*/
+        }
 
         tablaEquipos.setModel(dtm);
         
