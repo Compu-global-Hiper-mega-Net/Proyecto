@@ -32,7 +32,7 @@ public class ClasificacionLiga extends javax.swing.JFrame {
         elegirTemporadaLis = new javax.swing.JComboBox();
         botonMostrarClasificacion = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         clasificacionLab.setText("Clasificación de la liga en la temporada:");
 

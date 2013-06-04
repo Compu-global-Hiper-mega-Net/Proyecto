@@ -101,7 +101,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
                  ResultSet rst2 = accesoBD.ejecutaConsulta(consulta2);
                  
                  if(rst1.next()&& rst2.next()){
-                    String nombrePartido = (rst1.getString(1)+"-"+rst2.getString(1));
+                    String nombrePartido = (rst1.getString(1)+" - "+rst2.getString(1));
                     fila[0] = nombrePartido;
                     
                     partidosJug.add(nombrePartido);
@@ -137,7 +137,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
         nombreAlumnoElegido = new javax.swing.JLabel();
         verGraficas = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         botonSalir.setText("Salir");
         botonSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -253,9 +253,11 @@ import org.jfree.data.category.DefaultCategoryDataset;
  
         int i=0;
         try {
+           Datos.addValue(retset.getInt("Puntos"), "Puntos", (Comparable) partidosJug.get(i));
            while(retset.next()){
-                Datos.addValue(retset.getInt(8), "Puntos", (Comparable) partidosJug.get(i));
                 i++;
+                Datos.addValue(retset.getInt("Puntos"), "Puntos", (Comparable) partidosJug.get(i));
+                System.out.printf("\n"+(String)partidosJug.get(i));
            }
         } catch (SQLException ex) {
             Logger.getLogger(EstadisticasJugador.class.getName()).log(Level.SEVERE, null, ex);
@@ -269,7 +271,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
         Ventana.getContentPane().add(Panel);
         Ventana.pack();
         Ventana.setVisible(true);
-        Ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_verGraficasActionPerformed
 
     /**

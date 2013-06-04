@@ -148,7 +148,7 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
         botonMostrarEstadisticasTemporada = new javax.swing.JButton();
         temporadaElegidaTexto = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         panelTabEstTemp.setAutoscrolls(true);
 

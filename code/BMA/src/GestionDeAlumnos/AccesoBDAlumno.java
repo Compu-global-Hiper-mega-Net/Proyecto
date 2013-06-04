@@ -308,8 +308,6 @@ class AccesoBDAlumno {
                    + " AND numeroCuenta='"+numCuenta+"'";
          ResultSet rst = accesoBD.ejecutaConsulta(consulta); 
          
-          System.out.printf("\nConsulta 1"+consulta+"\n");
-         
          if (!rst.next()) {
             return null;
          }
@@ -319,8 +317,6 @@ class AccesoBDAlumno {
                     + "EstadisticaAlumno e, partido p "
                     + "WHERE e.alumno_idAlumno='"+idAlumno+"' AND e.partido_idPartido=p.idPartido";
            rst = accesoBD.ejecutaConsulta(consulta); 
-           
-           System.out.printf("\nConsulta 2"+consulta+"\n");
                  
            return rst;
          }   
