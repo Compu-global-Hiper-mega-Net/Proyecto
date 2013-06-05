@@ -3475,6 +3475,9 @@ private void botonEliminarAlumnoActionPerformed(java.awt.event.ActionEvent evt) 
         }
     }
 }//GEN-LAST:event_botonEliminarAlumnoActionPerformed
+private void borrar_este_metodo(){
+    System.out.print("\nya lo estoy borrando");
+}
 
 private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarUsuarioActionPerformed
     ocultarMensajesError();
