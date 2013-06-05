@@ -115,6 +115,7 @@ public class ClasificacionLiga extends javax.swing.JFrame {
 
                 String consulta3 = "SELECT COUNT(*) FROM partido p, equipo e WHERE (resultadoLocal > resultadoVisitante)"
                         + "AND p.idEquipo=e.idEquipo AND e.nombre='"+(String) fila[1]+"'";
+                System.out.printf(consulta3);
                 ResultSet res3 = accesoBD.ejecutaConsulta(consulta3);
                 if (res3.next()) {
                     fila[3] = res3.getString(1);
@@ -122,6 +123,7 @@ public class ClasificacionLiga extends javax.swing.JFrame {
 
                 String consulta4 = "SELECT COUNT(*) FROM partido p, equipo e WHERE (resultadoLocal < resultadoVisitante)"
                         + "AND p.idEquipo=e.idEquipo AND e.nombre='"+(String) fila[1]+"'";
+                System.out.printf(consulta4);
                 ResultSet res4 = accesoBD.ejecutaConsulta(consulta4);
                 if (res4.next()) {
                     fila[4] = res4.getString(1);
