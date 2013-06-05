@@ -59,7 +59,6 @@ public class Alumno {
     private String email;
     private String observaciones;
     private String tallaAlumno;
-    private char sexo;
 
     public Alumno(){
         
@@ -67,7 +66,7 @@ public class Alumno {
     
     Alumno(String nombre, String primerApellido, String segundoApellido, java.util.Date fechaNac,
             String cuentaCorriente, String domicilio, String localidad, int codPostal, String provincia, String colegio,
-            String nombrePadre, String nombreMadre, int telFijo, int telMovil, String email, String observaciones, String tallaAlumno, char sexo) {
+            String nombrePadre, String nombreMadre, int telFijo, int telMovil, String email, String observaciones, String tallaAlumno) {
         this.nombre = nombre;
         this.primerApellido = primerApellido;
         this.segundoApellido = segundoApellido;
@@ -84,23 +83,20 @@ public class Alumno {
         this.telFijo = telFijo;
         this.telMovil = telMovil;
         this.tallaAlumno = tallaAlumno;
-        this.sexo=sexo;
     }
 
     public static Alumno crearAlumno(String nombre, String primerApellido, String segundoApellido, Date fechaNac,
             String cuentaCorriente, String domicilio, String localidad, int codPostal, String provincia, String colegio,
-            String nombrePadre, String nombreMadre, int telFijo, int telMovil, String email, String observaciones, String tallaAlumno, char sexo) {
+            String nombrePadre, String nombreMadre, int telFijo, int telMovil, String email, String observaciones, String tallaAlumno) {
         return new Alumno(nombre, primerApellido, segundoApellido, fechaNac,
                 cuentaCorriente, domicilio, localidad, codPostal, provincia, colegio,
-                nombrePadre, nombreMadre, telFijo, telMovil, email, observaciones, tallaAlumno, sexo);
+                nombrePadre, nombreMadre, telFijo, telMovil, email, observaciones, tallaAlumno);
     }
 
     public int getIdAlumno() {
         return idAlumno;
     }
-    public char getSexo(){
-        return this.sexo;
-    }
+
     public void setIdAlumno(int id) {
         this.idAlumno = id;
     }

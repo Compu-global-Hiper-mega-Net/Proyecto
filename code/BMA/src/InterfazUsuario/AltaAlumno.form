@@ -73,15 +73,12 @@
                   <EmptySpace pref="577" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="581" max="32767" attributes="0"/>
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace pref="619" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="botonVolverAtras" min="-2" pref="110" max="-2" attributes="0"/>
                       <Component id="botonAnadir" min="-2" pref="110" max="-2" attributes="0"/>
-                      <Component id="sexoAlumno" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="181" max="-2" attributes="0"/>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
@@ -188,12 +185,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                   <Component id="nombre" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="sexoAlumno" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="185" max="32767" attributes="0"/>
+                  <EmptySpace pref="219" max="32767" attributes="0"/>
                   <Component id="botonAnadir" min="-2" pref="30" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="botonVolverAtras" min="-2" pref="30" max="-2" attributes="0"/>
@@ -514,21 +506,6 @@
         <Component class="javax.swing.JLabel" name="provinciaLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Provincia:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="sexoAlumno">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="2">
-                <StringItem index="0" value="Masculino"/>
-                <StringItem index="1" value="Femenino"/>
-              </StringArray>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel1">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Sexo:"/>
           </Properties>
         </Component>
       </SubComponents>

@@ -118,8 +118,6 @@ public class AltaAlumno extends javax.swing.JFrame {
         codPostal = new javax.swing.JTextField();
         numCuenta = new javax.swing.JTextField();
         provinciaLabel = new javax.swing.JLabel();
-        sexoAlumno = new javax.swing.JComboBox();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nuevo alumno");
@@ -161,7 +159,7 @@ public class AltaAlumno extends javax.swing.JFrame {
         codPostalLabel.setText("Codigo Postal:");
 
         participante.setBackground(new java.awt.Color(191, 138, 138));
-        participante.setFont(new java.awt.Font("Tahoma", 0, 18));
+        participante.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         participante.setForeground(new java.awt.Color(242, 236, 236));
         participante.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         participante.setText("PARTICIPANTE");
@@ -192,7 +190,7 @@ public class AltaAlumno extends javax.swing.JFrame {
         });
 
         datosFamiliares.setBackground(new java.awt.Color(134, 190, 134));
-        datosFamiliares.setFont(new java.awt.Font("Tahoma", 0, 18));
+        datosFamiliares.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         datosFamiliares.setForeground(new java.awt.Color(242, 236, 236));
         datosFamiliares.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         datosFamiliares.setText("DATOS FAMILIARES");
@@ -342,10 +340,6 @@ public class AltaAlumno extends javax.swing.JFrame {
 
         provinciaLabel.setText("Provincia:");
 
-        sexoAlumno.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Masculino", "Femenino" }));
-
-        jLabel1.setText("Sexo:");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -353,16 +347,13 @@ public class AltaAlumno extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(80, 80, 80)
                 .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(577, Short.MAX_VALUE))
+                .addContainerGap(680, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(581, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botonVolverAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonAnadir, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(sexoAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(84, 84, 84))
+                    .addComponent(botonAnadir, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(181, 181, 181))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -446,18 +437,14 @@ public class AltaAlumno extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(60, 60, 60)
                 .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(sexoAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 185, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 219, Short.MAX_VALUE)
                 .addComponent(botonAnadir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(botonVolverAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(0, 20, Short.MAX_VALUE)
+                    .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(participante, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(20, 20, 20)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -517,7 +504,7 @@ public class AltaAlumno extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(numCuentaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(numCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(0, 20, Short.MAX_VALUE)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -714,9 +701,9 @@ public class AltaAlumno extends javax.swing.JFrame {
                     numCuenta.getText(), domicilio.getText(), localidad.getText(),
                     Integer.parseInt(codPostal.getText()), provincia.getText(), colegio.getText(), nombrePadre.getText(),
                     nombreMadre.getText(), Integer.parseInt(telFijo.getText()), Integer.parseInt(telMovil.getText()), email.getText(), "",
-                    (String) talla.getSelectedItem(), (String) sexoAlumno.getSelectedItem());
+                    (String) talla.getSelectedItem());
 
-            if(false==error){
+            if(!error){
                 JOptionPane.showMessageDialog(null, "Ha habido un error en la base de datos",
                         "Error", JOptionPane.ERROR_MESSAGE);
             }else{
@@ -916,7 +903,6 @@ public class AltaAlumno extends javax.swing.JFrame {
     private javax.swing.JLabel emailLabel;
     private com.toedter.calendar.JDateChooser fechaNac;
     private javax.swing.JLabel fechaNacLabel;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField localidad;
     private javax.swing.JLabel localidadLabel;
@@ -936,7 +922,6 @@ public class AltaAlumno extends javax.swing.JFrame {
     private javax.swing.JTextField segundoApellido;
     private javax.swing.JLabel segundoApellidoLabel;
     private javax.swing.JSeparator separador;
-    private javax.swing.JComboBox sexoAlumno;
     private javax.swing.JComboBox talla;
     private javax.swing.JLabel tallaLabel;
     private javax.swing.JTextField telFijo;
