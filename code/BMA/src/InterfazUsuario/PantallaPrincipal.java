@@ -368,7 +368,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cerrarSesion)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(625, Short.MAX_VALUE))
+                .addContainerGap(551, Short.MAX_VALUE))
         );
         panelInicioLayout.setVerticalGroup(
             panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -445,38 +445,38 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         tablaAlumnos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tablaAlumnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Primer Apellido", "Segundo Apellido", "Fecha Nacimiento", "Email", "Talla", "Numero Cuenta", "Tel. Movil", "Tel. Fijo", "Provincia", "Localidad", "Domicilio", "CP", "Nombre Padre", "Nombre Madre", "Colegio"
+                "Nombre", "Primer Apellido", "Segundo Apellido", "Fecha Nacimiento", "Email", "Talla", "Numero Cuenta", "Tel. Movil", "Tel. Fijo", "Provincia", "Localidad", "Domicilio", "CP", "Nombre Padre", "Nombre Madre", "Colegio", "Sexo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -756,7 +756,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         panelTemporadas.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         panelTemporadas.setLocation(150, 100);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel3.setText("Temporadas");
 
         botonNuevaTemp.setText("Nueva");
@@ -992,7 +992,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel4.setText("Grupos de Entrenamiento");
 
         javax.swing.GroupLayout panelGruposLayout = new javax.swing.GroupLayout(panelGrupos);
@@ -1022,9 +1022,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         panelInstalaciones.setVisible(false);
         panelInstalaciones.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        panelInstalaciones.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        panelInstalaciones.setFont(new java.awt.Font("Tahoma", 0, 18));
 
-        TituloLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TituloLabel.setFont(new java.awt.Font("Tahoma", 0, 18));
         TituloLabel.setText("Instalaciones");
 
         BuscarporLabel.setText("Buscar instalacion");
@@ -1189,7 +1189,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         panelEquipos.setVisible(false);
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel8.setText("Equipos");
 
         jLabel10.setText("Nombre:");
@@ -1265,10 +1265,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        labelEquiposMostrados.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        labelEquiposMostrados.setFont(new java.awt.Font("Tahoma", 1, 12));
         labelEquiposMostrados.setText("Numero de equipos:");
 
-        labelNumeroEquipos.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        labelNumeroEquipos.setFont(new java.awt.Font("Tahoma", 1, 12));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Entrenador-" }));
 
@@ -1286,7 +1286,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             .addGroup(panelEquiposLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(panelEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator4)
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 717, Short.MAX_VALUE)
                     .addGroup(panelEquiposLayout.createSequentialGroup()
                         .addGroup(panelEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
@@ -1388,7 +1388,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         panelPagos.setVisible(false);
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel15.setText("Pagos");
 
         jLabel9.setText("Buscar Pagos por:");
@@ -1602,10 +1602,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         panelInstalaciones.setVisible(false);
         panelActividades.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        panelActividades.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        panelActividades.setFont(new java.awt.Font("Tahoma", 0, 18));
         panelActividades.setMinimumSize(new java.awt.Dimension(1300, 640));
 
-        actividadesLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        actividadesLabel.setFont(new java.awt.Font("Tahoma", 0, 18));
         actividadesLabel.setText("Actividades");
 
         buscarLabel.setText("Buscar por");
@@ -1770,7 +1770,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         panelCategorias.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         panelCategorias.setLocation(150, 100);
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel17.setText("Categorias");
 
         botonNuevaCat.setText("Nueva");
@@ -1857,7 +1857,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         PanelPartidos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         panelCategorias.setLocation(150, 100);
 
-        Partidos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        Partidos.setFont(new java.awt.Font("Tahoma", 0, 18));
         Partidos.setText("Partidos");
 
         tablaPartidos.setModel(new javax.swing.table.DefaultTableModel(
@@ -1993,10 +1993,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                                 .addComponent(botonMostrarPartidos)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(botonFiltrarPartido)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 368, Short.MAX_VALUE))
                     .addGroup(PanelPartidosLayout.createSequentialGroup()
                         .addComponent(Partidos)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(880, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPartidosLayout.createSequentialGroup()
                         .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(PanelPartidosLayout.createSequentialGroup()
@@ -2018,7 +2018,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(fechaPartido, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(PanelPartidosLayout.createSequentialGroup()
-                                .addComponent(jScrollPane8)
+                                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 752, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -2629,36 +2629,36 @@ private void botonMostrarAlumnosActionPerformed(java.awt.event.ActionEvent evt) 
         retset = GestorAlumnos.consultarAlumno(accesoBD, consulta_alumnos);
         ocultarMensajesError();
         tablaAlumnos.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
-        },
-                new String[]{
-            "Nombre", "Primer Apellido", "Segundo Apellido", "Fecha Nacimiento", "Email", "Talla", "Numero Cuenta", "Tel. Movil", "Tel. Fijo", "Provincia", "Localidad", "Domicilio", "CP", "Nombre Padre", "Nombre Madre", "Colegio"
-        }));
+                new Object [][] {
+        {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+    },
+    new String [] {
+        "Nombre", "Primer Apellido", "Segundo Apellido", "Fecha Nacimiento", "Email", "Talla", "Numero Cuenta", "Tel. Movil", "Tel. Fijo", "Provincia", "Localidad", "Domicilio", "CP", "Nombre Padre", "Nombre Madre", "Colegio", "Sexo"
+    }));
         javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
         modelo_tabla = tablaAlumnos.getModel();
         int i = 0;
@@ -2684,6 +2684,7 @@ private void botonMostrarAlumnosActionPerformed(java.awt.event.ActionEvent evt) 
                 tablaAlumnos.setValueAt(retset.getString("a.nombrepadre"), i, 13);
                 tablaAlumnos.setValueAt(retset.getString("a.nombremadre"), i, 14);
                 tablaAlumnos.setValueAt(retset.getString("a.colegio"), i, 15);
+                tablaAlumnos.setValueAt(retset.getString("a.sexo"), i, 16);
             } else {
                 javax.swing.table.DefaultTableModel temp = (javax.swing.table.DefaultTableModel) tablaAlumnos.getModel();
                 Object nuevo[] = {"", "", ""};
@@ -2705,6 +2706,7 @@ private void botonMostrarAlumnosActionPerformed(java.awt.event.ActionEvent evt) 
                 tablaAlumnos.setValueAt(retset.getString("a.nombrepadre"), i, 13);
                 tablaAlumnos.setValueAt(retset.getString("a.nombremadre"), i, 14);
                 tablaAlumnos.setValueAt(retset.getString("a.colegio"), i, 15);
+                tablaAlumnos.setValueAt(retset.getString("a.sexo"), i, 16);
             }
             i++;
         }
@@ -3460,6 +3462,11 @@ private void botonEliminarAlumnoActionPerformed(java.awt.event.ActionEvent evt) 
                     alumnosMostrados.next();
                     i++;
                 }
+                char aux;
+                if(alumnosMostrados.getString("a.sexo").equals("Masculino")){
+                    aux='M';
+                }else
+                    aux='F';
                 Date fechaNac = Date.valueOf((String) alumnosMostrados.getString("a.fechaNacimiento"));
                 GestorAlumnos.eliminaAlumno(accesoBD,
                         alumnosMostrados.getString("a.nombre"), alumnosMostrados.getString("a.primerApellido"), alumnosMostrados.getString("a.segundoApellido"),
@@ -3467,7 +3474,7 @@ private void botonEliminarAlumnoActionPerformed(java.awt.event.ActionEvent evt) 
                         alumnosMostrados.getString("a.localidad"), alumnosMostrados.getInt("a.codigoPostal"), alumnosMostrados.getString("a.provincia"),
                         alumnosMostrados.getString("a.colegio"), alumnosMostrados.getString("a.nombrePadre"), alumnosMostrados.getString("a.nombreMadre"),
                         alumnosMostrados.getInt("a.telFijo"), alumnosMostrados.getInt("a.telMovil"), alumnosMostrados.getString("a.email"),
-                        alumnosMostrados.getString("a.observaciones"), alumnosMostrados.getString("a.talla"));
+                        alumnosMostrados.getString("a.observaciones"), alumnosMostrados.getString("a.talla"), aux);
                 botonMostrarAlumnosActionPerformed(null);
             } catch (SQLException ex) {
                 System.out.print(ex.getMessage());
@@ -3475,9 +3482,6 @@ private void botonEliminarAlumnoActionPerformed(java.awt.event.ActionEvent evt) 
         }
     }
 }//GEN-LAST:event_botonEliminarAlumnoActionPerformed
-private void borrar_este_metodo(){
-    System.out.print("\nya lo estoy borrando");
-}
 
 private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarUsuarioActionPerformed
     ocultarMensajesError();
@@ -6053,13 +6057,16 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         String aux;
         Object[] fila = new Object[6];
         for (Equipo it : equipos) {
-            fila[0] = it.getNombre();
-            fila[1] = it.getCategoria();
-            fila[2] = it.getTemporada();
-            fila[3] = it.getEntrenador();
-            fila[4] = it.getEntrenador2();
-            fila[5] = it.getSexo();
-            
+            aux = it.getCategoria();
+            fila[0] = aux.substring(0, aux.indexOf(","));
+            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
+            fila[1] = aux.substring(0, aux.indexOf(","));
+            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
+            fila[2] = getCategoria(aux.substring(0, aux.indexOf(",")));
+            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
+            fila[3] = getEntrenador(aux.substring(0, aux.indexOf(",")));
+            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
+            fila[4] = getTemporada(aux);
             dtm.addRow(fila);
         }
 
