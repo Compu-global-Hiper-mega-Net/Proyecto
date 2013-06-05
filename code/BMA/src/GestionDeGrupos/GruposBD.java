@@ -637,6 +637,17 @@ public class GruposBD {
                         + "('"+it+"','"+idGrupo+"','"+idCat+"','"+idEnt+"','"+idTemp+"')";
                 res = accesoBD.ejecutaActualizacion(query);
             }
+            
+            query = "SELECT n_alumnos FROM Grupo WHERE idGrupo='"+idGrupo+"'";
+            auxR = accesoBD.ejecutaConsulta(query);
+            int nAlumnos = 0;
+            if(auxR.next())
+                nAlumnos = auxR.getInt(1);
+            
+            query = "UPDATE Grupo SET n_alumnos='"+(idAls.size()+nAlumnos)+"' WHERE "
+                    + "idGrupo='"+idGrupo+"'";
+            res = accesoBD.ejecutaActualizacion(query);
+            
         }
     }
 
