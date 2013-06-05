@@ -447,11 +447,31 @@ public class GruposBD {
         return als;
     }
 
-    static void eliminarAlumnoIntroducido(BaseDatos accesoBD, int idGrupo, int idAl) {
+    static void eliminarAlumnoIntroducido(BaseDatos accesoBD, int idGrupo, int idAl) throws SQLException {
+        ResultSet resSet;
+        
         String query = "DELETE FROM AlumnoGrupo WHERE "
                 + "Alumno_idAlumno='"+idAl+"' AND Grupo_idGrupo='"+idGrupo+"'";
        
         boolean res = accesoBD.eliminar(query);
+        
+        query = "SELECT n_alumnos FROM Grupo WHERE "
+                + "idGrupo='"+idGrupo+"'";
+        resSet = accesoBD.ejecutaConsulta(query);
+        int nAls = 0;
+        
+        if(resSet.next())
+            nAls = resSet.getInt(1);
+        
+        System.out.println();
+        System.out.println("num alumnos vale: "+nAls);
+        
+        nAls = nAls - 1;
+        
+        query = "UPDATE Grupo SET n_alumnos='"+nAls+"' WHERE "
+                    + "idGrupo='"+idGrupo+"'";
+        System.out.println("la consulta es: "+query);
+        int nRes = accesoBD.ejecutaActualizacion(query);
         
         if(res)
             System.out.println("se ha eliminado");
