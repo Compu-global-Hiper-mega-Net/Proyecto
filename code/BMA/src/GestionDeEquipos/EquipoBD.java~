@@ -211,7 +211,7 @@ public class EquipoBD {
 		 * @param accesoBD, acceso a la base de datos.
 		 * @param s, id del equipo a consultar.
 		 * @throws SQLExcepción, algun tipo de error en la base de datos.
-		 * @return String (cadena) con el atributo interno del nombre del equipo.
+		 * @return List<Equipo> (lista) con el atributo interno de una lista de equipos.
 		 */
 
 

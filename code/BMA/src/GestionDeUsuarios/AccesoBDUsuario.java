@@ -215,10 +215,8 @@ class AccesoBDUsuario {
 
         if (!rst.next())
             return null;
-        else{
-            rst.previous();
+        else
             return rst;
-        }
     }
     //***************************************JAVI******************************************************//   
 }

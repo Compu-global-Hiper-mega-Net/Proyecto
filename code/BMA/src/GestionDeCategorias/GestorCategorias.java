@@ -1,13 +1,9 @@
 package GestionDeCategorias;
 
-import InterfazUsuario.ModificarCategoria;
-import InterfazUsuario.NuevaCategoria;
 import InterfazUsuario.PantallaPrincipal;
 import ServiciosAlmacenamiento.BaseDatos;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -58,17 +54,17 @@ public class GestorCategorias {
         int resAct = 0;
         
         if(!validar){
-            JOptionPane.showMessageDialog(new NuevaCategoria(), "La categoria ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "La categoria ya existe", "Error", JOptionPane.ERROR_MESSAGE);
         }
         
         else{
-            int continuar = JOptionPane.showConfirmDialog(new NuevaCategoria(), "¿Desea crear la categoria", "Confirmar", JOptionPane.YES_NO_CANCEL_OPTION);
+            int continuar = JOptionPane.showConfirmDialog(null, "¿Desea crear la categoria", "Confirmar", JOptionPane.YES_NO_CANCEL_OPTION);
             if(continuar == JOptionPane.YES_OPTION){
                 Categoria c = new Categoria(t, desc);
                 resAct = CategoriaBD.crearCategoria(accesoBD, c);
                 
                 if(resAct > 0)
-                    JOptionPane.showMessageDialog(new NuevaCategoria(), "Categoria creada con exito", "Exito", JOptionPane.NO_OPTION);  
+                    JOptionPane.showMessageDialog(null, "Categoria creada con exito", "Exito", JOptionPane.NO_OPTION);  
                 
             }     
         }
@@ -88,10 +84,10 @@ public class GestorCategorias {
         if(!existe){
             aceptadaModificacion = Categoria.Modificar(accesoBD, cNuevo, cViejo);
             if(aceptadaModificacion > 0)
-                JOptionPane.showMessageDialog(new ModificarCategoria(), "Categoria modificada", "Exito", JOptionPane.NO_OPTION);
+                JOptionPane.showMessageDialog(null, "Categoria modificada", "Exito", JOptionPane.NO_OPTION);
         }
         else{
-            JOptionPane.showMessageDialog(new ModificarCategoria(), "La categoria ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "La categoria ya existe", "Error", JOptionPane.ERROR_MESSAGE);
         }
        
     }
