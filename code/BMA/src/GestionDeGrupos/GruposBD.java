@@ -66,6 +66,18 @@ public class GruposBD {
         
     }*/
 
+    /**
+     * Permite saber si un grupo ya ha sido almacenado.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param dia1 Primer dia de entrenamiento.
+     * @param dia2 Segundo dia de entrenamiento.
+     * @param hora Hora del entrenamiento.
+     * @param min Minuto del entrenamiento.
+     * @param cat Categoria del grupo de entrenamiento.
+     * @param instalacion Lugar donde se realiza el entrenamiento.
+     * @return TRUE si el equipo no ha sido creado y FALSE en caso contrario.
+     * @throws SQLException 
+     */
     static boolean ConsultarGrupos(BaseDatos accesoBD, String dia1, String dia2, String hora, String min, String cat, String instalacion) throws SQLException {
         /*boolean validar = false;
         
@@ -81,6 +93,7 @@ public class GruposBD {
             validar = true;
         
         return validar;*/
+        
         
         boolean validar = false;
         
@@ -153,9 +166,20 @@ public class GruposBD {
         return validar;
     }
 
+    
+    /**
+     * Crea un grupo nuevo en la Base de Datos con todos los parametros necesarios.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param g Grupo que se va a crear.
+     * @param listaIDAl Lista de alumnos que va a tener el grupo.
+     * @param idEnt Identificador del entrenador que tendrá el grupo.
+     * @param idCat Identificador de la categoria que tendrá el grupo.
+     * @param idTemp Identificador de la temporada que tendrá el grupo.
+     * @param idInst Identificador de la instalacion que tendrá el grupo.
+     * @throws SQLException 
+     */
     static void crearGruposBD(BaseDatos accesoBD, Grupo g, List<Integer> listaIDAl, int idEnt, int idCat, int idTemp, int idInst) throws SQLException {
-        
-        
+                
         String dia1, dia2;
         dia1 = g.getDia1();
         dia2 = g.getDia2();
@@ -206,6 +230,15 @@ public class GruposBD {
         
     }
 
+    /**
+     * Permite obtener una lista de todos los alumnos disponibles en la BD.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @return Devuelve una lista de listas cuyo contenido es el identificador del
+     * grupo, el numero de alumnos del grupo, el identificador de la categoria del 
+     * grupo, el identificador del entrenador del grupo y el identificador de la 
+     * temporada del grupo.
+     * @throws SQLException 
+     */
     static List<List<String>> getListaGrupos(BaseDatos accesoBD) throws SQLException {
         List<List<String>> grupos = new ArrayList<List<String>>();
 
@@ -225,6 +258,18 @@ public class GruposBD {
         return grupos;
     }
 
+    /**
+     * Permite obtener una lista de los grupos filtrandolo con ciertos datos.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param temporada Un String con la temporada por la que queremos filtrar.
+     * @param categoria Un String con la categoria por la que queremos filtrar.
+     * @param entrenador Un String con el entrenador por el que queremos filtrar.
+     * @return Devuelve una lista de listas cuyo contenido es el identificador del
+     * grupo, el numero de alumnos del grupo, el identificador de la categoria del 
+     * grupo, el identificador del entrenador del grupo y el identificador de la 
+     * temporada del grupo que coincidan con los filtros establecidos.
+     * @throws SQLException 
+     */
     static List<List<String>> getListaGruposFiltro(BaseDatos accesoBD, String temporada, String categoria, String entrenador) throws SQLException {
         int idTemp = 0, idCat = 0, idEnt = 0;
         
@@ -285,6 +330,15 @@ public class GruposBD {
         return grupos;
     }
 
+    /**
+     * Permite obtener un String con la temporada en la que se encuentra el 
+     * grupo pasado por parametro.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param idGrupo String con el identificador del grupo del que queremos 
+     * saber la temporada.
+     * @return Un String con la temporada del grupo pasado por parametro.
+     * @throws SQLException 
+     */
     static String getTemporada(BaseDatos accesoBD, String idGrupo) throws SQLException {
         
         String query = "SELECT Temporada_idTemporada FROM Grupo WHERE "
@@ -301,6 +355,14 @@ public class GruposBD {
         return temp;
     }
 
+    /**
+     * Permite obtener la categoria del grupo pasado por parametro.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param idGrupo <code>String</code> con el identificador del grupo del que queremos 
+     * saber la categoria.
+     * @return Un <code>String</code> con la categoria del grupo.
+     * @throws SQLException 
+     */
     static String getCategoria(BaseDatos accesoBD, String idGrupo) throws SQLException {
         String query = "SELECT Categoria_idCategoria FROM Grupo WHERE "
                 + "idGrupo='"+idGrupo+"'";
@@ -314,6 +376,15 @@ public class GruposBD {
         return GestorCategorias.getCategoria(accesoBD, idCat);
     }
 
+    /**
+     * Permite obtener la hora a la que entrena un grupo.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param idGrupo <code>String</code> con el identificador del grupo del que 
+     * queremos saber la hora de entrenamiento.
+     * @return Devuelve un <code>String</code> con la hora de entrenamiento del 
+     * grupo cuyo identificador es <code>idGrupo</code>.
+     * @throws SQLException 
+     */
     static String getHora1(BaseDatos accesoBD, String idGrupo) throws SQLException {
         String query = "SELECT Horario_idHorario FROM Grupo WHERE "
                 + "idGrupo='"+idGrupo+"'";
@@ -354,6 +425,15 @@ public class GruposBD {
         return hora2;
     }
 
+    /**
+     * Permite saber el primer dia de entrenamiento de un grupo de entrenamiento.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param idGrupo <code>String</code> con el identificador del grupo del que 
+     * queremos saber el primer dia de entrenamiento.
+     * @return Un <code>String</code> con el primer dia de entrenamiento del 
+     * grupo cuyo identificador es <code>idGrupo</code>.
+     * @throws SQLException 
+     */
     static String getDia1(BaseDatos accesoBD, String idGrupo) throws SQLException {
         String query = "SELECT Horario_idHorario FROM Grupo WHERE "
                 + "idGrupo='"+idGrupo+"'";
@@ -376,6 +456,15 @@ public class GruposBD {
         return dia1;
     }
 
+    /**
+     * Permite saber el segundo dia de entrenamiento de un grupo de entrenamiento.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param idGrupo <code>String</code> con el identificador del grupo del que 
+     * queremos saber el segundo dia de entrenamiento.
+     * @return Un <code>String</code> con el segundo dia de entrenamiento del 
+     * grupo cuyo identificador es <code>idGrupo</code>.
+     * @throws SQLException 
+     */
     static String getDia2(BaseDatos accesoBD, String idGrupo) throws SQLException {
         String query = "SELECT Horario_idHorario FROM Grupo WHERE "
                 + "idGrupo='"+idGrupo+"'";
@@ -396,6 +485,15 @@ public class GruposBD {
         return dia2;
     }
 
+    /**
+     * Permite saber la instalacion donde entrena un grupo de entrenamiento.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param idGrupo <code>String</code> con el identificador del grupo del que 
+     * queremos saber la instalacion donde entrena.
+     * @return Un <code>String</code> con el nombre de la instalacion donde 
+     * entrena el grupo cuyo identificador es <code>idGrupo</code>.
+     * @throws SQLException 
+     */
     static String getInstalacion(BaseDatos accesoBD, String idGrupo) throws SQLException {
         String query = "SELECT Horario_idHorario FROM Grupo WHERE "
                 + "idGrupo='"+idGrupo+"'";
@@ -430,7 +528,16 @@ public class GruposBD {
         return inst;
     }
 
-    static List<String> geteListaAlumnosIntroducidos(BaseDatos accesoBD, String idGrupo) throws SQLException {
+    /**
+     * Permite obtener una lista de los alumnos de un grupo.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param idGrupo <code>String</code> con el identificador del grupo del que 
+     * queremos obtener la lista de alumnos.
+     * @return Un <code>List&lt String &gt </code> con la lista de alumnos que 
+     * tiene el grupo cuyo identificador es <code>idGrupo</code>.
+     * @throws SQLException 
+     */
+    static List<String> getListaAlumnosIntroducidos(BaseDatos accesoBD, String idGrupo) throws SQLException {
         
         String query = "SELECT Alumno_idAlumno From AlumnoGrupo WHERE "
                 + "Grupo_idGrupo='"+idGrupo+"'";
@@ -455,11 +562,37 @@ public class GruposBD {
         return als;
     }
 
-    static void eliminarAlumnoIntroducido(BaseDatos accesoBD, int idGrupo, int idAl) {
+
+    /**
+     * Permite eliminar un alumno de un grupo concreto.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param idGrupo <code>int</code> con el identificador del grupo del que 
+     * queremos eliminar un alumno.
+     * @param idAl <code>int</code> con el identificador del alumno que queremos 
+     * eliminar del grupo.
+     * @throws SQLException 
+     */
+    static void eliminarAlumnoIntroducido(BaseDatos accesoBD, int idGrupo, int idAl) throws SQLException {
+        ResultSet resSet;
         String query = "DELETE FROM AlumnoGrupo WHERE "
                 + "Alumno_idAlumno='"+idAl+"' AND Grupo_idGrupo='"+idGrupo+"'";
        
         boolean res = accesoBD.eliminar(query);
+        
+        query = "SELECT n_alumnos FROM Grupo WHERE "
+                + "idGrupo='"+idGrupo+"'";
+        resSet = accesoBD.ejecutaConsulta(query);
+        int nAls = 0;
+        
+        if(resSet.next())
+            nAls = resSet.getInt(1);
+        
+        nAls = nAls - 1;
+        
+        query = "UPDATE Grupo SET n_alumnos='"+nAls+"' WHERE "
+                    + "idGrupo='"+idGrupo+"'";
+        
+        int nRes = accesoBD.ejecutaActualizacion(query);
         
         if(res)
             System.out.println("se ha eliminado");
@@ -467,6 +600,15 @@ public class GruposBD {
             System.out.println("no se ha eliminado");
     }
 
+    /**
+     * Permite obtener el entrenador asignado en un grupo
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param idGrupo <code>String</code> con el identificador del grupo 
+     * del que queremos saber el entrenador.
+     * @return Un <code>String</code> con el entrenador del grupo cuyo 
+     * identificador es <code>idGrupo</code>.
+     * @throws SQLException 
+     */
     static String getEntrenador(BaseDatos accesoBD, String idGrupo) throws SQLException {
         String query = "SELECT Usuario_idUsuario FROM Grupo WHERE "
                 + "idGrupo='"+idGrupo+"'";
@@ -481,9 +623,9 @@ public class GruposBD {
         return ent;
     }
 
-    static void ModificarGruposBD(Grupo g) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
+    //static void ModificarGruposBD(Grupo g) {
+      //  throw new UnsupportedOperationException("Not yet implemented");
+    //}
 
     static void ModificarGruposBD(BaseDatos accesoBD, Grupo gNuevo, Grupo gViejo, String idGrupo, List<String> listaAlumnos) throws SQLException {
         //String query = "UPDATE Temporada SET curso='"+cursoNuevo+"' WHERE curso='"+cursoAnterior+"'";

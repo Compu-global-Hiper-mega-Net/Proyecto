@@ -3836,6 +3836,9 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
             actualizaTablaGrupos();
+            comboCatGrup.setSelectedIndex(0);
+            comboTempEntr.setSelectedIndex(0);
+            comboEntGrup.setSelectedIndex(0);
         } catch (SQLException ex) {
             Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -6013,7 +6016,13 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         List<List<String>> grupos = new ArrayList<List<String>>();
         grupos = GestorGrupos.getListaGrupos(accesoBD);
 
-        DefaultTableModel dtm = new DefaultTableModel();
+        DefaultTableModel dtm = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+	};
+        
         dtm.addColumn("ID Grupo");
         dtm.addColumn("Numero Alumnos");
         dtm.addColumn("Categoria");
@@ -6037,6 +6046,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         }
 
         tablaGrupos.setModel(dtm);
+        
     }
 
     public void actualizaTablaEquiposFiltro(String nombre, String temporada, String categoria, String entrenador) throws SQLException {
@@ -6194,7 +6204,13 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         List<List<String>> grupos = new ArrayList<List<String>>();
         grupos = GestorGrupos.getListaGruposFiltro(accesoBD, temporada, categoria, entrenador);
 
-        DefaultTableModel dtm = new DefaultTableModel();
+        DefaultTableModel dtm = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+	};
+        
         dtm.addColumn("ID Grupo");
         dtm.addColumn("Numero Alumnos");
         dtm.addColumn("Categoria");

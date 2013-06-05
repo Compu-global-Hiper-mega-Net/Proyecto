@@ -51,9 +51,9 @@ import java.util.List;
 
 public class Grupo {
 
-    static void Modificar(Grupo g) {
-        GruposBD.ModificarGruposBD(g);
-    }
+    //static void Modificar(Grupo g) {
+      //  GruposBD.ModificarGruposBD(g);
+    //}
 
     static void Modificar(BaseDatos accesoBD, Grupo gNuevo, Grupo gViejo, String idGrupo, List<String> listaAlumnos) throws SQLException {
         GruposBD.ModificarGruposBD(accesoBD, gNuevo, gViejo, idGrupo, listaAlumnos);
