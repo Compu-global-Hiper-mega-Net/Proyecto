@@ -96,10 +96,10 @@ public class GestorGrupos {
     }
 
     public static List<String> getListaAlumnosIntroducidos(BaseDatos accesoBD, String idGrupo) throws SQLException {
-        return GruposBD.geteListaAlumnosIntroducidos(accesoBD, idGrupo);
+        return GruposBD.getListaAlumnosIntroducidos(accesoBD, idGrupo);
     }
 
-    public static void eliminarAlumnoIntroducido(BaseDatos accesoBD, int idGrupo, int idAl) {
+    public static void eliminarAlumnoIntroducido(BaseDatos accesoBD, int idGrupo, int idAl) throws SQLException {
         GruposBD.eliminarAlumnoIntroducido(accesoBD, idGrupo, idAl);
     }
 
@@ -107,9 +107,9 @@ public class GestorGrupos {
         return GruposBD.getEntrenador(accesoBD, idGrupo);
     }
 
-    public static void modificarGrupo(BaseDatos accesoBD, Grupo g, String idGrupo) {
-        Grupo.Modificar(g);
-    }
+    //public static void modificarGrupo(BaseDatos accesoBD, Grupo g, String idGrupo) {
+        //Grupo.Modificar(g);
+    //}
 
     public static void modificarGrupo(BaseDatos accesoBD, Grupo gNuevo, Grupo gViejo, String idGrupo, List<String> listaAlumnos) throws SQLException {
         Grupo.Modificar(accesoBD, gNuevo, gViejo, idGrupo, listaAlumnos);
