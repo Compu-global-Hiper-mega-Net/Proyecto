@@ -134,7 +134,6 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`equipo` (
   `fundacion` TINYINT(1) NOT NULL ,
   `liga_idLiga` INT NOT NULL ,
   `temporada_idTemporada` INT(11) NOT NULL ,
-  `sexo` CHAR NULL ,
   PRIMARY KEY (`idEquipo`, `Fundacion_idFundacion`, `Categoria_idCategoria`, `liga_idLiga`, `temporada_idTemporada`) ,
   INDEX `fk_Equipo_Fundacion_idx` (`Fundacion_idFundacion` ASC) ,
   INDEX `fk_Equipo_Categoria1_idx` (`Categoria_idCategoria` ASC) ,
@@ -180,13 +179,13 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`alumnoequipo` (
   CONSTRAINT `fk_Alumno_has_Equipo_Alumno1`
     FOREIGN KEY (`Alumno_idAlumno` )
     REFERENCES `mydb`.`alumno` (`idAlumno` )
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
   CONSTRAINT `fk_Alumno_has_Equipo_Equipo1`
     FOREIGN KEY (`Equipo_idEquipo` , `Equipo_Fundacion_idFundacion` , `Equipo_Categoria_idCategoria` )
     REFERENCES `mydb`.`equipo` (`idEquipo` , `Fundacion_idFundacion` , `Categoria_idCategoria` )
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 

@@ -28,6 +28,6 @@ double TirosDeCampo, TirosLibres, Triples;
         <Asistencias> 7 </Asistencias>
         <Robos> 8 </Robos>
         <Perdidas> 9 </Perdidas>
-        <Valoracion> 10</Valoracion>
+        <Valoracion> 10 </Valoracion>
     </estadisticas>
 </BD-Estadisticas>
