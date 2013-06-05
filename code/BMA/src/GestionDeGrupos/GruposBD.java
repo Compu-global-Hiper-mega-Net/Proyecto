@@ -103,13 +103,16 @@ public class GruposBD {
         int idCat = 0;
         while(res.next())
             idCat = res.getInt(1);
-
+        
+        System.out.println();
+        
         query = "SELECT count(*) from mydb.categoria, mydb.Grupo, mydb.horario, mydb.instalacion where "
                 + "horario.Instalacion_idInstalacion=instalacion.idInstalacion AND "
                 + "horario.hora1='18:00:00' AND grupo.categoria_idCategoria=categoria.idCategoria AND "
                 + "grupo.Categoria_idCategoria='1' ";
         
         res = accesoBD.ejecutaConsulta(query);
+        System.out.println(query);
         
         int nCons = 0, nCons2 = 0;
         while(res.next())
@@ -122,6 +125,7 @@ public class GruposBD {
                 + "horario.hora1='18:00:00' AND grupo.categoria_idCategoria=categoria.idCategoria AND "
                 + "grupo.Categoria_idCategoria<>'1' ";
         res = accesoBD.ejecutaConsulta(query);
+        System.out.println(query);
         
         while(res.next())
             nCons2 = res.getInt(1);
@@ -145,6 +149,10 @@ public class GruposBD {
             capacidad = res.getInt(1);
         
         int resta = capacidad - (nCons + nCons2);
+        
+        System.out.println(capacidad);
+        System.out.println(nCons);
+        System.out.println(nCons2);
         
         if(resta == 0){
             JOptionPane.showMessageDialog(new PantallaPrincipal(), "La instalacion esta llena", "Error", JOptionPane.ERROR_MESSAGE);
@@ -554,6 +562,7 @@ public class GruposBD {
         return als;
     }
 
+
     /**
      * Permite eliminar un alumno de un grupo concreto.
      * @param accesoBD Usado para interactuar con la base de datos.
@@ -565,7 +574,6 @@ public class GruposBD {
      */
     static void eliminarAlumnoIntroducido(BaseDatos accesoBD, int idGrupo, int idAl) throws SQLException {
         ResultSet resSet;
-        
         String query = "DELETE FROM AlumnoGrupo WHERE "
                 + "Alumno_idAlumno='"+idAl+"' AND Grupo_idGrupo='"+idGrupo+"'";
        
@@ -771,17 +779,6 @@ public class GruposBD {
                         + "('"+it+"','"+idGrupo+"','"+idCat+"','"+idEnt+"','"+idTemp+"')";
                 res = accesoBD.ejecutaActualizacion(query);
             }
-            
-            query = "SELECT n_alumnos FROM Grupo WHERE idGrupo='"+idGrupo+"'";
-            auxR = accesoBD.ejecutaConsulta(query);
-            int nAlumnos = 0;
-            if(auxR.next())
-                nAlumnos = auxR.getInt(1);
-            
-            query = "UPDATE Grupo SET n_alumnos='"+(idAls.size()+nAlumnos)+"' WHERE "
-                    + "idGrupo='"+idGrupo+"'";
-            res = accesoBD.ejecutaActualizacion(query);
-            
         }
     }
 

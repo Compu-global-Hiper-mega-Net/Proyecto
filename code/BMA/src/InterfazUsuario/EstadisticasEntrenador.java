@@ -1,17 +1,12 @@
 package InterfazUsuario;
 
+import GestionDeUsuarios.GestorUsuarios;
 import ServiciosAlmacenamiento.BaseDatos;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -47,12 +42,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 public class EstadisticasEntrenador extends javax.swing.JFrame {
 
     BaseDatos accesoBD;
-    ResultSet retset;
-    JFreeChart Grafica;
-    List partidosJug = new ArrayList();
-    ChartPanel Panel ;
-    JFrame Ventana ;
-    DefaultCategoryDataset Datos = new DefaultCategoryDataset();
+    ResultSet retset;   
     
     public EstadisticasEntrenador() {
         

@@ -305,16 +305,13 @@ public class EquipoBD {
         
         String consulta = "SELECT e.nombre, SUM(p.resultadoLocal), SUM(p.resultadoVisitante) FROM equipo e, partido p " +
                           "WHERE e.temporada_idTemporada='"+idTemp+"' AND e.Categoria_idCategoria='"+idCate+"' " +
-                          "AND e.idEquipo=p.idEquipo GROUP BY p.idEquipo ORDER BY SUM(p.resultadoLocal) DESC";
+                          "AND e.idEquipo=p.idEquipo GROUP BY p.idEquipo; ";
         ResultSet resSet = accesoBD.ejecutaConsulta(consulta);
         
         if (!resSet.next())
             return null;
-       
-        else{
-            resSet.previous();
+        else
             return resSet;
-        }          
     }
     //***************************************JAVI******************************************************//  
 }

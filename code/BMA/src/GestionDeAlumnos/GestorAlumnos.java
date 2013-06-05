@@ -45,10 +45,16 @@ public class GestorAlumnos {
 
     public static boolean darAltaAlumno(BaseDatos accesoBD, String nombre, String primerApellido, String segundoApellido, java.util.Date fechaNac,
                     String cuentaCorriente, String domicilio, String localidad, int codPostal, String provincia, String colegio,
-                    String nombrePadre, String nombreMadre, int telFijo, int telMovil, String email, String observaciones, String tallaAlumno){
+                    String nombrePadre, String nombreMadre, int telFijo, int telMovil, String email, String observaciones, String tallaAlumno, String sexo){
+        
+        char aux;
+        if(sexo.equals("Masculino")){
+            aux='M';
+        }else
+            aux='F';
         Alumno alumno = Alumno.crearAlumno(nombre, primerApellido, segundoApellido, fechaNac,
                 cuentaCorriente, domicilio, localidad, codPostal, provincia, colegio,
-                nombrePadre, nombreMadre, telFijo, telMovil, email, observaciones, tallaAlumno);
+                nombrePadre, nombreMadre, telFijo, telMovil, email, observaciones, tallaAlumno, aux);
         boolean exito = true;
         try {
             AccesoBDAlumno.insertarAlumnoBD(accesoBD, alumno);
@@ -73,12 +79,12 @@ public class GestorAlumnos {
     }
     public static void eliminaAlumno(BaseDatos accesoBD, String nombre, String primerApellido, String segundoApellido, java.util.Date fechaNac,
             String cuentaCorriente, String domicilio, String localidad, int codPostal, String provincia, String colegio,
-            String nombrePadre, String nombreMadre, int telFijo, int telMovil, String email, String observaciones, String tallaAlumno){
+            String nombrePadre, String nombreMadre, int telFijo, int telMovil, String email, String observaciones, String tallaAlumno, char sexo){
         
         AccesoBDAlumno alumnoBD=new AccesoBDAlumno();
         Alumno alumnoEliminado = Alumno.crearAlumno(nombre, primerApellido, segundoApellido, fechaNac,
                 cuentaCorriente, domicilio, localidad, codPostal, provincia, colegio,
-                nombrePadre, nombreMadre, telFijo, telMovil, email, observaciones, tallaAlumno);
+                nombrePadre, nombreMadre, telFijo, telMovil, email, observaciones, tallaAlumno, sexo);
         alumnoBD.eliminaAlumnoBD(accesoBD, alumnoEliminado);
     }
 

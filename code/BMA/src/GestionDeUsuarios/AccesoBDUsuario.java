@@ -207,7 +207,6 @@ class AccesoBDUsuario {
         ResultSet rst = accesoBD.ejecutaConsulta(consulta);
 
         if (rst.next()) {
-            rst.previous();
             int idUsu = rst.getInt(1);
             consulta = "SELECT fecha, idEquipo ,idEquipoVisitante, resultadoLocal, resultadoVisitante FROM  partido , rango "
                     + "WHERE Usuario_idUsuario=" + idUsu + " AND Equipo_idEquipo=idEquipo";
@@ -216,10 +215,8 @@ class AccesoBDUsuario {
 
         if (!rst.next())
             return null;
-        else{
-            rst.previous();
+        else
             return rst;
-        }
     }
     //***************************************JAVI******************************************************//   
 }

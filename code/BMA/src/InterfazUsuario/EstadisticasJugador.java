@@ -117,6 +117,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
              }
 
              tablaJugadoresEstadisticas.setModel(dtm);
+             retset.first();
         }
     }
 
@@ -251,11 +252,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
     private void verGraficasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verGraficasActionPerformed
  
         int i=0;
-        
         try {
-           while(retset.previous())
-            ;
-           
            Datos.addValue(retset.getInt("Puntos"), "Puntos", (Comparable) partidosJug.get(i));
            while(retset.next()){
                 i++;
