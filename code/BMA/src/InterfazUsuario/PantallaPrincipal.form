@@ -108,6 +108,7 @@
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="barraMenu"/>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -140,7 +141,7 @@
                       <Component id="cerrarSesion" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" pref="255" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="625" max="32767" attributes="0"/>
+                  <EmptySpace pref="551" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

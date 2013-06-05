@@ -6,10 +6,16 @@ import GestionDeEquipos.GestorEquipos;
 import ServiciosAlmacenamiento.BaseDatos;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 
 /**
@@ -45,6 +51,11 @@ public class ClasificacionLiga extends javax.swing.JFrame {
     ResultSet retset;
     String temporadaElegida;
     String categoriaElegida;
+    JFreeChart Grafica;
+    List partidosJug = new ArrayList();
+    ChartPanel Panel ;
+    JFrame Ventana ;
+    DefaultCategoryDataset Datos = new DefaultCategoryDataset();
 
     public ClasificacionLiga() {
         initComponents();

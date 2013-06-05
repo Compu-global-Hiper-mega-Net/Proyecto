@@ -3,10 +3,16 @@ package InterfazUsuario;
 import GestionDeTemporadas.GestorTemporadas;
 import ServiciosAlmacenamiento.BaseDatos;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -39,6 +45,11 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
     BaseDatos accesoBD;
     ResultSet retset;
     String temporadaElegida;
+    JFreeChart Grafica;
+    List partidosJug = new ArrayList();
+    ChartPanel Panel ;
+    JFrame Ventana ;
+    DefaultCategoryDataset Datos = new DefaultCategoryDataset();
 
     public EstadisticasTemporada() {
         initComponents();

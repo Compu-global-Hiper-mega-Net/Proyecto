@@ -3475,6 +3475,9 @@ private void botonEliminarAlumnoActionPerformed(java.awt.event.ActionEvent evt) 
         }
     }
 }//GEN-LAST:event_botonEliminarAlumnoActionPerformed
+private void borrar_este_metodo(){
+    System.out.print("\nya lo estoy borrando");
+}
 
 private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarUsuarioActionPerformed
     ocultarMensajesError();
@@ -6050,16 +6053,13 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         String aux;
         Object[] fila = new Object[6];
         for (Equipo it : equipos) {
-            aux = it.getCategoria();
-            fila[0] = aux.substring(0, aux.indexOf(","));
-            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            fila[1] = aux.substring(0, aux.indexOf(","));
-            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            fila[2] = getCategoria(aux.substring(0, aux.indexOf(",")));
-            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            fila[3] = getEntrenador(aux.substring(0, aux.indexOf(",")));
-            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            fila[4] = getTemporada(aux);
+            fila[0] = it.getNombre();
+            fila[1] = it.getCategoria();
+            fila[2] = it.getTemporada();
+            fila[3] = it.getEntrenador();
+            fila[4] = it.getEntrenador2();
+            fila[5] = it.getSexo();
+            
             dtm.addRow(fila);
         }
 

@@ -138,8 +138,10 @@ public class TemporadaBD {
        
         if (!resSet.next())
             return null;
-        else
+        else{
+            resSet.previous();
             return resSet;
+        }          
     }
     //***************************************JAVI******************************************************//  
     
