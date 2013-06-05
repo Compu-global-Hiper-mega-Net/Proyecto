@@ -73,19 +73,16 @@ public class EstadisticasBD {
      * - perdidas
      * Los datos de los id habrá que obtenerlos previamente
      * bajo una consulta del jugador en la bd. No se van a introducir
-     * en el XML, excepto el del alumno.
+     * en el XML.
      */
     
     /*
-     * Método modificador
-     * 
-     * @param accesoBD Datos para la conexión con la base de datos.
-     * @param nuevaEstadisticas Objeto que contiene los datos relacionados.
-     * con las estadisticas del jugador.
-     * @version 1.0
+     * @param accesoBD
+     * @param
+     * @version
      */
     
-     public static void insertarEstadisticasJugadoresBD(BaseDatos accesoBD, EstadisticasJugadores nuevaEstadisticas) throws SQLException {
+     public static void insertarEstadisticasJugadoresBD(BaseDatos accesoBD, EstadisticasJugadores nuevaEstadisticaJugador) throws SQLException {
         
         String insercion = "INSERT INTO actividades ("
                 + "nAlumnos, descripcion, precioSocio, precioNoSocio, Temporada_idTemporada, fechaInicio"
@@ -97,15 +94,9 @@ public class EstadisticasBD {
     }
      
      /*
-      * Método consultor
-      * 
-      * @param accesoBD Datos para la conexión con la base de datos.
-      * @param consulta Parámetro formal de tipo String (cadena) que contendrá
-      * la consulta SQL descrita en una cadena de caracteres.
-      * @return devuelve un conjunto de datos procedente de la base de datos
-      * en formato objeto relacional que posteriormente será tratado para
-      * extraer la información.
-      * @version 1.0
+      * @param
+      * @param
+      * @version
       */
      
      public ResultSet consultaEstadisticasJugadoresBD(BaseDatos accesoBD, String consulta) {
@@ -116,32 +107,24 @@ public class EstadisticasBD {
     }
      
      /*
-      * Método modificador
-      * @param accesoBD Datos para la conexión con la base de datos. 
-      * @param nuevaEstadisticas Objeto que contiene los datos relacionados.
-      * @return devuelve un tipo booleano que especifica si la consulta o no 
-      * se ha llevado a cabo con exito.
-      * @version 1.0
+      * @param
+      * @param
+      * @version
       */
      
-    public static boolean modificarEstadisticasJugadoresBD(BaseDatos accesoBD, EstadisticasJugadores nuevaEstadisticas)
+    public static boolean modificarEstadisticasJugadoresBD(BaseDatos accesoBD, int DATOSENTRADA)
     {
         return true;
     }
     
     /*
-     * Método modificador
-     * 
-     * @param accesoBD Datos para la conexión con la base de datos.
-     * @param nuevasEstadisticas Objeto que contiene los datos relacionado.
-     * @return devuelve un tipo booleano que especifica si la consulta o no
-     * se ha llevado a cabo con exito.
-     * @version 1.0
+     * @param
+     * @param
+     * @version
      */
 
-    public static boolean eliminarEstadisticasJugadoresBD(BaseDatos accesoBD, EstadisticasJugadores nuevasEstadisticas) 
-    {
-        return true;
+    public static void eliminarEstadisticasJugadoresBD(BaseDatos accesoBD, EstadisticasJugadores nuevasEstadisticas) {
+        
     }
     
     /*

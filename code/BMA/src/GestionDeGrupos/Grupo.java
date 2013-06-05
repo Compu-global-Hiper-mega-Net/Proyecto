@@ -12,7 +12,6 @@ import bma.Sexo;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -73,18 +72,6 @@ public class Grupo {
     private Usuario entrenador;
     private Instalacion instalacion;
 
-    /**
-     * 
-     * @param temp
-     * @param dia1
-     * @param dia2
-     * @param hora
-     * @param min
-     * @param entrenador
-     * @param cat
-     * @param inst
-     * @throws ParseException 
-     */
     public Grupo(String temp, String dia1, String dia2, String hora, String min, String entrenador, String cat, String inst) throws ParseException {
                 
         temporada = new Temporada(temp);
@@ -94,13 +81,6 @@ public class Grupo {
         this.instalacion = new Instalacion(inst);
     }
 
-    /**
-     * 
-     * @param cat
-     * @param ent
-     * @param inst
-     * @param temp
-     */
     public Grupo(String cat, String ent, String inst, String temp) {
         this.categoria = new Categoria(cat);
         this.entrenador = new Usuario(ent);

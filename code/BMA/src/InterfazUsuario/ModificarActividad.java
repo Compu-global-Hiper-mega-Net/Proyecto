@@ -323,7 +323,7 @@ public class ModificarActividad extends javax.swing.JFrame {
 
         try {
             FechaInicio = (Integer.toString(fechaInicioDateChooser.getCalendar().get(java.util.Calendar.YEAR)) + "-"
-                    + Integer.toString(fechaInicioDateChooser.getCalendar().get(java.util.Calendar.MONTH)+1) + "-"
+                    + Integer.toString(fechaInicioDateChooser.getCalendar().get(java.util.Calendar.MONTH+1)) + "-"
                     + Integer.toString(fechaInicioDateChooser.getCalendar().get(java.util.Calendar.DATE)));
             System.out.print(FechaInicio);
 
@@ -335,10 +335,8 @@ public class ModificarActividad extends javax.swing.JFrame {
 
         try {
             FechaFin = (Integer.toString(fechaFinDateChooser.getCalendar().get(java.util.Calendar.YEAR)) + "-"
-                    + Integer.toString(fechaFinDateChooser.getCalendar().get(java.util.Calendar.MONTH)+1) + "-"
+                    + Integer.toString(fechaFinDateChooser.getCalendar().get(java.util.Calendar.MONTH+1)) + "-"
                     + Integer.toString(fechaFinDateChooser.getCalendar().get(java.util.Calendar.DATE)));
-            
-            System.out.println("FechaFin " + FechaFin + "\n");
         } catch (NullPointerException ex) {
             errores = errores + "Campo \"Fecha Fin\" vacío\n";
             fechaFinDateChooser.setBorder(bordeError);
