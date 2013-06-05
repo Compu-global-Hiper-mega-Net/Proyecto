@@ -99,7 +99,7 @@ public class GestorGrupos {
         return GruposBD.geteListaAlumnosIntroducidos(accesoBD, idGrupo);
     }
 
-    public static void eliminarAlumnoIntroducido(BaseDatos accesoBD, int idGrupo, int idAl) {
+    public static void eliminarAlumnoIntroducido(BaseDatos accesoBD, int idGrupo, int idAl) throws SQLException {
         GruposBD.eliminarAlumnoIntroducido(accesoBD, idGrupo, idAl);
     }
 

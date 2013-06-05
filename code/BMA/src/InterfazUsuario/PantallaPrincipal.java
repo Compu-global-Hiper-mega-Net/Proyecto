@@ -37,11 +37,6 @@ import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Francisco
- */
-
 /*
  ******************************************************************************
  (c) Copyright 2013 
@@ -94,6 +89,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
      */
     public PantallaPrincipal() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     public PantallaPrincipal(BaseDatos acceso, String usuario) {
@@ -127,8 +123,18 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelInicio = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel29 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
         cerrarSesion = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel30 = new javax.swing.JLabel();
         panelJugadores = new javax.swing.JPanel();
         resultadosAlLabel = new javax.swing.JLabel();
         botonNuevoAlumno = new javax.swing.JButton();
@@ -335,7 +341,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         menuActividades = new javax.swing.JMenu();
         menuTemporadas = new javax.swing.JMenu();
         menuPagos = new javax.swing.JMenu();
-        menuCategorias = new javax.swing.JMenu();
         menuInstalaciones = new javax.swing.JMenu();
         menuPartidos = new javax.swing.JMenu();
 
@@ -343,7 +348,46 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1400, 750));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        jLabel1.setText("Bienvenido a la aplicacion");
+        panelInicio.setLayout(new javax.swing.BoxLayout(panelInicio, javax.swing.BoxLayout.PAGE_AXIS));
+
+        jLabel29.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel29.setText("Panel de gestión");
+        jPanel1.add(jLabel29);
+
+        panelInicio.add(jPanel1);
+
+        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanel3.setMaximumSize(new java.awt.Dimension(170, 33));
+        jPanel3.setMinimumSize(new java.awt.Dimension(170, 33));
+        jPanel3.setPreferredSize(new java.awt.Dimension(170, 33));
+        jPanel3.setLayout(new java.awt.GridBagLayout());
+
+        jButton3.setText("Categorias");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton3, new java.awt.GridBagConstraints());
+
+        jPanel2.add(jPanel3);
+
+        jPanel5.setLayout(new java.awt.GridBagLayout());
+
+        jLabel1.setText("Esta opción pertite gestionar todas las categorias, esto es: insertar, modificar o eliminar.");
+        jPanel5.add(jLabel1, new java.awt.GridBagConstraints());
+
+        jPanel2.add(jPanel5);
+
+        panelInicio.add(jPanel2);
+
+        jPanel6.setLayout(new javax.swing.BoxLayout(jPanel6, javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanel7.setMaximumSize(new java.awt.Dimension(170, 33));
+        jPanel7.setMinimumSize(new java.awt.Dimension(170, 33));
+        jPanel7.setPreferredSize(new java.awt.Dimension(170, 33));
+        jPanel7.setLayout(new java.awt.GridBagLayout());
 
         cerrarSesion.setText("Cerrar Sesión");
         cerrarSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -351,27 +395,19 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 cerrarSesionActionPerformed(evt);
             }
         });
+        jPanel7.add(cerrarSesion, new java.awt.GridBagConstraints());
 
-        javax.swing.GroupLayout panelInicioLayout = new javax.swing.GroupLayout(panelInicio);
-        panelInicio.setLayout(panelInicioLayout);
-        panelInicioLayout.setHorizontalGroup(
-            panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelInicioLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cerrarSesion)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(551, Short.MAX_VALUE))
-        );
-        panelInicioLayout.setVerticalGroup(
-            panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelInicioLayout.createSequentialGroup()
-                .addGap(106, 106, 106)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(cerrarSesion)
-                .addContainerGap(673, Short.MAX_VALUE))
-        );
+        jPanel6.add(jPanel7);
+
+        jPanel8.setLayout(new java.awt.GridBagLayout());
+
+        jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel30.setText("Salir del panel de gestión.");
+        jPanel8.add(jLabel30, new java.awt.GridBagConstraints());
+
+        jPanel6.add(jPanel8);
+
+        panelInicio.add(jPanel6);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -1715,7 +1751,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(Modificar))
                                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(929, Short.MAX_VALUE))
+                .addContainerGap(765, Short.MAX_VALUE))
         );
         panelActividadesLayout.setVerticalGroup(
             panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1745,7 +1781,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGroup(panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AñaridAlumno)
                     .addComponent(Informacion))
-                .addContainerGap(379, Short.MAX_VALUE))
+                .addContainerGap(287, Short.MAX_VALUE))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -2129,14 +2165,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
         barraMenu.add(menuPagos);
-
-        menuCategorias.setText("Categorías");
-        menuCategorias.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuCategoriasMouseClicked(evt);
-            }
-        });
-        barraMenu.add(menuCategorias);
 
         menuInstalaciones.setText("Instalaciones");
         menuInstalaciones.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -4116,49 +4144,6 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
     private void botonEliminarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarEquipoActionPerformed
     }//GEN-LAST:event_botonEliminarEquipoActionPerformed
 
-    private void botonNuevaCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevaCatActionPerformed
-        new NuevaCategoria(this).setVisible(true);
-    }//GEN-LAST:event_botonNuevaCatActionPerformed
-
-    private void botonModCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModCatActionPerformed
-        String tipoCat = (String) tablaCategorias.getValueAt(tablaCategorias.getSelectedRow(), 0);
-        String descCat = (String) tablaCategorias.getValueAt(tablaCategorias.getSelectedRow(), 1);
-
-
-        new ModificarCategoria(this, tipoCat, descCat).setVisible(true);
-    }//GEN-LAST:event_botonModCatActionPerformed
-
-    private void botonElimCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonElimCatActionPerformed
-        String tipoCat = (String) tablaCategorias.getValueAt(tablaCategorias.getSelectedRow(), 0);
-        String descCat = (String) tablaCategorias.getValueAt(tablaCategorias.getSelectedRow(), 1);
-
-        Categoria c = new Categoria(tipoCat, descCat);
-        int continuar = JOptionPane.showConfirmDialog(this, "¿Desea eliminar la temporada?", "Confirmar", JOptionPane.YES_NO_CANCEL_OPTION);
-        if (continuar == JOptionPane.YES_OPTION) {
-            GestorCategorias.EliminarCategorias(accesoBD, c);
-        }
-        try {
-            actualizaTablaCategorias();
-        } catch (SQLException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_botonElimCatActionPerformed
-
-    private void menuCategoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuCategoriasMouseClicked
-        ocultarPaneles();
-        try {
-            actualizaTablaCategorias();
-        } catch (SQLException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        panelCategorias.setVisible(true);
-        try {
-            actualizaTablaCategorias();
-        } catch (SQLException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_menuCategoriasMouseClicked
-
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
         // TODO add your handling code here:
         int nTabla = actividadesTable.getSelectedRow();
@@ -5502,6 +5487,37 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
             }
         }
     }//GEN-LAST:event_comboEquipoVisitanteItemStateChanged
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        new PrincipalCategorias(this, this.accesoBD).setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void botonElimCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonElimCatActionPerformed
+        String tipoCat = (String) tablaCategorias.getValueAt(tablaCategorias.getSelectedRow(), 0);
+        String descCat = (String) tablaCategorias.getValueAt(tablaCategorias.getSelectedRow(), 1);
+
+        Categoria c = new Categoria(tipoCat, descCat);
+        int continuar = JOptionPane.showConfirmDialog(this, "¿Desea eliminar la temporada?", "Confirmar", JOptionPane.YES_NO_CANCEL_OPTION);
+        if (continuar == JOptionPane.YES_OPTION) {
+            GestorCategorias.EliminarCategorias(accesoBD, c);
+        }
+        try {
+            actualizaTablaCategorias();
+        } catch (SQLException ex) {
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_botonElimCatActionPerformed
+
+    private void botonModCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModCatActionPerformed
+        String tipoCat = (String) tablaCategorias.getValueAt(tablaCategorias.getSelectedRow(), 0);
+        String descCat = (String) tablaCategorias.getValueAt(tablaCategorias.getSelectedRow(), 1);
+
+        new AñadirModificarCategoria(this, accesoBD, tipoCat, descCat).setVisible(true);
+    }//GEN-LAST:event_botonModCatActionPerformed
+
+    private void botonNuevaCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevaCatActionPerformed
+        new AñadirModificarCategoria(this, accesoBD).setVisible(true);
+    }//GEN-LAST:event_botonNuevaCatActionPerformed
     //***************************************JAVI******************************************************//
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -5596,6 +5612,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JButton introducirButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton9;
@@ -5621,7 +5638,9 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel36;
@@ -5635,7 +5654,14 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -5654,7 +5680,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JLabel labelNumeroEquipos;
     private javax.swing.JLabel mensajeErrorEliminarAlumno;
     private javax.swing.JMenu menuActividades;
-    private javax.swing.JMenu menuCategorias;
     private javax.swing.JMenu menuEntrenamientos;
     private javax.swing.JMenu menuEquipos;
     private javax.swing.JMenu menuInicio;

@@ -5,27 +5,17 @@
 package InterfazUsuario;
 
 import GestionDeAlumnos.*;
-import GestionDePagos.*;
 import ServiciosAlmacenamiento.BaseDatos;
-import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import javax.swing.border.Border;
-
-/**
- *
- * @author USER
- */
 
 /*
  ******************************************************************************
@@ -54,14 +44,19 @@ import javax.swing.border.Border;
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************
  */
-public class AñadirAlumno extends javax.swing.JFrame {
 
+/**
+ * Formulario que añade un alumno a la base de datos
+ *
+ * @author Alex Moreno
+ */
+public class AñadirAlumno extends javax.swing.JFrame {
     int idTemporada, idActividad;
     BaseDatos accesoBD;
-    List<String> listaAlumnos = new ArrayList<String>();
-    List<String> listaAlumnosQuitados = new ArrayList<String>();
-    List<Integer> listaIDAlumnos = new ArrayList<Integer>();
-    List<Integer> listaIDAlumnosQuitados = new ArrayList<Integer>();
+    List<String> listaAlumnos = new ArrayList<>();
+    List<String> listaAlumnosQuitados = new ArrayList<>();
+    List<Integer> listaIDAlumnos = new ArrayList<>();
+    List<Integer> listaIDAlumnosQuitados = new ArrayList<>();
     int sizeModelo;
 
     /**

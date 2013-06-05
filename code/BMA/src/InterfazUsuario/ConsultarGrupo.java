@@ -751,8 +751,11 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(ConsultarGrupo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        GestorGrupos.eliminarAlumnoIntroducido(creador.accesoBD, Integer.parseInt(idGrupo), idAl);
+        try {
+            GestorGrupos.eliminarAlumnoIntroducido(creador.accesoBD, Integer.parseInt(idGrupo), idAl);
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultarGrupo.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         List<String> aux1 = new ArrayList<String>();
         List<String> aux2 = new ArrayList<String>();
