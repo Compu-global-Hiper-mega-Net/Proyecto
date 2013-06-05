@@ -47,6 +47,10 @@ public class EstadisticasXML {
     
     String Nombre, Apellidos;
     
+    // Identificador del alumno
+    
+    int idAlumno;
+    
     // Puntos acumulados en total por el jugador
     
     int Puntos;
@@ -65,6 +69,17 @@ public class EstadisticasXML {
     // También se puntua (valoración) la actuación del jugador en el partido.
     
     int Asistencias, Robos, Perdidas, Valoracion;
+    
+    /*
+     * Método consultor
+     * @return Devuelve un int (entero) con el atributo interno
+     * del nombre del jugador.
+     * @version 1.0
+     */
+
+    public int getidAlumno() {
+        return idAlumno;
+    }
     
     /*
      * Método consultor
@@ -196,6 +211,18 @@ public class EstadisticasXML {
 
     public int getValoracion() {
         return Valoracion;
+    }
+    
+    /*
+     * Método modificador
+     * @param Apellidos Parámetro formal de tipo String (cadena) que modifica
+     * el atributo interno correspondiente al schema del XML.
+     * @return 
+     * @version 1.0
+     */
+    
+    public void setidAlumno(int idAlumnno) {
+        this.idAlumno = idAlumno;
     }
     
     /*

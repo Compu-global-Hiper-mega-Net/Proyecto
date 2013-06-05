@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+
+double TirosDeCampo, TirosLibres, Triples;
+    
+    // Número de rebotes del tipo que sea según el jugador
+    
+    int RebotesOfensivos, RebotesDefensivos;
+    
+    // Número de asistencias, robos y perdidas realizadas por el jugador.
+    // También se puntua (valoración) la actuación del jugador en el partido.
+    
+    int Asistencias, Robos, Perdidas, Valoracion;
+<BD-Estadisticas>
+    <estadisticas>
+        <idAlumno> 0 </idAlumno>
+        <Nombre> Nombre </Nombre>
+        <Apellidos> Apellidos </Apellidos>
+        <Puntos> 1 </Puntos>
+        <TirosDeCampo> 2</TirosDeCampo>
+        <TirosLibres> 3 </TirosLibres>
+        <Triples> 4 </Triples>
+        <RebotesOfensivos> 5 </RebotesOfensivos>
+        <RebotesDefensivos> 6 </RebotesDefensivos>
+        <Asistencias> 7 </Asistencias>
+        <Robos> 8 </Robos>
+        <Perdidas> 9 </Perdidas>
+        <Valoracion> 10</Valoracion>
+    </estadisticas>
+</BD-Estadisticas>

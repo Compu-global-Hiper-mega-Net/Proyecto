@@ -74,7 +74,7 @@ public class EstadisticasJugadores {
         return Valor.getNodeValue();
     }
     
-     public ArrayList<EstadisticasXML> obtenerPersonas(){
+     public ArrayList<EstadisticasXML> obtenerEstadisticas(){
          
        ArrayList<EstadisticasXML> listaEstadisticas = new ArrayList<EstadisticasXML>();
        
@@ -114,6 +114,7 @@ public class EstadisticasJugadores {
                     */
                    
                    EstadisticasXML objJugadores = new EstadisticasXML();
+                   objJugadores.setidAlumno(Integer.parseInt(obtenerNodoValor("idAlumno", elto)));
                    objJugadores.setNombre(obtenerNodoValor("Nombre",elto));
                    objJugadores.setApellidos(obtenerNodoValor("Apellidos",elto));
                    objJugadores.setPuntos(Integer.parseInt(obtenerNodoValor("Puntos",elto)));
@@ -141,7 +142,7 @@ public class EstadisticasJugadores {
    }
      
      
-     public void agregarPersona(EstadisticasXML estadisticas) throws TransformerConfigurationException, TransformerException
+     public void agregarEstadistica(EstadisticasXML estadisticas) throws TransformerConfigurationException, TransformerException
    {
        try{
            
@@ -170,7 +171,10 @@ public class EstadisticasJugadores {
           
           Element nuevaEstadisticas = doc.createElement("estadisticas");
           
-          // Creamos sus etiquetas hijas (nonmbre, apellidos, etc)
+          Element nuevoidAlumno = doc.createElement("idAlumno");
+          nuevoidAlumno.setTextContent(""+estadisticas.getidAlumno());
+          
+          // Creamos sus etiquetas hijas (nombre, apellidos, etc)
           
           Element nuevoNombre = doc.createElement("Nombre");
           nuevoNombre.setTextContent(estadisticas.getNombre());
@@ -218,6 +222,7 @@ public class EstadisticasJugadores {
           
           // agregamos las etiquetas hijas de estadisticas
           
+          nuevaEstadisticas.appendChild(nuevoidAlumno);
           nuevaEstadisticas.appendChild(nuevoNombre);
           nuevaEstadisticas.appendChild(nuevoApellidos);
           nuevaEstadisticas.appendChild(nuevoPuntos);
