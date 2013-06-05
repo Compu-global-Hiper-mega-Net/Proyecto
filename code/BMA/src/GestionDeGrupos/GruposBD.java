@@ -90,16 +90,13 @@ public class GruposBD {
         int idCat = 0;
         while(res.next())
             idCat = res.getInt(1);
-        
-        System.out.println();
-        
+
         query = "SELECT count(*) from mydb.categoria, mydb.Grupo, mydb.horario, mydb.instalacion where "
                 + "horario.Instalacion_idInstalacion=instalacion.idInstalacion AND "
                 + "horario.hora1='18:00:00' AND grupo.categoria_idCategoria=categoria.idCategoria AND "
                 + "grupo.Categoria_idCategoria='1' ";
         
         res = accesoBD.ejecutaConsulta(query);
-        System.out.println(query);
         
         int nCons = 0, nCons2 = 0;
         while(res.next())
@@ -112,7 +109,6 @@ public class GruposBD {
                 + "horario.hora1='18:00:00' AND grupo.categoria_idCategoria=categoria.idCategoria AND "
                 + "grupo.Categoria_idCategoria<>'1' ";
         res = accesoBD.ejecutaConsulta(query);
-        System.out.println(query);
         
         while(res.next())
             nCons2 = res.getInt(1);
@@ -136,10 +132,6 @@ public class GruposBD {
             capacidad = res.getInt(1);
         
         int resta = capacidad - (nCons + nCons2);
-        
-        System.out.println(capacidad);
-        System.out.println(nCons);
-        System.out.println(nCons2);
         
         if(resta == 0){
             JOptionPane.showMessageDialog(new PantallaPrincipal(), "La instalacion esta llena", "Error", JOptionPane.ERROR_MESSAGE);
