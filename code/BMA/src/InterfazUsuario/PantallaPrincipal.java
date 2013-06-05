@@ -21,13 +21,9 @@ import GestionDeEquipos.*;
 import GestionDeGrupos.Grupo;
 import GestionDeInstalaciones.GestorInstalacion;
 import GestionDePagos.GestorPagos;
-import GestionDePagos.PagoActividad;
-import GestionDePagos.PagoTemporada;
 import GestionDePartidos.GestorPartidos;
-import GestionDePartidos.Partido;
 import ServiciosAlmacenamiento.BaseDatos;
 import com.toedter.calendar.JTextFieldDateEditor;
-import java.awt.event.ActionEvent;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,9 +33,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultListModel;
-import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
@@ -368,7 +361,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cerrarSesion)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(625, Short.MAX_VALUE))
+                .addContainerGap(551, Short.MAX_VALUE))
         );
         panelInicioLayout.setVerticalGroup(
             panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1203,11 +1196,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jLabel11.setText("Categoria:");
 
         comboCatEquipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Categoria-" }));
-        comboCatEquipo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboCatEquipoActionPerformed(evt);
-            }
-        });
 
         jLabel12.setText("Temporada:");
 
@@ -2193,7 +2181,7 @@ private void botonGuardarCambiosAlActionPerformed(java.awt.event.ActionEvent evt
         ultimaActualizacionAlumno = GestorAlumnos.consultarAlumno(accesoBD, consulta_alumnos);
         ultimaConsultaAlumno = consulta_alumnos;
 
-        String idAlumno = null, nombre = null, primerApellido = null,
+        String idAlumno, nombre = null, primerApellido = null,
                 segundoApellido = null, fechaNac = null, talla = null,
                 nombrePadre = null, nombreMadre = null, email = null,
                 numeroCuenta = null, telFijo = null, telMovil = null,
@@ -2474,7 +2462,7 @@ private void botonGuardarCambiosAlActionPerformed(java.awt.event.ActionEvent evt
                 error = GestorAlumnos.modificarDatos(accesoBD, idAlumno, nombre, primerApellido, segundoApellido, fechaNac,
                         numeroCuenta, domicilio, localidad, codPostal, provincia, colegio,
                         nombrePadre, nombreMadre, telFijo, telMovil, email, observaciones, talla);
-                idAlumno = nombre = primerApellido = segundoApellido = null;
+                nombre = primerApellido = segundoApellido = null;
                 fechaNac = talla = nombrePadre = nombreMadre = null;
                 email = numeroCuenta = telFijo = telMovil = provincia = null;
                 localidad = domicilio = codPostal = colegio = observaciones = null;
@@ -2733,7 +2721,7 @@ private void deshacerCambiosAlumnoActionPerformed(java.awt.event.ActionEvent evt
     ResultSet estadoActual;
     estadoActual = GestorAlumnos.consultarAlumno(accesoBD, ultimaConsultaAlumno);
     ocultarMensajesError();
-    String idAlumno = null, nombre = null, primerApellido = null,
+    String idAlumno, nombre = null, primerApellido = null,
             segundoApellido = null, fechaNac = null, talla = null,
             nombrePadre = null, nombreMadre = null, email = null,
             numeroCuenta = null, telFijo = null, telMovil = null,
@@ -2932,7 +2920,7 @@ private void deshacerCambiosAlumnoActionPerformed(java.awt.event.ActionEvent evt
                 GestorAlumnos.modificarDatos(accesoBD, idAlumno, nombre, primerApellido, segundoApellido, fechaNac,
                         numeroCuenta, domicilio, localidad, codPostal, provincia, colegio,
                         nombrePadre, nombreMadre, telFijo, telMovil, email, observaciones, talla);
-                idAlumno = nombre = primerApellido = segundoApellido = null;
+                nombre = primerApellido = segundoApellido = null;
                 fechaNac = talla = nombrePadre = nombreMadre = null;
                 email = numeroCuenta = telFijo = telMovil = provincia = null;
                 localidad = domicilio = codPostal = colegio = observaciones = null;
@@ -3515,7 +3503,7 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
     private void menuTemporadasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuTemporadasMouseClicked
         ocultarPaneles();
 
-        List<String> temps = new ArrayList<String>();
+        List<String> temps = new ArrayList<>();
 
         try {
             temps = GestorTemporadas.getListaTemporadas(accesoBD);
@@ -3548,11 +3536,9 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
     private void menuEntrenamientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuEntrenamientosMouseClicked
         ocultarPaneles();
 
-        List<String> temps = new ArrayList<String>();
-
         try {
             /* Rellenar lista de temporadas */
-            temps = GestorTemporadas.getListaTemporadas(accesoBD);
+            List<String> temps = GestorTemporadas.getListaTemporadas(accesoBD);
             actualizaComboTempEnt(temps);
 
             /* Rellenar lista de categorias */
@@ -3562,8 +3548,7 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
         }
 
         /* Rellenar lista de entrenadores */
-        List<String> ents = new ArrayList<String>();
-        ents = getListaEntrenadores("");
+        List<String> ents = getListaEntrenadores("");
         comboEntGrup.removeAllItems();
         comboEntGrup.addItem("-Ninguno-");
         actualizaComboEntGrup(ents);
@@ -3600,7 +3585,7 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
 
         JOptionPane.showMessageDialog(this, "Temporada modificada", "Exito", JOptionPane.NO_OPTION);
 
-        List<String> temps = new ArrayList<String>();
+        List<String> temps = new ArrayList<>();
 
         try {
             temps = GestorTemporadas.getListaTemporadas(accesoBD);
@@ -3780,12 +3765,10 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
     }//GEN-LAST:event_menuActividadesMouseClicked
 
     private void botonElimTempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonElimTempActionPerformed
-
-        boolean correcto = false;
         String curso = (String) comboTempo.getSelectedItem();
 
         Temporada t = new Temporada(curso);
-        correcto = GestorTemporadas.eliminarTemporada(accesoBD, t);
+        boolean correcto = GestorTemporadas.eliminarTemporada(accesoBD, t);
 
         if (!correcto) {
             JOptionPane.showMessageDialog(this, "No se ha eliminado la temporada", "Error", JOptionPane.ERROR_MESSAGE);
@@ -3793,7 +3776,7 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
             JOptionPane.showMessageDialog(this, "Temporada " + t.getCurso() + " eliminada", "Exito", JOptionPane.INFORMATION_MESSAGE);
         }
 
-        List<String> temps = new ArrayList<String>();
+        List<String> temps = new ArrayList<>();
 
         try {
             temps = GestorTemporadas.getListaTemporadas(accesoBD);
@@ -3806,9 +3789,7 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
 
     private void tfGrupEntKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfGrupEntKeyTyped
         String sEnt = tfGrupEnt.getText();
-        List<String> ents = new ArrayList<String>();
-
-        ents = getListaEntrenadores(sEnt);
+        List<String> ents = getListaEntrenadores(sEnt);
         comboEntGrup.removeAllItems();
         actualizaComboEntGrup(ents);
 
@@ -3865,14 +3846,14 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
     }//GEN-LAST:event_botonBuscarActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        int idGrup = 0, idCat = 0, idEnt = 0, idInst = 0, idTemp = 0;
+        int idCat = 0, idEnt = 0, idInst = 0, idTemp = 0;
         int filaSelec = tablaGrupos.getSelectedRow();
-        String cat = "", ent = "", inst = "", temp = "";
+        String temp = "";
 
-        idGrup = Integer.parseInt((String) tablaGrupos.getValueAt(filaSelec, 0));
-        cat = (String) tablaGrupos.getValueAt(filaSelec, 2);
-        ent = (String) tablaGrupos.getValueAt(filaSelec, 3);
-        inst = (String) tablaGrupos.getValueAt(filaSelec, 4);
+        int idGrup = Integer.parseInt((String) tablaGrupos.getValueAt(filaSelec, 0));
+        String cat = (String) tablaGrupos.getValueAt(filaSelec, 2);
+        String ent = (String) tablaGrupos.getValueAt(filaSelec, 3);
+        String inst = (String) tablaGrupos.getValueAt(filaSelec, 4);
 
 
         try {
@@ -4045,7 +4026,7 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
         ResultSet retsetMostrados;
 
         int idActividad, plazas;
-        String decripcion = new String();
+        String decripcion;
 
         int indiceTabla = actividadesTable.getSelectedRow();
 
@@ -4089,18 +4070,10 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
     }//GEN-LAST:event_InformacionActionPerformed
 
     private void AñaridAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AñaridAlumnoActionPerformed
-        // TODO add your handling code here:
-        int idTemporada = 0;
-        int idActividad = 0;
-
-        idTemporada = getIDTemporada();
-        idActividad = getIDActividad();
+        int idTemporada = getIDTemporada();
+        int idActividad = getIDActividad();
         new AñadirAlumno(accesoBD, idTemporada, idActividad).setVisible(true);
     }//GEN-LAST:event_AñaridAlumnoActionPerformed
-
-    private void comboCatEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCatEquipoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboCatEquipoActionPerformed
 
     private void botonNuevoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoEquipoActionPerformed
         try {
@@ -4191,7 +4164,7 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
         // TODO add your handling code here:
         int nTabla = actividadesTable.getSelectedRow();
-        ResultSet retset;
+        ResultSet retSet;
         float precioS = 50;
         float precioNS = 70;
         String descripcion = "";
@@ -4199,7 +4172,7 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
         int plazas = 0;
 
         if(nTabla >= 0){
-           int idActividad = getIDActividad();
+            int idActividad = getIDActividad();
             SimpleDateFormat formato = new java.text.SimpleDateFormat("yyyy-MM-dd");
             java.sql.Date fechaInicio = null;
             java.sql.Date fechafin = null;
@@ -4225,14 +4198,14 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
             System.out.print("\n\n" + consulta);
             System.out.print("\n\n" + actividadesTable.getValueAt(nTabla, 1));
             System.out.print("\n\n" + actividadesTable.getValueAt(nTabla, 2));
-            retset = accesoBD.ejecutaConsulta(consulta);
+            retSet = accesoBD.ejecutaConsulta(consulta);
             int selection = JOptionPane.showConfirmDialog(this, "Desea eliminar la Instalacion?", "Instalacion usuario", JOptionPane.YES_NO_OPTION);
             if (selection == JOptionPane.YES_OPTION) {
                 try {
-                    if (retset.next()) {
-                        temporada = retset.getInt(1);
-                        plazas = retset.getInt(2);
-                        descripcion = retset.getString(3);
+                    if (retSet.next()) {
+                        temporada = retSet.getInt(1);
+                        plazas = retSet.getInt(2);
+                        descripcion = retSet.getString(3);
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -4762,8 +4735,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         try{
             actualizaComboTemporadaPartidos();
             actualizaComboCategoriaPartidos();
-            List<String> equipos = new ArrayList<String>();
-            equipos = getListaEquipos(idC,idT);
+            List<String> equipos = getListaEquipos(idC,idT);
             actualizaComboEquipoPartidos(equipos,1);
             actualizaComboEquipoPartidos(equipos,2);
         } catch(SQLException e){
@@ -4991,9 +4963,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         String nombre = nombreTextField.getText();
         String consulta = "SELECT nombre, fechaInicio, fechaFin FROM actividades"
                 + " WHERE nombre LIKE '%" + nombre + "%'";
-        ResultSet retset;
-
-        retset = accesoBD.ejecutaConsulta(consulta);
+        ResultSet retSet = accesoBD.ejecutaConsulta(consulta);
 
         actividadesTable.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{
@@ -5030,19 +5000,19 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         modelo_tabla = actividadesTable.getModel();
         int i = 0;
         try {
-            while (retset.next()) {
+            while (retSet.next()) {
 
                 if (i < 25) {
-                    actividadesTable.setValueAt(retset.getString("nombre"), i, 0);
-                    actividadesTable.setValueAt(retset.getString("fechaInicio"), i, 1);
-                    actividadesTable.setValueAt(retset.getString("fechaFin"), i, 2);
+                    actividadesTable.setValueAt(retSet.getString("nombre"), i, 0);
+                    actividadesTable.setValueAt(retSet.getString("fechaInicio"), i, 1);
+                    actividadesTable.setValueAt(retSet.getString("fechaFin"), i, 2);
                 } else {
                     javax.swing.table.DefaultTableModel temp = (javax.swing.table.DefaultTableModel) tablaInstalacion.getModel();
                     Object nuevo[] = {"", "", ""};
                     temp.addRow(nuevo);
-                    actividadesTable.setValueAt(retset.getString("nombre"), i, 0);
-                    actividadesTable.setValueAt(retset.getString("fechaInicio"), i, 1);
-                    actividadesTable.setValueAt(retset.getString("fechaFin"), i, 2);
+                    actividadesTable.setValueAt(retSet.getString("nombre"), i, 0);
+                    actividadesTable.setValueAt(retSet.getString("fechaInicio"), i, 1);
+                    actividadesTable.setValueAt(retSet.getString("fechaFin"), i, 2);
                 }
                 i++;
             }
@@ -5056,11 +5026,9 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         Date nombre = (java.sql.Date) fechaInicioDateChooser.getDate();
         String consulta = "SELECT nombre, fechaInicio, fechaFin FROM actividades"
                 + " WHERE fechaInicio LIKE '%" + nombre + "%'";
-        ResultSet retset;
-
         System.out.println("Consulta Fecha " + consulta);
 
-        retset = accesoBD.ejecutaConsulta(consulta);
+        ResultSet retSet = accesoBD.ejecutaConsulta(consulta);
 
         actividadesTable.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{
@@ -5097,19 +5065,19 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         modelo_tabla = actividadesTable.getModel();
         int i = 0;
         try {
-            while (retset.next()) {
+            while (retSet.next()) {
 
                 if (i < 25) {
-                    actividadesTable.setValueAt(retset.getString("nombre"), i, 0);
-                    actividadesTable.setValueAt(retset.getString("fechaInicio"), i, 1);
-                    actividadesTable.setValueAt(retset.getString("fechaFin"), i, 2);
+                    actividadesTable.setValueAt(retSet.getString("nombre"), i, 0);
+                    actividadesTable.setValueAt(retSet.getString("fechaInicio"), i, 1);
+                    actividadesTable.setValueAt(retSet.getString("fechaFin"), i, 2);
                 } else {
                     javax.swing.table.DefaultTableModel temp = (javax.swing.table.DefaultTableModel) tablaInstalacion.getModel();
                     Object nuevo[] = {"", "", ""};
                     temp.addRow(nuevo);
-                    actividadesTable.setValueAt(retset.getString("nombre"), i, 0);
-                    actividadesTable.setValueAt(retset.getString("fechaInicio"), i, 1);
-                    actividadesTable.setValueAt(retset.getString("fechaFin"), i, 2);
+                    actividadesTable.setValueAt(retSet.getString("nombre"), i, 0);
+                    actividadesTable.setValueAt(retSet.getString("fechaInicio"), i, 1);
+                    actividadesTable.setValueAt(retSet.getString("fechaFin"), i, 2);
                 }
                 i++;
             }
@@ -5197,7 +5165,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     }//GEN-LAST:event_botonMostrarPartidosActionPerformed
     
     private void actualizaTablaPartidos(){
-        List<List<String>> lpar = new ArrayList<List<String>>();
+        List<List<String>> lpar = new ArrayList<>();
         try {
             lpar = GestorPartidos.getListaPartidos(accesoBD);
         } catch (SQLException ex) {
@@ -5256,9 +5224,8 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     }
     
     private void actualizaTablaPartidosFiltro(String fecha, String temporada, String categoria, String equipoLoc, String equipoVis ) throws SQLException{
-        List<List<String>> lpar = new ArrayList<List<String>>();
-        int idCat = 0;
-        idCat = GestorCategorias.getIdCategoria(accesoBD, categoria);
+        List<List<String>> lpar = new ArrayList<>();
+        int idCat = GestorCategorias.getIdCategoria(accesoBD, categoria);
         System.out.println();
         System.out.println(equipoLoc);
         try {
@@ -5361,7 +5328,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
        
         String usuarioElegido;
         ocultarMensajesError();
-        ResultSet retset = null;
+        ResultSet retSet = null;
         
         int i =tablaUsuarios.getSelectedRow();
         if(i==-1){
@@ -5377,18 +5344,18 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
             usuarioElegido = nombre+" "+primerApellido+" "+segundoApellido;
            
             try {
-                retset = GestorUsuarios.consultarEstadisticasEntrenador(accesoBD, nombre, primerApellido, segundoApellido, DNI);
+                retSet = GestorUsuarios.consultarEstadisticasEntrenador(accesoBD, nombre, primerApellido, segundoApellido, DNI);
             } catch (SQLException ex) {
                 Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            if(retset == null || !"Entrenador".equals(tipo))
+            if(retSet == null || !"Entrenador".equals(tipo))
                 if (!"Entrenador".equals(tipo))
                     JOptionPane.showMessageDialog(null,"Este usuario no tiene estadisticas ya que no es entrenador");
                 else
                     JOptionPane.showMessageDialog(null,"No hay datos que mostrar para el usuario"); 
             else
-                new EstadisticasEntrenador(accesoBD, retset, usuarioElegido).setVisible(true);
+                new EstadisticasEntrenador(accesoBD, retSet, usuarioElegido).setVisible(true);
                 
         }
     }//GEN-LAST:event_verEstadisticasEntrenadorActionPerformed
@@ -5398,7 +5365,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         
         String jugadorElegido;
         ocultarMensajesError();
-        ResultSet retset = null;
+        ResultSet retSet = null;
         
         int i =tablaAlumnos.getSelectedRow();
         if(i==-1){
@@ -5413,13 +5380,13 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
             jugadorElegido = nombre+" "+primerApellido+" "+segundoApellido;
            
             try {
-                retset = GestorAlumnos.consultarEstadisticasAlumno(accesoBD, nombre, primerApellido, segundoApellido, numCuenta);
+                retSet = GestorAlumnos.consultarEstadisticasAlumno(accesoBD, nombre, primerApellido, segundoApellido, numCuenta);
             } catch (SQLException ex) {
                 Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-            if(retset != null)
-                new EstadisticasJugador(accesoBD, retset, jugadorElegido).setVisible(true);
+            if(retSet != null)
+                new EstadisticasJugador(accesoBD, retSet, jugadorElegido).setVisible(true);
             else
                 JOptionPane.showMessageDialog(null,"No hay datos que mostrar para el jugador"); 
         }     
@@ -5455,10 +5422,9 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
                 } catch (SQLException ex) {
                    Logger.getLogger(NuevoPartido.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                List<String> equipos = new ArrayList<String>();
                 try {
                     noEntry = true;
-                    equipos = getListaEquipos(idC,idT);
+                    List<String> equipos = getListaEquipos(idC,idT);
                     actualizaComboEquipoPartidos(equipos, 1);
                     actualizaComboEquipoPartidos(equipos, 2);
                     noEntry = false;
@@ -5467,10 +5433,9 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
                 }
             } else{
                 idC = 0;
-                List<String> equipos = new ArrayList<String>();
                 try {
                     noEntry = true;
-                    equipos = getListaEquipos(idC,idT);
+                    List<String> equipos = getListaEquipos(idC,idT);
                     actualizaComboEquipoPartidos(equipos, 1);
                     actualizaComboEquipoPartidos(equipos, 2);
                     noEntry = false;
@@ -5541,44 +5506,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     }//GEN-LAST:event_comboEquipoVisitanteItemStateChanged
     //***************************************JAVI******************************************************//
     
-    
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PantallaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PantallaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PantallaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PantallaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new PantallaPrincipal().setVisible(true);
-
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AñaridAlumno;
     private javax.swing.JButton BotonJPartido;
@@ -5860,9 +5787,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private void actualizaComboCatGrup() throws SQLException {
         comboCatGrup.removeAllItems();
         comboCatGrup.addItem("-Ninguno-");
-        List<String> listaCats = new ArrayList<String>();
-
-        listaCats = GestorCategorias.getTipoCategorias(accesoBD);
+        List<String> listaCats = GestorCategorias.getTipoCategorias(accesoBD);
 
         for (String s : listaCats) {
             comboCatGrup.addItem(s);
@@ -5927,15 +5852,11 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     }
 
     List<String> getListaTemps() throws SQLException {
-        List<String> res = new ArrayList<String>();
-        res = GestorTemporadas.getListaTemporadas(accesoBD);
-        return res;
+        return GestorTemporadas.getListaTemporadas(accesoBD);
     }
 
     List<List<String>> getListaCategorias() throws SQLException {
-        List<List<String>> cats = new ArrayList<List<String>>();
-        cats = GestorCategorias.getListaCategorias(accesoBD);
-        return cats;
+        return GestorCategorias.getListaCategorias(accesoBD);
     }
 
     /*
@@ -5952,7 +5873,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
      return cats;
      }*/
     public List<String> getListaEntrenadores(String sEnt) {
-        List<String> ents = new ArrayList<String>();
+        List<String> ents = new ArrayList<>();
         try {
             ents = GestorUsuarios.getEntrenadores(accesoBD, sEnt);
         } catch (SQLException ex) {
@@ -5963,33 +5884,18 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     }
 
     List<String> getListaAlumnos(String s) throws SQLException {
-        List<String> als = new ArrayList<String>();
-        als = GestorAlumnos.getAlumnos(accesoBD, s);
-
-        return als;
+        return GestorAlumnos.getAlumnos(accesoBD, s);
     }
 
     List<String> getListaInstalaciones(String s) throws SQLException {
-        List<String> inst = new ArrayList<String>();
-        inst = GestorInstalacion.getListaInstalaciones(accesoBD);
-
-
-        return inst;
+        return GestorInstalacion.getListaInstalaciones(accesoBD);
     }
-    /*
-     * Futuro getListaEquipos (pa cuando esté)
-     */
-    /*List<String> getListaEquipos(String s) throws SQLException {
-        List<String> equipos = new ArrayList<String>();
-        equipos = GestorEquipo.getListaEquipos(accesoBD);
-        return equipos.
-    }*/
     
     /*
      * Método provisional para obtener equipos
      */
      List<String> getListaEquipos(int idCat, int idTemp) throws SQLException {
-        List<String> equipos = new ArrayList<String>();
+        List<String> equipos = new ArrayList<>();
         String query;
         if(idCat == 0 && idTemp != 0){
            query = "SELECT nombre FROM Equipo WHERE (temporada_idTemporada = " + idTemp + ");"; 
@@ -6006,8 +5912,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
      }
 
     public void actualizaTablaGrupos() throws SQLException {
-        List<List<String>> grupos = new ArrayList<List<String>>();
-        grupos = GestorGrupos.getListaGrupos(accesoBD);
+        List<List<String>> grupos = GestorGrupos.getListaGrupos(accesoBD);
 
         DefaultTableModel dtm = new DefaultTableModel();
         dtm.addColumn("ID Grupo");
@@ -6039,8 +5944,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     }
 
     public void actualizaTablaEquipos() throws SQLException {
-        List<Equipo> equipos = new ArrayList<Equipo>();
-        equipos = GestorEquipos.getListaEquipos(accesoBD);
+        List<Equipo> equipos = GestorEquipos.getListaEquipos(accesoBD);
         
         DefaultTableModel dtm = new DefaultTableModel();
         dtm.addColumn("Nombre");
@@ -6064,26 +5968,17 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         }
 
         tablaEquipos.setModel(dtm);
-        
-        
-        
-        
     }
 
     private String getCategoria(String s) throws SQLException {
-
-        String cat = GestorCategorias.getCategoria(accesoBD, Integer.parseInt(s));
-
-        return cat;
+        return GestorCategorias.getCategoria(accesoBD, Integer.parseInt(s));
     }
 
     private String getEntrenador(String s) throws SQLException {
-
         return GestorUsuarios.getEntrenador(accesoBD, s);
     }
 
     private String getTemporada(String s) throws SQLException {
-
         return GestorTemporadas.getTemporada(accesoBD, s);
     }
     
@@ -6092,7 +5987,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     }
 
     private int getIDActividad() {
-
         int indiceTabla = actividadesTable.getSelectedRow();
         ResultSet rts;
         int idActividad = 0;
@@ -6102,14 +5996,11 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
                 + actividadesTable.getValueAt(indiceTabla, 1) + "' AND fechaFin = '"
                 + actividadesTable.getValueAt(indiceTabla, 2) + "'";
 
-
-
         rts = accesoBD.ejecutaConsulta(actividad);
         System.out.print("\n\n Busaca " + rts + "\n\n");
         try {
             if (rts.next()) {
                 idActividad = rts.getInt("idActividades");
-
             }
         } catch (SQLException ex) {
             Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -6118,7 +6009,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     }
 
     public void mostrarActividades() {
-
         actividadesTable.removeAll();
         try {
             // TODO add your handling code here:
@@ -6184,8 +6074,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     }
 
     private void actualizaTablaGruposFiltro(String temporada, String categoria, String entrenador) throws SQLException {
-        List<List<String>> grupos = new ArrayList<List<String>>();
-        grupos = GestorGrupos.getListaGruposFiltro(accesoBD, temporada, categoria, entrenador);
+        List<List<String>> grupos = GestorGrupos.getListaGruposFiltro(accesoBD, temporada, categoria, entrenador);
 
         DefaultTableModel dtm = new DefaultTableModel();
         dtm.addColumn("ID Grupo");
@@ -6214,22 +6103,15 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     }
 
     List<String> getlistaAlumnosIntroducidos(String idGrupo) throws SQLException {
-        List<String> als = new ArrayList<String>();
-        als = GestorGrupos.getListaAlumnosIntroducidos(accesoBD, idGrupo);
-
-        return als;
+        return GestorGrupos.getListaAlumnosIntroducidos(accesoBD, idGrupo);
     }
 
     List<String> getListaAlumnosSinGrupo(String s) throws SQLException {
-        List<String> als = new ArrayList<String>();
-        als = GestorAlumnos.getAlumnosSinGrupo(accesoBD, s);
-
-        return als;
+        return GestorAlumnos.getAlumnosSinGrupo(accesoBD, s);
     }
 
     void actualizaTablaCategorias() throws SQLException {
-        List<List<String>> listaCats = new ArrayList<List<String>>();
-        listaCats = GestorCategorias.getListaCategorias(accesoBD);
+        List<List<String>> listaCats = GestorCategorias.getListaCategorias(accesoBD);
 
         DefaultTableModel dtm = new DefaultTableModel();
         dtm.addColumn("Tipo");
@@ -6246,6 +6128,5 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         }
 
         tablaCategorias.setModel(dtm);
-
     }
 }
