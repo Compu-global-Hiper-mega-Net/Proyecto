@@ -312,6 +312,7 @@ class AccesoBDAlumno {
             return null;
          }
          else{
+           rst.previous();
            int idAlumno = rst.getInt(1);  
            consulta = "SELECT p.idEquipo, p.idEquipoVisitante, e.asistencias, e.rebotesOfensivos, e.rebotesDefensivos, e.robos, e.perdidas, e.puntos FROM "
                     + "EstadisticaAlumno e, partido p "
@@ -320,8 +321,11 @@ class AccesoBDAlumno {
                  
            if (!rst.next())
                 return null;
-           else
+       
+            else{
+                rst.previous();
                 return rst;
+            }          
          }   
     }
     //***************************************JAVI******************************************************//      
