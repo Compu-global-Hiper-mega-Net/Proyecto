@@ -75,42 +75,37 @@ public class EstadisticasEntrenador extends javax.swing.JFrame {
     
     private  void actualizaTablaEstadisticas() throws SQLException {
        
-       if(retset == null)
-           JOptionPane.showMessageDialog(null,"No hay datos que mostrar para el entrenador");  
-       else{ 
-             DefaultTableModel dtm = new DefaultTableModel();
-             dtm.addColumn("Fecha");
-             dtm.addColumn("Equipo local");
-             dtm.addColumn("Equipo visitante");
-             dtm.addColumn("Resultado local");
-             dtm.addColumn("Resultado visitante");
+        DefaultTableModel dtm = new DefaultTableModel();
+        dtm.addColumn("Fecha");
+        dtm.addColumn("Equipo local");
+        dtm.addColumn("Equipo visitante");
+        dtm.addColumn("Resultado local");
+        dtm.addColumn("Resultado visitante");
 
-             Object[] fila = new Object[5];
+        Object[] fila = new Object[5];
 
-             while(retset.next()){       
-                 
-                 fila[0] = retset.getString(1);
-                 
-                 int idEquipoLoc = retset.getInt(2);
-                 String consulta1 = "SELECT nombre FROM equipo WHERE idEquipo='"+idEquipoLoc+"'";
-                 ResultSet rst1 = accesoBD.ejecutaConsulta(consulta1); 
-                 if(rst1.next())
-                    fila[1] = rst1.getString(1);
-                 
-                 int idEquipoVis = retset.getInt(3);
-                 String consulta2 = "SELECT nombre FROM equipo WHERE idEquipo='"+idEquipoVis+"'";
-                 ResultSet rst2 = accesoBD.ejecutaConsulta(consulta2);
-                 if(rst2.next())
-                    fila[2] = rst2.getString(1);
+        while(retset.next()){       
 
-                 fila[3] = retset.getString(4);
-                 fila[4] = retset.getString(5);
+            fila[0] = retset.getString(1);
 
-                 dtm.addRow(fila);
-             }
+            int idEquipoLoc = retset.getInt(2);
+            String consulta1 = "SELECT nombre FROM equipo WHERE idEquipo='"+idEquipoLoc+"'";
+            ResultSet rst1 = accesoBD.ejecutaConsulta(consulta1); 
+            if(rst1.next())
+               fila[1] = rst1.getString(1);
 
-             tablaEntrenadorEstadisticas.setModel(dtm);
+            int idEquipoVis = retset.getInt(3);
+            String consulta2 = "SELECT nombre FROM equipo WHERE idEquipo='"+idEquipoVis+"'";
+            ResultSet rst2 = accesoBD.ejecutaConsulta(consulta2);
+            if(rst2.next())
+               fila[2] = rst2.getString(1);
+
+            fila[3] = retset.getString(4);
+            fila[4] = retset.getString(5);
+
+            dtm.addRow(fila);
         }
+        tablaEntrenadorEstadisticas.setModel(dtm);
     }
 
     /**

@@ -55,6 +55,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
     ChartPanel Panel ;
     JFrame Ventana ;
     DefaultCategoryDataset Datos = new DefaultCategoryDataset();
+    DefaultTableModel dtm = new DefaultTableModel();
             
     public EstadisticasJugador() {
         initComponents();
@@ -74,50 +75,44 @@ import org.jfree.data.category.DefaultCategoryDataset;
     }
    
     
-    private  void actualizaTablaEstadisticas() throws SQLException {
-        
-       if(retset == null)
-           JOptionPane.showMessageDialog(null,"No hay datos que mostrar para el jugador");  
-       else{ 
-             DefaultTableModel dtm = new DefaultTableModel();
-             dtm.addColumn("Partido");
-             dtm.addColumn("Asistencias");
-             dtm.addColumn("Rebotes ofensivos");
-             dtm.addColumn("Rebotes defensivos");
-             dtm.addColumn("Robos");
-             dtm.addColumn("Perdidas");
-             dtm.addColumn("Puntos");
+    private  void actualizaTablaEstadisticas() throws SQLException {   
+       
+        dtm.addColumn("Partido");
+        dtm.addColumn("Asistencias");
+        dtm.addColumn("Rebotes ofensivos");
+        dtm.addColumn("Rebotes defensivos");
+        dtm.addColumn("Robos");
+        dtm.addColumn("Perdidas");
+        dtm.addColumn("Puntos");
 
-             Object[] fila = new Object[7];
+        Object[] fila = new Object[7];
 
-             while(retset.next()){       
-                 
-                 int idEquipoLoc = retset.getInt(1);
-                 String consulta1 = "SELECT nombre FROM equipo WHERE idEquipo='"+idEquipoLoc+"'";
-                 ResultSet rst1 = accesoBD.ejecutaConsulta(consulta1); 
-                 
-                 int idEquipoVis = retset.getInt(2);
-                 String consulta2 = "SELECT nombre FROM equipo WHERE idEquipo='"+idEquipoVis+"'";
-                 ResultSet rst2 = accesoBD.ejecutaConsulta(consulta2);
-                 
-                 if(rst1.next()&& rst2.next()){
-                    String nombrePartido = (rst1.getString(1)+" - "+rst2.getString(1));
-                    fila[0] = nombrePartido;
-                    
-                    partidosJug.add(nombrePartido);
-                 }
-                 fila[1] = retset.getString(3);
-                 fila[2] = retset.getString(4);
-                 fila[3] = retset.getString(5);
-                 fila[4] = retset.getString(6);
-                 fila[5] = retset.getString(7);
-                 fila[6] = retset.getString(8);
+        while(retset.next()){       
 
-                 dtm.addRow(fila);
-             }
+            int idEquipoLoc = retset.getInt(1);
+            String consulta1 = "SELECT nombre FROM equipo WHERE idEquipo='"+idEquipoLoc+"'";
+            ResultSet rst1 = accesoBD.ejecutaConsulta(consulta1); 
 
-             tablaJugadoresEstadisticas.setModel(dtm);
+            int idEquipoVis = retset.getInt(2);
+            String consulta2 = "SELECT nombre FROM equipo WHERE idEquipo='"+idEquipoVis+"'";
+            ResultSet rst2 = accesoBD.ejecutaConsulta(consulta2);
+
+            if(rst1.next()&& rst2.next()){
+               String nombrePartido = (rst1.getString(1)+" - "+rst2.getString(1));
+               fila[0] = nombrePartido;
+
+               partidosJug.add(nombrePartido);
+            }
+            fila[1] = retset.getString(3);
+            fila[2] = retset.getString(4);
+            fila[3] = retset.getString(5);
+            fila[4] = retset.getString(6);
+            fila[5] = retset.getString(7);
+            fila[6] = retset.getString(8);
+
+            dtm.addRow(fila);
         }
+        tablaJugadoresEstadisticas.setModel(dtm);
     }
 
     /**
@@ -251,30 +246,49 @@ import org.jfree.data.category.DefaultCategoryDataset;
     private void verGraficasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verGraficasActionPerformed
  
         int i=0;
-        
-        try {
-           while(retset.previous())
-            ;
-           
-           Datos.addValue(retset.getInt("Puntos"), "Puntos", (Comparable) partidosJug.get(i));
-           while(retset.next()){
-                i++;
-                Datos.addValue(retset.getInt("Puntos"), "Puntos", (Comparable) partidosJug.get(i));
-                System.out.printf("\n"+(String)partidosJug.get(i));
-           }
-        } catch (SQLException ex) {
-            Logger.getLogger(EstadisticasJugador.class.getName()).log(Level.SEVERE, null, ex);
-        }    
-        
-        Grafica = ChartFactory.createBarChart3D("Gráfica de puntos conseguidos", "Partidos jugados", "Puntos conseguidos",
-                                               Datos, PlotOrientation.HORIZONTAL, true, true, false);
-        
-        Panel = new ChartPanel(Grafica);
-        Ventana = new JFrame("Gráficas");
-        Ventana.getContentPane().add(Panel);
-        Ventana.pack();
-        Ventana.setVisible(true);
-        Ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        String nombre = null;
+        int opcion = 0;
+        int j =tablaJugadoresEstadisticas.getSelectedColumn();
+         
+        if(j==-1 || j==1){
+            JOptionPane.showMessageDialog(null,"Seleccione una columna valida para ver grafica de los datos");
+        }else{
+            opcion = tablaJugadoresEstadisticas.getSelectedColumn();
+            
+            switch(opcion){
+                case 2: nombre = "asistencias";
+                    break;
+                case 3: nombre = "rebotesOfensivos";
+                    break;
+                case 4: nombre = "rebotesDefensivos";
+                    break;
+                case 5: nombre = "robos";
+                    break;
+                case 6: nombre = "perdidas";
+                    break;
+                case 7: nombre = "puntos";
+            }
+            try {
+                   
+                retset.beforeFirst();
+                while(retset.next()){ 
+                        Datos.addValue(retset.getInt(nombre), dtm.getColumnName(j), (Comparable) partidosJug.get(i)); 
+                        i++;
+                }
+                
+                Grafica = ChartFactory.createBarChart3D(null, "Partidos jugados", null,
+                                                       Datos, PlotOrientation.HORIZONTAL, true, true, false);
+                Panel = new ChartPanel(Grafica);
+                Ventana = new JFrame("Gráficas");
+                Ventana.getContentPane().add(Panel);
+                Ventana.pack();
+                Ventana.setVisible(true);
+                Ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                
+            } catch (SQLException ex) {
+                    Logger.getLogger(EstadisticasJugador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_verGraficasActionPerformed
 
     /**
