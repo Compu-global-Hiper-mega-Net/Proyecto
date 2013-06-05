@@ -229,7 +229,7 @@ public class AltaInstalacion extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Ha habido un error en la base de datos",
                         "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(null, "Instalacion creado con exito",
+                JOptionPane.showMessageDialog(null, "Instalacion creada con exito",
                         "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
                 this.setVisible(false);
                 //this.setEnabled(false);

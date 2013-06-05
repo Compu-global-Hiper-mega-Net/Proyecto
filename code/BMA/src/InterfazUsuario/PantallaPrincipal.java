@@ -368,7 +368,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGroup(panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cerrarSesion)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(625, Short.MAX_VALUE))
+                .addContainerGap(551, Short.MAX_VALUE))
         );
         panelInicioLayout.setVerticalGroup(
             panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1762,8 +1762,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
-        gridBagConstraints.ipadx = 164;
-        gridBagConstraints.ipady = 92;
         getContentPane().add(panelActividades, gridBagConstraints);
 
         panelCategorias.setVisible(false);
@@ -6180,7 +6178,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         } catch (SQLException ex) {
             Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        actividadesTable.setEnabled(false);
     }
 
     private void actualizaTablaGruposFiltro(String temporada, String categoria, String entrenador) throws SQLException {
