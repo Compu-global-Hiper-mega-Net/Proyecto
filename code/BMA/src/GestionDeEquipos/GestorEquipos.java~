@@ -194,7 +194,6 @@ public class GestorEquipos {
             sApellido = nombreCompleto.substring(0, nombreCompleto.indexOf(" "));
             nombreJugador = nombreCompleto.substring(nombreCompleto.indexOf(" ")+1, nombreCompleto.length());
             
-						//Debug para ver si se obtiene correctamente el nombre
             System.out.print("Nombre\n\n"+nombreJugador);
             System.out.print("Nombre\n\n"+pApellido);
             System.out.print("Nombre\n\n"+sApellido);

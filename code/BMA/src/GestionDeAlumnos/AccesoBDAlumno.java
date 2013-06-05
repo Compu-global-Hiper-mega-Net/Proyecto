@@ -51,13 +51,13 @@ class AccesoBDAlumno {
 
     public static void insertarAlumnoBD(BaseDatos accesoBD, Alumno alumnoNuevo) throws SQLException {
         String dateString = String.format("%1$tY-%1$tm-%1$td", alumnoNuevo.getFechaNacimiento());
-
+        
         String inserccion = "INSERT INTO alumno (nombre, primerApellido, segundoApellido, fechaNacimiento, colegio, email, localidad, provincia, codigoPostal, domicilio, "
-                + "nombrePadre, nombreMadre, numeroCuenta, talla, telFijo, telMovil) VALUES ('";
+                + "nombrePadre, nombreMadre, numeroCuenta, talla, telFijo, telMovil, sexo) VALUES ('";
         inserccion = inserccion + alumnoNuevo.getNombre() + "', '" + alumnoNuevo.getPrimerApellido() + "', '" + alumnoNuevo.getSegundoApellido() + "','"
                 + dateString + "', '" + alumnoNuevo.getColegio() + "', '" + alumnoNuevo.getEmail() + "', '" + alumnoNuevo.getLocalidad() + "', '" + alumnoNuevo.getProvincia() + "', "
                 + alumnoNuevo.getCodPostal() + ", '" + alumnoNuevo.getDomicilio() + "', '" + alumnoNuevo.getNombrePadre() + "', '" + alumnoNuevo.getNombreMadre()
-                + "', '" + alumnoNuevo.getCuentaCorriente() + "', '" + alumnoNuevo.getTallaAlumno() + "', " + alumnoNuevo.getTelFijo() + ", " + alumnoNuevo.getTelMovil() + ")";
+                + "', '" + alumnoNuevo.getCuentaCorriente() + "', '" + alumnoNuevo.getTallaAlumno() + "', " + alumnoNuevo.getTelFijo() + ", " + alumnoNuevo.getTelMovil() +  ", '" + alumnoNuevo.getSexo()+ "' )";
 
         System.out.print("\n inser " + inserccion);
         accesoBD.ejecutaActualizacion(inserccion);
@@ -284,8 +284,8 @@ class AccesoBDAlumno {
         String delete2 = "delete from alumnoEquipo where alumnoEquipo.alumno_idalumno= " + alumnoNuevo.getIdAlumno();
         String delete3 = "delete from alumnoTemporada where alumnoTemporada.alumno_idalumno= " + alumnoNuevo.getIdAlumno();
         String delete4 = "delete from pagoActividades where pagoActividades.alumno_idalumno= " + alumnoNuevo.getIdAlumno();
-        String delete5 = "DELETE FROM alumno WHERE idAlumno = " + alumnoNuevo.getIdAlumno();
-
+        String delete5 = "DELETE FROM alumno WHERE alumno.idAlumno = " + alumnoNuevo.getIdAlumno();
+        
         try {
             accesoBD.ejecutaActualizacion(delete1);
             accesoBD.ejecutaActualizacion(delete2);
@@ -312,7 +312,6 @@ class AccesoBDAlumno {
             return null;
          }
          else{
-           rst.previous();
            int idAlumno = rst.getInt(1);  
            consulta = "SELECT p.idEquipo, p.idEquipoVisitante, e.asistencias, e.rebotesOfensivos, e.rebotesDefensivos, e.robos, e.perdidas, e.puntos FROM "
                     + "EstadisticaAlumno e, partido p "
@@ -321,11 +320,8 @@ class AccesoBDAlumno {
                  
            if (!rst.next())
                 return null;
-       
-            else{
-                rst.previous();
+           else
                 return rst;
-            }          
          }   
     }
     //***************************************JAVI******************************************************//      

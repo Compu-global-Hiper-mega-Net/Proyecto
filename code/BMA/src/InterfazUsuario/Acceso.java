@@ -195,7 +195,7 @@ private void authenticateButtonActionPerformed(java.awt.event.ActionEvent evt) {
 
     private void userTextfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userTextfieldKeyReleased
         // TODO add your handling code here:
-         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+         if(evt.getKeyCode() == evt.VK_ENTER){
             BaseDatos accesoBD = new BaseDatos();
             String usuario = userTextfield.getText();
             char[] pass = passTextfield.getPassword();
@@ -222,7 +222,7 @@ private void authenticateButtonActionPerformed(java.awt.event.ActionEvent evt) {
 
     private void passTextfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passTextfieldKeyReleased
         // TODO add your handling code here:
-         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+         if(evt.getKeyCode() == evt.VK_ENTER){
             BaseDatos accesoBD = new BaseDatos();
             String usuario = userTextfield.getText();
             char[] pass = passTextfield.getPassword();
@@ -233,7 +233,7 @@ private void authenticateButtonActionPerformed(java.awt.event.ActionEvent evt) {
             retset = GestorUsuarios.consultarUsuario(accesoBD, consulta_acceso);
             try{
                 if (retset.next()) {
-                   new PantallaPrincipal(accesoBD, usuario).setVisible(true);
+                   (new PantallaPrincipal(accesoBD, usuario)).setVisible(true);
                     this.dispose();
                 }else{          
                     JOptionPane.showMessageDialog(null,
@@ -258,13 +258,20 @@ private void authenticateButtonActionPerformed(java.awt.event.ActionEvent evt) {
          */
         try {
             javax.swing.UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Acceso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Acceso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Acceso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Acceso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 new Acceso().setVisible(true);

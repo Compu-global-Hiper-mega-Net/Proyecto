@@ -82,16 +82,16 @@ public class AccesoBDActividad {
             actualizacion = actualizacion + "descripcion = \"" + descripcion + "\" , ";
         }
         if (nAlumnos != null) {
-            actualizacion = actualizacion + "nAlumnos = " + nAlumnos + " , ";
+            actualizacion = actualizacion + "nAlumnos = \"" + nAlumnos + "\" , ";
         }
         if (precioSocio != null) {
-            actualizacion = actualizacion + "precioSocio = " + precioSocio + " , ";
+            actualizacion = actualizacion + "precioSocio = \"" + precioSocio + "\" , ";
         }
         if (precioNoSocio != null) {
-            actualizacion = actualizacion + "precioNoSocio = " + precioNoSocio + " , ";
+            actualizacion = actualizacion + "precioNoSocio = \"" + precioNoSocio + "\" , ";
         }
         if (idTemporada != null) {
-            actualizacion = actualizacion + "Temporada_idTemporada = " + idTemporada + " , ";
+            actualizacion = actualizacion + "Temporada_idTemporada = \"" + idTemporada + "\" , ";
         }
         if (fechaInicio != null) {
             actualizacion = actualizacion + "fechaInicio = \"" + fechaInicio + "\" , ";
