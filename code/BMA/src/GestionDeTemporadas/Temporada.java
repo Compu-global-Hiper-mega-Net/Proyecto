@@ -4,7 +4,9 @@ import GestionActividades.Actividad;
 import GestionDeAlumnos.Alumno;
 import GestionDeGrupos.Grupo;
 import GestionDeEquipos.Equipo;
+import java.util.Date;
 import java.util.List;
+import javax.swing.JTextField;
 
 /**
  * Clase que representa la temporada.
@@ -47,6 +49,9 @@ public class Temporada {
     
     private int idTemporada;
     private String curso;
+    private String fechaInicio;
+    private String fechaFin;
+    private double importeMensual;
     
     private List<Equipo> equipos;
     private List<Actividad> actividades;
@@ -56,6 +61,13 @@ public class Temporada {
     
     public Temporada(String c){
         curso = c;
+    }
+
+    public Temporada(int curso, String inicio, String fin, double importe) {
+        this.curso = Integer.toString(curso);
+        this.fechaInicio = inicio;
+        this.fechaFin = fin;
+        this.importeMensual = importe;
     }
 
     public String getCurso() {
@@ -68,6 +80,22 @@ public class Temporada {
 
     public void setIdTemporada(int idTemp) {
         this.idTemporada = idTemp;
+    }
+
+    void setCursoCompleto(String cursoComp) {
+        this.curso = cursoComp;
+    }
+
+    String getInicio() {
+        return this.fechaInicio;
+    }
+    
+    String getFin() {
+        return this.fechaFin;
+    }
+
+    double getImporte() {
+        return this.importeMensual;
     }
     
     

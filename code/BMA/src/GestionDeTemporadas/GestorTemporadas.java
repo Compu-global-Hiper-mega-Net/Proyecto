@@ -73,7 +73,7 @@ public class GestorTemporadas {
 
     
     
-    public static int InsertarTemporada(int curso, BaseDatos accesoBD) throws SQLException {
+    /*public static int InsertarTemporada(int curso, BaseDatos accesoBD) throws SQLException {
         int correcto = 0;
         boolean validar = TemporadaBD.consultarTemporada(curso, accesoBD);
         
@@ -87,7 +87,7 @@ public class GestorTemporadas {
             JOptionPane.showMessageDialog(null, "Temporada creada", "Exito", JOptionPane.INFORMATION_MESSAGE);
         }
         return correcto;
-    }
+    }*/
 
     public static int getIdTemporada(BaseDatos accesoBD, String temporada) throws SQLException {
         int idTem = TemporadaBD.getIdTemporada(accesoBD, temporada);
@@ -112,6 +112,58 @@ public class GestorTemporadas {
             existe = true;
         
         return existe;
+    }
+
+    public static int InsertarTemporada(BaseDatos accesoBD, Temporada t) throws SQLException {
+        int correcto = 0;
+        boolean validar = TemporadaBD.consultarTemporada(Integer.parseInt(t.getCurso()), accesoBD);
+        
+        if(validar == false)
+            JOptionPane.showMessageDialog(null, "La temporada ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+        else{
+            //int auxCurso = curso+1;
+            int auxCurso = Integer.parseInt(t.getCurso())+1;
+            String cursoComp = Integer.toString(Integer.parseInt(t.getCurso()))+"/"+Integer.toString(auxCurso);
+            t.setCursoCompleto(cursoComp);
+            //Temporada t = new Temporada(cursoComp);
+            correcto = TemporadaBD.insertarTemporadaBD(accesoBD, t);
+            JOptionPane.showMessageDialog(null, "Temporada creada", "Exito", JOptionPane.INFORMATION_MESSAGE);
+        }
+        return correcto;
+    }
+
+    public static int modificarTemporada(BaseDatos accesoBD, Temporada t, int aAnt) throws SQLException {
+        int correcto = 0;
+        boolean validar = true;
+        
+        if(aAnt != Integer.parseInt(t.getCurso()))
+            validar = TemporadaBD.consultarTemporada(Integer.parseInt(t.getCurso()), accesoBD);
+        
+        if(validar == false)
+            JOptionPane.showMessageDialog(null, "La temporada ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+        else {
+            String cursoNuevo = t.getCurso() +"/"+(Integer.parseInt(t.getCurso()+1));
+            String cursoAnterior =  aAnt +"/"+(aAnt+1);
+            
+            t.setCursoCompleto(cursoNuevo);
+            
+            correcto = TemporadaBD.modificarTemporada(accesoBD, cursoAnterior, t);
+            JOptionPane.showMessageDialog(null, "Temporada modificada", "Exito", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        return correcto;
+    }
+
+    public static double getImporte(BaseDatos bd, String curso) throws SQLException {
+        return TemporadaBD.getImporte(bd, curso);
+    }
+
+    public static String getInicio(BaseDatos bd, String curso) throws SQLException {
+        return TemporadaBD.getInicio(bd, curso);
+    }
+    
+    public static String getFin(BaseDatos bd, String curso) throws SQLException {
+        return TemporadaBD.getFin(bd, curso);
     }
         
     public  List<Temporada> ConsultarTemporada(String curso){

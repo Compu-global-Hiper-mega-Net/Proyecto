@@ -59,7 +59,8 @@ public class TemporadaBD {
     }
 
     static int insertarTemporadaBD(BaseDatos accesoBD, Temporada t) throws SQLException {
-        String query = "INSERT INTO Temporada (curso) VALUES ('"+t.getCurso()+"')";
+        String query = "INSERT INTO Temporada (curso, inicio, fin, importeMensual) "
+                + "VALUES ('"+t.getCurso()+"','"+t.getInicio()+"','"+t.getFin()+"','"+Double.toString(t.getImporte())+"')";
         int correcto = accesoBD.ejecutaActualizacion(query);
         return correcto;
     }
@@ -142,5 +143,51 @@ public class TemporadaBD {
             return resSet;
     }
     //***************************************JAVI******************************************************//  
+
+    static int modificarTemporada(BaseDatos accesoBD, String cursoAnterior, Temporada t) throws SQLException {
+        int correcto = 0;
+        String query = "UPDATE Temporada SET curso='"+t.getCurso()+"',"
+                + "inicio='"+t.getInicio()+"',fin='"+t.getFin()+"',importeMensual='"+t.getImporte()+"'"
+                + " WHERE curso='"+cursoAnterior+"'";
+        correcto = accesoBD.ejecutaActualizacion(query);
+        
+        return correcto;
+    }
+
+    static double getImporte(BaseDatos bd, String curso) throws SQLException {
+        String query = "SELECT importeMensual FROM Temporada WHERE "
+                + "curso='"+curso+"'";
+        ResultSet res = bd.ejecutaConsulta(query);
+        
+        double imp = 0;
+        if(res.next())
+            imp = res.getDouble(1);
+        
+        return imp;
+    }
+
+    static String getInicio(BaseDatos bd, String curso) throws SQLException {
+        String query = "SELECT inicio FROM Temporada "
+                + "WHERE curos='"+curso+"'";
+        ResultSet res = bd.ejecutaConsulta(query);
+        
+        String i = null;
+        if(res.next())
+            i = res.getString(1);
+        
+        return i;
+    }
+    
+    static String getFin(BaseDatos bd, String curso) throws SQLException {
+        String query = "SELECT fin FROM Temporada "
+                + "WHERE curos='"+curso+"'";
+        ResultSet res = bd.ejecutaConsulta(query);
+        
+        String f = null;
+        if(res.next())
+            f = res.getString(1);
+        
+        return f;
+    }
     
 }

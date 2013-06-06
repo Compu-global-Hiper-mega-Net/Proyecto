@@ -195,7 +195,16 @@ public class PrincipalTemporadas extends javax.swing.JFrame {
 
     private void botonModCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModCatActionPerformed
         String curso = (String) comboTempo.getSelectedItem();
-        new AñadirModificarTemporada(this, this.bd, Integer.parseInt(curso.substring(0, 4))).setVisible(true);
+        double importe = 0;
+        String fInicio = null, fFin = null;
+        try {
+            importe = GestorTemporadas.getImporte(this.bd, curso);
+            fInicio = GestorTemporadas.getInicio(this.bd, curso);
+            fFin = GestorTemporadas.getFin(this.bd, curso);
+        } catch (SQLException ex) {
+            Logger.getLogger(PrincipalTemporadas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        new AñadirModificarTemporada(this, this.bd, Integer.parseInt(curso.substring(0, 4)), importe, fInicio, fFin).setVisible(true);
     }//GEN-LAST:event_botonModCatActionPerformed
 
     private void botonElimCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonElimCatActionPerformed

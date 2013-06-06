@@ -532,6 +532,12 @@ public class PrincipalGrupos extends javax.swing.JFrame {
 
         tablaGrupos.setModel(dtm);
     }
+
+    public BaseDatos getBd() {
+        return bd;
+    }
+    
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonConsGrupo;

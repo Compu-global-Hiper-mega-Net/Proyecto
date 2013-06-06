@@ -83,6 +83,8 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         pP = v;
         this.idGrupo = idG;
         
+        this.bd = v.getBd();
+        
         //alumnosSel = new ArrayList<Alumno>();
         listaAlumnos = new ArrayList<>();
         
