@@ -29,22 +29,32 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Component id="verGraficas" min="-2" pref="99" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                       <Component id="botonSalir" min="-2" pref="92" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jugadorLab" min="-2" pref="72" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="nombreAlumnoElegido" min="-2" pref="381" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="panelTabEstJug" alignment="0" min="-2" pref="936" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jugadorLab" min="-2" pref="72" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="nombreAlumnoElegido" min="-2" pref="381" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="panelTabEstJug" alignment="0" min="-2" pref="936" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="29" max="32767" attributes="0"/>
+              <EmptySpace pref="36" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="141" max="-2" attributes="0"/>
+              <Component id="estadisticasAsistencias" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+              <Component id="estadisticasRebOfen" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+              <Component id="estadisticasRebDef" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+              <Component id="estadisticasRobos" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+              <Component id="estadisticasPerdidas" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+              <Component id="estadisticasPuntos" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -57,8 +67,17 @@
                   <Component id="nombreAlumnoElegido" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-              <Component id="panelTabEstJug" min="-2" pref="314" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+              <Component id="panelTabEstJug" min="-2" pref="275" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="estadisticasRebOfen" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="estadisticasRebDef" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="estadisticasPerdidas" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="estadisticasPuntos" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="estadisticasAsistencias" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="estadisticasRobos" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="botonSalir" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="verGraficas" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -95,7 +114,7 @@
               </Border>
             </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="7" rowCount="25">
+              <Table columnCount="7" rowCount="20">
                 <Column editable="true" title="Partido " type="java.lang.String"/>
                 <Column editable="true" title="Asistencias" type="java.lang.String"/>
                 <Column editable="true" title="Rebotes ofensivos" type="java.lang.String"/>
@@ -161,11 +180,41 @@
     </Component>
     <Component class="javax.swing.JButton" name="verGraficas">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Graficas"/>
+        <Property name="text" type="java.lang.String" value="Ver Graficas"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="verGraficasActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="estadisticasRebOfen">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Datos Graficas"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="estadisticasRebDef">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Datos Graficas"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="estadisticasPerdidas">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Datos Graficas"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="estadisticasPuntos">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Datos Graficas"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="estadisticasAsistencias">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Datos Graficas"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="estadisticasRobos">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Datos Graficas"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
