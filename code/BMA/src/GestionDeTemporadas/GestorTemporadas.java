@@ -1,5 +1,6 @@
 package GestionDeTemporadas;
 
+import GestionDeGrupos.GruposBD;
 import InterfazUsuario.AñadirModificarTemporada;
 import InterfazUsuario.PantallaPrincipal;
 import ServiciosAlmacenamiento.BaseDatos;
@@ -164,6 +165,10 @@ public class GestorTemporadas {
     
     public static String getFin(BaseDatos bd, String curso) throws SQLException {
         return TemporadaBD.getFin(bd, curso);
+    }
+
+    public static int getAnio(BaseDatos bd, int idTemp) throws SQLException {
+        return GruposBD.getAnio(bd, idTemp);
     }
         
     public  List<Temporada> ConsultarTemporada(String curso){
