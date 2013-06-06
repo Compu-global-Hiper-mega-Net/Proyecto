@@ -139,6 +139,7 @@ public class BaseDatos {
             //System.out.println(i);
             stmt = conexion.get(i).createStatement();
             retset = stmt.executeQuery(consulta);
+            
         } catch (SQLException ex) {
             System.out.print(ex.getMessage());
         }

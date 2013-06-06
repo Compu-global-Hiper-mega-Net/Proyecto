@@ -349,7 +349,7 @@ public class GruposBD {
         if(res.next())
             idTemp = res.getInt(1);
         
-      
+        
         
         String temp = GestorTemporadas.getTemporada(accesoBD, idTemp);
         return temp;
@@ -627,6 +627,19 @@ public class GruposBD {
       //  throw new UnsupportedOperationException("Not yet implemented");
     //}
 
+    /**
+     * Permite modificar un grupo de la base de datos cambiandole ciertos campos.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param gNuevo Objeto de la clase Grupo que contiene los nuevos parametros 
+     * a modificar.
+     * @param gViejo Objeto de la clase Grupo que contiene los antiguos parametros 
+     * que serán modificados.
+     * @param idGrupo <code>String</code> con el identificador del grupo que 
+     * queremos modificar.
+     * @param listaAlumnos Lista de <code>String</code> con los alumnos que 
+     * serán modificados del grupo.
+     * @throws SQLException 
+     */
     static void ModificarGruposBD(BaseDatos accesoBD, Grupo gNuevo, Grupo gViejo, String idGrupo, List<String> listaAlumnos) throws SQLException {
         //String query = "UPDATE Temporada SET curso='"+cursoNuevo+"' WHERE curso='"+cursoAnterior+"'";
         boolean horMod = false, dia1Mod = false, dia2Mod = false;
@@ -782,6 +795,15 @@ public class GruposBD {
         }
     }
 
+    /**
+     * Permite obtener el identificador de una temporada a partir del identificador 
+     * de un grupo.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param idGrup <code>int</code> con el identificador del grupo del que 
+     * queremos saber el identificador de temporada.
+     * @return
+     * @throws SQLException 
+     */
     static int getIdTemporada(BaseDatos accesoBD, int idGrup) throws SQLException {
         String query = "SELECT Temporada_idTemporada FROM Grupo WHERE "
                 + "idGrupo='"+idGrup+"'";
@@ -794,6 +816,14 @@ public class GruposBD {
         return idTemp;
     }
 
+    /**
+     * Permite eliminar un grupo de la base de datos.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param g Objeto de la clase Grupo que será el grupo que queremos eliminar.
+     * @return <code>TRUE</code> si el grupo se ha eliminado correctamente, 
+     * <code>FALSE</code> en caso contrario.
+     * @throws SQLException 
+     */
     static boolean EliminarGrupo(BaseDatos accesoBD, Grupo g) throws SQLException {
         boolean GrupoEliminado = false;
         

@@ -288,7 +288,6 @@ public class PrincipalGrupos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Debes seleccionar un grupo", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             String idGrupo = (String) tablaGrupos.getValueAt(filaSel, 0);
-
             try {
                 new ConsultarGrupo(this, idGrupo).setVisible(true);
             } catch (SQLException ex) {

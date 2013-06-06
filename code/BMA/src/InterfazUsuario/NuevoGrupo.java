@@ -503,23 +503,23 @@ public class NuevoGrupo extends javax.swing.JFrame {
     }//GEN-LAST:event_jlAlumnosMouseClicked
 
     private void botonAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAnadirActionPerformed
-        List<String> alSeleccionados = new ArrayList<>();
-        alSeleccionados.addAll(jlAlumnos.getSelectedValuesList());
+        //List<String> alSeleccionados = new ArrayList<>();
+        //alSeleccionados.addAll(jlAlumnos.getSelectedValuesList());
         
         listaAlumnos.addAll(jlAlumnos.getSelectedValuesList());
         
-        for(String s : alSeleccionados){
+        /*for(String s : alSeleccionados){
             for(int i = 0; i < listaAlumnos.size(); i++)
                 if(listaAlumnos.get(i).equals(s)){
                     listaAlumnos.set(i, listaAlumnos.get(i).concat("(*)"));
                     System.out.println("ahora vale: "+listaAlumnos.get(i));
                 }
-        }
+        }*/
         
         labelAnadir.setText(Integer.toString(listaAlumnos.size())+"/20");
         labelSelecc.setText("0/"+(20-listaAlumnos.size()));
         
-        actualizaModeloLista(listaAlumnos);
+        //actualizaModeloLista(listaAlumnos);
     }//GEN-LAST:event_botonAnadirActionPerformed
 
     private void textHoraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textHoraKeyTyped
