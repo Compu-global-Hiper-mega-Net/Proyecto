@@ -63,7 +63,7 @@ class AccesoBDAlumno {
                 + "', '" + alumnoNuevo.getCuentaCorriente() + "', '" + alumnoNuevo.getTallaAlumno() + "', " + alumnoNuevo.getTelFijo() + ", " + alumnoNuevo.getTelMovil() +  ", '" + alumnoNuevo.getSexo()+ "' )";
 
         Date fecha = alumnoNuevo.getFechaNacimiento();
-        Calendar fechasistema = Calendar.getInstance();
+        Calendar fechasistema;
         fechasistema = new GregorianCalendar();
         String cat_alum;
             
