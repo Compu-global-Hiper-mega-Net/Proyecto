@@ -220,12 +220,55 @@ public class GruposBD {
         
         String query5 = "";
         int res5 = 0;
+        boolean existeAl = false;
+        int curso = GestorTemporadas.getAnio(accesoBD, idTemp);
+        int auxCont = 9;
+        int idCuota = 0;
         for(Integer it : listaIDAl){
+            
             query5 = "INSERT INTO Alumnogrupo (Alumno_idAlumno, Grupo_idGrupo, "
                     + "Grupo_Categoria_idCategoria, Grupo_Usuario_idUsuario, "
                     + "Grupo_Temporada_idTemporada) VALUES "
                 + "('"+it+"','"+idGrupo+"','"+idCat+"','"+idEnt+"','"+idTemp+"')";
-            res5 = accesoBD.ejecutaActualizacion(query5);
+                res5 = accesoBD.ejecutaActualizacion(query5);
+            
+                
+            existeAl = GestorGrupos.existeAlumnoTemporada(accesoBD, it, idTemp);
+            if(!existeAl){
+                
+                query5 = "INSERT INTO AlumnoTemporada (Alumno_idAlumno,"
+                            + "Temporada_idTemporada) VALUES "
+                            + "('"+it+"','"+idTemp+"')";
+                System.out.println();
+                System.out.println(query5);
+                res5 = accesoBD.ejecutaActualizacion(query5);
+                
+                for(int i = 0; i < 9; i++){
+                    
+                    
+                    query5 = "INSERT INTO Cuota (fecha) VALUES "
+                            + "('"+curso+"-"+auxCont+"-1')";
+                    
+                    res5 = accesoBD.ejecutaActualizacion(query5);
+                    
+                    query5 = "SELECT DISTINCT LAST_INSERT_ID() FROM Cuota";
+                    res4 = accesoBD.ejecutaConsulta(query5);
+                    if(res4.next())
+                        idCuota = res4.getInt(1);
+                    
+                    query5 = "INSERT INTO PagoTemporada "
+                            + "(Cuota_idCuota,AlumnoTemporada_Alumno_idAlumno,"
+                            + "AlumnoTemporada_Temporada_idTemporada) VALUES "
+                            + "('"+idCuota+"','"+it+"','"+idTemp+"')";
+                    res5 = accesoBD.ejecutaActualizacion(query5);
+                    
+                    auxCont++;
+                    if(auxCont > 12){
+                        auxCont = 1;
+                        curso = curso + 1;
+                    }
+                }
+            }
         }
         
     }
@@ -856,6 +899,34 @@ public class GruposBD {
             GrupoEliminado = false;
         
         return GrupoEliminado;
+    }
+
+    static boolean existeAlumnoTemporada(BaseDatos bd, int idAl, int idTemp) throws SQLException {
+        String query = "SELECT * FROM AlumnoTemporada "
+                + "WHERE Alumno_idAlumno='"+idAl+"' "
+                + "AND Temporada_idTemporada='"+idTemp+"'";
+        ResultSet res = bd.ejecutaConsulta(query);
+        
+        boolean existe = false;
+        
+        if(res.next())
+            existe = true;
+        
+        return existe;
+    }
+
+    public static int getAnio(BaseDatos bd, int idTemp) throws SQLException {
+        String query = "SELECT curso FROM Temporada "
+                + "WHERE idTemporada='"+idTemp+"'";
+        ResultSet res = bd.ejecutaConsulta(query);
+        
+        String auxAnio = null;
+        if(res.next())
+            auxAnio = res.getString(1);
+        
+        auxAnio = auxAnio.substring(0, auxAnio.indexOf("/"));
+        
+        return Integer.parseInt(auxAnio);
     }
     
 }

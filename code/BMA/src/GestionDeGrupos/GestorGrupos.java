@@ -122,6 +122,10 @@ public class GestorGrupos {
         return GrupoEliminado;
     }
 
+    static boolean existeAlumnoTemporada(BaseDatos bd, int idAl, int idTemp) throws SQLException {
+        return GruposBD.existeAlumnoTemporada(bd, idAl, idTemp);
+    }
+
     private List<Grupo> grupos;
     
     public static void insertarDatosGrupo(BaseDatos accesoBD, List<String> listaAlumnos, 
