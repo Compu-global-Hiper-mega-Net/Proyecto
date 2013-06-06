@@ -110,12 +110,11 @@ import org.jfree.data.category.DefaultCategoryDataset;
             fila[5] = retset.getString(7);
             fila[6] = retset.getString(8);
 
-<<<<<<< HEAD
+
             dtm.addRow(fila);
-=======
+
              tablaJugadoresEstadisticas.setModel(dtm);
              retset.first();
->>>>>>> 11a27153976bad635141dea4aca921be4afc9d93
         }
         tablaJugadoresEstadisticas.setModel(dtm);
     }
@@ -251,7 +250,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
     private void verGraficasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verGraficasActionPerformed
  
         int i=0;
-<<<<<<< HEAD
+
         String nombre = null;
         int opcion = 0;
         int j =tablaJugadoresEstadisticas.getSelectedColumn();
@@ -295,7 +294,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
                     Logger.getLogger(EstadisticasJugador.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-=======
+
         try {
            Datos.addValue(retset.getInt("Puntos"), "Puntos", (Comparable) partidosJug.get(i));
            while(retset.next()){
@@ -316,7 +315,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
         Ventana.pack();
         Ventana.setVisible(true);
         Ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
->>>>>>> 11a27153976bad635141dea4aca921be4afc9d93
+
     }//GEN-LAST:event_verGraficasActionPerformed
 
     /**
