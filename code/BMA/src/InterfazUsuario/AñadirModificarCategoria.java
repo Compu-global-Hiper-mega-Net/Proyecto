@@ -199,29 +199,16 @@ public class AñadirModificarCategoria extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botoAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botoAceptarActionPerformed
-        boolean validar = false;
-        
-        if(textTipo.getText().length()>0 && textDesc.getText().length()>0){
+        if(!textTipo.getText().isEmpty() && !textDesc.getText().isEmpty()){
             try {
                 GestorCategorias.InsertarDatosCategorias(this.bd, textTipo.getText(), textDesc.getText());
-            } catch (SQLException ex) {
-                Logger.getLogger(AñadirModificarCategoria.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
                 ((PrincipalCategorias) pP).actualizarTabla();
+                this.dispose();
             } catch (SQLException ex) {
                 Logger.getLogger(AñadirModificarCategoria.class.getName()).log(Level.SEVERE, null, ex);
             }
-            this.setVisible(false);
-        }
-            
-        else
+        } else
             JOptionPane.showMessageDialog(this, "Debe rellenar los campos", "Error", JOptionPane.ERROR_MESSAGE);
-        try {
-            ((PrincipalCategorias)pP).actualizarTabla();
-        } catch (SQLException ex) {
-            Logger.getLogger(AñadirModificarCategoria.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }//GEN-LAST:event_botoAceptarActionPerformed
 
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
@@ -229,27 +216,22 @@ public class AñadirModificarCategoria extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void botoGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botoGuardarActionPerformed
-        if(tAnt.equals(textTipo.getText()) || dAnt.equals(textDesc.getText())){
-            
-            int continuar = JOptionPane.showConfirmDialog(this, "¿Desea modificar la categoria?", "Pregunta", JOptionPane.YES_NO_CANCEL_OPTION);
-            
-            if(continuar == JOptionPane.YES_OPTION){
+        if(!textTipo.getText().isEmpty() && !textDesc.getText().isEmpty()){
+            if(!tAnt.equals(textTipo.getText()) || !dAnt.equals(textDesc.getText())) {
                 Categoria cNuevo = new Categoria(textTipo.getText(), textDesc.getText());
                 Categoria cViejo = new Categoria(tAnt, dAnt);
                 try {
                     GestorCategorias.ModificarCategoria(this.bd, cNuevo, cViejo);
+                    ((PrincipalCategorias) pP).actualizarTabla();
+                    this.dispose();
                 } catch (SQLException ex) {
                     Logger.getLogger(AñadirModificarCategoria.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Debe modificar algun campo", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        }
-        try {
-            ((PrincipalCategorias) pP).actualizarTabla();
-        } catch (SQLException ex) {
-            Logger.getLogger(AñadirModificarCategoria.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } else
+            JOptionPane.showMessageDialog(this, "Debe rellenar los campos", "Error", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_botoGuardarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

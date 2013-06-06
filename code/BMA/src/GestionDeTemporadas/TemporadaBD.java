@@ -42,7 +42,7 @@ import java.util.List;
 public class TemporadaBD {
 
     static boolean consultarTemporada(int curso, BaseDatos accesoBD) throws SQLException {
-        boolean validar = false;
+        boolean validar;
         
         int auxCurso = curso+1;
         String temp = Integer.toString(curso)+"/"+Integer.toString(auxCurso);
@@ -65,10 +65,10 @@ public class TemporadaBD {
     }
 
     static List<String> getListaTemporadas(BaseDatos accesoBD) throws SQLException {
-        String query = "SELECT curso FROM Temporada";
+        String query = "SELECT curso FROM Temporada ORDER BY curso DESC";
         ResultSet resCons = accesoBD.ejecutaConsulta(query);
         
-        List<String> res = new ArrayList<String>();
+        List<String> res = new ArrayList<>();
         
         while(resCons.next()){
             res.add(resCons.getString(1));

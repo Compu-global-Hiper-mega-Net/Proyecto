@@ -51,22 +51,13 @@ public class GestorCategorias {
 
     public static void InsertarDatosCategorias(BaseDatos accesoBD, String t, String desc) throws SQLException {
         boolean validar = CategoriaBD.ConsultarCategoria(accesoBD, t);
-        int resAct = 0;
         
         if(!validar){
             JOptionPane.showMessageDialog(null, "La categoria ya existe", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        
-        else{
-            int continuar = JOptionPane.showConfirmDialog(null, "¿Desea crear la categoria", "Confirmar", JOptionPane.YES_NO_CANCEL_OPTION);
-            if(continuar == JOptionPane.YES_OPTION){
-                Categoria c = new Categoria(t, desc);
-                resAct = CategoriaBD.crearCategoria(accesoBD, c);
-                
-                if(resAct > 0)
-                    JOptionPane.showMessageDialog(null, "Categoria creada con exito", "Exito", JOptionPane.NO_OPTION);  
-                
-            }     
+        } else {
+            Categoria c = new Categoria(t, desc);
+            CategoriaBD.crearCategoria(accesoBD, c);
+            JOptionPane.showMessageDialog(null, "Categoria creada", "Exito", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -76,18 +67,13 @@ public class GestorCategorias {
     }
 
     public static void ModificarCategoria(BaseDatos accesoBD, Categoria cNuevo, Categoria cViejo) throws SQLException {
-        boolean existe = false;
-        existe = existeCategoria(accesoBD, cNuevo);
+        boolean existe = existeCategoria(accesoBD, cNuevo);
         
-        int aceptadaModificacion = 0;
-                
-        if(!existe){
-            aceptadaModificacion = Categoria.Modificar(accesoBD, cNuevo, cViejo);
-            if(aceptadaModificacion > 0)
-                JOptionPane.showMessageDialog(null, "Categoria modificada", "Exito", JOptionPane.NO_OPTION);
-        }
-        else{
+        if (existe) {
             JOptionPane.showMessageDialog(null, "La categoria ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+        } else{
+            Categoria.Modificar(accesoBD, cNuevo, cViejo);
+            JOptionPane.showMessageDialog(null, "Categoria modificada", "Exito", JOptionPane.INFORMATION_MESSAGE);
         }
        
     }

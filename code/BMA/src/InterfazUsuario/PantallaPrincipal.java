@@ -12,7 +12,6 @@ package InterfazUsuario;
 
 import GestionActividades.GestorActividad;
 import GestionDeAlumnos.*;
-import GestionDeCategorias.Categoria;
 import GestionDeCategorias.GestorCategorias;
 import GestionDeGrupos.GestorGrupos;
 import GestionDeUsuarios.*;
@@ -132,6 +131,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         panelInicio = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel29 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
+        jButton4 = new javax.swing.JButton();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel31 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
@@ -205,14 +209,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         botonEliminarUsuario = new javax.swing.JButton();
         errorEliminarUsuario = new javax.swing.JLabel();
         verEstadisticasEntrenador = new javax.swing.JButton();
-        panelTemporadas = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        botonNuevaTemp = new javax.swing.JButton();
-        comboTempo = new javax.swing.JComboBox();
-        botonModTem = new javax.swing.JButton();
-        botonElimTemp = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
-        estadisticasTemporada = new javax.swing.JButton();
         panelGrupos = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -310,14 +306,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         actividadesTable = new javax.swing.JTable();
         Informacion = new javax.swing.JButton();
         AñaridAlumno = new javax.swing.JButton();
-        panelCategorias = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
-        botonNuevaCat = new javax.swing.JButton();
-        botonModCat = new javax.swing.JButton();
-        botonElimCat = new javax.swing.JButton();
-        jSeparator5 = new javax.swing.JSeparator();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        tablaCategorias = new javax.swing.JTable();
         PanelPartidos = new javax.swing.JPanel();
         Partidos = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
@@ -346,7 +334,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         menuUsuarios = new javax.swing.JMenu();
         menuEntrenamientos = new javax.swing.JMenu();
         menuActividades = new javax.swing.JMenu();
-        menuTemporadas = new javax.swing.JMenu();
         menuPagos = new javax.swing.JMenu();
         menuInstalaciones = new javax.swing.JMenu();
         menuPartidos = new javax.swing.JMenu();
@@ -362,6 +349,32 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jPanel1.add(jLabel29);
 
         panelInicio.add(jPanel1);
+
+        jPanel9.setLayout(new javax.swing.BoxLayout(jPanel9, javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanel10.setMaximumSize(new java.awt.Dimension(170, 33));
+        jPanel10.setMinimumSize(new java.awt.Dimension(170, 33));
+        jPanel10.setPreferredSize(new java.awt.Dimension(170, 33));
+        jPanel10.setLayout(new java.awt.GridBagLayout());
+
+        jButton4.setText("Temporadas");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(jButton4, new java.awt.GridBagConstraints());
+
+        jPanel9.add(jPanel10);
+
+        jPanel11.setLayout(new java.awt.GridBagLayout());
+
+        jLabel31.setText("Esta opción permite gestionar todas las temporadas, esto es: insertar, modificar o eliminar.");
+        jPanel11.add(jLabel31, new java.awt.GridBagConstraints());
+
+        jPanel9.add(jPanel11);
+
+        panelInicio.add(jPanel9);
 
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -382,7 +395,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         jPanel5.setLayout(new java.awt.GridBagLayout());
 
-        jLabel1.setText("Esta opción pertite gestionar todas las categorias, esto es: insertar, modificar o eliminar.");
+        jLabel1.setText("Esta opción permite gestionar todas las categorias, esto es: insertar, modificar o eliminar.");
         jPanel5.add(jLabel1, new java.awt.GridBagConstraints());
 
         jPanel2.add(jPanel5);
@@ -788,83 +801,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(22, 0, 22, 0);
         getContentPane().add(panelUsuarios, gridBagConstraints);
 
-        panelTemporadas.setVisible(false);
-        panelTemporadas.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        panelTemporadas.setLocation(150, 100);
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18));
-        jLabel3.setText("Temporadas");
-
-        botonNuevaTemp.setText("Nueva");
-        botonNuevaTemp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonNuevaTempActionPerformed(evt);
-            }
-        });
-
-        botonModTem.setText("Modificar");
-        botonModTem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonModTemActionPerformed(evt);
-            }
-        });
-
-        botonElimTemp.setText("Eliminar");
-        botonElimTemp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonElimTempActionPerformed(evt);
-            }
-        });
-
-        estadisticasTemporada.setText("Estadisticas");
-        estadisticasTemporada.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                estadisticasTemporadaActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelTemporadasLayout = new javax.swing.GroupLayout(panelTemporadas);
-        panelTemporadas.setLayout(panelTemporadasLayout);
-        panelTemporadasLayout.setHorizontalGroup(
-            panelTemporadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelTemporadasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelTemporadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3)
-                    .addGroup(panelTemporadasLayout.createSequentialGroup()
-                        .addComponent(comboTempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(botonModTem)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botonElimTemp))
-                    .addComponent(jSeparator1)
-                    .addGroup(panelTemporadasLayout.createSequentialGroup()
-                        .addComponent(botonNuevaTemp)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(estadisticasTemporada, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelTemporadasLayout.setVerticalGroup(
-            panelTemporadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelTemporadasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
-                .addGap(13, 13, 13)
-                .addGroup(panelTemporadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboTempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonModTem)
-                    .addComponent(botonElimTemp))
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(panelTemporadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonNuevaTemp)
-                    .addComponent(estadisticasTemporada))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(panelTemporadas, new java.awt.GridBagConstraints());
-
         panelGrupos.setVisible(false);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -1028,7 +964,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Grupos de Entrenamiento");
 
         javax.swing.GroupLayout panelGruposLayout = new javax.swing.GroupLayout(panelGrupos);
@@ -1058,9 +994,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         panelInstalaciones.setVisible(false);
         panelInstalaciones.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        panelInstalaciones.setFont(new java.awt.Font("Tahoma", 0, 18));
+        panelInstalaciones.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        TituloLabel.setFont(new java.awt.Font("Tahoma", 0, 18));
+        TituloLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         TituloLabel.setText("Instalaciones");
 
         BuscarporLabel.setText("Buscar instalacion");
@@ -1225,7 +1161,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         panelEquipos.setVisible(false);
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18));
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel8.setText("Equipos");
 
         jLabel10.setText("Nombre:");
@@ -1301,10 +1237,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        labelEquiposMostrados.setFont(new java.awt.Font("Tahoma", 1, 12));
+        labelEquiposMostrados.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         labelEquiposMostrados.setText("Numero de equipos:");
 
-        labelNumeroEquipos.setFont(new java.awt.Font("Tahoma", 1, 12));
+        labelNumeroEquipos.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Entrenador-" }));
 
@@ -1424,7 +1360,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         panelPagos.setVisible(false);
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18));
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel15.setText("Pagos");
 
         jLabel9.setText("Buscar Pagos por:");
@@ -1638,10 +1574,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         panelInstalaciones.setVisible(false);
         panelActividades.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        panelActividades.setFont(new java.awt.Font("Tahoma", 0, 18));
+        panelActividades.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         panelActividades.setMinimumSize(new java.awt.Dimension(1300, 640));
 
-        actividadesLabel.setFont(new java.awt.Font("Tahoma", 0, 18));
+        actividadesLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         actividadesLabel.setText("Actividades");
 
         buscarLabel.setText("Buscar por");
@@ -1763,7 +1699,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(Modificar))
                                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(765, Short.MAX_VALUE))
+                .addContainerGap(929, Short.MAX_VALUE))
         );
         panelActividadesLayout.setVerticalGroup(
             panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1793,7 +1729,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGroup(panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AñaridAlumno)
                     .addComponent(Informacion))
-                .addContainerGap(287, Short.MAX_VALUE))
+                .addContainerGap(379, Short.MAX_VALUE))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1802,98 +1738,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         gridBagConstraints.ipady = 92;
         getContentPane().add(panelActividades, gridBagConstraints);
 
-        panelCategorias.setVisible(false);
-        panelCategorias.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        panelCategorias.setLocation(150, 100);
-
-        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 18));
-        jLabel17.setText("Categorias");
-
-        botonNuevaCat.setText("Nueva");
-        botonNuevaCat.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonNuevaCatActionPerformed(evt);
-            }
-        });
-
-        botonModCat.setText("Modificar");
-        botonModCat.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonModCatActionPerformed(evt);
-            }
-        });
-
-        botonElimCat.setText("Eliminar");
-        botonElimCat.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonElimCatActionPerformed(evt);
-            }
-        });
-
-        tablaCategorias.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane7.setViewportView(tablaCategorias);
-
-        javax.swing.GroupLayout panelCategoriasLayout = new javax.swing.GroupLayout(panelCategorias);
-        panelCategorias.setLayout(panelCategoriasLayout);
-        panelCategoriasLayout.setHorizontalGroup(
-            panelCategoriasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCategoriasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelCategoriasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel17)
-                    .addGroup(panelCategoriasLayout.createSequentialGroup()
-                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(botonModCat)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botonElimCat))
-                    .addComponent(botonNuevaCat)
-                    .addComponent(jSeparator5))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelCategoriasLayout.setVerticalGroup(
-            panelCategoriasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCategoriasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel17)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelCategoriasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelCategoriasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(botonModCat)
-                        .addComponent(botonElimCat))
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonNuevaCat)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(panelCategorias, new java.awt.GridBagConstraints());
-
-        panelCategorias.setVisible(false);
         PanelPartidos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        panelCategorias.setLocation(150, 100);
 
-        Partidos.setFont(new java.awt.Font("Tahoma", 0, 18));
+        Partidos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         Partidos.setText("Partidos");
 
         tablaPartidos.setModel(new javax.swing.table.DefaultTableModel(
@@ -2029,10 +1876,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                                 .addComponent(botonMostrarPartidos)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(botonFiltrarPartido)))
-                        .addGap(0, 368, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(PanelPartidosLayout.createSequentialGroup()
                         .addComponent(Partidos)
-                        .addContainerGap(880, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPartidosLayout.createSequentialGroup()
                         .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(PanelPartidosLayout.createSequentialGroup()
@@ -2054,7 +1901,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(fechaPartido, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(PanelPartidosLayout.createSequentialGroup()
-                                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 752, Short.MAX_VALUE)
+                                .addComponent(jScrollPane8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -2158,14 +2005,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
         barraMenu.add(menuActividades);
-
-        menuTemporadas.setText("Temporadas");
-        menuTemporadas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuTemporadasMouseClicked(evt);
-            }
-        });
-        barraMenu.add(menuTemporadas);
 
         menuPagos.setText("Pagos");
         menuPagos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -3544,25 +3383,6 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
     }
 }//GEN-LAST:event_botonEliminarUsuarioActionPerformed
 
-    private void menuTemporadasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuTemporadasMouseClicked
-        ocultarPaneles();
-
-        List<String> temps = new ArrayList<String>();
-
-        try {
-            temps = GestorTemporadas.getListaTemporadas(accesoBD);
-        } catch (SQLException ex) {
-            Logger.getLogger(NuevaTemporada.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        actualizaComboBoxTemporadas(temps);
-
-        panelTemporadas.setVisible(true);
-    }//GEN-LAST:event_menuTemporadasMouseClicked
-
-    private void botonNuevaTempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevaTempActionPerformed
-        new NuevaTemporada(this).setVisible(true);
-    }//GEN-LAST:event_botonNuevaTempActionPerformed
-
     private void botonNuevoGrupEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoGrupEntActionPerformed
         try {
             /*try {
@@ -3590,7 +3410,7 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
             /* Rellenar lista de categorias */
             actualizaComboCatGrup();
         } catch (SQLException ex) {
-            Logger.getLogger(NuevaTemporada.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AñadirModificarTemporada.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         /* Rellenar lista de entrenadores */
@@ -3620,27 +3440,6 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
         panelInstalaciones.setVisible(true);
         ActualizarTabla();
     }//GEN-LAST:event_menuInstalacionesMouseClicked
-
-    private void botonModTemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModTemActionPerformed
-        String cursoAnterior = (String) comboTempo.getSelectedItem();
-        int correcto = 0;
-        try {
-            correcto = GestorTemporadas.modificarTemporada(accesoBD, cursoAnterior);
-        } catch (SQLException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        JOptionPane.showMessageDialog(this, "Temporada modificada", "Exito", JOptionPane.NO_OPTION);
-
-        List<String> temps = new ArrayList<String>();
-
-        try {
-            temps = GestorTemporadas.getListaTemporadas(accesoBD);
-        } catch (SQLException ex) {
-            Logger.getLogger(NuevaTemporada.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        actualizaComboBoxTemporadas(temps);
-    }//GEN-LAST:event_botonModTemActionPerformed
 
     public void ActualizarTabla() {
 
@@ -3810,31 +3609,6 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
         
         mostrarActividades();
     }//GEN-LAST:event_menuActividadesMouseClicked
-
-    private void botonElimTempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonElimTempActionPerformed
-
-        boolean correcto = false;
-        String curso = (String) comboTempo.getSelectedItem();
-
-        Temporada t = new Temporada(curso);
-        correcto = GestorTemporadas.eliminarTemporada(accesoBD, t);
-
-        if (!correcto) {
-            JOptionPane.showMessageDialog(this, "No se ha eliminado la temporada", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "Temporada " + t.getCurso() + " eliminada", "Exito", JOptionPane.INFORMATION_MESSAGE);
-        }
-
-        List<String> temps = new ArrayList<String>();
-
-        try {
-            temps = GestorTemporadas.getListaTemporadas(accesoBD);
-        } catch (SQLException ex) {
-            Logger.getLogger(NuevaTemporada.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        actualizaComboBoxTemporadas(temps);
-
-    }//GEN-LAST:event_botonElimTempActionPerformed
 
     private void tfGrupEntKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfGrupEntKeyTyped
         String sEnt = tfGrupEnt.getText();
@@ -4759,7 +4533,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
             actualizaComboEquipoPartidos(equipos,1);
             actualizaComboEquipoPartidos(equipos,2);
         } catch(SQLException e){
-            Logger.getLogger(NuevaTemporada.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(AñadirModificarTemporada.class.getName()).log(Level.SEVERE, null, e);
         }
         noEntry = false;
         PanelPartidos.setVisible(true);
@@ -5418,19 +5192,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     }//GEN-LAST:event_estadisticasJugadorActionPerformed
 
     
-    private void estadisticasTemporadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estadisticasTemporadaActionPerformed
-        
-        ocultarMensajesError();
-        
-        if(comboTempo.getSelectedItem().equals(" "))
-            JOptionPane.showMessageDialog(null,"Seleccione una temporada para ver estadisticas ");
-        else{
-            String temporadaElegida = (String)comboTempo.getSelectedItem();
-             
-            new EstadisticasTemporada(accesoBD, temporadaElegida).setVisible(true);
-        }
-    }//GEN-LAST:event_estadisticasTemporadaActionPerformed
-
     
     private void verClasificacionEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verClasificacionEquiposActionPerformed
         
@@ -5536,72 +5297,10 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         new PrincipalCategorias(this, this.accesoBD).setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void botonElimCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonElimCatActionPerformed
-        String tipoCat = (String) tablaCategorias.getValueAt(tablaCategorias.getSelectedRow(), 0);
-        String descCat = (String) tablaCategorias.getValueAt(tablaCategorias.getSelectedRow(), 1);
-
-        Categoria c = new Categoria(tipoCat, descCat);
-        int continuar = JOptionPane.showConfirmDialog(this, "¿Desea eliminar la temporada?", "Confirmar", JOptionPane.YES_NO_CANCEL_OPTION);
-        if (continuar == JOptionPane.YES_OPTION) {
-            GestorCategorias.EliminarCategorias(accesoBD, c);
-        }
-        try {
-            actualizaTablaCategorias();
-        } catch (SQLException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_botonElimCatActionPerformed
-
-    private void botonModCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModCatActionPerformed
-        String tipoCat = (String) tablaCategorias.getValueAt(tablaCategorias.getSelectedRow(), 0);
-        String descCat = (String) tablaCategorias.getValueAt(tablaCategorias.getSelectedRow(), 1);
-
-        new AñadirModificarCategoria(this, accesoBD, tipoCat, descCat).setVisible(true);
-    }//GEN-LAST:event_botonModCatActionPerformed
-
-    private void botonNuevaCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevaCatActionPerformed
-        new AñadirModificarCategoria(this, accesoBD).setVisible(true);
-    }//GEN-LAST:event_botonNuevaCatActionPerformed
-    //***************************************JAVI******************************************************//
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        new PrincipalTemporadas(this, this.accesoBD).setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
     
-    
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PantallaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PantallaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PantallaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PantallaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new PantallaPrincipal().setVisible(true);
-
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AñaridAlumno;
     private javax.swing.JButton BotonJPartido;
@@ -5623,8 +5322,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton botonBuscar;
     private javax.swing.JButton botonConsGrupo;
-    private javax.swing.JButton botonElimCat;
-    private javax.swing.JButton botonElimTemp;
     private javax.swing.JButton botonEliminarAlumno;
     private javax.swing.JButton botonEliminarEquipo;
     private javax.swing.JButton botonEliminarUsuario;
@@ -5632,14 +5329,10 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JButton botonGuardarCambiosAl;
     private javax.swing.JButton botonGuardarCambiosUsuario;
     private javax.swing.JButton botonInfoEquipo;
-    private javax.swing.JButton botonModCat;
-    private javax.swing.JButton botonModTem;
     private javax.swing.JButton botonModificarEquipo;
     private javax.swing.JButton botonMostrarAlumnos;
     private javax.swing.JButton botonMostrarEquipos;
     private javax.swing.JButton botonMostrarPartidos;
-    private javax.swing.JButton botonNuevaCat;
-    private javax.swing.JButton botonNuevaTemp;
     private javax.swing.JButton botonNuevoAlumno;
     private javax.swing.JButton botonNuevoEquipo;
     private javax.swing.JButton botonNuevoGrupEnt;
@@ -5658,7 +5351,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JComboBox comboEquipoVisitante;
     private javax.swing.JComboBox comboTempEntr;
     private javax.swing.JComboBox comboTempEquipo;
-    private javax.swing.JComboBox comboTempo;
     private javax.swing.JComboBox comboTemporadaPartidos;
     private javax.swing.JComboBox consultaCategoria;
     private javax.swing.JComboBox consultaCategoriaUsuario;
@@ -5684,7 +5376,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JLabel errorModifMovil;
     private javax.swing.JLabel errorModifMovilUsuario;
     private javax.swing.JButton estadisticasJugador;
-    private javax.swing.JButton estadisticasTemporada;
     private com.toedter.calendar.JDateChooser fechaFinDateChooser;
     private javax.swing.JLabel fechaFinLabel;
     private com.toedter.calendar.JDateChooser fechaInicioDateChooser;
@@ -5695,6 +5386,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton9;
@@ -5707,7 +5399,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -5721,8 +5412,8 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel36;
@@ -5737,6 +5428,8 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -5744,19 +5437,17 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JLabel labelEquiposMostrados;
     private javax.swing.JLabel labelNumeroEquipos;
@@ -5769,7 +5460,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JMenu menuJugadores;
     private javax.swing.JMenu menuPagos;
     private javax.swing.JMenu menuPartidos;
-    private javax.swing.JMenu menuTemporadas;
     private javax.swing.JMenu menuUsuarios;
     private javax.swing.JButton modificarButton;
     private javax.swing.JTextField nombreAl;
@@ -5792,7 +5482,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JLabel pagos_etiqActividad;
     private javax.swing.JLabel pagos_etiqGrupo;
     private javax.swing.JPanel panelActividades;
-    private javax.swing.JPanel panelCategorias;
     private javax.swing.JPanel panelEquipos;
     private javax.swing.JPanel panelGrupos;
     private javax.swing.JPanel panelInicio;
@@ -5800,7 +5489,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JPanel panelJugadores;
     private javax.swing.JPanel panelPagos;
     private javax.swing.JScrollPane panelResulAl;
-    private javax.swing.JPanel panelTemporadas;
     private javax.swing.JPanel panelUsuarios;
     private javax.swing.JTextField primerApellidoAl;
     private javax.swing.JLabel primerApellidoLabel;
@@ -5808,7 +5496,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JTextField segundoApellidoAl;
     private javax.swing.JLabel segundoApellidoLabel;
     private javax.swing.JTable tablaAlumnos;
-    private javax.swing.JTable tablaCategorias;
     private javax.swing.JTable tablaEquipos;
     private javax.swing.JTable tablaGrupos;
     private javax.swing.JTable tablaInstalacion;
@@ -5830,13 +5517,11 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         panelGrupos.setVisible(false);
         panelInicio.setVisible(false);
         panelJugadores.setVisible(false);
-        panelTemporadas.setVisible(false);
         panelUsuarios.setVisible(false);
         panelInstalaciones.setVisible(false);
         panelActividades.setVisible(false);
         panelEquipos.setVisible(false);
         panelPagos.setVisible(false);
-        panelCategorias.setVisible(false);
         PanelPartidos.setVisible(false);
     }
 
@@ -5846,15 +5531,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
 
     void ejecutarActualizacion(String query) throws SQLException {
         accesoBD.ejecutaActualizacion(query);
-    }
-
-    void actualizaComboBoxTemporadas() throws SQLException {
-        comboTempo.removeAllItems();
-        String query = "SELECT curso FROM Temporada";
-        ResultSet res = accesoBD.ejecutaConsulta(query);
-        while (res.next()) {
-            comboTempo.addItem(res.getString(1));
-        }
     }
 
     private void actualizaComboTempEnt() throws SQLException {
@@ -5935,13 +5611,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
             comboEquipoVisitante.addItem("-Equipo Visitante-");
             for(String s : equipos)
                 comboEquipoVisitante.addItem(s);
-        }
-    }
-
-    void actualizaComboBoxTemporadas(List<String> temps) {
-        comboTempo.removeAllItems();
-        for (String s : temps) {
-            comboTempo.addItem(s);
         }
     }
 
@@ -6273,27 +5942,5 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         als = GestorAlumnos.getAlumnosSinGrupo(accesoBD, s);
 
         return als;
-    }
-
-    void actualizaTablaCategorias() throws SQLException {
-        List<List<String>> listaCats = new ArrayList<List<String>>();
-        listaCats = GestorCategorias.getListaCategorias(accesoBD);
-
-        DefaultTableModel dtm = new DefaultTableModel();
-        dtm.addColumn("Tipo");
-        dtm.addColumn("Descripcion");
-
-        String aux;
-        Object[] fila = new Object[2];
-        for (List<String> it : listaCats) {
-            aux = it.get(0);
-            fila[0] = aux.substring(0, aux.indexOf(" "));
-            aux = aux.substring(aux.indexOf(" ") + 1, aux.length());
-            fila[1] = aux.substring(0, aux.length());
-            dtm.addRow(fila);
-        }
-
-        tablaCategorias.setModel(dtm);
-
     }
 }

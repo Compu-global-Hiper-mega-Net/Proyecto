@@ -1,6 +1,6 @@
 package GestionDeTemporadas;
 
-import InterfazUsuario.NuevaTemporada;
+import InterfazUsuario.AñadirModificarTemporada;
 import InterfazUsuario.PantallaPrincipal;
 import ServiciosAlmacenamiento.BaseDatos;
 import java.sql.ResultSet;
@@ -47,77 +47,28 @@ public class GestorTemporadas {
     //private List<Temporada> temporadas;
     
     public static List<String> getListaTemporadas(BaseDatos accesoBD) throws SQLException {
-        List<String> res = new ArrayList<String>();
-        res = TemporadaBD.getListaTemporadas(accesoBD);
-        
-        return res;
+        return TemporadaBD.getListaTemporadas(accesoBD);
     }
 
-    public static int modificarTemporada(BaseDatos accesoBD, String cursoAnterior) throws SQLException {
+    public static int modificarTemporada(BaseDatos accesoBD, int curso, int cursoAnt) throws SQLException {
         int correcto = 0;
-        boolean existe = false;
-        String auxCursoAnt = cursoAnterior;
-        String cursoNuevoComp = auxCursoAnt;
+        boolean validar = TemporadaBD.consultarTemporada(curso, accesoBD);
         
-        cursoAnterior = cursoAnterior.substring(0, 4);
-        String cursoNuevo = JOptionPane.showInputDialog(new PantallaPrincipal(), "Introduzca el nuevo año del curso", cursoAnterior);
-        if(!Character.isLetter(cursoNuevo.charAt(0))
-                && !Character.isLetter(cursoNuevo.charAt(1))
-                && !Character.isLetter(cursoNuevo.charAt(2))
-                && !Character.isLetter(cursoNuevo.charAt(3))){
-            cursoNuevoComp = cursoNuevo +"/"+Integer.toString(Integer.parseInt(cursoNuevo)+1);
-            existe = existeCurso(accesoBD, cursoNuevoComp);
-        }
-        
-        System.out.println();
-        System.out.println("cursoNuevoComp vale: "+cursoNuevoComp);
-  
-        while(cursoNuevo.length() != 4 || Character.isLetter(cursoNuevo.charAt(0))
-                || Character.isLetter(cursoNuevo.charAt(1))
-                || Character.isLetter(cursoNuevo.charAt(2))
-                || Character.isLetter(cursoNuevo.charAt(3))
-                || existe){
-            /*System.out.println("La longitud es: "+cursoNuevo.length());
-            System.out.println("Letra1: "+Character.isLetter(cursoNuevo.charAt(0)));
-            System.out.println("Letra2: "+Character.isLetter(cursoNuevo.charAt(1)));
-            System.out.println("Letra3: "+Character.isLetter(cursoNuevo.charAt(2)));
-            System.out.println("Letra4: "+Character.isLetter(cursoNuevo.charAt(3)));*/
-            
-            if(existe)
-                JOptionPane.showMessageDialog(new PantallaPrincipal(), "La temporada ya existe", "Error", JOptionPane.ERROR_MESSAGE);
-            else
-                JOptionPane.showMessageDialog(new PantallaPrincipal(), "Digitos introducidos incorrectamente", "Error", JOptionPane.ERROR_MESSAGE);
-            
-            cursoNuevo = JOptionPane.showInputDialog(new PantallaPrincipal(), "Introduzca el nuevo año del curso", cursoAnterior); 
-            if(cursoNuevo.length() == 4 && !Character.isLetter(cursoNuevo.charAt(0))
-                    && !Character.isLetter(cursoNuevo.charAt(1))
-                    && !Character.isLetter(cursoNuevo.charAt(2))
-                    && !Character.isLetter(cursoNuevo.charAt(3))){
-                cursoNuevoComp = cursoNuevo +"/"+Integer.toString(Integer.parseInt(cursoNuevo)+1);
-                existe = existeCurso(accesoBD, cursoNuevoComp);
-            }
-        }
-        
-        cursoNuevoComp = cursoNuevo +"/"+Integer.toString(Integer.parseInt(cursoAnterior)+1);
-        
-        int conf = JOptionPane.showConfirmDialog(new PantallaPrincipal(), "¿Desea modificar la temporada "+auxCursoAnt+"?");
-        if(conf == JOptionPane.YES_OPTION){
-            cursoAnterior = cursoAnterior +"/"+Integer.toString(Integer.parseInt(cursoAnterior)+1);
-            cursoNuevo = cursoNuevo + "/"+Integer.toString(Integer.parseInt(cursoNuevo)+1);
+        if(validar == false)
+            JOptionPane.showMessageDialog(null, "La temporada ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+        else {
+            String cursoNuevo = curso +"/"+(curso+1);
+            String cursoAnterior =  cursoAnt +"/"+(cursoAnt+1);
             
             correcto = TemporadaBD.modificarTemporada(accesoBD, cursoAnterior, cursoNuevo);
+            JOptionPane.showMessageDialog(null, "Temporada modificada", "Exito", JOptionPane.INFORMATION_MESSAGE);
         }
         
         return correcto;
     }
 
     public static boolean eliminarTemporada(BaseDatos accesoBD, Temporada t) {
-        boolean correcto = false;
-        int conf = JOptionPane.showConfirmDialog(new PantallaPrincipal(), "¿Desea eliminar la temporada "+t.getCurso()+"?");
-        if(conf == JOptionPane.YES_OPTION)
-            correcto = TemporadaBD.eliminarTemporadaBD(accesoBD, t);
-        
-        return correcto;
+        return TemporadaBD.eliminarTemporadaBD(accesoBD, t);
     }
 
     
@@ -127,15 +78,13 @@ public class GestorTemporadas {
         boolean validar = TemporadaBD.consultarTemporada(curso, accesoBD);
         
         if(validar == false)
-            JOptionPane.showMessageDialog(new NuevaTemporada(), "La temporada ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "La temporada ya existe", "Error", JOptionPane.ERROR_MESSAGE);
         else{
-            int conf = JOptionPane.showConfirmDialog(new NuevaTemporada(), "¿Desea crear la temporada?");
-            if(conf == JOptionPane.YES_OPTION){
-                int auxCurso = curso+1;
-                String cursoComp = Integer.toString(curso)+"/"+Integer.toString(auxCurso);
-                Temporada t = new Temporada(cursoComp);
-                correcto = TemporadaBD.insertarTemporadaBD(accesoBD, t);
-            }
+            int auxCurso = curso+1;
+            String cursoComp = Integer.toString(curso)+"/"+Integer.toString(auxCurso);
+            Temporada t = new Temporada(cursoComp);
+            correcto = TemporadaBD.insertarTemporadaBD(accesoBD, t);
+            JOptionPane.showMessageDialog(null, "Temporada creada", "Exito", JOptionPane.INFORMATION_MESSAGE);
         }
         return correcto;
     }

@@ -170,7 +170,7 @@ public class PrincipalCategorias extends javax.swing.JFrame {
             String descCat = (String) tablaCategorias.getValueAt(fileSeleccionada, 1);
 
             Categoria c = new Categoria(tipoCat, descCat);
-            int continuar = JOptionPane.showConfirmDialog(this, "¿Desea eliminar la temporada?", "Confirmar", JOptionPane.YES_NO_OPTION);
+            int continuar = JOptionPane.showConfirmDialog(this, "¿Desea eliminar la categoria?", "Confirmar", JOptionPane.YES_NO_OPTION);
             if (continuar == JOptionPane.YES_OPTION) {
                 GestorCategorias.EliminarCategorias(this.bd, c);
             }
