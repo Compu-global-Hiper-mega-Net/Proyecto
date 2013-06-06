@@ -50,6 +50,19 @@ import java.util.List;
  */
 
 public class Grupo {
+    
+    private int idGrupo;
+    //private Calendar[] horarios;
+    
+    private String sexo;
+    private Categoria categoria;
+    //private Categoria categoria;
+    private Temporada temporada;
+    private List<Alumno> alumnos;
+    private Horario horario;
+    
+    private Usuario entrenador;
+    private Instalacion instalacion;
 
     //static void Modificar(Grupo g) {
       //  GruposBD.ModificarGruposBD(g);
@@ -72,19 +85,6 @@ public class Grupo {
         GruposBD.ModificarGruposBD(accesoBD, gNuevo, gViejo, idGrupo, listaAlumnos);
     }
 
-    private int idGrupo;
-    //private Calendar[] horarios;
-    
-    private String sexo;
-    private Categoria categoria;
-    //private Categoria categoria;
-    private Temporada temporada;
-    private List<Alumno> alumnos;
-    private Horario horario;
-    
-    private Usuario entrenador;
-    private Instalacion instalacion;
-
     /**
      * Constructor de la clase Grupo.
      * @param temp <code>String</code> con la temporada en la que se va a ha crear 
@@ -101,7 +101,6 @@ public class Grupo {
      * @throws ParseException 
      */
     public Grupo(String temp, String dia1, String dia2, String hora, String min, String entrenador, String cat, String inst) throws ParseException {
-                
         temporada = new Temporada(temp);
         horario = new Horario(dia1, dia2, hora, min);
         this.entrenador = new Usuario(entrenador);

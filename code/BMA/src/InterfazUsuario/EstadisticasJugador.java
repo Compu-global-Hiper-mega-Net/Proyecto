@@ -51,9 +51,9 @@ import org.jfree.data.category.DefaultCategoryDataset;
     BaseDatos accesoBD;
     ResultSet retset; 
     JFreeChart Grafica;
-    List partidosJug = new ArrayList();
     ChartPanel Panel ;
     JFrame Ventana ;
+    List <String> partidosJug = new ArrayList <String>();
     DefaultCategoryDataset Datos = new DefaultCategoryDataset();
     DefaultTableModel dtm = new DefaultTableModel();
             
@@ -114,10 +114,53 @@ import org.jfree.data.category.DefaultCategoryDataset;
             dtm.addRow(fila);
 
              tablaJugadoresEstadisticas.setModel(dtm);
-             retset.first();
         }
         tablaJugadoresEstadisticas.setModel(dtm);
     }
+    
+    
+     private  void actualizaGraficas() throws SQLException{ 
+         
+        int i=0;
+        List<String> idDatos = new ArrayList<String>();
+        List<Integer> numCol = new ArrayList<Integer>();
+            
+            if (estadisticasAsistencias.isSelected()){
+                idDatos.add("asistencias");
+                numCol.add(1);
+            }if(estadisticasRebOfen.isSelected()){
+               idDatos.add("rebotesOfensivos");
+               numCol.add(2);
+            }if(estadisticasRebDef.isSelected()){
+               idDatos.add("rebotesDefensivos");
+               numCol.add(3);
+            }if(estadisticasRobos.isSelected()){
+               idDatos.add("robos");
+               numCol.add(4);
+            }if(estadisticasPerdidas.isSelected()){
+               idDatos.add("perdidas");
+               numCol.add(5);
+            }if(estadisticasPuntos.isSelected()){
+               idDatos.add("puntos");
+               numCol.add(6);
+            }
+              
+        for (int j = 0; j < idDatos.size(); j++) {
+            try {
+                i=0;
+                retset.beforeFirst();
+                while(retset.next()){ 
+                        Datos.addValue(retset.getInt(idDatos.get(j)), (Comparable) dtm.getColumnName(numCol.get(j)), (Comparable) partidosJug.get(i)); 
+                        i++;
+                }
+            } catch (SQLException ex) {
+                  Logger.getLogger(EstadisticasJugador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        Grafica = ChartFactory.createBarChart3D(null, "Partidos jugados", null,
+                                               Datos, PlotOrientation.HORIZONTAL, true, true, false);  
+     }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -134,6 +177,12 @@ import org.jfree.data.category.DefaultCategoryDataset;
         jugadorLab = new javax.swing.JLabel();
         nombreAlumnoElegido = new javax.swing.JLabel();
         verGraficas = new javax.swing.JButton();
+        estadisticasRebOfen = new javax.swing.JCheckBox();
+        estadisticasRebDef = new javax.swing.JCheckBox();
+        estadisticasPerdidas = new javax.swing.JCheckBox();
+        estadisticasPuntos = new javax.swing.JCheckBox();
+        estadisticasAsistencias = new javax.swing.JCheckBox();
+        estadisticasRobos = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -149,11 +198,6 @@ import org.jfree.data.category.DefaultCategoryDataset;
         tablaJugadoresEstadisticas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tablaJugadoresEstadisticas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -193,12 +237,24 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
         jugadorLab.setText("Jugador:");
 
-        verGraficas.setText("Graficas");
+        verGraficas.setText("Ver Graficas");
         verGraficas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 verGraficasActionPerformed(evt);
             }
         });
+
+        estadisticasRebOfen.setText("Datos Graficas");
+
+        estadisticasRebDef.setText("Datos Graficas");
+
+        estadisticasPerdidas.setText("Datos Graficas");
+
+        estadisticasPuntos.setText("Datos Graficas");
+
+        estadisticasAsistencias.setText("Datos Graficas");
+
+        estadisticasRobos.setText("Datos Graficas");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -210,17 +266,28 @@ import org.jfree.data.category.DefaultCategoryDataset;
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(verGraficas, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
+                        .addGap(60, 60, 60)
                         .addComponent(botonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jugadorLab, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nombreAlumnoElegido, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(panelTabEstJug, javax.swing.GroupLayout.PREFERRED_SIZE, 936, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                        .addComponent(jugadorLab, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nombreAlumnoElegido, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelTabEstJug, javax.swing.GroupLayout.PREFERRED_SIZE, 936, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(36, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(141, 141, 141)
+                .addComponent(estadisticasAsistencias)
+                .addGap(33, 33, 33)
+                .addComponent(estadisticasRebOfen)
+                .addGap(38, 38, 38)
+                .addComponent(estadisticasRebDef)
+                .addGap(37, 37, 37)
+                .addComponent(estadisticasRobos)
+                .addGap(36, 36, 36)
+                .addComponent(estadisticasPerdidas)
+                .addGap(34, 34, 34)
+                .addComponent(estadisticasPuntos)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,8 +297,16 @@ import org.jfree.data.category.DefaultCategoryDataset;
                     .addComponent(jugadorLab)
                     .addComponent(nombreAlumnoElegido))
                 .addGap(32, 32, 32)
-                .addComponent(panelTabEstJug, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addComponent(panelTabEstJug, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(estadisticasRebOfen)
+                    .addComponent(estadisticasRebDef)
+                    .addComponent(estadisticasPerdidas)
+                    .addComponent(estadisticasPuntos)
+                    .addComponent(estadisticasAsistencias)
+                    .addComponent(estadisticasRobos))
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonSalir)
                     .addComponent(verGraficas))
@@ -249,73 +324,24 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
     private void verGraficasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verGraficasActionPerformed
  
-        int i=0;
-
-        String nombre = null;
-        int opcion = 0;
-        int j =tablaJugadoresEstadisticas.getSelectedColumn();
-         
-        if(j==-1 || j==1){
-            JOptionPane.showMessageDialog(null,"Seleccione una columna valida para ver grafica de los datos");
-        }else{
-            opcion = tablaJugadoresEstadisticas.getSelectedColumn();
-            
-            switch(opcion){
-                case 2: nombre = "asistencias";
-                    break;
-                case 3: nombre = "rebotesOfensivos";
-                    break;
-                case 4: nombre = "rebotesDefensivos";
-                    break;
-                case 5: nombre = "robos";
-                    break;
-                case 6: nombre = "perdidas";
-                    break;
-                case 7: nombre = "puntos";
-            }
-            try {
-                   
-                retset.beforeFirst();
-                while(retset.next()){ 
-                        Datos.addValue(retset.getInt(nombre), dtm.getColumnName(j), (Comparable) partidosJug.get(i)); 
-                        i++;
-                }
-                
-                Grafica = ChartFactory.createBarChart3D(null, "Partidos jugados", null,
-                                                       Datos, PlotOrientation.HORIZONTAL, true, true, false);
-                Panel = new ChartPanel(Grafica);
-                Ventana = new JFrame("Gráficas");
-                Ventana.getContentPane().add(Panel);
-                Ventana.pack();
-                Ventana.setVisible(true);
-                Ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                
-            } catch (SQLException ex) {
-                    Logger.getLogger(EstadisticasJugador.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        try {
-           Datos.addValue(retset.getInt("Puntos"), "Puntos", (Comparable) partidosJug.get(i));
-           while(retset.next()){
-                i++;
-                Datos.addValue(retset.getInt("Puntos"), "Puntos", (Comparable) partidosJug.get(i));
-                System.out.printf("\n"+(String)partidosJug.get(i));
-           }
-        } catch (SQLException ex) {
-            Logger.getLogger(EstadisticasJugador.class.getName()).log(Level.SEVERE, null, ex);
-        }    
-        
-        Grafica = ChartFactory.createBarChart3D("Gráfica de puntos conseguidos", "Partidos jugados", "Puntos conseguidos",
-                                               Datos, PlotOrientation.HORIZONTAL, true, true, false);
-        
-        Panel = new ChartPanel(Grafica);
-        Ventana = new JFrame("Gráficas");
-        Ventana.getContentPane().add(Panel);
-        Ventana.pack();
-        Ventana.setVisible(true);
-        Ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
+         if(!estadisticasAsistencias.isSelected() && !estadisticasRebOfen.isSelected()&& !estadisticasRebDef.isSelected()
+         && !estadisticasRobos.isSelected() && !estadisticasPerdidas.isSelected() && !estadisticasPuntos.isSelected())
+              JOptionPane.showMessageDialog(null,"Seleccione al menos un grupo de datos para ver grafica");
+                                              
+         else{
+             try {
+                 Datos.clear();
+                 actualizaGraficas();
+             } catch (SQLException ex) {
+                 Logger.getLogger(EstadisticasJugador.class.getName()).log(Level.SEVERE, null, ex);
+             }
+             Panel = new ChartPanel(Grafica);
+             Ventana = new JFrame("Gráficas");
+             Ventana.getContentPane().add(Panel);
+             Ventana.pack();
+             Ventana.setVisible(true);
+             Ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
+         }
     }//GEN-LAST:event_verGraficasActionPerformed
 
     /**
@@ -355,6 +381,12 @@ import org.jfree.data.category.DefaultCategoryDataset;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton botonSalir;
+    private javax.swing.JCheckBox estadisticasAsistencias;
+    private javax.swing.JCheckBox estadisticasPerdidas;
+    private javax.swing.JCheckBox estadisticasPuntos;
+    private javax.swing.JCheckBox estadisticasRebDef;
+    private javax.swing.JCheckBox estadisticasRebOfen;
+    private javax.swing.JCheckBox estadisticasRobos;
     private javax.swing.JLabel jugadorLab;
     private javax.swing.JLabel nombreAlumnoElegido;
     private javax.swing.JScrollPane panelTabEstJug;
