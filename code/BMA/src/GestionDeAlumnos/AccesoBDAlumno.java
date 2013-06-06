@@ -286,9 +286,7 @@ class AccesoBDAlumno {
 
     public void eliminaAlumnoBD(BaseDatos accesoBD, Alumno alumnoNuevo) {
 
-        String selId=new String();
-        
-        selId="SELECT a.idAlumno FROM alumno a WHERE a.nombre='" + alumnoNuevo.getNombre() + "' AND a.primerApellido='"
+        String selId="SELECT a.idAlumno FROM alumno a WHERE a.nombre='" + alumnoNuevo.getNombre() + "' AND a.primerApellido='"
                 + alumnoNuevo.getPrimerApellido() + "' AND a.segundoApellido='" + alumnoNuevo.getSegundoApellido() + "' AND a.nombrePadre='"
                 + alumnoNuevo.getNombrePadre() + "' AND a.nombreMadre='" + alumnoNuevo.getNombreMadre()+"' ";
         if(alumnoNuevo.getCuentaCorriente()!=null){

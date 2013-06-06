@@ -353,11 +353,6 @@ public class PrincipalGrupos extends javax.swing.JFrame {
 
     private void botonNuevoGrupEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoGrupEntActionPerformed
         try {
-            /*try {
-                new NuevoGrupo(this).setVisible(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
             new NuevoGrupo(this, this.bd).setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -418,6 +413,7 @@ public class PrincipalGrupos extends javax.swing.JFrame {
             comboCatGrup.addItem(s);
         }
     }
+    
     public List<String> getListaEntrenadores(String sEnt) {
         List<String> ents = new ArrayList<>();
         try {

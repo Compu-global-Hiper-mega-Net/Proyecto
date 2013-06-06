@@ -2389,7 +2389,7 @@ private void botonMostrarAlumnosActionPerformed(java.awt.event.ActionEvent evt) 
     
 private void botonNuevoAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoAlumnoActionPerformed
     ocultarMensajesError();
-    new AltaAlumno(accesoBD).setVisible(true);
+    new AñadirModificarAlumno(accesoBD).setVisible(true);
 }//GEN-LAST:event_botonNuevoAlumnoActionPerformed
     
     private boolean isInteger(String cadena) {

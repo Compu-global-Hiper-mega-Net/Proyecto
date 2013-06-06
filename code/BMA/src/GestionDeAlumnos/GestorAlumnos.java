@@ -79,12 +79,12 @@ public class GestorAlumnos {
     }
     public static void eliminaAlumno(BaseDatos accesoBD, String nombre, String primerApellido, String segundoApellido, java.util.Date fechaNac,
             String cuentaCorriente, String domicilio, String localidad, int codPostal, String provincia, String colegio,
-            String nombrePadre, String nombreMadre, int telFijo, int telMovil, String email, String observaciones, String tallaAlumno, char sexo){
+            String nombrePadre, String nombreMadre, int telFijo, int telMovil, String email, String tallaAlumno, char sexo){
         
         AccesoBDAlumno alumnoBD=new AccesoBDAlumno();
         Alumno alumnoEliminado = Alumno.crearAlumno(nombre, primerApellido, segundoApellido, fechaNac,
                 cuentaCorriente, domicilio, localidad, codPostal, provincia, colegio,
-                nombrePadre, nombreMadre, telFijo, telMovil, email, observaciones, tallaAlumno, sexo);
+                nombrePadre, nombreMadre, telFijo, telMovil, email, null, tallaAlumno, sexo);
         alumnoBD.eliminaAlumnoBD(accesoBD, alumnoEliminado);
     }
 

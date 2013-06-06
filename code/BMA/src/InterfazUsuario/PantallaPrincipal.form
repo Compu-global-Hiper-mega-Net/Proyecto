@@ -2285,7 +2285,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="1421" max="32767" attributes="0"/>
+                  <EmptySpace pref="929" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -2321,7 +2321,7 @@
                       <Component id="AñaridAlumno" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="Informacion" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="655" max="32767" attributes="0"/>
+                  <EmptySpace pref="379" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
