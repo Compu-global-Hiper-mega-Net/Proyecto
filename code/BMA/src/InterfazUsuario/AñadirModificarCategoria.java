@@ -6,7 +6,6 @@ import ServiciosAlmacenamiento.BaseDatos;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -43,14 +42,14 @@ import javax.swing.JOptionPane;
  */
 
 public class AñadirModificarCategoria extends javax.swing.JFrame {
-    private JFrame pP;
+    private PrincipalCategorias pP;
     private BaseDatos bd;
     private String tAnt, dAnt;
     
     /**
      * Creates new form NuevaCategoria
      */
-    public AñadirModificarCategoria(JFrame pP, BaseDatos bd) {
+    public AñadirModificarCategoria(PrincipalCategorias pP, BaseDatos bd) {
         initComponents();
         setLocationRelativeTo(pP);
         this.pP = pP;
@@ -60,7 +59,7 @@ public class AñadirModificarCategoria extends javax.swing.JFrame {
         setTitle("Añadir categoría");
     }
     
-    public AñadirModificarCategoria(JFrame pP, BaseDatos bd, String t, String d) {
+    public AñadirModificarCategoria(PrincipalCategorias pP, BaseDatos bd, String t, String d) {
         initComponents();
         this.setLocationRelativeTo(pP);
         this.bd = bd;
@@ -202,7 +201,7 @@ public class AñadirModificarCategoria extends javax.swing.JFrame {
         if(!textTipo.getText().isEmpty() && !textDesc.getText().isEmpty()){
             try {
                 GestorCategorias.InsertarDatosCategorias(this.bd, textTipo.getText(), textDesc.getText());
-                ((PrincipalCategorias) pP).actualizarTabla();
+                pP.actualizarTabla();
                 this.dispose();
             } catch (SQLException ex) {
                 Logger.getLogger(AñadirModificarCategoria.class.getName()).log(Level.SEVERE, null, ex);
@@ -222,7 +221,7 @@ public class AñadirModificarCategoria extends javax.swing.JFrame {
                 Categoria cViejo = new Categoria(tAnt, dAnt);
                 try {
                     GestorCategorias.ModificarCategoria(this.bd, cNuevo, cViejo);
-                    ((PrincipalCategorias) pP).actualizarTabla();
+                    pP.actualizarTabla();
                     this.dispose();
                 } catch (SQLException ex) {
                     Logger.getLogger(AñadirModificarCategoria.class.getName()).log(Level.SEVERE, null, ex);

@@ -1,11 +1,10 @@
 package InterfazUsuario;
 
-import GestionDeAlumnos.Alumno;
 import GestionDeCategorias.GestorCategorias;
 import GestionDeGrupos.GestorGrupos;
+import ServiciosAlmacenamiento.BaseDatos;
 import bma.DiasSemana;
 import java.awt.Color;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -50,41 +49,34 @@ import javax.swing.JOptionPane;
 
 public class NuevoGrupo extends javax.swing.JFrame {
 
-    private PantallaPrincipal creador;
-    private List<Alumno> alumnosSel;
+    private PrincipalGrupos pP;
+    private BaseDatos bd;
     private List<String> listaAlumnos;
     
     /**
      * Creates new form NuevoGrupo
      */
-    public NuevoGrupo() {
+    public NuevoGrupo(PrincipalGrupos v, BaseDatos bd) throws SQLException {
         initComponents();
-        this.setLocation(300, 150);
-    }
-    
-    public NuevoGrupo(PantallaPrincipal v) throws SQLException {
-        initComponents();
-        this.setLocation(300, 150);
-        creador = v;
-        alumnosSel = new ArrayList<Alumno>();
-        listaAlumnos = new ArrayList<String>();
+        this.setLocationRelativeTo(v);
+        this.pP = v;
+        this.bd = bd;
+        this.listaAlumnos = new ArrayList<>();
  
-        List<String> aux = new ArrayList<String>();
-        
-        aux = creador.getListaTemps();
+        List<String> aux = pP.getListaTemps();
         actualizaComboTemp(aux);
         
         //aux = creador.getListaCategorias();
-        aux = GestorCategorias.getTipoCategorias(creador.accesoBD);
+        aux = GestorCategorias.getTipoCategorias(this.bd);
         actualizaComboCat(aux);
         
-        aux = creador.getListaAlumnosSinGrupo("");
+        aux = pP.getListaAlumnosSinGrupo("");
         actualizaModeloLista(aux);
         
-        aux = creador.getListaEntrenadores("");
+        aux = pP.getListaEntrenadores("");
         actualizaComboEntrenadores(aux);
         
-        aux = creador.getListaInstalaciones("");
+        aux = pP.getListaInstalaciones("");
         actualizaComboInstalaciones(aux);
         
         labelError.setVisible(false);
@@ -430,21 +422,19 @@ public class NuevoGrupo extends javax.swing.JFrame {
                     textMin.getText() != null && !Character.isLetter(textMin.getText().charAt(0)) && 
                     !Character.isLetter(textMin.getText().charAt(1)) ){
                 try {
-                    GestorGrupos.insertarDatosGrupo(creador.accesoBD, listaAlumnos, 
+                    GestorGrupos.insertarDatosGrupo(this.bd, listaAlumnos, 
                         comboTemp.getSelectedItem().toString(), comboCat.getSelectedItem().toString(), 
                         comboDia1.getSelectedItem().toString(), 
                         comboDia2.getSelectedItem().toString(), textHora.getText(), textMin.getText(), 
                         comboEnt.getSelectedItem().toString(), comboInst.getSelectedItem().toString());
                 
-                } catch (ParseException ex) {
-                    Logger.getLogger(NuevoGrupo.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
+                } catch (ParseException | SQLException ex) {
                     Logger.getLogger(NuevoGrupo.class.getName()).log(Level.SEVERE, null, ex);
                 }
         
                 /* Actualizar la tabla de grupos */
                 try {
-                    creador.actualizaTablaGrupos();
+                    pP.actualizaTablaGrupos();
                 } catch (SQLException ex) {
                     Logger.getLogger(NuevoGrupo.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -459,7 +449,7 @@ public class NuevoGrupo extends javax.swing.JFrame {
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void tfBuscarEntMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfBuscarEntMouseClicked
@@ -468,10 +458,8 @@ public class NuevoGrupo extends javax.swing.JFrame {
     }//GEN-LAST:event_tfBuscarEntMouseClicked
 
     private void tfBuscarEntKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscarEntKeyTyped
-        List<String> ents = new ArrayList<String>();
-        
         String sEnt = tfBuscarEnt.getText();
-        ents = creador.getListaEntrenadores(sEnt);
+        List<String> ents = pP.getListaEntrenadores(sEnt);
         
         actualizaComboEntrenadores(ents);
         
@@ -484,11 +472,11 @@ public class NuevoGrupo extends javax.swing.JFrame {
     }//GEN-LAST:event_tfBuscarAlMouseClicked
 
     private void tfBuscarAlKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscarAlKeyTyped
-        List<String> als = new ArrayList<String>();
+        List<String> als = new ArrayList<>();
         String s = tfBuscarAl.getText();
         System.out.println(s);
         try {
-            als = creador.getListaAlumnos(s);
+            als = pP.getListaAlumnos(s);
         } catch (SQLException ex) {
             Logger.getLogger(NuevoGrupo.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -515,7 +503,7 @@ public class NuevoGrupo extends javax.swing.JFrame {
     }//GEN-LAST:event_jlAlumnosMouseClicked
 
     private void botonAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAnadirActionPerformed
-        List<String> alSeleccionados = new ArrayList<String>();
+        List<String> alSeleccionados = new ArrayList<>();
         alSeleccionados.addAll(jlAlumnos.getSelectedValuesList());
         
         listaAlumnos.addAll(jlAlumnos.getSelectedValuesList());
@@ -548,47 +536,6 @@ public class NuevoGrupo extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboInstActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /*
-         * Set the Nimbus look and feel
-         */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /*
-         * If Nimbus (introduced in Java SE 6) is not available, stay with the
-         * default look and feel. For details see
-         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NuevoGrupo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NuevoGrupo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NuevoGrupo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NuevoGrupo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /*
-         * Create and display the form
-         */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                new NuevoGrupo().setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAceptar;
     private javax.swing.JButton botonAnadir;

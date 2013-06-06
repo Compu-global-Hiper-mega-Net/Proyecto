@@ -10,9 +10,6 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author Diego
@@ -47,14 +44,14 @@ import javax.swing.JOptionPane;
  */
 
 public class AñadirModificarTemporada extends javax.swing.JFrame {
-    private JFrame pP;
+    private PrincipalTemporadas pP;
     private BaseDatos bd;
     private int aAnt;
 
     /**
      * Creates new form NuevaTemporada
      */
-    public AñadirModificarTemporada(JFrame pP, BaseDatos bd) {
+    public AñadirModificarTemporada(PrincipalTemporadas pP, BaseDatos bd) {
         initComponents();
         setLocationRelativeTo(pP);
         this.pP = pP;
@@ -69,7 +66,7 @@ public class AñadirModificarTemporada extends javax.swing.JFrame {
         labelCurso.setText(ano+"/"+(ano+1));
     }
     
-    public AñadirModificarTemporada(JFrame pP, BaseDatos bd, int a){
+    public AñadirModificarTemporada(PrincipalTemporadas pP, BaseDatos bd, int a){
         initComponents();
         setLocationRelativeTo(pP);
         this.pP = pP;
@@ -245,7 +242,7 @@ public class AñadirModificarTemporada extends javax.swing.JFrame {
         int curso = chooserCurso.getYear();
         try {
             GestorTemporadas.InsertarTemporada(curso, this.bd);
-            ((PrincipalTemporadas) pP).actualizaComboBoxTemporadas();
+            pP.actualizaComboBoxTemporadas();
             this.dispose();
         } catch (SQLException ex) {
             Logger.getLogger(AñadirModificarTemporada.class.getName()).log(Level.SEVERE, null, ex);
@@ -261,7 +258,7 @@ public class AñadirModificarTemporada extends javax.swing.JFrame {
         if (curso != aAnt) {
             try {
                 GestorTemporadas.modificarTemporada(this.bd, curso, aAnt);
-                ((PrincipalTemporadas) pP).actualizaComboBoxTemporadas();
+                pP.actualizaComboBoxTemporadas();
                 this.dispose();
             } catch (SQLException ex) {
                 Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);

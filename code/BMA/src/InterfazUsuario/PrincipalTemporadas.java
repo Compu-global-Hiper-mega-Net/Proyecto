@@ -8,7 +8,6 @@ import GestionDeTemporadas.GestorTemporadas;
 import GestionDeTemporadas.Temporada;
 import ServiciosAlmacenamiento.BaseDatos;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,7 +19,7 @@ import javax.swing.JOptionPane;
  * @author Dell
  */
 public class PrincipalTemporadas extends javax.swing.JFrame {
-    BaseDatos bd;
+    private BaseDatos bd;
     
     /**
      * Creates new form PrincipalTemporadas

@@ -173,11 +173,11 @@ public class PrincipalCategorias extends javax.swing.JFrame {
             int continuar = JOptionPane.showConfirmDialog(this, "¿Desea eliminar la categoria?", "Confirmar", JOptionPane.YES_NO_OPTION);
             if (continuar == JOptionPane.YES_OPTION) {
                 GestorCategorias.EliminarCategorias(this.bd, c);
-            }
-            try {
-                actualizarTabla();
-            } catch (SQLException ex) {
-                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                try {
+                    actualizarTabla();
+                } catch (SQLException ex) {
+                    Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_botonElimCatActionPerformed
