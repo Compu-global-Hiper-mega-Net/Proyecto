@@ -195,40 +195,39 @@ public class NuevoPartido extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(EquipoVisitanteLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ComboEquipo2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                        .addComponent(textHora, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(CrearPartidoLabel)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addComponent(lugarLabel)
+                                .addGap(0, 201, Short.MAX_VALUE)
+                                .addComponent(textHora, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ComboInstalacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(fechaLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fechaPartido, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(horaLabel))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(EquipoLocalLabel)
-                                    .addGap(21, 21, 21)
-                                    .addComponent(ComboEquipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(TemporadaLabel)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(ComboTemporada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(34, 34, 34)
-                                    .addComponent(CategoriaLabel)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(ComboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel1))
+                            .addComponent(ComboEquipo2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(CrearPartidoLabel)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(2, 2, 2)
+                            .addComponent(lugarLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(ComboInstalacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(fechaLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(fechaPartido, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(horaLabel))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(EquipoLocalLabel)
+                            .addGap(21, 21, 21)
+                            .addComponent(ComboEquipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(TemporadaLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(ComboTemporada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(34, 34, 34)
+                            .addComponent(CategoriaLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(ComboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(4, 4, 4)
                 .addComponent(textMin, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
@@ -336,11 +335,22 @@ public class NuevoPartido extends javax.swing.JFrame {
                  * idFundacion, idLiga, etc
                  */
             java.sql.Date sqlDate = new java.sql.Date(fechaPartido.getDate().getTime());
+            int idEquip1 = 0;
+            int idEquip2 = 0;
             try {
-                boolean exito = GestorPartidos.introducirPartido(accesoBD, GestorEquipos.getIdEquipo(accesoBD,ComboEquipo.getSelectedItem().toString(),ComboCategoria.getSelectedItem().toString()), 1,
-                                GestorCategorias.getIdCategoria(accesoBD, ComboCategoria.getSelectedItem().toString()), GestorTemporadas.getIdTemporada(accesoBD, ComboTemporada.getSelectedItem().toString()), 1, 
-                                GestorEquipos.getIdEquipo(accesoBD,ComboEquipo2.getSelectedItem().toString(),ComboCategoria.getSelectedItem().toString()), 1, 
-                                GestorCategorias.getIdCategoria(accesoBD, ComboCategoria.getSelectedItem().toString()), GestorTemporadas.getIdTemporada(accesoBD, ComboTemporada.getSelectedItem().toString()), 1, 
+                idEquip1 = GestorEquipos.getIdEquipo(accesoBD,ComboEquipo.getSelectedItem().toString(),ComboCategoria.getSelectedItem().toString());
+                idEquip2 = GestorEquipos.getIdEquipo(accesoBD,ComboEquipo2.getSelectedItem().toString(),ComboCategoria.getSelectedItem().toString());
+            } catch (SQLException ex) {
+                Logger.getLogger(NuevoPartido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                boolean exito = GestorPartidos.introducirPartido(accesoBD, idEquip1, 
+                                GestorEquipos.getIdFundacionEquipo(accesoBD, idEquip1),
+                                GestorCategorias.getIdCategoria(accesoBD, ComboCategoria.getSelectedItem().toString()), 
+                                GestorTemporadas.getIdTemporada(accesoBD, ComboTemporada.getSelectedItem().toString()), 1, 
+                                idEquip2, GestorEquipos.getIdFundacionEquipo(accesoBD, idEquip2), 
+                                GestorCategorias.getIdCategoria(accesoBD, ComboCategoria.getSelectedItem().toString()), 
+                                GestorTemporadas.getIdTemporada(accesoBD, ComboTemporada.getSelectedItem().toString()), 1, 
                                 sqlDate, convierteHoraTime(textHora.getText(), textMin.getText()), 0, 0);
                 if(exito){
                     JOptionPane.showMessageDialog(null, "Partido creado con exito", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
@@ -550,8 +560,9 @@ public class NuevoPartido extends javax.swing.JFrame {
     private void actualizaComboCategoria(List<List<String>> cats) throws SQLException {
         ComboCategoria.removeAllItems();
         ComboCategoria.addItem("-Categoria-");
-        for(List<String> s : cats)
-            ComboCategoria.addItem(s.get(0));        
+        for(List<String> s : cats){
+            ComboCategoria.addItem(s.get(0));
+        }
     }
     
     private void actualizaComboInstalacion(List<String> insts) throws SQLException {

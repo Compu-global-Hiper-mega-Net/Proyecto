@@ -418,5 +418,19 @@ public class EquipoBD {
         else
             return resSet;
     }
+    
+    public static int getIdFundacionEquipo(BaseDatos accesoBD, int idEq) throws SQLException{
+        int id = 0;
+        String consulta = "SELECT Fundacion_idFundacion FROM equipo WHERE idEquipo = '" + idEq +"';";
+        ResultSet ret = accesoBD.ejecutaConsulta(consulta);
+        try {
+            if (ret.next()) {
+                id = ret.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EquipoBD.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        return id;
+    }
  
 }

@@ -94,7 +94,8 @@ public class CategoriaBD {
         
         while(res.next()){
             aux = new ArrayList<String>();
-            aux.add(res.getString(1)+" "+res.getString(2));
+            aux.add(res.getString(1));
+            aux.add(res.getString(2));
             listaCats.add(aux);
         }
         

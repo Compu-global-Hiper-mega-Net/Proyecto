@@ -45,7 +45,7 @@ public class GestorCategorias {
         return CategoriaBD.getCategoria(accesoBD, idCat);
     }
 
-    public static int getIdCategoria(BaseDatos accesoBD, String categoria) throws SQLException, SQLException, SQLException, SQLException, SQLException {
+    public static int getIdCategoria(BaseDatos accesoBD, String categoria) throws SQLException{
         return CategoriaBD.getIdCategoria(accesoBD, categoria);
     }
 
