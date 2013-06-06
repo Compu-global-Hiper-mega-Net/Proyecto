@@ -196,7 +196,7 @@ class AccesoBDUsuario {
 
     }
 
-    //***************************************JAVI******************************************************//
+ 
     public static ResultSet generarEstadisticas(BaseDatos accesoBD, String nombre, String apellido1, String apellido2, String DNI) throws SQLException {
 
         String consulta;
@@ -206,17 +206,22 @@ class AccesoBDUsuario {
                 + " AND DNI='" + DNI + "' AND entrenador=1";
         ResultSet rst = accesoBD.ejecutaConsulta(consulta);
 
-        if (rst.next()) {
-            int idUsu = rst.getInt(1);
-            consulta = "SELECT fecha, idEquipo ,idEquipoVisitante, resultadoLocal, resultadoVisitante FROM  partido , rango "
-                    + "WHERE Usuario_idUsuario=" + idUsu + " AND Equipo_idEquipo=idEquipo";
-            rst = accesoBD.ejecutaConsulta(consulta);
+        if (!rst.next()) {
+              return null;
         }
+        else{
+              int idUsu = rst.getInt(1);
+              consulta = "SELECT fecha, idEquipo ,idEquipoVisitante, resultadoLocal, resultadoVisitante FROM  partido , rango "
+                       + "WHERE Usuario_idUsuario=" + idUsu + " AND Equipo_idEquipo=idEquipo";
+              rst = accesoBD.ejecutaConsulta(consulta);
 
-        if (!rst.next())
-            return null;
-        else
-            return rst;
+              if (!rst.next())
+                   return null;
+              else{
+                   rst.beforeFirst();
+                   return rst;
+              }        
+        }
     }
-    //***************************************JAVI******************************************************//   
+     
 }
