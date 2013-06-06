@@ -8,6 +8,9 @@ import ServiciosAlmacenamiento.BaseDatos;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -59,6 +62,37 @@ class AccesoBDAlumno {
                 + alumnoNuevo.getCodPostal() + ", '" + alumnoNuevo.getDomicilio() + "', '" + alumnoNuevo.getNombrePadre() + "', '" + alumnoNuevo.getNombreMadre()
                 + "', '" + alumnoNuevo.getCuentaCorriente() + "', '" + alumnoNuevo.getTallaAlumno() + "', " + alumnoNuevo.getTelFijo() + ", " + alumnoNuevo.getTelMovil() +  ", '" + alumnoNuevo.getSexo()+ "' )";
 
+        Date fecha = alumnoNuevo.getFechaNacimiento();
+        Calendar fechasistema = Calendar.getInstance();
+        fechasistema = new GregorianCalendar();
+        String cat_alum;
+            
+        int Edad = fechasistema.get(Calendar.YEAR) - fecha.getYear();
+        
+        if(Edad >= 9 && Edad <= 18)
+        {
+            if(Edad >= 9 && Edad <= 10)
+                cat_alum = "benjamín";
+            
+            if(Edad >= 11 && Edad <= 12)
+                cat_alum = "alevín";
+            
+            if(Edad >= 13 && Edad <= 14)
+                cat_alum = "infantil";
+            
+            if(Edad >= 15 && Edad <= 16)
+                cat_alum = "cadete";
+            
+            if(Edad >= 17 && Edad <= 18)
+                cat_alum = "junior";      
+            
+        }
+        
+        System.out.println(""+fechasistema.get(Calendar.YEAR));
+        
+        String categoriaalumno = "INSERT INTO categoriaalumno (categoria_idCategoria, alumno_idAlumno) VALUES ('";
+        categoriaalumno = categoriaalumno + "";
+        
         System.out.print("\n inser " + inserccion);
         accesoBD.ejecutaActualizacion(inserccion);
     }
