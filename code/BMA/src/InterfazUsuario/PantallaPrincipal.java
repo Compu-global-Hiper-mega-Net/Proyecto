@@ -71,7 +71,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     String consultaUsuariosMostrados;
     String consultaInstalacionesMostradas;
     Border bordeError;
-    String consultaPagosMostrados;
     boolean noEntry;
     int idC, idT;
     Object equipoAnterior1, equipoAnterior2;
@@ -129,6 +128,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jButton11 = new javax.swing.JButton();
         jPanel23 = new javax.swing.JPanel();
         jLabel42 = new javax.swing.JLabel();
+        jPanel24 = new javax.swing.JPanel();
+        jPanel25 = new javax.swing.JPanel();
+        jButton12 = new javax.swing.JButton();
+        jPanel26 = new javax.swing.JPanel();
+        jLabel43 = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
         jPanel19 = new javax.swing.JPanel();
         jButton10 = new javax.swing.JButton();
@@ -202,29 +206,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JSeparator();
         jComboBox1 = new javax.swing.JComboBox();
         verClasificacionEquipos = new javax.swing.JButton();
-        panelPagos = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        pago_temporada = new javax.swing.JComboBox();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        pago_temporadaActividad = new javax.swing.JComboBox();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        pago_nombre = new javax.swing.JTextField();
-        jLabel24 = new javax.swing.JLabel();
-        pago_primer_apellido = new javax.swing.JTextField();
-        jLabel25 = new javax.swing.JLabel();
-        pago_segundo_apellido = new javax.swing.JTextField();
-        pagos_etiqGrupo = new javax.swing.JLabel();
-        pago_grupo = new javax.swing.JComboBox();
-        pagos_botonMostrar = new javax.swing.JButton();
-        pagos_botonDeudores = new javax.swing.JButton();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        tablaPagos = new javax.swing.JTable();
-        pagos_botonModificar = new javax.swing.JButton();
-        pagos_etiqActividad = new javax.swing.JLabel();
-        pagos_actividad = new javax.swing.JTextField();
         PanelPartidos = new javax.swing.JPanel();
         Partidos = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
@@ -250,7 +231,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         menuInicio = new javax.swing.JMenu();
         menuEquipos = new javax.swing.JMenu();
         menuUsuarios = new javax.swing.JMenu();
-        menuPagos = new javax.swing.JMenu();
         menuPartidos = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -342,6 +322,32 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jPanel21.add(jPanel23);
 
         panelInicio.add(jPanel21);
+
+        jPanel24.setLayout(new javax.swing.BoxLayout(jPanel24, javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanel25.setMaximumSize(new java.awt.Dimension(170, 33));
+        jPanel25.setMinimumSize(new java.awt.Dimension(170, 33));
+        jPanel25.setPreferredSize(new java.awt.Dimension(170, 33));
+        jPanel25.setLayout(new java.awt.GridBagLayout());
+
+        jButton12.setText("Pagos");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+        jPanel25.add(jButton12, new java.awt.GridBagConstraints());
+
+        jPanel24.add(jPanel25);
+
+        jPanel26.setLayout(new java.awt.GridBagLayout());
+
+        jLabel43.setText("Esta opción permite gestionar todos los pagos, esto es: modificar o eliminar.");
+        jPanel26.add(jLabel43, new java.awt.GridBagConstraints());
+
+        jPanel24.add(jPanel26);
+
+        panelInicio.add(jPanel24);
 
         jPanel18.setLayout(new javax.swing.BoxLayout(jPanel18, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -836,220 +842,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         getContentPane().add(panelEquipos, new java.awt.GridBagConstraints());
 
-        panelPagos.setVisible(false);
-
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel15.setText("Pagos");
-
-        jLabel9.setText("Buscar Pagos por:");
-
-        pago_temporada.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        pago_temporada.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pago_temporadaActionPerformed(evt);
-            }
-        });
-
-        jLabel14.setText("Temporada");
-
-        jLabel21.setText("Grupos/Actividad");
-
-        pago_temporadaActividad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        pago_temporadaActividad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pago_temporadaActividadActionPerformed(evt);
-            }
-        });
-        pago_temporadaActividad.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Temporada"}));
-
-        pago_temporadaActividad.addItem("Actividad");
-
-        jLabel22.setText("Buscar Pagos por Alumno:");
-
-        jLabel23.setText("Nombre");
-
-        pago_nombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pago_nombreActionPerformed(evt);
-            }
-        });
-
-        jLabel24.setText("Primer Apellido");
-
-        jLabel25.setText("Segundo Apellido");
-
-        pagos_etiqGrupo.setText("Grupos por temporada");
-
-        pago_grupo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        pago_grupo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pago_grupoActionPerformed(evt);
-            }
-        });
-
-        pagos_botonMostrar.setText("Mostrar");
-        pagos_botonMostrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pagos_botonMostrarActionPerformed(evt);
-            }
-        });
-
-        pagos_botonDeudores.setText("Mostrar solo Deudores");
-        pagos_botonDeudores.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pagos_botonDeudoresActionPerformed(evt);
-            }
-        });
-
-        tablaPagos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Nombre", "Primer Apellido", "Segundo Apellido", "Importe", "Fecha", "Pagado/Debido", "Email", "Tel. Fijo", "Tel. Movil", "Temporada"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane6.setViewportView(tablaPagos);
-
-        pagos_botonModificar.setText("Modificar Pago");
-        pagos_botonModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pagos_botonModificarActionPerformed(evt);
-            }
-        });
-
-        pagos_etiqActividad.setText("Nombre de la Actividad");
-        pagos_etiqActividad.setVisible(false);
-
-        pagos_actividad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pagos_actividadActionPerformed(evt);
-            }
-        });
-        pagos_actividad.setVisible(false);
-
-        javax.swing.GroupLayout panelPagosLayout = new javax.swing.GroupLayout(panelPagos);
-        panelPagos.setLayout(panelPagosLayout);
-        panelPagosLayout.setHorizontalGroup(
-            panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelPagosLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pagos_botonModificar)
-                    .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelPagosLayout.createSequentialGroup()
-                            .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel22))
-                            .addGap(68, 68, 68)
-                            .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel23)
-                                .addComponent(pago_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(pago_temporadaActividad, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(23, 23, 23)
-                            .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(pago_primer_apellido, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-                                    .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addComponent(jLabel14)
-                                .addComponent(pago_temporada, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(44, 44, 44)
-                            .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel25)
-                                    .addComponent(pago_segundo_apellido))
-                                .addGroup(panelPagosLayout.createSequentialGroup()
-                                    .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(pagos_etiqGrupo)
-                                        .addComponent(pago_grupo, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(30, 30, 30)
-                                    .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(pagos_actividad)
-                                        .addComponent(pagos_etiqActividad)))))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelPagosLayout.createSequentialGroup()
-                            .addComponent(pagos_botonMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(45, 45, 45)
-                            .addComponent(pagos_botonDeudores))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelPagosLayout.setVerticalGroup(
-            panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelPagosLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jLabel15)
-                .addGap(26, 26, 26)
-                .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
-                    .addGroup(panelPagosLayout.createSequentialGroup()
-                        .addComponent(jLabel21)
-                        .addGap(18, 18, 18)
-                        .addComponent(pago_temporadaActividad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelPagosLayout.createSequentialGroup()
-                        .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel14)
-                            .addComponent(pagos_etiqGrupo)
-                            .addComponent(pagos_etiqActividad))
-                        .addGap(18, 18, 18)
-                        .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(pago_temporada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pago_grupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pagos_actividad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(42, 42, 42)
-                .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel22)
-                    .addComponent(jLabel23)
-                    .addComponent(jLabel24)
-                    .addComponent(jLabel25))
-                .addGap(26, 26, 26)
-                .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pago_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pago_primer_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pago_segundo_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addGroup(panelPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pagos_botonMostrar)
-                    .addComponent(pagos_botonDeudores))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(pagos_botonModificar)
-                .addGap(40, 40, 40))
-        );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        getContentPane().add(panelPagos, gridBagConstraints);
-
         PanelPartidos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         Partidos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -1288,19 +1080,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
         barraMenu.add(menuUsuarios);
-
-        menuPagos.setText("Pagos");
-        menuPagos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuPagosMouseClicked(evt);
-            }
-        });
-        menuPagos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuPagosActionPerformed(evt);
-            }
-        });
-        barraMenu.add(menuPagos);
 
         menuPartidos.setText("Partidos");
         menuPartidos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1918,29 +1697,7 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
             Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_botonNuevoEquipoActionPerformed
-    
-    private void menuPagosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuPagosMouseClicked
-        ocultarPaneles();
-        panelPagos.setVisible(true);
-        ResultSet consulta;
         
-        try {
-            consulta = accesoBD.ejecutaConsulta("SELECT * FROM grupo");
-            pago_grupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
-            while (consulta.next()) {
-                pago_grupo.addItem(consulta.getInt(1));
-            }
-            consulta = accesoBD.ejecutaConsulta("SELECT * FROM temporada");
-            pago_temporada.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
-            while (consulta.next()) {
-                pago_temporada.addItem(consulta.getString("curso"));
-            }
-            
-        } catch (SQLException ex) {
-            System.out.print(ex.getMessage());
-        }
-    }//GEN-LAST:event_menuPagosMouseClicked
-    
     private void botonMostrarEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarEquiposActionPerformed
         try {
             actualizaTablaEquipos();
@@ -1953,512 +1710,7 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
     
     private void botonEliminarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarEquipoActionPerformed
     }//GEN-LAST:event_botonEliminarEquipoActionPerformed
-        
-private void pago_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pago_nombreActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_pago_nombreActionPerformed
-    private String leeConsultaPagosInterfaz() {
-        
-        String consulta_pagos = "SELECT a.nombre, a.primerApellido, a.segundoApellido, a.telMovil, a.telFijo,"
-                + " a.email, cuota.idCuota ";
-        String tablasImplicadas = " FROM alumno a, cuota  ";
-        String condicionesConsulta = " WHERE ";
-        
-        if (pago_temporadaActividad.getSelectedItem().equals("Temporada")) {
-            //consulta por temporada y grupo
-            consulta_pagos += " , temp.importeMensual, cuota.fecha, cuota.pagado, temp.curso ";
-            tablasImplicadas += " , alumnotemporada altemp, pagotemporada pagotemp , temporada temp  ";
-            condicionesConsulta = condicionesConsulta + " altemp.Alumno_idAlumno=a.idAlumno AND "
-                    + "pagotemp.AlumnoTemporada_Alumno_idAlumno=altemp.Alumno_idAlumno AND pagotemp.AlumnoTemporada_Temporada_idTemporada=altemp.Temporada_idTemporada AND"
-                    + " pagotemp.cuota_idCuota=cuota.idCuota AND temp.idTemporada=altemp.Temporada_idTemporada AND ";
-            if (!pago_temporada.getSelectedItem().equals("")) {
-                condicionesConsulta = condicionesConsulta + " temp.curso='" + (String) pago_temporada.getSelectedItem() + "' AND ";
-            }
-            if (!pago_nombre.getText().equals("")) {
-                condicionesConsulta = condicionesConsulta + " a.nombre LIKE'%" + pago_nombre.getText() + "%' AND ";
-            }
-            if (!pago_primer_apellido.getText().equals("")) {
-                condicionesConsulta = condicionesConsulta + " a.primerApellido LIKE'%" + pago_primer_apellido.getText() + "%' AND ";
-            }
-            if (!pago_segundo_apellido.getText().equals("")) {
-                condicionesConsulta = condicionesConsulta + " a.segundoApellido LIKE'%" + pago_segundo_apellido.getText() + "%' AND ";
-            }
-            if (!pago_grupo.getSelectedItem().equals("")) {
-                tablasImplicadas = tablasImplicadas + " , alumnogrupo, grupo ";
-                condicionesConsulta = condicionesConsulta + " alumnogrupo.alumno_idalumno=a.idalumno AND alumnogrupo.grupo_idGrupo=grupo.idGrupo AND grupo.idGrupo=" + (Integer) pago_grupo.getSelectedItem() + " AND ";
-            }
-            condicionesConsulta = condicionesConsulta.substring(0, condicionesConsulta.length() - 4);
-            tablasImplicadas = tablasImplicadas + condicionesConsulta;
-        } else {
-            //Aqui consultamos los pagos de las actividades
-            consulta_pagos += " , act.precioSocio, act.precioNoSocio, cuota.fecha, cuota.pagado, temp.idTemporada, a.idAlumno, temp.curso, act.nombre ";
-            tablasImplicadas += " , pagoactividades pagoact , temporada temp, actividades act ";
-            condicionesConsulta = condicionesConsulta + " pagoact.actividades_idActividades=act.idActividades AND pagoact.alumno_idAlumno=a.idAlumno AND"
-                    + " cuota.idCuota=pagoact.cuota_idCuota AND temp.idTemporada=act.temporada_idTemporada AND ";
-            if (!pago_temporada.getSelectedItem().equals("")) {
-                condicionesConsulta = condicionesConsulta + " temp.curso='" + (String) pago_temporada.getSelectedItem() + "' AND ";
-            }
-            if (!pago_nombre.getText().equals("")) {
-                condicionesConsulta = condicionesConsulta + " a.nombre LIKE'%" + pago_nombre.getText() + "%' AND ";
-            }
-            if (!pago_primer_apellido.getText().equals("")) {
-                condicionesConsulta = condicionesConsulta + " a.primerApellido LIKE'%" + pago_primer_apellido.getText() + "%' AND ";
-            }
-            if (!pago_segundo_apellido.getText().equals("")) {
-                condicionesConsulta = condicionesConsulta + " a.segundoApellido LIKE'%" + pago_segundo_apellido.getText() + "%' AND ";
-            }
-            if (!pagos_actividad.getText().equals("")) {
-                condicionesConsulta = condicionesConsulta + " act.nombre LIKE'%" + pagos_actividad.getText() + "%' AND ";
-            }
-            condicionesConsulta = condicionesConsulta.substring(0, condicionesConsulta.length() - 4);
-            tablasImplicadas = tablasImplicadas + condicionesConsulta;
-            
-        }
-        consulta_pagos = consulta_pagos + tablasImplicadas;
-        
-        return consulta_pagos;
-    }
-    
-private void pagos_botonMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagos_botonMostrarActionPerformed
-    try {
-        String consulta_pagos = leeConsultaPagosInterfaz();
-        consultaPagosMostrados = consulta_pagos;
-        System.out.print("\nLA consulta a " + consulta_pagos + "; ");
-        retset = GestorPagos.consultarPago(accesoBD, consulta_pagos);
-        if (consulta_pagos.indexOf("alumnotemporada") != -1) {
-            tablaPagos.setModel(new javax.swing.table.DefaultTableModel(
-                    new Object[][]{
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
-            },
-                    new String[]{
-                "Nombre", "Primer Apellido", "Segundo Apellido", "Importe", "Fecha", "Pagado/Debido", "Email", "Tel. Fijo", "Tel. Movil", "Temporada"
-            }));
-            javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
-            modelo_tabla = tablaPagos.getModel();
-        } else {
-            tablaPagos.setModel(new javax.swing.table.DefaultTableModel(
-                    new Object[][]{
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
-            },
-                    new String[]{
-                "Nombre", "Primer Apellido", "Segundo Apellido", "Importe", "Fecha", "Pagado/Debido", "Email", "Tel. Fijo", "Tel. Movil", "Temporada", "Actividad"
-            }));
-            javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
-            modelo_tabla = tablaPagos.getModel();
-        }
-        int i = 0;
-        while (retset.next()) {
-            if (i < 20) {
-                tablaPagos.setValueAt(retset.getString("a.nombre"), i, 0);
-                tablaPagos.setValueAt(retset.getString("a.primerApellido"), i, 1);
-                tablaPagos.setValueAt(retset.getString("a.segundoApellido"), i, 2);
-                if (consulta_pagos.indexOf("alumnotemporada") != -1) {
-                    tablaPagos.setValueAt(retset.getFloat("temp.importeMensual"), i, 3);
-                } else {
-                    if (GestorPagos.compruebaSiAlumnoEraSocioEnEsaTemporada(accesoBD, retset.getInt("a.idAlumno"), retset.getInt("temp.idTemporada")) == true) {
-                        tablaPagos.setValueAt(retset.getFloat("act.precioSocio"), i, 3);
-                    } else {
-                        tablaPagos.setValueAt(retset.getFloat("act.precioNoSocio"), i, 3);
-                    }
-                }
-                tablaPagos.setValueAt(retset.getString("cuota.fecha"), i, 4);
-                if (retset.getBoolean("cuota.pagado") == true) {
-                    tablaPagos.setValueAt("Pagado", i, 5);
-                } else {
-                    tablaPagos.setValueAt("Debido", i, 5);
-                }
-                tablaPagos.setValueAt(retset.getString("a.email"), i, 6);
-                tablaPagos.setValueAt(retset.getString("a.telfijo"), i, 7);
-                tablaPagos.setValueAt(retset.getString("a.telmovil"), i, 8);
-                tablaPagos.setValueAt(retset.getString("temp.curso"), i, 9);
-                if (consulta_pagos.indexOf("alumnotemporada") == -1) {
-                    tablaPagos.setValueAt(retset.getString("act.nombre"), i, 10);
-                }
-            } else {
-                javax.swing.table.DefaultTableModel temp = (javax.swing.table.DefaultTableModel) tablaPagos.getModel();
-                Object nuevo[] = {"", "", ""};
-                temp.addRow(nuevo);
-                tablaPagos.setValueAt(retset.getString("a.nombre"), i, 0);
-                tablaPagos.setValueAt(retset.getString("a.primerApellido"), i, 1);
-                tablaPagos.setValueAt(retset.getString("a.segundoApellido"), i, 2);
-                if (consulta_pagos.indexOf("alumnotemporada") != -1) {
-                    tablaPagos.setValueAt(retset.getFloat("temp.importeMensual"), i, 3);
-                } else {
-                    if (GestorPagos.compruebaSiAlumnoEraSocioEnEsaTemporada(accesoBD, retset.getInt("a.idAlumno"), retset.getInt("temp.idTemporada")) == true) {
-                        tablaPagos.setValueAt(retset.getFloat("act.precioSocio"), i, 3);
-                    } else {
-                        tablaPagos.setValueAt(retset.getFloat("act.precioNoSocio"), i, 3);
-                    }
-                }
-                tablaPagos.setValueAt(retset.getString("cuota.fecha"), i, 4);
-                if (retset.getBoolean("cuota.pagado") == true) {
-                    tablaPagos.setValueAt("Pagado", i, 5);
-                } else {
-                    tablaPagos.setValueAt("Debido", i, 5);
-                }
-                tablaPagos.setValueAt(retset.getString("a.email"), i, 6);
-                tablaPagos.setValueAt(retset.getString("a.telfijo"), i, 7);
-                tablaPagos.setValueAt(retset.getString("a.telmovil"), i, 8);
-                tablaPagos.setValueAt(retset.getString("temp.curso"), i, 9);
-                if (consulta_pagos.indexOf("alumnotemporada") == -1) {
-                    tablaPagos.setValueAt(retset.getString("act.nombre"), i, 10);
-                }
-            }
-            i++;
-        }
-    } catch (SQLException ex) {
-        System.out.print(ex.getMessage());
-    }
-    
-}//GEN-LAST:event_pagos_botonMostrarActionPerformed
-    private String leeConsultaPagosDeDeudoresInterfaz() {
-        
-        String consulta_pagos = "SELECT a.nombre, a.primerApellido, a.segundoApellido, a.telMovil, a.telFijo,"
-                + " a.email , cuota.idcuota";
-        String tablasImplicadas = " FROM alumno a, cuota  ";
-        String condicionesConsulta = " WHERE ";
-        
-        if (pago_temporadaActividad.getSelectedItem().equals("Temporada")) {
-            //consulta por temporada y grupo
-            consulta_pagos += " , temp.importeMensual, cuota.fecha, cuota.pagado, temp.curso ";
-            tablasImplicadas += " , alumnotemporada altemp, pagotemporada pagotemp , temporada temp  ";
-            condicionesConsulta = condicionesConsulta + " altemp.Alumno_idAlumno=a.idAlumno AND "
-                    + "pagotemp.AlumnoTemporada_Alumno_idAlumno=altemp.Alumno_idAlumno AND pagotemp.AlumnoTemporada_Temporada_idTemporada=altemp.Temporada_idTemporada AND"
-                    + " pagotemp.cuota_idCuota=cuota.idCuota AND temp.idTemporada=altemp.Temporada_idTemporada AND cuota.pagado=false AND ";
-            if (!pago_temporada.getSelectedItem().equals("")) {
-                condicionesConsulta = condicionesConsulta + " temp.curso='" + (String) pago_temporada.getSelectedItem() + "' AND ";
-            }
-            if (!pago_nombre.getText().equals("")) {
-                condicionesConsulta = condicionesConsulta + " a.nombre LIKE'%" + pago_nombre.getText() + "%' AND ";
-            }
-            if (!pago_primer_apellido.getText().equals("")) {
-                condicionesConsulta = condicionesConsulta + " a.primerApellido LIKE'%" + pago_primer_apellido.getText() + "%' AND ";
-            }
-            if (!pago_segundo_apellido.getText().equals("")) {
-                condicionesConsulta = condicionesConsulta + " a.segundoApellido LIKE'%" + pago_segundo_apellido.getText() + "%' AND ";
-            }
-            if (!pago_grupo.getSelectedItem().equals("")) {
-                tablasImplicadas = tablasImplicadas + " , alumnogrupo, grupo ";
-                condicionesConsulta = condicionesConsulta + " alumnogrupo.alumno_idalumno=a.idalumno AND alumnogrupo.grupo_idGrupo=grupo.idGrupo AND grupo.idGrupo=" + (Integer) pago_grupo.getSelectedItem() + " AND ";
-            }
-            condicionesConsulta = condicionesConsulta.substring(0, condicionesConsulta.length() - 4);
-            tablasImplicadas = tablasImplicadas + condicionesConsulta;
-        } else {
-            //Aqui consultamos los pagos de las actividades
-            consulta_pagos += " , act.precioSocio, act.precioNoSocio, cuota.fecha, cuota.pagado, temp.idTemporada, a.idAlumno, temp.curso, act.nombre ";
-            tablasImplicadas += " , pagoactividades pagoact , temporada temp, actividades act ";
-            condicionesConsulta = condicionesConsulta + " pagoact.actividades_idActividades=act.idActividades AND pagoact.alumno_idAlumno=a.idAlumno AND"
-                    + " cuota.idCuota=pagoact.cuota_idCuota AND temp.idTemporada=act.temporada_idTemporada AND cuota.pagado=false AND ";
-            if (!pago_temporada.getSelectedItem().equals("")) {
-                condicionesConsulta = condicionesConsulta + " temp.curso='" + (String) pago_temporada.getSelectedItem() + "' AND ";
-            }
-            if (!pago_nombre.getText().equals("")) {
-                condicionesConsulta = condicionesConsulta + " a.nombre LIKE'%" + pago_nombre.getText() + "%' AND ";
-            }
-            if (!pago_primer_apellido.getText().equals("")) {
-                condicionesConsulta = condicionesConsulta + " a.primerApellido LIKE'%" + pago_primer_apellido.getText() + "%' AND ";
-            }
-            if (!pago_segundo_apellido.getText().equals("")) {
-                condicionesConsulta = condicionesConsulta + " a.segundoApellido LIKE'%" + pago_segundo_apellido.getText() + "%' AND ";
-            }
-            if (!pagos_actividad.getText().equals("")) {
-                condicionesConsulta = condicionesConsulta + " act.nombre LIKE'%" + pagos_actividad.getText() + "%' AND ";
-            }
-            condicionesConsulta = condicionesConsulta.substring(0, condicionesConsulta.length() - 4);
-            tablasImplicadas = tablasImplicadas + condicionesConsulta;
-            
-        }
-        consulta_pagos = consulta_pagos + tablasImplicadas;
-        
-        return consulta_pagos;
-    }
-private void pagos_botonDeudoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagos_botonDeudoresActionPerformed
-    try {
-        String consulta_pagos = leeConsultaPagosDeDeudoresInterfaz();
-        consultaPagosMostrados = consulta_pagos;
-        System.out.print("\nLA consulta a " + consulta_pagos + "; ");
-        retset = GestorPagos.consultarPago(accesoBD, consulta_pagos);
-        if (consulta_pagos.indexOf("alumnotemporada") != -1) {
-            tablaPagos.setModel(new javax.swing.table.DefaultTableModel(
-                    new Object[][]{
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
-            },
-                    new String[]{
-                "Nombre", "Primer Apellido", "Segundo Apellido", "Importe", "Fecha", "Pagado/Debido", "Email", "Tel. Fijo", "Tel. Movil", "Temporada"
-            }));
-            javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
-            modelo_tabla = tablaPagos.getModel();
-        } else {
-            tablaPagos.setModel(new javax.swing.table.DefaultTableModel(
-                    new Object[][]{
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
-            },
-                    new String[]{
-                "Nombre", "Primer Apellido", "Segundo Apellido", "Importe", "Fecha", "Pagado/Debido", "Email", "Tel. Fijo", "Tel. Movil", "Temporada", "Actividad"
-            }));
-            javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
-            modelo_tabla = tablaPagos.getModel();
-        }
-        int i = 0;
-        while (retset.next()) {
-            if (i < 20) {
-                tablaPagos.setValueAt(retset.getString("a.nombre"), i, 0);
-                tablaPagos.setValueAt(retset.getString("a.primerApellido"), i, 1);
-                tablaPagos.setValueAt(retset.getString("a.segundoApellido"), i, 2);
-                if (consulta_pagos.indexOf("alumnotemporada") != -1) {
-                    tablaPagos.setValueAt(retset.getFloat("temp.importeMensual"), i, 3);
-                } else {
-                    if (GestorPagos.compruebaSiAlumnoEraSocioEnEsaTemporada(accesoBD, retset.getInt("a.idAlumno"), retset.getInt("temp.idTemporada")) == true) {
-                        tablaPagos.setValueAt(retset.getFloat("act.precioSocio"), i, 3);
-                    } else {
-                        tablaPagos.setValueAt(retset.getFloat("act.precioNoSocio"), i, 3);
-                    }
-                }
-                tablaPagos.setValueAt(retset.getString("cuota.fecha"), i, 4);
-                if (retset.getBoolean("cuota.pagado") == true) {
-                    tablaPagos.setValueAt("Pagado", i, 5);
-                } else {
-                    tablaPagos.setValueAt("Debido", i, 5);
-                }
-                tablaPagos.setValueAt(retset.getString("a.email"), i, 6);
-                tablaPagos.setValueAt(retset.getString("a.telfijo"), i, 7);
-                tablaPagos.setValueAt(retset.getString("a.telmovil"), i, 8);
-                tablaPagos.setValueAt(retset.getString("temp.curso"), i, 9);
-                if (consulta_pagos.indexOf("alumnotemporada") == -1) {
-                    tablaPagos.setValueAt(retset.getString("act.nombre"), i, 10);
-                }
-            } else {
-                javax.swing.table.DefaultTableModel temp = (javax.swing.table.DefaultTableModel) tablaPagos.getModel();
-                Object nuevo[] = {"", "", ""};
-                temp.addRow(nuevo);
-                tablaPagos.setValueAt(retset.getString("a.nombre"), i, 0);
-                tablaPagos.setValueAt(retset.getString("a.primerApellido"), i, 1);
-                tablaPagos.setValueAt(retset.getString("a.segundoApellido"), i, 2);
-                if (consulta_pagos.indexOf("alumnotemporada") != -1) {
-                    tablaPagos.setValueAt(retset.getFloat("temp.importeMensual"), i, 3);
-                } else {
-                    if (GestorPagos.compruebaSiAlumnoEraSocioEnEsaTemporada(accesoBD, retset.getInt("a.idAlumno"), retset.getInt("temp.idTemporada")) == true) {
-                        tablaPagos.setValueAt(retset.getFloat("act.precioSocio"), i, 3);
-                    } else {
-                        tablaPagos.setValueAt(retset.getFloat("act.precioNoSocio"), i, 3);
-                    }
-                }
-                tablaPagos.setValueAt(retset.getString("cuota.fecha"), i, 4);
-                if (retset.getBoolean("cuota.pagado") == true) {
-                    tablaPagos.setValueAt("Pagado", i, 5);
-                } else {
-                    tablaPagos.setValueAt("Debido", i, 5);
-                }
-                tablaPagos.setValueAt(retset.getString("a.email"), i, 6);
-                tablaPagos.setValueAt(retset.getString("a.telfijo"), i, 7);
-                tablaPagos.setValueAt(retset.getString("a.telmovil"), i, 8);
-                tablaPagos.setValueAt(retset.getString("temp.curso"), i, 9);
-                if (consulta_pagos.indexOf("alumnotemporada") == -1) {
-                    tablaPagos.setValueAt(retset.getString("act.nombre"), i, 10);
-                }
-            }
-            i++;
-        }
-    } catch (SQLException ex) {
-        System.out.print(ex.getMessage());
-    }
-    
-}//GEN-LAST:event_pagos_botonDeudoresActionPerformed
-    
-private void pagos_botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagos_botonModificarActionPerformed
-    if (tablaPagos.getSelectedRow() == -1) {
-        JOptionPane.showMessageDialog(null,
-                "No ha seleccionado ningún pago", "Error",
-                JOptionPane.ERROR_MESSAGE);
-    } else {
-        int posTabla = tablaPagos.getSelectedRow();
-        
-        try {
-            ResultSet pagosMostrados = GestorPagos.consultarPago(accesoBD, consultaPagosMostrados);
-            int i = 0;
-            while (i <= posTabla) {
-                pagosMostrados.next();
-                i++;
-            }
-            int idcuota = pagosMostrados.getInt("cuota.idCuota");
-            System.out.print("\n Hemos cogido el idCuota que vale " + idcuota);
-            
-            if (consultaPagosMostrados.indexOf("alumnotemporada") != -1) {
-                new ModificarPago(accesoBD, idcuota, pagosMostrados.getString("a.nombre"), pagosMostrados.getString("a.primerApellido"),
-                        pagosMostrados.getString("a.segundoApellido"), pagosMostrados.getString("temp.curso"), pagosMostrados.getString("cuota.fecha"),
-                        pagosMostrados.getBoolean("cuota.pagado")).setVisible(true);
-                if (consultaPagosMostrados.indexOf("pagado=false") != -1) {
-                    System.out.print("\nESTAMOS EN 1");
-                    pagos_botonDeudoresActionPerformed(null);
-                } else {
-                    System.out.print("\nESTAMOS EN 2");
-                    pagos_botonMostrarActionPerformed(null);
-                }
-            } else {
-                new ModificarPago(accesoBD, idcuota, pagosMostrados.getString("a.nombre"), pagosMostrados.getString("a.primerApellido"),
-                        pagosMostrados.getString("a.segundoApellido"), pagosMostrados.getString("temp.curso"), pagosMostrados.getString("cuota.fecha"),
-                        pagosMostrados.getBoolean("cuota.pagado"), pagosMostrados.getString("act.nombre")).setVisible(true);
-                if (consultaPagosMostrados.indexOf("pagado=false") != -1) {
-                    System.out.print("\nESTAMOS EN 3");
-                    pagos_botonDeudoresActionPerformed(null);
-                } else {
-                    System.out.print("\nESTAMOS EN 4");
-                    pagos_botonMostrarActionPerformed(null);
-                }
-            }
-        } catch (SQLException ex) {
-            System.out.print(ex.getMessage());
-        }
-    }
-    
-    
-}//GEN-LAST:event_pagos_botonModificarActionPerformed
-    
-private void menuPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPagosActionPerformed
-    panelPagos.setVisible(true);
-    ResultSet consulta;
-    
-    try {
-        consulta = accesoBD.ejecutaConsulta("SELECT * FROM grupo");
-        pago_grupo = new javax.swing.JComboBox();
-        pago_grupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
-        while (consulta.next()) {
-            pago_grupo.addItem(consulta.getInt(1));
-        }
-        consulta = accesoBD.ejecutaConsulta("SELECT * FROM temporada");
-        pago_temporada.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
-        while (consulta.next()) {
-            pago_temporada.addItem(consulta.getString("curso"));
-        }
-        
-    } catch (SQLException ex) {
-        System.out.print(ex.getMessage());
-    }
-}//GEN-LAST:event_menuPagosActionPerformed
-    
-private void pago_temporadaActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pago_temporadaActividadActionPerformed
-    if (pago_temporadaActividad.getSelectedItem().equals("Temporada")) {
-        pagos_etiqActividad.setVisible(false);
-        pagos_actividad.setVisible(false);
-        pagos_etiqGrupo.setVisible(true);
-        pago_grupo.setVisible(true);
-    } else {
-        pagos_etiqActividad.setVisible(true);
-        pagos_actividad.setVisible(true);
-        pagos_etiqGrupo.setVisible(false);
-        pago_grupo.setVisible(false);
-    }
-}//GEN-LAST:event_pago_temporadaActividadActionPerformed
-    
-private void pago_grupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pago_grupoActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_pago_grupoActionPerformed
-    
-private void pago_temporadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pago_temporadaActionPerformed
-    
-    ResultSet consulta;
-    try {
-        if (!pago_temporada.getSelectedItem().equals("")) {
-            consulta = accesoBD.ejecutaConsulta("SELECT * FROM grupo, temporada WHERE grupo.Temporada_idTemporada=temporada.idTemporada AND temporada.curso='" + (String) pago_temporada.getSelectedItem() + "'");
-            pago_grupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
-            while (consulta.next()) {
-                System.out.println("\nconsulta.next()" + consulta.getInt(1));
-                pago_grupo.addItem(consulta.getInt(1));
-            }
-        } else {
-            consulta = accesoBD.ejecutaConsulta("SELECT * FROM grupo");
-            pago_grupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
-            while (consulta.next()) {
-                pago_grupo.addItem(consulta.getInt(1));
-            }
-        }
-    } catch (SQLException ex) {
-        System.out.print(ex.getMessage());
-    }
-    
-    
-}//GEN-LAST:event_pago_temporadaActionPerformed
-    
-private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagos_actividadActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_pagos_actividadActionPerformed
-    
+                                            
     private void menuPartidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuPartidosMouseClicked
         // TODO add your handling code here:
         ocultarPaneles();
@@ -2879,8 +2131,12 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
+        new PrincipalActividades(this, this.accesoBD).setVisible(true);
     }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        new PrincipalPagos(this, this.accesoBD).setVisible(true);
+    }//GEN-LAST:event_jButton12ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonJPartido;
@@ -2920,6 +2176,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private com.toedter.calendar.JDateChooser fechaPartido;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
@@ -2932,17 +2189,10 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
@@ -2960,8 +2210,8 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -2978,6 +2228,9 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel23;
+    private javax.swing.JPanel jPanel24;
+    private javax.swing.JPanel jPanel25;
+    private javax.swing.JPanel jPanel26;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -2986,7 +2239,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator6;
@@ -2994,27 +2246,12 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JLabel labelNumeroEquipos;
     private javax.swing.JMenu menuEquipos;
     private javax.swing.JMenu menuInicio;
-    private javax.swing.JMenu menuPagos;
     private javax.swing.JMenu menuPartidos;
     private javax.swing.JMenu menuUsuarios;
-    private javax.swing.JComboBox pago_grupo;
-    private javax.swing.JTextField pago_nombre;
-    private javax.swing.JTextField pago_primer_apellido;
-    private javax.swing.JTextField pago_segundo_apellido;
-    private javax.swing.JComboBox pago_temporada;
-    private javax.swing.JComboBox pago_temporadaActividad;
-    private javax.swing.JTextField pagos_actividad;
-    private javax.swing.JButton pagos_botonDeudores;
-    private javax.swing.JButton pagos_botonModificar;
-    private javax.swing.JButton pagos_botonMostrar;
-    private javax.swing.JLabel pagos_etiqActividad;
-    private javax.swing.JLabel pagos_etiqGrupo;
     private javax.swing.JPanel panelEquipos;
     private javax.swing.JPanel panelInicio;
-    private javax.swing.JPanel panelPagos;
     private javax.swing.JPanel panelUsuarios;
     private javax.swing.JTable tablaEquipos;
-    private javax.swing.JTable tablaPagos;
     private javax.swing.JTable tablaPartidos;
     private javax.swing.JTable tablaUsuarios;
     private javax.swing.JTextField textEntEquipo;
@@ -3030,7 +2267,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         panelInicio.setVisible(false);
         panelUsuarios.setVisible(false);
         panelEquipos.setVisible(false);
-        panelPagos.setVisible(false);
         PanelPartidos.setVisible(false);
     }
     
