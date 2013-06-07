@@ -128,7 +128,7 @@ public class TemporadaBD {
         return temp;
     }
     
-    //***************************************JAVI******************************************************//  
+
     public static ResultSet generaEstadisticasTemporada(BaseDatos accesoBD,int idTemp, int idCate)throws SQLException{
         
         String consulta = "SELECT e.nombre,  u.nombre, u.primerApellido, u.segundoApellido, SUM(p.resultadoLocal) FROM equipo e, usuario u, rango r, partido p " +
@@ -139,10 +139,12 @@ public class TemporadaBD {
        
         if (!resSet.next())
             return null;
-        else
+        else{
+            resSet.beforeFirst();
             return resSet;
+        }    
     }
-    //***************************************JAVI******************************************************//  
+   
 
     static int modificarTemporada(BaseDatos accesoBD, String cursoAnterior, Temporada t) throws SQLException {
         int correcto = 0;

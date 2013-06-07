@@ -415,8 +415,10 @@ public class EquipoBD {
         
         if (!resSet.next())
             return null;
-        else
+        else{
+            resSet.beforeFirst();
             return resSet;
+        }    
     }
  
 }

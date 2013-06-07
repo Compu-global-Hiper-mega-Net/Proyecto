@@ -37,12 +37,28 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="botonMostrarClasificacion" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="-2" pref="668" max="-2" attributes="0"/>
+                      <Component id="mostrarGraficasLiga" min="-2" pref="96" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="botonSalir" min="-2" pref="92" max="-2" attributes="0"/>
-                      <Component id="panelTabClasificacion" min="-2" pref="921" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="panelTabClasificacion" alignment="1" min="-2" pref="921" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="28" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="estadisticasPartidosJugados" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+              <Component id="estadisticasPartidosGanados" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+              <Component id="estadisticasPartidosPerdidos" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+              <Component id="estadisticasPuntosFavor" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+              <Component id="estadisticasPuntosContra" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -58,9 +74,20 @@
                   <Component id="botonMostrarClasificacion" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-              <Component id="panelTabClasificacion" min="-2" pref="314" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-              <Component id="botonSalir" min="-2" max="-2" attributes="0"/>
+              <Component id="panelTabClasificacion" min="-2" pref="271" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="estadisticasPuntosContra" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="estadisticasPuntosFavor" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="estadisticasPartidosPerdidos" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="estadisticasPartidosGanados" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="estadisticasPartidosJugados" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="botonSalir" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="mostrarGraficasLiga" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -110,7 +137,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="tablaClasificacion">
+        <Component class="javax.swing.JTable" name="tablaEstadisticasClasificacion">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -118,7 +145,7 @@
               </Border>
             </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="7" rowCount="25">
+              <Table columnCount="7" rowCount="20">
                 <Column editable="true" title="Posicion" type="java.lang.Integer"/>
                 <Column editable="true" title="Nombre equipo" type="java.lang.String"/>
                 <Column editable="true" title="Partidos jugados" type="java.lang.Integer"/>
@@ -194,6 +221,39 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonMostrarClasificacionActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="mostrarGraficasLiga">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ver Graficas"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mostrarGraficasLigaActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="estadisticasPuntosContra">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Datos Graficas"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="estadisticasPuntosFavor">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Datos Graficas"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="estadisticasPartidosPerdidos">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Datos Graficas"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="estadisticasPartidosGanados">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Datos Graficas"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="estadisticasPartidosJugados">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Datos Graficas"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
