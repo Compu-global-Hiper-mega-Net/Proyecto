@@ -7,8 +7,9 @@ package GestionDePartidos;
 import java.sql.Time;
 import java.util.Date;
 /**
- *
- * @author Julio
+ * Clase Partido
+ * @author Julio Ros Martínez
+ * @version 1.0
  */
 /*
  ******************************************************************************

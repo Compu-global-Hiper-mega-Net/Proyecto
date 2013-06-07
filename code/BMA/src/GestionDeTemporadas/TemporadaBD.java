@@ -265,7 +265,7 @@ public class TemporadaBD {
      */
     static String getInicio(BaseDatos bd, String curso) throws SQLException {
         String query = "SELECT inicio FROM Temporada "
-                + "WHERE curos='"+curso+"'";
+                + "WHERE curso='"+curso+"'";
         ResultSet res = bd.ejecutaConsulta(query);
         
         String i = null;
@@ -284,7 +284,7 @@ public class TemporadaBD {
      */
     static String getFin(BaseDatos bd, String curso) throws SQLException {
         String query = "SELECT fin FROM Temporada "
-                + "WHERE curos='"+curso+"'";
+                + "WHERE curso='"+curso+"'";
         ResultSet res = bd.ejecutaConsulta(query);
         
         String f = null;

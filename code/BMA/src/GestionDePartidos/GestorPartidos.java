@@ -10,8 +10,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *
- * @author Julio
+ * Clase encargada de la gestión de los partidos
+ * @author Julio Ros Martínez
+ * @version 1.0
  */
 /*
  ******************************************************************************
