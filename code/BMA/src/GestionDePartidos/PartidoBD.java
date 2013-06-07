@@ -80,6 +80,8 @@ public class PartidoBD {
                 + " AND idEquipo= '"+ eqL + "'"
                 + " AND idEquipoVisitante= '"+ eqV + "'";
         
+        System.out.println(query);
+        
         ResultSet res = accesoBD.ejecutaConsulta(query);
        
         int idPart = 0;
@@ -224,33 +226,18 @@ public class PartidoBD {
         return exito;
     }
 
-    public static void eliminarPartidoBD(BaseDatos accesoBD, Partido nuevoPartido) {
-        String selId = new String();
-
-        selId = "SELECT i.idPartido FROM Partido i WHERE i.fecha= \""
-                + nuevoPartido.getFecha()
-                + "AND i.hora = '" + nuevoPartido.getHora() + "\");";
-
-        System.out.println("Consulta eliminar " + selId);
-        ResultSet retset;
-        try {
-            retset = accesoBD.ejecutaConsulta(selId);
-            if (retset.next()) {
-                nuevoPartido.setIdPartido(retset.getInt("idPartido"));
-            }
-        } catch (SQLException ex) {
-            System.out.print(ex.getMessage());
-        }
-
-        String delete = "DELETE FROM Instalacion WHERE idInstalacion = "
-                + nuevoPartido.getIdPartido();
+    public static void eliminarPartidoBD(BaseDatos accesoBD, Partido nuevoPartido) throws SQLException {
+        int idPartido = getIdPartido(accesoBD, nuevoPartido.getFecha().toString(), nuevoPartido.getHora().toString(),nuevoPartido.getIdEquipoLocal(), nuevoPartido.getIdEquipoVisitante());
+        
+        String delete = "DELETE FROM partido WHERE idPartido = "
+                + idPartido;
         
             boolean exito = accesoBD.eliminar(delete);
             if (!exito) {
                 JOptionPane.showMessageDialog(null, "Ha habido un error en la base de datos",
                         "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(null, "Instalacion Eliminada",
+                JOptionPane.showMessageDialog(null, "Partido Eliminado con éxito",
                         "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
             }
         

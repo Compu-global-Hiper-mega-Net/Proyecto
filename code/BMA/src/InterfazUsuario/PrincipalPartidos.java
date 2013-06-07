@@ -8,13 +8,20 @@ import GestionDeCategorias.GestorCategorias;
 import GestionDeEquipos.GestorEquipos;
 import GestionDeInstalaciones.GestorInstalacion;
 import GestionDePartidos.GestorPartidos;
+import GestionDePartidos.Partido;
+import GestionDePartidos.PartidoBD;
 import GestionDeTemporadas.GestorTemporadas;
 import ServiciosAlmacenamiento.BaseDatos;
 import com.toedter.calendar.JTextFieldDateEditor;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -72,7 +79,7 @@ public class PrincipalPartidos extends javax.swing.JFrame {
         jScrollPane8 = new javax.swing.JScrollPane();
         tablaPartidos = new javax.swing.JTable();
         BotonModificarPartido = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        botonEliminarPartido = new javax.swing.JButton();
         BotonJPartido = new javax.swing.JButton();
         jSeparator6 = new javax.swing.JSeparator();
         BotonNPartido = new javax.swing.JButton();
@@ -130,10 +137,10 @@ public class PrincipalPartidos extends javax.swing.JFrame {
             }
         });
 
-        jButton9.setText("Eliminar Partido");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        botonEliminarPartido.setText("Eliminar Partido");
+        botonEliminarPartido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                botonEliminarPartidoActionPerformed(evt);
             }
         });
 
@@ -224,7 +231,7 @@ public class PrincipalPartidos extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(BotonModificarPartido)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton9))
+                                .addComponent(botonEliminarPartido))
                             .addGroup(PanelPartidosLayout.createSequentialGroup()
                                 .addComponent(botonMostrarPartidos)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -295,7 +302,7 @@ public class PrincipalPartidos extends javax.swing.JFrame {
                 .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BotonNPartido)
                     .addComponent(BotonModificarPartido)
-                    .addComponent(jButton9))
+                    .addComponent(botonEliminarPartido))
                 .addContainerGap())
         );
 
@@ -371,9 +378,50 @@ public class PrincipalPartidos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BotonModificarPartidoActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
+    private void botonEliminarPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarPartidoActionPerformed
+        // TODO add your handling code here:        
+        try {  
+            int iTablaPartido = tablaPartidos.getSelectedRow();
+            if (iTablaPartido == -1) {
+                JOptionPane.showMessageDialog(this, "Debes seleccionar un Partido", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                int idEquipoLocal, idEquipoLocalFundacion, idEquipoLocalCategoria, idEquipoLocalTemporada,
+                        idEquipoLocalLiga, idEquipoVisitante, idEquipoVisitanteFundacion, idEquipoVisitanteCategoria, 
+                        idEquipoVisitanteTemporada, idEquipoVisitanteLiga;
+                Date fecha;
+                Time hora;
+                
+                idEquipoLocalCategoria = GestorCategorias.getIdCategoria(accesoBD, tablaPartidos.getValueAt(iTablaPartido, 2).toString());
+                idEquipoLocal = GestorEquipos.getIdEquipo(accesoBD, tablaPartidos.getValueAt(iTablaPartido, 4).toString(), tablaPartidos.getValueAt(iTablaPartido, 2).toString());
+                idEquipoLocalFundacion = GestorEquipos.getIdFundacionEquipo(accesoBD, idEquipoLocal);
+                idEquipoLocalTemporada = GestorTemporadas.getIdTemporada(accesoBD, tablaPartidos.getValueAt(iTablaPartido, 3).toString());
+                idEquipoLocalLiga = 1;
+                idEquipoVisitante = GestorEquipos.getIdEquipo(accesoBD, tablaPartidos.getValueAt(iTablaPartido, 5).toString(), tablaPartidos.getValueAt(iTablaPartido, 2).toString());
+                idEquipoVisitanteFundacion = GestorEquipos.getIdFundacionEquipo(accesoBD, idEquipoVisitante);
+                idEquipoVisitanteCategoria = GestorCategorias.getIdCategoria(accesoBD, tablaPartidos.getValueAt(iTablaPartido, 2).toString());
+                idEquipoVisitanteTemporada = GestorTemporadas.getIdTemporada(accesoBD, tablaPartidos.getValueAt(iTablaPartido, 3).toString());
+                idEquipoVisitanteLiga = 1;
+                fecha = (Date) strToDate(tablaPartidos.getValueAt(iTablaPartido, 0).toString());
+                hora = strToTime(tablaPartidos.getValueAt(iTablaPartido, 1).toString());
+
+               Partido p = new Partido(idEquipoLocal, idEquipoLocalFundacion,
+               idEquipoLocalCategoria, idEquipoLocalTemporada, idEquipoLocalLiga, idEquipoVisitante,
+               idEquipoVisitanteFundacion, idEquipoVisitanteCategoria, idEquipoVisitanteTemporada, 
+               idEquipoVisitanteLiga, fecha, hora, 0,0);
+
+               int continuar = JOptionPane.showConfirmDialog(this, "¿Desea eliminar el partido?", "Confirmar", JOptionPane.YES_NO_OPTION);
+               if (continuar == JOptionPane.YES_OPTION) {
+                   PartidoBD.eliminarPartidoBD(accesoBD, p);
+                   actualizaTablaPartidos();
+
+               }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PrincipalPartidos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(PrincipalPartidos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_botonEliminarPartidoActionPerformed
 
     private void BotonJPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonJPartidoActionPerformed
         new JugarPartido().setVisible(true);
@@ -743,6 +791,24 @@ public class PrincipalPartidos extends javax.swing.JFrame {
         cats = GestorCategorias.getListaCategorias(accesoBD);
         return cats;
     }
+    
+    private java.util.Date strToDate(String str) throws ParseException{
+        java.sql.Date dat = null;
+        
+        SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd", new Locale("es","ES"));
+        dat = new java.sql.Date(sdf.parse(str).getTime());
+        
+        return dat;
+    }
+    
+    private java.sql.Time strToTime(String str) throws ParseException{
+        java.sql.Time tim = null;
+        
+        SimpleDateFormat sdf = new java.text.SimpleDateFormat("hh:mm", new Locale("es","ES"));
+        tim = new java.sql.Time(sdf.parse(str).getTime());
+        
+        return tim;
+    }
         
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonJPartido;
@@ -750,6 +816,7 @@ public class PrincipalPartidos extends javax.swing.JFrame {
     private javax.swing.JButton BotonNPartido;
     private javax.swing.JPanel PanelPartidos;
     private javax.swing.JLabel Partidos;
+    private javax.swing.JButton botonEliminarPartido;
     private javax.swing.JButton botonFiltrarPartido;
     private javax.swing.JButton botonMostrarPartidos;
     private javax.swing.JComboBox comboCategoriaPartidos;
@@ -758,7 +825,6 @@ public class PrincipalPartidos extends javax.swing.JFrame {
     private javax.swing.JComboBox comboTemporadaPartidos;
     private com.toedter.calendar.JDateChooser fechaPartido;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;

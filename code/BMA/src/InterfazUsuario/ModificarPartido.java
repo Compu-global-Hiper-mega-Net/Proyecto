@@ -604,7 +604,7 @@ public class ModificarPartido extends javax.swing.JFrame {
         java.sql.Time horaDate = null;
         
         try{
-            SimpleDateFormat sdf = new java.text.SimpleDateFormat("hh:mm", new Locale("es","ES"));
+            SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH:mm", new Locale("es","ES"));
             horaDate = new java.sql.Time(sdf.parse(hora).getTime());
             
         } catch(Exception e){
