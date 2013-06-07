@@ -129,6 +129,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jPanel14 = new javax.swing.JPanel();
         jLabel32 = new javax.swing.JLabel();
+        jPanel18 = new javax.swing.JPanel();
+        jPanel19 = new javax.swing.JPanel();
+        jButton10 = new javax.swing.JButton();
+        jPanel20 = new javax.swing.JPanel();
+        jLabel41 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
@@ -174,23 +179,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         botonEliminarUsuario = new javax.swing.JButton();
         errorEliminarUsuario = new javax.swing.JLabel();
         verEstadisticasEntrenador = new javax.swing.JButton();
-        panelInstalaciones = new javax.swing.JPanel();
-        TituloLabel = new javax.swing.JLabel();
-        BuscarporLabel = new javax.swing.JLabel();
-        NombreInsLabel = new javax.swing.JLabel();
-        nombreIns = new javax.swing.JTextField();
-        nombreCalleInst = new javax.swing.JTextField();
-        MenuDireccionLabel = new javax.swing.JComboBox();
-        NumeroLabel = new javax.swing.JLabel();
-        numeroInst = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        capacidadInst = new javax.swing.JTextField();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tablaInstalacion = new javax.swing.JTable();
-        introducirButton = new javax.swing.JButton();
-        modificarButton = new javax.swing.JButton();
-        eliminarButton = new javax.swing.JButton();
         panelEquipos = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -280,7 +268,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         menuUsuarios = new javax.swing.JMenu();
         menuActividades = new javax.swing.JMenu();
         menuPagos = new javax.swing.JMenu();
-        menuInstalaciones = new javax.swing.JMenu();
         menuPartidos = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -346,6 +333,32 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jPanel12.add(jPanel14);
 
         panelInicio.add(jPanel12);
+
+        jPanel18.setLayout(new javax.swing.BoxLayout(jPanel18, javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanel19.setMaximumSize(new java.awt.Dimension(170, 33));
+        jPanel19.setMinimumSize(new java.awt.Dimension(170, 33));
+        jPanel19.setPreferredSize(new java.awt.Dimension(170, 33));
+        jPanel19.setLayout(new java.awt.GridBagLayout());
+
+        jButton10.setText("Instalaciones");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+        jPanel19.add(jButton10, new java.awt.GridBagConstraints());
+
+        jPanel18.add(jPanel19);
+
+        jPanel20.setLayout(new java.awt.GridBagLayout());
+
+        jLabel41.setText("Esta opción permite gestionar todos los instalaciones, esto es: insertar, modificar o eliminar.");
+        jPanel20.add(jLabel41, new java.awt.GridBagConstraints());
+
+        jPanel18.add(jPanel20);
+
+        panelInicio.add(jPanel18);
 
         jPanel9.setLayout(new javax.swing.BoxLayout(jPanel9, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -614,173 +627,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(22, 0, 22, 0);
         getContentPane().add(panelUsuarios, gridBagConstraints);
-
-        panelInstalaciones.setVisible(false);
-        panelInstalaciones.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        panelInstalaciones.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
-        TituloLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        TituloLabel.setText("Instalaciones");
-
-        BuscarporLabel.setText("Buscar instalacion");
-
-        NombreInsLabel.setText("Nombre");
-
-        nombreIns.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                nombreInsKeyTyped(evt);
-            }
-        });
-
-        nombreCalleInst.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                nombreCalleInstKeyTyped(evt);
-            }
-        });
-
-        MenuDireccionLabel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "Calle", "Avenida", "Plaza", "Carretera" }));
-        MenuDireccionLabel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuDireccionLabelActionPerformed(evt);
-            }
-        });
-
-        NumeroLabel.setText("Nº");
-
-        jLabel5.setText("Direccion");
-
-        jLabel6.setText("Capacidad");
-
-        capacidadInst.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                capacidadInstActionPerformed(evt);
-            }
-        });
-        capacidadInst.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                capacidadInstKeyTyped(evt);
-            }
-        });
-
-        tablaInstalacion.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "nombre", "Direccion", "Capacidad"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane3.setViewportView(tablaInstalacion);
-
-        introducirButton.setText("Introducir");
-        introducirButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                introducirButtonActionPerformed(evt);
-            }
-        });
-
-        modificarButton.setText("Modificar");
-        modificarButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                modificarButtonActionPerformed(evt);
-            }
-        });
-
-        eliminarButton.setText("Eliminar");
-        eliminarButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eliminarButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelInstalacionesLayout = new javax.swing.GroupLayout(panelInstalaciones);
-        panelInstalaciones.setLayout(panelInstalacionesLayout);
-        panelInstalacionesLayout.setHorizontalGroup(
-            panelInstalacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelInstalacionesLayout.createSequentialGroup()
-                .addGroup(panelInstalacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelInstalacionesLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(panelInstalacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BuscarporLabel)
-                            .addComponent(TituloLabel)))
-                    .addGroup(panelInstalacionesLayout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(NombreInsLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nombreIns, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelInstalacionesLayout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addGroup(panelInstalacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelInstalacionesLayout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(capacidadInst, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(17, 17, 17)
-                                .addComponent(introducirButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(modificarButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(eliminarButton))
-                            .addGroup(panelInstalacionesLayout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(MenuDireccionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(nombreCalleInst, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(NumeroLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(numeroInst, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(panelInstalacionesLayout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelInstalacionesLayout.setVerticalGroup(
-            panelInstalacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelInstalacionesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(TituloLabel)
-                .addGap(39, 39, 39)
-                .addComponent(BuscarporLabel)
-                .addGap(25, 25, 25)
-                .addGroup(panelInstalacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(NombreInsLabel)
-                    .addComponent(nombreIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
-                .addGroup(panelInstalacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nombreCalleInst, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MenuDireccionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(NumeroLabel)
-                    .addComponent(numeroInst, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(10, 10, 10)
-                .addGroup(panelInstalacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(capacidadInst, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(introducirButton)
-                    .addComponent(modificarButton)
-                    .addComponent(eliminarButton))
-                .addGap(38, 38, 38)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        getContentPane().add(panelInstalaciones, gridBagConstraints);
 
         panelEquipos.setVisible(false);
 
@@ -1195,7 +1041,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         getContentPane().add(panelPagos, gridBagConstraints);
 
-        panelInstalaciones.setVisible(false);
         panelActividades.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         panelActividades.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         panelActividades.setMinimumSize(new java.awt.Dimension(1300, 640));
@@ -1322,7 +1167,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(Modificar))
                                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(1421, Short.MAX_VALUE))
+                .addContainerGap(1093, Short.MAX_VALUE))
         );
         panelActividadesLayout.setVerticalGroup(
             panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1352,7 +1197,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGroup(panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AñaridAlumno)
                     .addComponent(Informacion))
-                .addContainerGap(655, Short.MAX_VALUE))
+                .addContainerGap(471, Short.MAX_VALUE))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1620,19 +1465,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
         barraMenu.add(menuPagos);
-
-        menuInstalaciones.setText("Instalaciones");
-        menuInstalaciones.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuInstalacionesMouseClicked(evt);
-            }
-        });
-        menuInstalaciones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuInstalacionesActionPerformed(evt);
-            }
-        });
-        barraMenu.add(menuInstalaciones);
 
         menuPartidos.setText("Partidos");
         menuPartidos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -2207,178 +2039,10 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
         }
     }
 }//GEN-LAST:event_botonEliminarUsuarioActionPerformed
+            
     
-    private void menuInstalacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuInstalacionesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuInstalacionesActionPerformed
     
-    private void menuInstalacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuInstalacionesMouseClicked
-        // TODO add your handling code here:
-        ocultarPaneles();
-        panelInstalaciones.setVisible(true);
-        ActualizarTabla();
-    }//GEN-LAST:event_menuInstalacionesMouseClicked
-    
-    public void ActualizarTabla() {
-        
-        tablaInstalacion.removeAll();
-        try {
-            String consulta_instalaciones = leeConsultaInstalacionInterfaz();
-            consultaInstalacionesMostradas = consulta_instalaciones;
-            System.out.print("\nLA consulta a " + consulta_instalaciones + "  y qui termina");
-            retset = GestorInstalacion.consultaInstalacion(accesoBD, consulta_instalaciones);
-            ocultarMensajesError();
-            tablaInstalacion.setModel(new javax.swing.table.DefaultTableModel(
-                    new Object[][]{
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-                    new String[]{
-                "Nombre", "Direccion", "Capacidad para Equipos"
-            }));
-            javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
-            modelo_tabla = tablaInstalacion.getModel();
-            int i = 0;
-            
-            while (retset.next()) {
-                
-                
-                if (i < 25) {
-                    tablaInstalacion.setValueAt(retset.getString("i.nombre"), i, 0);
-                    tablaInstalacion.setValueAt(retset.getString("i.localizacion"), i, 1);
-                    tablaInstalacion.setValueAt(retset.getString("i.capacidadEquipos"), i, 2);
-                } else {
-                    javax.swing.table.DefaultTableModel temp = (javax.swing.table.DefaultTableModel) tablaInstalacion.getModel();
-                    Object nuevo[] = {"", "", ""};
-                    temp.addRow(nuevo);
-                    tablaInstalacion.setValueAt(retset.getString("i.nombre"), i, 0);
-                    tablaInstalacion.setValueAt(retset.getString("i.localizacion"), i, 1);
-                    tablaInstalacion.setValueAt(retset.getString("i.capacidadEquipos"), i, 2);
-                }
-                i++;
-                
-            }
-            
-        } catch (SQLException ex) {
-            System.out.print(ex.getMessage());
-        }
-    }
-    
-    protected String leeConsultaInstalacionInterfaz() {
-        String consulta_instalaciones = "SELECT i.idInstalacion, i.nombre, i.capacidadEquipos, i.localizacion FROM ";
-        String TablasImplicadas = " Instalacion i ";
-        String condicionConsulta = " WHERE ";
-        
-        if (!nombreIns.getText().equals("") || MenuDireccionLabel.getSelectedItem() != "-" || !nombreCalleInst.getText().equals("")
-                || !numeroInst.getText().equals("") || !capacidadInst.getText().equals("")) {
-            if (!nombreIns.getText().equals("")) {
-                condicionConsulta = condicionConsulta + " i.nombre= '" + nombreIns.getText() + "' AND ";
-            }
-            
-            if (!capacidadInst.getText().equals("")) {
-                condicionConsulta = condicionConsulta + " i.capacidadEquipos = '" + capacidadInst.getText() + "' AND ";
-            }
-            if (MenuDireccionLabel.getSelectedItem() != "-" || !nombreCalleInst.getText().equals("") || !numeroInst.getText().equals("")) {
-                condicionConsulta = condicionConsulta + " i.localizacion= '" + MenuDireccionLabel.getSelectedItem() + " " + nombreCalleInst.getText()
-                        + " " + numeroInst.getText() + "' AND ";
-            }
-            
-            
-            condicionConsulta = condicionConsulta.substring(0, condicionConsulta.length() - 4);
-            TablasImplicadas = TablasImplicadas + condicionConsulta;
-        }
-        
-        
-        consulta_instalaciones = consulta_instalaciones + TablasImplicadas;
-        
-        return consulta_instalaciones;
-        
-    }
-    private void introducirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_introducirButtonActionPerformed
-        // TODO add your handling code here:
-        new AltaInstalacion(accesoBD, this).setVisible(true);
-        
-    }//GEN-LAST:event_introducirButtonActionPerformed
-    
-    private void capacidadInstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_capacidadInstActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_capacidadInstActionPerformed
-    
-    private void MenuDireccionLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuDireccionLabelActionPerformed
-        // TODO add your handling code here
-    }//GEN-LAST:event_MenuDireccionLabelActionPerformed
-    
-    private void modificarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarButtonActionPerformed
-        // TODO add your handling code here:
-        ResultSet retsetMostrados;
-        
-        int idInstalacion;
-        
-        int indiceTabla = tablaInstalacion.getSelectedRow();
-        
-        System.out.print("\n" + indiceTabla);
-        
-        if (indiceTabla >= 0) {
-            
-            String consulta_instalacion = "SELECT idInstalacion FROM Instalacion"
-                    + " WHERE nombre = \"" + tablaInstalacion.getValueAt(indiceTabla, 0)
-                    + "\" AND capacidadEquipos = \'" + Integer.parseInt(tablaInstalacion.getValueAt(indiceTabla, 2).toString())
-                    + "\' AND localizacion = \"" + tablaInstalacion.getValueAt(indiceTabla, 1)
-                    + "\"";
-            
-            System.out.println("\nConsulta idInstalacion " + consulta_instalacion);
-            
-            
-            
-            retsetMostrados = accesoBD.ejecutaConsulta(consulta_instalacion);
-            try {
-                if (retsetMostrados.next()) {
-                    idInstalacion = retsetMostrados.getInt("idInstalacion");
-                    new ModificarInstalacion(accesoBD, tablaInstalacion.getValueAt(indiceTabla, 0).toString(),
-                            tablaInstalacion.getValueAt(indiceTabla, 2).toString(),
-                            tablaInstalacion.getValueAt(indiceTabla, 1).toString(), idInstalacion, this).setVisible(true);
-                }
-                
-                
-            } catch (SQLException ex) {
-                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-
-            //System.out.println("\n idInstalacion " + idInstalacion);
-            System.out.println("\n retsetMostrados " + retsetMostrados);
-            /* new ModificarInstalacion(accesoBD, tablaInstalacion.getValueAt(indiceTabla, 0).toString(),
-             tablaInstalacion.getValueAt(indiceTabla, 2).toString(), 
-             tablaInstalacion.getValueAt(indiceTabla, 1).toString(), idInstalacion).setVisible(true);
-             */
-        } else if (indiceTabla == -1) {
-            JOptionPane.showMessageDialog(this, "No se ha seleccionado ninguna instalacion", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_modificarButtonActionPerformed
-    
+                    
     private void menuActividadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuActividadesMouseClicked
         // TODO add your handling code here:
         ocultarPaneles();
@@ -2441,30 +2105,7 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
         }
         return idTemporada;
     }
-    
-    private void eliminarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarButtonActionPerformed
         
-        String error = "";
-        
-        int indiceTabla = tablaInstalacion.getSelectedRow();
-        if (indiceTabla >= 0) {
-            int selection = JOptionPane.showConfirmDialog(this, "Desea eliminar la Instalacion?", "Instalacion usuario", JOptionPane.YES_NO_OPTION);
-            if (selection == JOptionPane.YES_OPTION) {
-                if (Integer.parseInt(tablaInstalacion.getValueAt(indiceTabla, 2).toString()) <= 0) {
-                    error = "Numero de capacidad menor o igual que cero";
-                    eliminarButton.setBorder(bordeError);
-                }
-                GestorInstalacion.eliminaInstalacion(accesoBD, tablaInstalacion.getValueAt(indiceTabla, 0).toString(),
-                        Integer.parseInt(tablaInstalacion.getValueAt(indiceTabla, 2).toString()),
-                        tablaInstalacion.getValueAt(indiceTabla, 1).toString());
-                
-            }
-        } else if (indiceTabla == -1) {
-            JOptionPane.showMessageDialog(this, "No se ha seleccionado ninguna instalacion", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        ActualizarTabla();
-    }//GEN-LAST:event_eliminarButtonActionPerformed
-    
     private String leeConsultaActividad() {
         
         
@@ -3199,22 +2840,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         noEntry = false;
         PanelPartidos.setVisible(true);
     }//GEN-LAST:event_menuPartidosMouseClicked
-    
-    private void nombreInsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreInsKeyTyped
-        // TODO add your handling code here:
-        consultarInstalaciones();
-    }//GEN-LAST:event_nombreInsKeyTyped
-    
-    private void nombreCalleInstKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreCalleInstKeyTyped
-        // TODO add your handling code here:
-        consultarInstalaciones();
-    }//GEN-LAST:event_nombreCalleInstKeyTyped
-    
-    private void capacidadInstKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_capacidadInstKeyTyped
-        // TODO add your handling code here:
-        consultarInstalaciones();
-    }//GEN-LAST:event_capacidadInstKeyTyped
-    
+                
     private void nombreTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreTextFieldKeyTyped
         // TODO add your handling code here:
         if (!nombreTextField.getText().isEmpty()) {
@@ -3267,7 +2893,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
                         actividadesTable.setValueAt(retset.getString("fechaInicio"), i, 1);
                         actividadesTable.setValueAt(retset.getString("fechaFin"), i, 2);
                     } else {
-                        javax.swing.table.DefaultTableModel temp = (javax.swing.table.DefaultTableModel) tablaInstalacion.getModel();
+                        javax.swing.table.DefaultTableModel temp = new javax.swing.table.DefaultTableModel();
                         Object nuevo[] = {"", "", ""};
                         temp.addRow(nuevo);
                         actividadesTable.setValueAt(retset.getString("nombre"), i, 0);
@@ -3337,7 +2963,8 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
                     actividadesTable.setValueAt(retset.getString("fechaInicio"), i, 1);
                     actividadesTable.setValueAt(retset.getString("fechaFin"), i, 2);
                 } else {
-                    javax.swing.table.DefaultTableModel temp = (javax.swing.table.DefaultTableModel) tablaInstalacion.getModel();
+                    
+                        javax.swing.table.DefaultTableModel temp = new javax.swing.table.DefaultTableModel();
                     Object nuevo[] = {"", "", ""};
                     temp.addRow(nuevo);
                     actividadesTable.setValueAt(retset.getString("nombre"), i, 0);
@@ -3745,22 +3372,21 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         new PrincipalJugadores(this, this.accesoBD).setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
 
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        new PrincipalInstalaciones(this, this.accesoBD).setVisible(true);
+    }//GEN-LAST:event_jButton10ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AñaridAlumno;
     private javax.swing.JButton BotonJPartido;
     private javax.swing.JButton BotonModificarPartido;
     private javax.swing.JButton BotonNPartido;
-    private javax.swing.JLabel BuscarporLabel;
     private javax.swing.JButton Eliminar;
     private javax.swing.JButton Informacion;
     private javax.swing.JButton Insertar;
-    private javax.swing.JComboBox MenuDireccionLabel;
     private javax.swing.JButton Modificar;
-    private javax.swing.JLabel NombreInsLabel;
-    private javax.swing.JLabel NumeroLabel;
     private javax.swing.JPanel PanelPartidos;
     private javax.swing.JLabel Partidos;
-    private javax.swing.JLabel TituloLabel;
     private javax.swing.JLabel actividadesLabel;
     private javax.swing.JTable actividadesTable;
     private javax.swing.JMenuBar barraMenu;
@@ -3777,7 +3403,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JButton botonNuevoUsuario;
     private javax.swing.JButton boton_mostrar_Usuarios;
     private javax.swing.JLabel buscarLabel;
-    private javax.swing.JTextField capacidadInst;
     private javax.swing.JButton cerrarSesion;
     private javax.swing.JComboBox comboCatEquipo;
     private javax.swing.JComboBox comboCategoriaPartidos;
@@ -3791,7 +3416,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JComboBox consultaGrupoUsuario;
     private javax.swing.JComboBox consultaTemporadaUsuario;
     private javax.swing.JButton deshacerCambiosUsuario;
-    private javax.swing.JButton eliminarButton;
     private javax.swing.JLabel errorEliminarUsuario;
     private javax.swing.JLabel errorModifFijoUsuario;
     private javax.swing.JLabel errorModifMovilUsuario;
@@ -3800,7 +3424,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private com.toedter.calendar.JDateChooser fechaInicioDateChooser;
     private javax.swing.JLabel fechaInicioLabel;
     private com.toedter.calendar.JDateChooser fechaPartido;
-    private javax.swing.JButton introducirButton;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
@@ -3839,8 +3463,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel40;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -3852,7 +3475,10 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -3860,7 +3486,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
@@ -3872,16 +3497,11 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JMenu menuActividades;
     private javax.swing.JMenu menuEquipos;
     private javax.swing.JMenu menuInicio;
-    private javax.swing.JMenu menuInstalaciones;
     private javax.swing.JMenu menuPagos;
     private javax.swing.JMenu menuPartidos;
     private javax.swing.JMenu menuUsuarios;
-    private javax.swing.JButton modificarButton;
-    private javax.swing.JTextField nombreCalleInst;
-    private javax.swing.JTextField nombreIns;
     private javax.swing.JLabel nombreLabel;
     private javax.swing.JTextField nombreTextField;
-    private javax.swing.JTextField numeroInst;
     private javax.swing.JComboBox pago_grupo;
     private javax.swing.JTextField pago_nombre;
     private javax.swing.JTextField pago_primer_apellido;
@@ -3897,11 +3517,9 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JPanel panelActividades;
     private javax.swing.JPanel panelEquipos;
     private javax.swing.JPanel panelInicio;
-    private javax.swing.JPanel panelInstalaciones;
     private javax.swing.JPanel panelPagos;
     private javax.swing.JPanel panelUsuarios;
     private javax.swing.JTable tablaEquipos;
-    private javax.swing.JTable tablaInstalacion;
     private javax.swing.JTable tablaPagos;
     private javax.swing.JTable tablaPartidos;
     private javax.swing.JTable tablaUsuarios;
@@ -3917,7 +3535,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private void ocultarPaneles() {
         panelInicio.setVisible(false);
         panelUsuarios.setVisible(false);
-        panelInstalaciones.setVisible(false);
         panelActividades.setVisible(false);
         panelEquipos.setVisible(false);
         panelPagos.setVisible(false);
@@ -4186,7 +3803,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
                     actividadesTable.setValueAt(retset.getString("a.fechaInicio"), i, 1);
                     actividadesTable.setValueAt(retset.getString("a.fechaFin"), i, 2);
                 } else {
-                    javax.swing.table.DefaultTableModel temp = (javax.swing.table.DefaultTableModel) tablaInstalacion.getModel();
+                    javax.swing.table.DefaultTableModel temp = new javax.swing.table.DefaultTableModel();
                     Object nuevo[] = {"", "", ""};
                     temp.addRow(nuevo);
                     actividadesTable.setValueAt(retset.getString("a.nombre"), i, 0);
@@ -4207,130 +3824,5 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     
     List<String> getListaInstalaciones(String s) throws SQLException {
         return GestorInstalacion.getListaInstalaciones(accesoBD);
-    }
-    
-    private void consultarInstalaciones() {
-        
-        String consulta = "SELECT nombre, capacidadEquipos, localizacion FROM"
-                + " Instalacion";
-        String where = " WHERE ";
-        String likeNombre = "";
-        String likeDireccion = "";
-        String likeCapacidad = "";
-        
-        
-        if (!nombreIns.getText().equals("") || !nombreCalleInst.getSelectedText().equals("")
-                || !(nombreCalleInst.getText() + " " + numeroInst.getText()).equals("") || !capacidadInst.getText().equals("")) {
-            
-            if (!nombreIns.getText().equals("")) {
-                likeNombre = "nombre LIKE '%";
-                likeNombre = likeNombre + nombreIns.getText() + "'% AND ";
-            }
-            
-            if (!nombreCalleInst.getSelectedText().equals("") && (nombreCalleInst.getText() + " " + numeroInst.getText()).equals("")) {
-                likeDireccion = "localizacion LIKE '%";
-                likeDireccion = likeDireccion + nombreCalleInst.getSelectedText() + "'% AND ";
-            }
-            
-            if (!(nombreCalleInst.getText() + " " + numeroInst.getText()).equals("") && nombreCalleInst.getSelectedText().equals("")) {
-                likeDireccion = "localizacion LIKE '%";
-                likeDireccion = likeDireccion + nombreCalleInst.getText() + " " + numeroInst.getText() + "'% AND ";
-            }
-            
-            if (nombreCalleInst.getSelectedText().equals("") && (nombreCalleInst.getText() + " " + numeroInst.getText()).equals("")) {
-                likeDireccion = "localizacion LIKE '%";
-                likeDireccion = likeDireccion + nombreCalleInst.getSelectedText() + " "
-                        + nombreCalleInst.getText() + " " + numeroInst.getText() + "'% AND ";                
-            }
-            
-            if (!capacidadInst.getText().equals("")) {
-                likeCapacidad = "capacidadEquipos LIKE '%";
-                likeCapacidad = likeCapacidad + capacidadInst.getText() + "'% AND ";
-            }
-            
-            if (!nombreIns.getText().equals("") || !nombreCalleInst.getSelectedText().equals("")
-                    || !(nombreCalleInst.getText() + " " + numeroInst.getText()).equals("") || !capacidadInst.getText().equals("")) {
-                
-                consulta = consulta + where;
-                
-                if (!likeNombre.equals("")) {
-                    consulta = consulta + likeNombre;
-                }
-                
-                if (!likeDireccion.equals("")) {
-                    consulta = consulta + likeDireccion;
-                }
-                
-                if (!likeCapacidad.equals("")) {
-                    consulta = consulta + likeCapacidad;
-                }
-            }
-            
-            consulta = consulta.substring(0, consulta.length() - 4);
-            
-        }
-        
-        System.out.println("\nConsultaGuapisima " + consulta + "\n");
-        
-        ResultSet ret;
-        
-        ret = accesoBD.ejecutaConsulta(consulta);
-        
-        tablaInstalacion.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
-            {null, null, null, null},
-            {null, null, null, null},
-            {null, null, null, null},
-            {null, null, null, null},
-            {null, null, null, null},
-            {null, null, null, null},
-            {null, null, null, null},
-            {null, null, null, null},
-            {null, null, null, null},
-            {null, null, null, null},
-            {null, null, null, null},
-            {null, null, null, null},
-            {null, null, null, null},
-            {null, null, null, null},
-            {null, null, null, null},
-            {null, null, null, null},
-            {null, null, null, null},
-            {null, null, null, null},
-            {null, null, null, null},
-            {null, null, null, null},
-            {null, null, null, null},
-            {null, null, null, null},
-            {null, null, null, null},
-            {null, null, null, null},
-            {null, null, null, null}
-        },
-                new String[]{
-            "Nombre", "Direccion", "Capacidad para Equipos"
-        }));
-        javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
-        modelo_tabla = tablaInstalacion.getModel();
-        int i = 0;
-        try {
-            while (ret.next()) {
-                
-                
-                if (i < 25) {
-                    tablaInstalacion.setValueAt(ret.getString("nombre"), i, 0);
-                    tablaInstalacion.setValueAt(ret.getString("localizacion"), i, 1);
-                    tablaInstalacion.setValueAt(ret.getString("capacidadEquipos"), i, 2);
-                } else {
-                    javax.swing.table.DefaultTableModel temp = (javax.swing.table.DefaultTableModel) tablaInstalacion.getModel();
-                    Object nuevo[] = {"", "", ""};
-                    temp.addRow(nuevo);
-                    tablaInstalacion.setValueAt(ret.getString("nombre"), i, 0);
-                    tablaInstalacion.setValueAt(ret.getString("localizacion"), i, 1);
-                    tablaInstalacion.setValueAt(ret.getString("capacidadEquipos"), i, 2);
-                }
-                i++;
-                
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 }

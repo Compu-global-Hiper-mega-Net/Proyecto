@@ -136,18 +136,9 @@ public class PrincipalJugadores extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Primer Apellido", "Segundo Apellido", "Fecha Nacimiento", "Sexo", "Talla", "Domicilio", "Localidad", "CP", "Provincia", "Colegio", "Nombre Padre", "Nombre Madre", "Tel. Fijo", "Tel. Movil", "Email", "Numero Cuenta"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
             }
-        });
-        tablaAlumnos.setColumnSelectionAllowed(true);
+        ));
         panelResulAl.setViewportView(tablaAlumnos);
 
         edadAlLabel.setText("Edad:");
@@ -342,7 +333,6 @@ public class PrincipalJugadores extends javax.swing.JFrame {
 
     private void botonNuevoAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoAlumnoActionPerformed
         new AñadirModificarAlumno(this, this.bd).setVisible(true);
-        actualizarTabla();
     }//GEN-LAST:event_botonNuevoAlumnoActionPerformed
 
     private void estadisticasJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estadisticasJugadorActionPerformed
@@ -403,7 +393,6 @@ public class PrincipalJugadores extends javax.swing.JFrame {
             String s = (String) tablaAlumnos.getValueAt(filaSel, 4);
             new AñadirModificarAlumno(this, this.bd, n, pA, sA, f, c, d, l, Integer.parseInt(cP), p, co, nP, nM,
                     Integer.parseInt(tF), Integer.parseInt(tM), e, t, s).setVisible(true);
-            actualizarTabla();
         }
     }//GEN-LAST:event_botonModificarActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -438,7 +427,7 @@ public class PrincipalJugadores extends javax.swing.JFrame {
     private javax.swing.JLabel temporadaLabel;
     // End of variables declaration//GEN-END:variables
 
-    private void actualizarTabla() {
+    public void actualizarTabla() {
         try {
             String consulta_alumnos = leeConsultaAlumnosInterfaz();
             ResultSet retset = GestorAlumnos.consultarAlumno(this.bd, consulta_alumnos);

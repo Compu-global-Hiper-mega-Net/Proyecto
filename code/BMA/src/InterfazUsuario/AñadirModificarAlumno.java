@@ -714,6 +714,8 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Alumno creado con exito",
                         "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
+
+                pP.actualizarTabla();
             }
             this.dispose();
         } else {
@@ -865,6 +867,7 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
                         ((String) sexoAlumno.getSelectedItem()).substring(0, 1));
                 JOptionPane.showMessageDialog(null, "Alumno modificado con exito",
                         "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
+                pP.actualizarTabla();
             }
         }
     }//GEN-LAST:event_botonModificarActionPerformed
