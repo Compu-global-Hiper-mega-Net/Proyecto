@@ -61,7 +61,7 @@ public class Grupo {
     private List<Alumno> alumnos;
     private Horario horario;
     
-    private Usuario entrenador;
+    private Usuario entrenador = new Usuario();
     private Instalacion instalacion;
 
     //static void Modificar(Grupo g) {
@@ -246,6 +246,22 @@ public class Grupo {
      */
     String getIdGrupo() {
         return Integer.toString(this.idGrupo);
+    }
+
+    int getIdInstalacion() {
+        return this.instalacion.getIdInstalacion();
+    }
+
+    String getIdCategoria() {
+        return this.categoria.getIdCategoria();
+    }
+
+    int getIdEntrenador() {
+        return this.entrenador.getIdEntrenador();
+    }
+
+    int getIdTemporada() {
+        return this.temporada.getIdTemporada();
     }
 
     

@@ -61,11 +61,7 @@ public class NuevoPartido extends javax.swing.JFrame {
         
         List<List<String>> categorias = new ArrayList<>();
         categorias = principal.getListaCategorias();
-        actualizaComboCategoria(categorias);  
-        
-        List<String> instalaciones = new ArrayList<>();
-        instalaciones = principal.getListaInstalaciones(null);
-        actualizaComboInstalacion(instalaciones);
+        actualizaComboCategoria(categorias);
         
         idCat = idTemp = 0;
         List<String> equipos = new ArrayList<>();
@@ -100,8 +96,6 @@ public class NuevoPartido extends javax.swing.JFrame {
         fechaPartido = new com.toedter.calendar.JDateChooser();
         horaLabel = new javax.swing.JLabel();
         textHora = new javax.swing.JTextField();
-        lugarLabel = new javax.swing.JLabel();
-        ComboInstalacion = new javax.swing.JComboBox();
         Cancelar = new javax.swing.JButton();
         Guardar = new javax.swing.JButton();
         textMin = new javax.swing.JTextField();
@@ -162,8 +156,6 @@ public class NuevoPartido extends javax.swing.JFrame {
             }
         });
 
-        lugarLabel.setText("Lugar: ");
-
         Cancelar.setText("Cancelar");
         Cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,11 +197,6 @@ public class NuevoPartido extends javax.swing.JFrame {
                             .addComponent(ComboEquipo2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(CrearPartidoLabel)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(2, 2, 2)
-                            .addComponent(lugarLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(ComboInstalacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(fechaLabel)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -262,11 +249,7 @@ public class NuevoPartido extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(fechaLabel)
                             .addComponent(fechaPartido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lugarLabel)
-                    .addComponent(ComboInstalacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Cancelar)
                     .addComponent(Guardar))
@@ -323,18 +306,11 @@ public class NuevoPartido extends javax.swing.JFrame {
             error = true;
             mensajeError += "-Error en los campos de la hora\n";
         }
-        if(ComboInstalacion.getSelectedItem() == "-Instalacion-"){
-            error = true;
-            mensajeError += "-No se ha introducido Instalación\n";
-        }
         /*
          * Fin Comprobacion de Errores
          */
         
-        if(!error){            
-                /*Revisar esta insercion por:
-                 * idFundacion, idLiga, etc
-                 */
+        if(!error){
             java.sql.Date sqlDate = new java.sql.Date(fechaPartido.getDate().getTime());
             int idEquip1 = 0;
             int idEquip2 = 0;
@@ -348,10 +324,10 @@ public class NuevoPartido extends javax.swing.JFrame {
                 boolean exito = GestorPartidos.introducirPartido(accesoBD, idEquip1, 
                                 GestorEquipos.getIdFundacionEquipo(accesoBD, idEquip1),
                                 GestorCategorias.getIdCategoria(accesoBD, ComboCategoria.getSelectedItem().toString()), 
-                                GestorTemporadas.getIdTemporada(accesoBD, ComboTemporada.getSelectedItem().toString()), 1, 
+                                GestorTemporadas.getIdTemporada(accesoBD, ComboTemporada.getSelectedItem().toString()), GestorEquipos.getIdLigaEquipo(accesoBD, idEquip1), 
                                 idEquip2, GestorEquipos.getIdFundacionEquipo(accesoBD, idEquip2), 
                                 GestorCategorias.getIdCategoria(accesoBD, ComboCategoria.getSelectedItem().toString()), 
-                                GestorTemporadas.getIdTemporada(accesoBD, ComboTemporada.getSelectedItem().toString()), 1, 
+                                GestorTemporadas.getIdTemporada(accesoBD, ComboTemporada.getSelectedItem().toString()), GestorEquipos.getIdLigaEquipo(accesoBD, idEquip2), 
                                 sqlDate, convierteHoraTime(textHora.getText(), textMin.getText()), 0, 0);
                 if(exito){
                     JOptionPane.showMessageDialog(null, "Partido creado con exito", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
@@ -363,8 +339,7 @@ public class NuevoPartido extends javax.swing.JFrame {
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(NuevoPartido.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
+            }            
             this.setVisible(false);
         } else{
             JOptionPane.showMessageDialog(this, mensajeError, "Error", JOptionPane.ERROR_MESSAGE);
@@ -373,7 +348,7 @@ public class NuevoPartido extends javax.swing.JFrame {
 
     private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_CancelarActionPerformed
 
     private void ComboEquipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboEquipoItemStateChanged
@@ -501,7 +476,6 @@ public class NuevoPartido extends javax.swing.JFrame {
     private javax.swing.JComboBox ComboCategoria;
     private javax.swing.JComboBox ComboEquipo;
     private javax.swing.JComboBox ComboEquipo2;
-    private javax.swing.JComboBox ComboInstalacion;
     private javax.swing.JComboBox ComboTemporada;
     private javax.swing.JLabel CrearPartidoLabel;
     private javax.swing.JLabel EquipoLocalLabel;
@@ -512,7 +486,6 @@ public class NuevoPartido extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser fechaPartido;
     private javax.swing.JLabel horaLabel;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel lugarLabel;
     private javax.swing.JTextField textHora;
     private javax.swing.JTextField textMin;
     // End of variables declaration//GEN-END:variables
@@ -530,13 +503,6 @@ public class NuevoPartido extends javax.swing.JFrame {
         for(List<String> s : cats){
             ComboCategoria.addItem(s.get(0));
         }
-    }
-    
-    private void actualizaComboInstalacion(List<String> insts) throws SQLException {
-        ComboInstalacion.removeAllItems();
-        ComboInstalacion.addItem("-Instalacion-");
-        for(String s : insts)
-            ComboInstalacion.addItem(s);
     }
     
     private void actualizaComboEquipo(List<String> equipos, int numEquipo) throws SQLException {
@@ -558,7 +524,7 @@ public class NuevoPartido extends javax.swing.JFrame {
         java.sql.Time horaDate = null;
         
         try{
-            SimpleDateFormat sdf = new java.text.SimpleDateFormat("hh:mm", new Locale("es","ES"));
+            SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH:mm", new Locale("es","ES"));
             horaDate = new java.sql.Time(sdf.parse(hora).getTime());
             
         } catch(Exception e){

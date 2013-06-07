@@ -132,6 +132,10 @@ public class Temporada {
     double getImporte() {
         return this.importeMensual;
     }
+
+    public int getIdTemporada() {
+        return this.idTemporada;
+    }
     
     
 }

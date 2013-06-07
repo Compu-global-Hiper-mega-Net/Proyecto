@@ -73,10 +73,14 @@ public class PartidoBD {
     }
     
     
-    static int getIdPartido(BaseDatos accesoBD, Date fch, Time hr) throws SQLException {
+    static int getIdPartido(BaseDatos accesoBD, String fch, String hr, int eqL, int eqV) throws SQLException {
         String query = "SELECT idPartido FROM Partido WHERE "
                 + "fecha='" + fch + "'"
-                + " AND hora='"+ hr + "'";
+                + " AND hora='"+ hr + "'"
+                + " AND idEquipo= '"+ eqL + "'"
+                + " AND idEquipoVisitante= '"+ eqV + "'";
+        
+        System.out.println(query);
         
         ResultSet res = accesoBD.ejecutaConsulta(query);
        
@@ -189,27 +193,28 @@ public class PartidoBD {
         return retset;
     }
        
-    public static boolean modificarDatosPartidoBD(BaseDatos accesoBD, int idPartido,
-            Date fecha, Time hora, int resultadoLocal, int resultadoVisitante) {
+    public static boolean modificarDatosPartidoBD(BaseDatos accesoBD, int idEquipoLocal, int idEquipoLocalFundacion,
+           int idEquipoLocalCategoria, int idEquipoLocalTemporada, int idEquipoLocalLiga, int idEquipoVisitante,
+           int idEquipoVisitanteFundacion, int idEquipoVisitanteCategoria, int idEquipoVisitanteTemporada, 
+           int idEquipoVisitanteLiga, Date fecha, Time hora, int idPart) {
 
         boolean exito = true;
-        String actualizacion = "UPDATE Partido SET ";
-
-        if (fecha != null) {
-            actualizacion = actualizacion + "fecha = \"" + fecha + "\" , ";
-        }
-        if (hora != null) {
-            actualizacion = actualizacion + "hora = " + hora + " , ";
-        }
-        if (resultadoLocal != 0) {
-            actualizacion = actualizacion + "resultadoLocal = \"" + resultadoLocal + "\" , ";
-        }
-        if (resultadoVisitante != 0) {
-            actualizacion = actualizacion + "resultadoVisitante = \"" + resultadoVisitante + "\" , ";
-        }
-
-        actualizacion = actualizacion.substring(0, actualizacion.length() - 2);
-        actualizacion = actualizacion + " WHERE idPartido= " + idPartido;
+        String actualizacion = "UPDATE Partido SET"
+                +" idEquipo= '"+ idEquipoLocal + "',"
+                +" equipo_Fundacion_idFundacion= '"+ idEquipoLocalFundacion + "',"
+                +" equipo_Categoria_idCategoria= '"+ idEquipoLocalCategoria + "',"
+                +" equipo_Temporada_idTemporada= '"+ idEquipoLocalTemporada + "',"
+                +" equipo_liga_idLiga= '"+  idEquipoLocalLiga + "',"
+                +" idEquipoVisitante= '"+ idEquipoVisitante + "',"
+                +" equipo_Fundacion_idFundacion1= '"+ idEquipoVisitanteFundacion + "',"
+                +" equipo_Categoria_idCategoria1= '"+ idEquipoVisitanteCategoria + "',"
+                +" equipo_Temporada_idTemporada= '"+ idEquipoVisitanteTemporada + "',"
+                +" equipo_liga_idLiga1= '"+ idEquipoVisitanteLiga + "',"
+                +" fecha= '"+ fecha + "',"
+                +" hora= '"+ hora + "'"
+                +" WHERE idPartido= "+ idPart;
+        
+        System.out.println(actualizacion);
 
         try {
             accesoBD.ejecutaActualizacion(actualizacion);
@@ -221,33 +226,18 @@ public class PartidoBD {
         return exito;
     }
 
-    public static void eliminarPartidoBD(BaseDatos accesoBD, Partido nuevoPartido) {
-        String selId = new String();
-
-        selId = "SELECT i.idPartido FROM Partido i WHERE i.fecha= \""
-                + nuevoPartido.getFecha()
-                + "AND i.hora = '" + nuevoPartido.getHora() + "\");";
-
-        System.out.println("Consulta eliminar " + selId);
-        ResultSet retset;
-        try {
-            retset = accesoBD.ejecutaConsulta(selId);
-            if (retset.next()) {
-                nuevoPartido.setIdPartido(retset.getInt("idPartido"));
-            }
-        } catch (SQLException ex) {
-            System.out.print(ex.getMessage());
-        }
-
-        String delete = "DELETE FROM Instalacion WHERE idInstalacion = "
-                + nuevoPartido.getIdPartido();
+    public static void eliminarPartidoBD(BaseDatos accesoBD, Partido nuevoPartido) throws SQLException {
+        int idPartido = getIdPartido(accesoBD, nuevoPartido.getFecha().toString(), nuevoPartido.getHora().toString(),nuevoPartido.getIdEquipoLocal(), nuevoPartido.getIdEquipoVisitante());
+        
+        String delete = "DELETE FROM partido WHERE idPartido = "
+                + idPartido;
         
             boolean exito = accesoBD.eliminar(delete);
             if (!exito) {
                 JOptionPane.showMessageDialog(null, "Ha habido un error en la base de datos",
                         "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(null, "Instalacion Eliminada",
+                JOptionPane.showMessageDialog(null, "Partido Eliminado con éxito",
                         "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
             }
         

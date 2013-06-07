@@ -7,7 +7,11 @@ package GestionActividades;
 import ServiciosAlmacenamiento.BaseDatos;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -19,36 +23,35 @@ import javax.swing.JOptionPane;
 
 /*
  ******************************************************************************
-                   (c) Copyright 2013 
-                   * 
-                   * Moisés Gautier Gómez
-                   * Julio Ros Martínez
-                   * Francisco Javier Gómez del Olmo
-                   * Francisco Santolalla Quiñonero
-                   * Carlos Jesús Fernández Basso
-                   * Alexander Moreno Borrego
-                   * Jesús Manuel Contreras Siles
-                   * Diego Muñoz Rio
+ (c) Copyright 2013 
+ * 
+ * Moisés Gautier Gómez
+ * Julio Ros Martínez
+ * Francisco Javier Gómez del Olmo
+ * Francisco Santolalla Quiñonero
+ * Carlos Jesús Fernández Basso
+ * Alexander Moreno Borrego
+ * Jesús Manuel Contreras Siles
+ * Diego Muñoz Rio
  
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************
  */
-
 public class AccesoBDActividad {
 
     public static void insertarActividadBD(BaseDatos accesoBD, Actividad nuevaActividad) throws SQLException {
-        String fechaInicioString = String.format("%1$tY-%1$tm-%1$td",nuevaActividad.getFechaInicio());
+        String fechaInicioString = String.format("%1$tY-%1$tm-%1$td", nuevaActividad.getFechaInicio());
         String fechaFinString = String.format("%1$tY-%1$tm-%1$td", nuevaActividad.getFechaFin());
         String insercion = "INSERT INTO actividades ("
                 + "nAlumnos, descripcion, precioSocio, precioNoSocio, Temporada_idTemporada, fechaInicio"
@@ -61,7 +64,7 @@ public class AccesoBDActividad {
 
         System.out.print("\n inser " + insercion);
         accesoBD.ejecutaActualizacion(insercion);
-        
+
     }
 
     public ResultSet consultaActividadBD(BaseDatos accesoBD, String consulta) {
@@ -105,7 +108,7 @@ public class AccesoBDActividad {
 
         actualizacion = actualizacion.substring(0, actualizacion.length() - 2);
         actualizacion = actualizacion + " WHERE idActividades= " + idActividad;
-        
+
         System.out.print("\n" + actualizacion);
 
         try {
@@ -161,7 +164,7 @@ public class AccesoBDActividad {
                 + nuevaActividad.getIdActividad();
 
         System.out.print(delete);
-        
+
         boolean exito = accesoBD.eliminar(delete);
         if (!exito) {
             JOptionPane.showMessageDialog(null, "Ha habido un error en la base de datos",
@@ -171,28 +174,78 @@ public class AccesoBDActividad {
                     "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    
-    public static boolean InsertarAlumnoActividadBD (BaseDatos accesoBD, int idAlumno, int idTemporada, int idActividad){
+
+    public static boolean InsertarAlumnoActividadBD(BaseDatos accesoBD, int idAlumno, int idTemporada, int idActividad) throws SQLException {
         boolean exito = false;
-        
-        try {
-            ResultSet rts, retset;
-            exito = true;
-            
-            String insercion = "INSERT INTO pagoActividades (Alumno_idAlumno, Actividades_idActividades,"
-                    + "Actividades_Temporada_idTemporada, Couta_idCuota) SET (";
-            String cuota = "SELECT Cuota_idCuota FROM pagotemporada WHERE AlumnoTemporada_Alumno_idAlumno = " + idAlumno + 
-                    " AND AlumnoTemporada_Temporada_idTemporada = " + idTemporada;
-            
-            rts = accesoBD.ejecutaConsulta(cuota);
-            int idcuota = rts.getInt("Cuota_idCuota");
-            insercion = insercion + idAlumno + ", " + idActividad + ", "+ idcuota + ")";
-            
-            retset = accesoBD.ejecutaConsulta(insercion);
-        } catch (SQLException ex) {
-            Logger.getLogger(AccesoBDActividad.class.getName()).log(Level.SEVERE, null, ex);
-            exito = false;
+        List<Integer> listaAlumnos = new ArrayList<>();
+        listaAlumnos = getAlumnosActividad(accesoBD, idActividad);
+
+        if (!listaAlumnos.contains(idAlumno)) {
+
+            try {
+
+                int idcuota = getIDCuota(accesoBD);
+                GregorianCalendar calendar =  new GregorianCalendar();
+                String fecha = calendar.get(GregorianCalendar.YEAR) + "-" + calendar.get(GregorianCalendar.MONTH) + "-" + calendar.get(GregorianCalendar.DATE);
+
+                String consulta = "INSERT INTO CUOTA (fecha, pagado) VALUES ('" + fecha + "', " + "0)";
+                
+                System.out.printf("\n\n MAMA "+ consulta);
+
+                accesoBD.ejecutaActualizacion(consulta);
+
+
+                String insercion = "INSERT INTO pagoActividades (Alumno_idAlumno, Actividades_idActividades,"
+                        + "Actividades_Temporada_idTemporada, Cuota_idCuota) VALUE (" + idAlumno + ", "
+                        + idActividad + ", " + idTemporada + ", " + idcuota + ")";
+
+
+                accesoBD.ejecutaActualizacion(insercion);
+                exito = true;
+            } catch (SQLException ex) {
+                Logger.getLogger(AccesoBDActividad.class.getName()).log(Level.SEVERE, null, ex);
+                exito = false;
+            }
         }
+
         return exito;
+    }
+
+    public static boolean EliminarAlumnoBD(BaseDatos accesoBD, int idAlumno, int actividad) throws SQLException {
+
+        List<Integer> listaAlumnos = new ArrayList<Integer>();
+        listaAlumnos = getAlumnosActividad(accesoBD, actividad);
+        boolean exito = false;
+
+        if (listaAlumnos.contains(idAlumno)) {
+            String delete = "DELETE FROM pagoactividades WHERE Alumno_idAlumno = " + idAlumno;
+            exito = accesoBD.eliminar(delete);
+        }
+
+        return exito;
+    }
+
+    public static List<Integer> getAlumnosActividad(BaseDatos accesoBD, int actividad) throws SQLException {
+
+        List<Integer> listaAlumnos = new ArrayList<>();
+        String consulta = "SELECT Alumno_idAlumno FROM pagoactividades WHERE "
+                + "Actividades_idActividades = " + actividad;
+        ResultSet retset = accesoBD.ejecutaConsulta(consulta);
+
+        while (retset.next()) {
+            listaAlumnos.add(retset.getInt(1));
+        }
+
+        return listaAlumnos;
+    }
+
+    public static int getIDCuota(BaseDatos accesoBD) throws SQLException {
+        String Consulta = "SELECT MAX(idCuota) FROM Cuota";
+        int id = 0;
+        ResultSet retset = accesoBD.ejecutaConsulta(Consulta);
+        if (retset.next()) {
+            id = retset.getInt(1);
+        }
+        return id;
     }
 }
