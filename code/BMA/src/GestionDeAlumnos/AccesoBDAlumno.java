@@ -61,15 +61,16 @@ class AccesoBDAlumno {
                 + dateString + "', '" + alumnoNuevo.getColegio() + "', '" + alumnoNuevo.getEmail() + "', '" + alumnoNuevo.getLocalidad() + "', '" + alumnoNuevo.getProvincia() + "', "
                 + alumnoNuevo.getCodPostal() + ", '" + alumnoNuevo.getDomicilio() + "', '" + alumnoNuevo.getNombrePadre() + "', '" + alumnoNuevo.getNombreMadre()
                 + "', '" + alumnoNuevo.getCuentaCorriente() + "', '" + alumnoNuevo.getTallaAlumno() + "', " + alumnoNuevo.getTelFijo() + ", " + alumnoNuevo.getTelMovil() +  ", '" + alumnoNuevo.getSexo()+ "' )";
-
+        
         Date fecha = alumnoNuevo.getFechaNacimiento();
         Calendar fechasistema;
         fechasistema = new GregorianCalendar();
-        String cat_alum;
+        String cat_alum = "";
+        int id_alumno = 0, id_categoria = 0;
             
-        int Edad = fechasistema.get(Calendar.YEAR) - fecha.getYear();
+        int Edad = fechasistema.get(Calendar.YEAR) - (fecha.getYear() + 1900);
         
-        if(Edad >= 9 && Edad <= 18)
+        if(Edad >= 9 && Edad < 18)
         {
             if(Edad >= 9 && Edad <= 10)
                 cat_alum = "benjamín";
@@ -83,18 +84,42 @@ class AccesoBDAlumno {
             if(Edad >= 15 && Edad <= 16)
                 cat_alum = "cadete";
             
-            if(Edad >= 17 && Edad <= 18)
+            if(Edad >= 17 && Edad < 18)
                 cat_alum = "junior";      
             
         }
         
-        System.out.println(""+fechasistema.get(Calendar.YEAR));
-        
-        String categoriaalumno = "INSERT INTO categoriaalumno (categoria_idCategoria, alumno_idAlumno) VALUES ('";
-        categoriaalumno = categoriaalumno + "";
-        
         System.out.print("\n inser " + inserccion);
-        accesoBD.ejecutaActualizacion(inserccion);
+        
+        id_alumno = accesoBD.obtenerUltimoIdActualizacion(inserccion);
+        
+        // Selecciono el último id introducido que será el del alumno en la BD
+        
+        System.out.println("El ID alumno es: " + id_alumno);
+        
+        // Selecciono la categoría según la edad que tenga el alumno 
+        // en ese año, dado que el curso comienza una sola vez en
+        // la temporada.
+        
+        String auxiliar = "SELECT idCategoria FROM categoria WHERE tipo ='" + cat_alum + "'";
+        
+        ResultSet res_categoria = accesoBD.ejecutaConsulta(auxiliar);
+        
+        if(res_categoria.next())
+            id_categoria = res_categoria.getInt(1);
+        
+        System.out.println("El ID categoria es: " + id_categoria + "y su categoria es: " + cat_alum);
+        
+        String categoria_alumno = "INSERT INTO categoriaalumno (categoria_idCategoria, alumno_idAlumno) VALUES ('" 
+                + id_categoria + "', '" + id_alumno + "' )";
+        
+        
+        // Introducimos los datos del alumno en la tabla intermedia
+        // categoria alumno para así luego no tener que realizar
+        // búsqueda en la tabla de los alumnos
+        
+        accesoBD.ejecutaActualizacion(categoria_alumno);
+        
     }
 
     static List<String> getListaAlumnos(BaseDatos accesoBD, String s) throws SQLException {
