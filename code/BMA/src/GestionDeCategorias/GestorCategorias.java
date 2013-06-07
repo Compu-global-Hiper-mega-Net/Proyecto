@@ -142,9 +142,9 @@ public class GestorCategorias {
         categoriaEliminada = CategoriaBD.EliminarCategoria(accesoBD, c);
         
         if(categoriaEliminada)
-            JOptionPane.showMessageDialog(new PantallaPrincipal(), "Categoria eliminada", "Exito", JOptionPane.NO_OPTION);
+            JOptionPane.showMessageDialog(null, "Categoria eliminada", "Exito", JOptionPane.NO_OPTION);
         else
-            JOptionPane.showMessageDialog(new PantallaPrincipal(), "Error al eliminar", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al eliminar", "Error", JOptionPane.ERROR_MESSAGE);
     }
     
     /**
