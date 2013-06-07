@@ -103,9 +103,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         if (!GestorUsuarios.tengoPermisosAdministrador(accesoBD, usuario)) {
             System.out.print("\ninitcomponent segun user");
             barraMenu.remove(menuUsuarios);
-            panelJugadores.remove(botonNuevoAlumno);
-            panelJugadores.remove(botonEliminarAlumno);
-            panelJugadores.remove(botonEliminarUsuario);
         }
     }
 
@@ -122,6 +119,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         panelInicio = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel29 = new javax.swing.JLabel();
+        jPanel15 = new javax.swing.JPanel();
+        jPanel16 = new javax.swing.JPanel();
+        jButton8 = new javax.swing.JButton();
+        jPanel17 = new javax.swing.JPanel();
+        jLabel35 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         jButton7 = new javax.swing.JButton();
@@ -142,39 +144,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         cerrarSesion = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jLabel30 = new javax.swing.JLabel();
-        panelJugadores = new javax.swing.JPanel();
-        resultadosAlLabel = new javax.swing.JLabel();
-        botonNuevoAlumno = new javax.swing.JButton();
-        botonGuardarCambiosAl = new javax.swing.JButton();
-        deshacerCambiosAlumno = new javax.swing.JButton();
-        buscarAlLabel = new javax.swing.JLabel();
-        equipoAlLabel = new javax.swing.JLabel();
-        grupoAlLabel = new javax.swing.JLabel();
-        edadAlLabel = new javax.swing.JLabel();
-        entrenadorAlLabel = new javax.swing.JLabel();
-        nombreAlLabel = new javax.swing.JLabel();
-        nombreAl = new javax.swing.JTextField();
-        edadAl = new javax.swing.JTextField();
-        panelResulAl = new javax.swing.JScrollPane();
-        tablaAlumnos = new javax.swing.JTable();
-        botonMostrarAlumnos = new javax.swing.JButton();
-        categoriaAlLabel = new javax.swing.JLabel();
-        segundoApellidoAl = new javax.swing.JTextField();
-        primerApellidoAl = new javax.swing.JTextField();
-        primerApellidoLabel = new javax.swing.JLabel();
-        segundoApellidoLabel = new javax.swing.JLabel();
-        temporadaLabel = new javax.swing.JLabel();
-        consultaEntrenador = new javax.swing.JComboBox();
-        consultaEquipo = new javax.swing.JComboBox();
-        consultaGrupo = new javax.swing.JComboBox();
-        consultaCategoria = new javax.swing.JComboBox();
-        consultaTemporada = new javax.swing.JComboBox();
-        errorModifMovil = new javax.swing.JLabel();
-        errorModifFijo = new javax.swing.JLabel();
-        errorModifCP = new javax.swing.JLabel();
-        botonEliminarAlumno = new javax.swing.JButton();
-        mensajeErrorEliminarAlumno = new javax.swing.JLabel();
-        estadisticasJugador = new javax.swing.JButton();
         panelUsuarios = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         botonNuevoUsuario = new javax.swing.JButton();
@@ -307,7 +276,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         barraMenu = new javax.swing.JMenuBar();
         menuInicio = new javax.swing.JMenu();
-        menuJugadores = new javax.swing.JMenu();
         menuEquipos = new javax.swing.JMenu();
         menuUsuarios = new javax.swing.JMenu();
         menuActividades = new javax.swing.JMenu();
@@ -326,6 +294,32 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jPanel1.add(jLabel29);
 
         panelInicio.add(jPanel1);
+
+        jPanel15.setLayout(new javax.swing.BoxLayout(jPanel15, javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanel16.setMaximumSize(new java.awt.Dimension(170, 33));
+        jPanel16.setMinimumSize(new java.awt.Dimension(170, 33));
+        jPanel16.setPreferredSize(new java.awt.Dimension(170, 33));
+        jPanel16.setLayout(new java.awt.GridBagLayout());
+
+        jButton8.setText("Jugadores");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jPanel16.add(jButton8, new java.awt.GridBagConstraints());
+
+        jPanel15.add(jPanel16);
+
+        jPanel17.setLayout(new java.awt.GridBagLayout());
+
+        jLabel35.setText("Esta opción permite gestionar todos los jugadores, esto es: insertar, modificar o eliminar.");
+        jPanel17.add(jLabel35, new java.awt.GridBagConstraints());
+
+        jPanel15.add(jPanel17);
+
+        panelInicio.add(jPanel15);
 
         jPanel12.setLayout(new javax.swing.BoxLayout(jPanel12, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -441,189 +435,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         gridBagConstraints.ipady = 662;
         gridBagConstraints.weighty = 0.2;
         getContentPane().add(panelInicio, gridBagConstraints);
-
-        panelJugadores.setVisible(false);
-        panelJugadores.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        resultadosAlLabel.setText("Resultados de los alumnos:");
-        panelJugadores.add(resultadosAlLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, -1, 20));
-
-        botonNuevoAlumno.setText("Nuevo Alumno");
-        botonNuevoAlumno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonNuevoAlumnoActionPerformed(evt);
-            }
-        });
-        panelJugadores.add(botonNuevoAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, -1, -1));
-
-        botonGuardarCambiosAl.setText("Guardar Cambios");
-        botonGuardarCambiosAl.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonGuardarCambiosAlActionPerformed(evt);
-            }
-        });
-        panelJugadores.add(botonGuardarCambiosAl, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 610, -1, -1));
-
-        deshacerCambiosAlumno.setText("Deshacer Cambios");
-        deshacerCambiosAlumno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deshacerCambiosAlumnoActionPerformed(evt);
-            }
-        });
-        panelJugadores.add(deshacerCambiosAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 610, -1, -1));
-
-        buscarAlLabel.setText("Buscar alumnos por:");
-        panelJugadores.add(buscarAlLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 36, -1, -1));
-
-        equipoAlLabel.setText("Equipo");
-        panelJugadores.add(equipoAlLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, -1, -1));
-
-        grupoAlLabel.setText("Grupo");
-        panelJugadores.add(grupoAlLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, -1, -1));
-
-        edadAlLabel.setText("Edad");
-        panelJugadores.add(edadAlLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 40, -1, -1));
-
-        entrenadorAlLabel.setText("Entrenador");
-        panelJugadores.add(entrenadorAlLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 100, -1, -1));
-
-        nombreAlLabel.setText("Nombre");
-        panelJugadores.add(nombreAlLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(142, 36, -1, -1));
-        panelJugadores.add(nombreAl, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 201, -1));
-        panelJugadores.add(edadAl, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 60, 80, -1));
-
-        panelResulAl.setAutoscrolls(true);
-
-        tablaAlumnos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tablaAlumnos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Nombre", "Primer Apellido", "Segundo Apellido", "Fecha Nacimiento", "Email", "Talla", "Numero Cuenta", "Tel. Movil", "Tel. Fijo", "Provincia", "Localidad", "Domicilio", "CP", "Nombre Padre", "Nombre Madre", "Colegio", "Sexo"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        tablaAlumnos.setColumnSelectionAllowed(true);
-        panelResulAl.setViewportView(tablaAlumnos);
-        tablaAlumnos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tablaAlumnos.getColumnModel().getColumn(0).setMaxWidth(45);
-
-        panelJugadores.add(panelResulAl, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 1260, 350));
-
-        botonMostrarAlumnos.setText("Mostrar Alumnos");
-        botonMostrarAlumnos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonMostrarAlumnosActionPerformed(evt);
-            }
-        });
-        panelJugadores.add(botonMostrarAlumnos, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, -1, -1));
-
-        categoriaAlLabel.setText("Categoria");
-        panelJugadores.add(categoriaAlLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, -1, -1));
-        panelJugadores.add(segundoApellidoAl, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 60, 201, -1));
-        panelJugadores.add(primerApellidoAl, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 60, 201, -1));
-
-        primerApellidoLabel.setText("Apellido Primero");
-        panelJugadores.add(primerApellidoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, -1, -1));
-
-        segundoApellidoLabel.setText("Apellido Segundo");
-        panelJugadores.add(segundoApellidoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 40, -1, -1));
-
-        temporadaLabel.setText("Temporada");
-        panelJugadores.add(temporadaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 100, -1, -1));
-
-        consultaEntrenador.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
-        panelJugadores.add(consultaEntrenador, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 120, 200, -1));
-
-        consultaEquipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
-        panelJugadores.add(consultaEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 100, -1));
-
-        consultaGrupo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
-        panelJugadores.add(consultaGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 120, 100, -1));
-
-        consultaCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
-        panelJugadores.add(consultaCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 120, 100, -1));
-
-        panelJugadores.add(consultaTemporada, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 120, 100, -1));
-
-        errorModifMovil.setForeground(new java.awt.Color(255, 0, 51));
-        errorModifMovil.setText("Error Tel.Movil");
-        errorModifMovil.setVisible(false);
-        panelJugadores.add(errorModifMovil, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 210, -1, -1));
-
-        errorModifFijo.setForeground(new java.awt.Color(255, 0, 51));
-        errorModifFijo.setText("Error Tel.Fijo");
-        errorModifFijo.setVisible(false);
-        panelJugadores.add(errorModifFijo, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 210, -1, -1));
-
-        errorModifCP.setForeground(new java.awt.Color(255, 0, 51));
-        errorModifCP.setText("Error CP");
-        errorModifCP.setVisible(false);
-        panelJugadores.add(errorModifCP, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 210, -1, -1));
-
-        botonEliminarAlumno.setText("Eliminar Alumno");
-        botonEliminarAlumno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonEliminarAlumnoActionPerformed(evt);
-            }
-        });
-        panelJugadores.add(botonEliminarAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 610, 140, -1));
-
-        mensajeErrorEliminarAlumno.setForeground(new java.awt.Color(255, 0, 51));
-        mensajeErrorEliminarAlumno.setText("No ha seleccionado ningún alumno para ser eliminado");
-        panelJugadores.add(mensajeErrorEliminarAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 610, -1, -1));
-        mensajeErrorEliminarAlumno.setVisible(false);
-
-        estadisticasJugador.setText("Estadisticas");
-        estadisticasJugador.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                estadisticasJugadorActionPerformed(evt);
-            }
-        });
-        panelJugadores.add(estadisticasJugador, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 160, 100, -1));
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.gridheight = 3;
-        gridBagConstraints.ipadx = 164;
-        gridBagConstraints.ipady = 92;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(22, 0, 22, 0);
-        getContentPane().add(panelJugadores, gridBagConstraints);
 
         panelUsuarios.setVisible(false);
         panelUsuarios.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1511,7 +1322,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(Modificar))
                                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(1093, Short.MAX_VALUE))
+                .addContainerGap(1421, Short.MAX_VALUE))
         );
         panelActividadesLayout.setVerticalGroup(
             panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1541,7 +1352,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGroup(panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AñaridAlumno)
                     .addComponent(Informacion))
-                .addContainerGap(471, Short.MAX_VALUE))
+                .addContainerGap(655, Short.MAX_VALUE))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1773,19 +1584,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         });
         barraMenu.add(menuInicio);
 
-        menuJugadores.setText("Jugadores");
-        menuJugadores.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuJugadoresMouseClicked(evt);
-            }
-        });
-        menuJugadores.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuJugadoresActionPerformed(evt);
-            }
-        });
-        barraMenu.add(menuJugadores);
-
         menuEquipos.setText("Equipos");
         menuEquipos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1848,433 +1646,15 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-private void botonGuardarCambiosAlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarCambiosAlActionPerformed
-    ResultSet retsetMostrados;
-    int i = 0;
-    boolean fila_editada = false, algunaFilaEditada = false, error = false;
-    ocultarMensajesError();
-    //compruebo si se ha mostrado algún resultado antes de guardar los cambios, ya que si no se han mostrado no se ha podido modificar nada
-    if (tablaAlumnos.getValueAt(0, 0) == null) {
-        return;
-    }
-    try {
-        String consulta_alumnos = leeConsultaAlumnosInterfaz();
-        retsetMostrados = GestorAlumnos.consultarAlumno(accesoBD, consulta_alumnos);
-        ultimaActualizacionAlumno = GestorAlumnos.consultarAlumno(accesoBD, consulta_alumnos);
-        ultimaConsultaAlumno = consulta_alumnos;
-        
-        String idAlumno = null, nombre = null, primerApellido = null,
-                segundoApellido = null, fechaNac = null, talla = null,
-                nombrePadre = null, nombreMadre = null, email = null,
-                numeroCuenta = null, telFijo = null, telMovil = null,
-                provincia = null, localidad = null, domicilio = null,
-                codPostal = null, colegio = null, observaciones = null;
-        
-        while (retsetMostrados.next()) {
-            if (!retsetMostrados.getString("a.nombre").equals(tablaAlumnos.getValueAt(i, 0))) {
-                fila_editada = true;
-                if (tablaAlumnos.getValueAt(i, 0).toString().length() < 45) {
-                    nombre = tablaAlumnos.getValueAt(i, 0).toString();
-                } else {
-                    nombre = tablaAlumnos.getValueAt(i, 0).toString().substring(0, 45);
-                }
-            }
-            if (!retsetMostrados.getString("a.primerApellido").equals(tablaAlumnos.getValueAt(i, 1))) {
-                fila_editada = true;
-                if (tablaAlumnos.getValueAt(i, 1).toString().length() < 45) {
-                    primerApellido = tablaAlumnos.getValueAt(i, 1).toString();
-                } else {
-                    primerApellido = tablaAlumnos.getValueAt(i, 1).toString().substring(0, 45);
-                }
-            }
-            if (!retsetMostrados.getString("a.segundoApellido").equals(tablaAlumnos.getValueAt(i, 2))) {
-                fila_editada = true;
-                if (tablaAlumnos.getValueAt(i, 2).toString().length() < 45) {
-                    segundoApellido = tablaAlumnos.getValueAt(i, 2).toString();
-                } else {
-                    segundoApellido = tablaAlumnos.getValueAt(i, 2).toString().substring(0, 45);
-                }
-            }
-            if (!retsetMostrados.getString("a.fechaNacimiento").equals(tablaAlumnos.getValueAt(i, 3))) {
-                fila_editada = true;
-                fechaNac = tablaAlumnos.getValueAt(i, 3).toString();
-            }
-            if (!retsetMostrados.getString("a.talla").equals(tablaAlumnos.getValueAt(i, 5))) {
-                fila_editada = true;
-                if (tablaAlumnos.getValueAt(i, 5).toString().length() < 12) {
-                    talla = tablaAlumnos.getValueAt(i, 5).toString();
-                } else {
-                    talla = tablaAlumnos.getValueAt(i, 5).toString().substring(0, 12);
-                }
-            }
-            if (!retsetMostrados.getString("a.nombrepadre").equals(tablaAlumnos.getValueAt(i, 13))) {
-                fila_editada = true;
-                if (tablaAlumnos.getValueAt(i, 13).toString().length() < 100) {
-                    nombrePadre = tablaAlumnos.getValueAt(i, 13).toString();
-                } else {
-                    nombrePadre = tablaAlumnos.getValueAt(i, 13).toString().substring(0, 100);
-                }
-            }
-            if (!retsetMostrados.getString("a.nombremadre").equals(tablaAlumnos.getValueAt(i, 14))) {
-                fila_editada = true;
-                if (tablaAlumnos.getValueAt(i, 14).toString().length() < 100) {
-                    nombreMadre = tablaAlumnos.getValueAt(i, 14).toString();
-                } else {
-                    nombreMadre = tablaAlumnos.getValueAt(i, 14).toString().substring(0, 100);
-                }
-            }
-            if (tablaAlumnos.getValueAt(i, 4) != null) {
-                if (retsetMostrados.getString("a.email") != null) {
-                    if (!retsetMostrados.getString("a.email").equals(tablaAlumnos.getValueAt(i, 4))) {
-                        fila_editada = true;
-                        if (tablaAlumnos.getValueAt(i, 4).toString().length() < 75) {
-                            email = tablaAlumnos.getValueAt(i, 4).toString();
-                        } else {
-                            email = tablaAlumnos.getValueAt(i, 4).toString().substring(0, 75);
-                        }
-                    }
-                } else {
-                    fila_editada = true;
-                    if (tablaAlumnos.getValueAt(i, 4).toString().length() < 75) {
-                        email = tablaAlumnos.getValueAt(i, 4).toString();
-                    } else {
-                        email = tablaAlumnos.getValueAt(i, 4).toString().substring(0, 75);
-                    }
-                }
-            } else {
-                if (retsetMostrados.getString("a.email") != null) {
-                    fila_editada = true;
-                    email = "NULL";
-                }
-            }
-            if (tablaAlumnos.getValueAt(i, 6) != null) {
-                if (retsetMostrados.getString("a.numeroCuenta") != null) {
-                    if (!retsetMostrados.getString("a.numeroCuenta").equals(tablaAlumnos.getValueAt(i, 6))) {
-                        fila_editada = true;
-                        if (tablaAlumnos.getValueAt(i, 6).toString().length() < 40) {
-                            numeroCuenta = tablaAlumnos.getValueAt(i, 6).toString();
-                        } else {
-                            numeroCuenta = tablaAlumnos.getValueAt(i, 6).toString().substring(0, 40);
-                        }
-                    }
-                } else {
-                    fila_editada = true;
-                    if (tablaAlumnos.getValueAt(i, 6).toString().length() < 40) {
-                        numeroCuenta = tablaAlumnos.getValueAt(i, 6).toString();
-                    } else {
-                        numeroCuenta = tablaAlumnos.getValueAt(i, 6).toString().substring(0, 40);
-                    }
-                }
-            } else {
-                if (retsetMostrados.getString("a.numeroCuenta") != null) {
-                    fila_editada = true;
-                    numeroCuenta = "NULL";
-                }
-            }
-            if (tablaAlumnos.getValueAt(i, 7) != null) {
-                if (isInteger((String) tablaAlumnos.getValueAt(i, 7))) {
-                    if (retsetMostrados.getString("a.telmovil") != null) {
-                        if (!retsetMostrados.getString("a.telmovil").equals(tablaAlumnos.getValueAt(i, 7))) {
-                            fila_editada = true;
-                            if (tablaAlumnos.getValueAt(i, 7).toString().length() < 45) {
-                                telMovil = tablaAlumnos.getValueAt(i, 7).toString();
-                            } else {
-                                telMovil = tablaAlumnos.getValueAt(i, 7).toString().substring(0, 45);
-                            }
-                        }
-                    } else {
-                        fila_editada = true;
-                        if (tablaAlumnos.getValueAt(i, 7).toString().length() < 45) {
-                            telMovil = tablaAlumnos.getValueAt(i, 7).toString();
-                        } else {
-                            telMovil = tablaAlumnos.getValueAt(i, 7).toString().substring(0, 45);
-                        }
-                    }
-                } else {
-                    errorModifMovil.setVisible(true);
-                }
-            } else {
-                if (retsetMostrados.getString("a.telmovil") != null) {
-                    fila_editada = true;
-                    telMovil = "NULL";
-                }
-            }
-            if (tablaAlumnos.getValueAt(i, 8) != null) {
-                if (isInteger((String) tablaAlumnos.getValueAt(i, 8))) {
-                    if (retsetMostrados.getString("a.telfijo") != null) {
-                        if (!retsetMostrados.getString("a.telfijo").equals(tablaAlumnos.getValueAt(i, 8))) {
-                            fila_editada = true;
-                            if (tablaAlumnos.getValueAt(i, 8).toString().length() < 45) {
-                                telFijo = tablaAlumnos.getValueAt(i, 8).toString();
-                            } else {
-                                telFijo = tablaAlumnos.getValueAt(i, 8).toString().substring(0, 45);
-                            }
-                        }
-                    } else {
-                        fila_editada = true;
-                        telFijo = tablaAlumnos.getValueAt(i, 8).toString();
-                    }
-                } else {
-                    errorModifFijo.setVisible(true);
-                }
-            } else {
-                if (retsetMostrados.getString("a.telfijo") != null) {
-                    fila_editada = true;
-                    telFijo = "NULL";
-                }
-            }
-            if (tablaAlumnos.getValueAt(i, 9) != null) {
-                if (retsetMostrados.getString("a.provincia") != null) {
-                    if (!retsetMostrados.getString("a.provincia").equals(tablaAlumnos.getValueAt(i, 9))) {
-                        fila_editada = true;
-                        if (tablaAlumnos.getValueAt(i, 9).toString().length() < 70) {
-                            provincia = tablaAlumnos.getValueAt(i, 9).toString();
-                        } else {
-                            provincia = tablaAlumnos.getValueAt(i, 9).toString().substring(0, 70);
-                        }
-                    }
-                } else {
-                    fila_editada = true;
-                    if (tablaAlumnos.getValueAt(i, 9).toString().length() < 70) {
-                        provincia = tablaAlumnos.getValueAt(i, 9).toString();
-                    } else {
-                        provincia = tablaAlumnos.getValueAt(i, 9).toString().substring(0, 70);
-                    }
-                }
-            } else {
-                if (retsetMostrados.getString("a.provincia") != null) {
-                    fila_editada = true;
-                    provincia = "NULL";
-                }
-            }
-            if (tablaAlumnos.getValueAt(i, 10) != null) {
-                if (retsetMostrados.getString("a.localidad") != null) {
-                    if (!retsetMostrados.getString("a.localidad").equals(tablaAlumnos.getValueAt(i, 10))) {
-                        fila_editada = true;
-                        if (tablaAlumnos.getValueAt(i, 10).toString().length() < 45) {
-                            localidad = tablaAlumnos.getValueAt(i, 10).toString();
-                        } else {
-                            localidad = tablaAlumnos.getValueAt(i, 10).toString().substring(0, 45);
-                        }
-                    }
-                } else {
-                    fila_editada = true;
-                    if (tablaAlumnos.getValueAt(i, 10).toString().length() < 45) {
-                        localidad = tablaAlumnos.getValueAt(i, 10).toString();
-                    } else {
-                        localidad = tablaAlumnos.getValueAt(i, 10).toString().substring(0, 45);
-                    }
-                }
-            } else {
-                if (retsetMostrados.getString("a.localidad") != null) {
-                    fila_editada = true;
-                    localidad = "NULL";
-                }
-            }
-            if (tablaAlumnos.getValueAt(i, 11) != null) {
-                if (retsetMostrados.getString("a.domicilio") != null) {
-                    if (!retsetMostrados.getString("a.domicilio").equals(tablaAlumnos.getValueAt(i, 11))) {
-                        fila_editada = true;
-                        if (tablaAlumnos.getValueAt(i, 11).toString().length() < 100) {
-                            domicilio = tablaAlumnos.getValueAt(i, 11).toString();
-                        } else {
-                            domicilio = tablaAlumnos.getValueAt(i, 11).toString().substring(0, 100) + "', ";
-                        }
-                    }
-                } else {
-                    fila_editada = true;
-                    if (tablaAlumnos.getValueAt(i, 11).toString().length() < 100) {
-                        domicilio = tablaAlumnos.getValueAt(i, 11).toString();
-                    } else {
-                        domicilio = tablaAlumnos.getValueAt(i, 11).toString().substring(0, 100);
-                    }
-                }
-            } else {
-                if (retsetMostrados.getString("a.domicilio") != null) {
-                    fila_editada = true;
-                    domicilio = "NULL";
-                }
-            }
-            if (tablaAlumnos.getValueAt(i, 12) != null) {
-                if (isInteger((String) tablaAlumnos.getValueAt(i, 12))) {
-                    if (retsetMostrados.getString("a.codigopostal") != null) {
-                        if (!retsetMostrados.getString("a.codigopostal").equals(tablaAlumnos.getValueAt(i, 12))) {
-                            fila_editada = true;
-                            codPostal = tablaAlumnos.getValueAt(i, 12).toString();
-                        }
-                    } else {
-                        fila_editada = true;
-                        codPostal = tablaAlumnos.getValueAt(i, 12).toString();
-                    }
-                } else {
-                    errorModifCP.setVisible(true);
-                }
-            } else {
-                if (retsetMostrados.getString("a.codigopostal") != null) {
-                    fila_editada = true;
-                    codPostal = "NULL";
-                }
-            }
-            if (tablaAlumnos.getValueAt(i, 15) != null) {
-                if (retsetMostrados.getString("a.colegio") != null) {
-                    if (!retsetMostrados.getString("a.colegio").equals(tablaAlumnos.getValueAt(i, 15))) {
-                        fila_editada = true;
-                        if (tablaAlumnos.getValueAt(i, 15).toString().length() < 45) {
-                            colegio = tablaAlumnos.getValueAt(i, 15).toString();
-                        } else {
-                            colegio = tablaAlumnos.getValueAt(i, 15).toString().substring(0, 45);
-                        }
-                    }
-                } else {
-                    fila_editada = true;
-                    if (tablaAlumnos.getValueAt(i, 15).toString().length() < 45) {
-                        colegio = tablaAlumnos.getValueAt(i, 15).toString();
-                    } else {
-                        colegio = tablaAlumnos.getValueAt(i, 15).toString().substring(0, 45);
-                    }
-                }
-            } else {
-                if (retsetMostrados.getString("a.colegio") != null) {
-                    fila_editada = true;
-                    colegio = "NULL";
-                }
-            }
-            idAlumno = retsetMostrados.getString("a.idalumno");
-            if (fila_editada == true) {
-                error = GestorAlumnos.modificarDatos(accesoBD, idAlumno, nombre, primerApellido, segundoApellido, fechaNac,
-                        numeroCuenta, domicilio, localidad, codPostal, provincia, colegio,
-                        nombrePadre, nombreMadre, telFijo, telMovil, email, observaciones, talla);
-                idAlumno = nombre = primerApellido = segundoApellido = null;
-                fechaNac = talla = nombrePadre = nombreMadre = null;
-                email = numeroCuenta = telFijo = telMovil = provincia = null;
-                localidad = domicilio = codPostal = colegio = observaciones = null;
-            }
-            i++;
-        }
-    } catch (SQLException ex) {
-        System.out.print(ex.getMessage());
-    }
-}//GEN-LAST:event_botonGuardarCambiosAlActionPerformed
     
 private void menuInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuInicioActionPerformed
 }//GEN-LAST:event_menuInicioActionPerformed
-    
-private void menuJugadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuJugadoresActionPerformed
-}//GEN-LAST:event_menuJugadoresActionPerformed
-    
-private void menuJugadoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuJugadoresMouseClicked
-    /*panelInicio.setVisible(false);
-     panelJugadores.setVisible(true);
-     panelUsuarios.setVisible(false);
-     panelTemporadas.setVisible(false);
-     panelGrupos.setVisible(false);*/
-    ocultarPaneles();
-    panelJugadores.setVisible(true);
-    ResultSet consulta;
-    
-    try {
-        consulta = accesoBD.ejecutaConsulta("SELECT * FROM grupo");
-        consultaGrupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
-        while (consulta.next()) {
-            consultaGrupo.addItem(consulta.getInt(1));
-        }
-        consulta = accesoBD.ejecutaConsulta("SELECT * FROM equipo");
-        consultaEquipo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
-        while (consulta.next()) {
-            consultaEquipo.addItem(consulta.getInt(1));
-        }
-        consulta = accesoBD.ejecutaConsulta("SELECT * FROM categoria");
-        consultaCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
-        while (consulta.next()) {
-            consultaCategoria.addItem(consulta.getString("tipo"));
-        }
-        consulta = accesoBD.ejecutaConsulta("SELECT * FROM temporada");
-        consultaTemporada.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
-        while (consulta.next()) {
-            consultaTemporada.addItem(consulta.getString("curso"));
-        }
-        consulta = accesoBD.ejecutaConsulta("SELECT * FROM usuario where usuario.entrenador=true");
-        consultaEntrenador.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
-        while (consulta.next()) {
-            consultaEntrenador.addItem(consulta.getString("nombre") + " " + consulta.getString("primerApellido"));
-        }
-        
-    } catch (SQLException ex) {
-        System.out.print(ex.getMessage());
-    }
-}//GEN-LAST:event_menuJugadoresMouseClicked
-    
+            
 private void menuInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuInicioMouseClicked
     
     ocultarPaneles();
     panelInicio.setVisible(true);
 }//GEN-LAST:event_menuInicioMouseClicked
-    
-    private String leeConsultaAlumnosInterfaz() {
-        String consulta_alumnos = "SELECT a.idAlumno, a.talla, a.nombre, a.primerApellido, a.segundoApellido, a.nombrePadre, a.nombreMadre, a.numeroCuenta,"
-                + "a.telMovil, a.telFijo, a.observaciones, a.provincia, a.localidad, a.codigoPostal, a.colegio, a.domicilio, a.email, a.fechaNacimiento, "
-                + "a.sexo FROM ";
-        String tablasImplicadas = " alumno a ";
-        String condicionesConsulta = " WHERE ";
-        
-        if (!nombreAl.getText().equals("") || !primerApellidoAl.getText().equals("") || !segundoApellidoAl.getText().equals("")
-                || !edadAl.getText().equals("") || !consultaEquipo.getSelectedItem().equals("") || !consultaGrupo.getSelectedItem().equals("")
-                || !consultaCategoria.getSelectedItem().equals("") || !consultaTemporada.getSelectedItem().equals("") || !consultaEntrenador.getSelectedItem().equals("")) {
-            if (!nombreAl.getText().equals("")) {
-                condicionesConsulta = condicionesConsulta + " a.nombre='" + nombreAl.getText() + "' AND ";
-            }
-            if (!primerApellidoAl.getText().equals("")) {
-                condicionesConsulta = condicionesConsulta + " a.primerapellido='" + primerApellidoAl.getText() + "' AND ";
-            }
-            if (!segundoApellidoAl.getText().equals("")) {
-                condicionesConsulta = condicionesConsulta + " a.segundoapellido='" + segundoApellidoAl.getText() + "' AND ";
-            }
-            if (!edadAl.getText().equals("") && isInteger(edadAl.getText())) {
-                Calendar cal1 = Calendar.getInstance();  //con la hora actual del sistema calculamos la edad del alumno
-                int diaAct, mesAct, anoAct;
-                String fechaAnt, fechaPost;
-                diaAct = cal1.get(Calendar.DATE);
-                mesAct = cal1.get(Calendar.MONTH) + 1;
-                anoAct = cal1.get(Calendar.YEAR) - Integer.parseInt(edadAl.getText());
-                fechaAnt = anoAct + "-" + mesAct + "-" + diaAct;
-                fechaPost = (anoAct - 1) + "-" + mesAct + "-" + diaAct;
-                condicionesConsulta = condicionesConsulta + " a.fechaNacimiento <= '" + fechaAnt + "' AND " + " a.fechaNacimiento > '" + fechaPost + "' AND ";
-            }
-            if (!consultaGrupo.getSelectedItem().equals("") || !consultaCategoria.getSelectedItem().equals("") || !consultaTemporada.getSelectedItem().equals("") || !consultaEntrenador.getSelectedItem().equals("")) {
-                tablasImplicadas = tablasImplicadas + " , alumnogrupo ";
-                condicionesConsulta = condicionesConsulta + " alumnogrupo.alumno_idalumno=a.idalumno AND ";
-                if (!consultaGrupo.getSelectedItem().equals("")) {
-                    condicionesConsulta = condicionesConsulta + " alumnogrupo.Grupo_idGrupo=" + consultaGrupo.getSelectedItem() + " AND ";
-                }
-                if (!consultaCategoria.getSelectedItem().equals("")) {
-                    tablasImplicadas = tablasImplicadas + " , categoria ";
-                    condicionesConsulta = condicionesConsulta + " alumnogrupo.Grupo_Categoria_idCategoria=categoria.idCategoria AND categoria.tipo='" + consultaCategoria.getSelectedItem() + "' AND ";
-                }
-                if (!consultaEntrenador.getSelectedItem().equals("")) {
-                    tablasImplicadas = tablasImplicadas + " , usuario ";
-                    String nombre, apellido;
-                    int espacios;
-                    espacios = consultaEntrenador.getSelectedItem().toString().indexOf(" ");
-                    condicionesConsulta = condicionesConsulta + " alumnogrupo.Grupo_Usuario_idUsuario=usuario.idUsuario and concat(usuario.nombre, ' ', usuario.primerApellido)='" + consultaEntrenador.getSelectedItem() + "' AND ";
-                }
-            }
-            if (!consultaEquipo.getSelectedItem().equals("")) {
-                tablasImplicadas = tablasImplicadas + " , alumnoequipo ";
-                condicionesConsulta = condicionesConsulta + " alumnoequipo.Alumno_idAlumno=a.idalumno AND alumnoequipo.Equipo_idEquipo=" + consultaEquipo.getSelectedItem() + " AND ";
-            }
-            if (!consultaTemporada.getSelectedItem().equals("")) {
-                tablasImplicadas = tablasImplicadas + " , alumnotemporada, temporada ";
-                condicionesConsulta = condicionesConsulta + " alumnotemporada.alumno_idalumno=a.idalumno and alumnotemporada.temporada_idtemporada=temporada.idTemporada and temporada.curso='" + consultaTemporada.getSelectedItem() + "' AND ";
-            }
-            
-            condicionesConsulta = condicionesConsulta.substring(0, condicionesConsulta.length() - 4);
-            tablasImplicadas = tablasImplicadas + condicionesConsulta;
-        }
-        consulta_alumnos = consulta_alumnos + tablasImplicadas;
-        
-        return consulta_alumnos;
-    }
     
     private String leeConsultaPartidos() {
         String consultaPartido = "SELECT";
@@ -2283,115 +1663,11 @@ private void menuInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:
     }
     
     public void ocultarMensajesError() {
-        mensajeErrorEliminarAlumno.setVisible(false);
-        errorModifMovil.setVisible(false);
-        errorModifFijo.setVisible(false);
-        errorModifCP.setVisible(false);
         errorModifMovilUsuario.setVisible(false);
         errorModifFijoUsuario.setVisible(false);
         errorEliminarUsuario.setVisible(false);
     }
-    
-private void botonMostrarAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarAlumnosActionPerformed
-    try {
-        String consulta_alumnos = leeConsultaAlumnosInterfaz();
-        consultaAlumnosMostrados = consulta_alumnos;
-        System.out.print("\nLA consulta a " + consulta_alumnos + "  y qui termina");
-        retset = GestorAlumnos.consultarAlumno(accesoBD, consulta_alumnos);
-        ocultarMensajesError();
-        tablaAlumnos.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
-        },
-                new String[]{
-            "Nombre", "Primer Apellido", "Segundo Apellido", "Fecha Nacimiento", "Email", "Talla", "Numero Cuenta", "Tel. Movil", "Tel. Fijo", "Provincia", "Localidad", "Domicilio", "CP", "Nombre Padre", "Nombre Madre", "Colegio", "Sexo"
-        }));
-        javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
-        modelo_tabla = tablaAlumnos.getModel();
-        int i = 0;
-        while (retset.next()) {
             
-            
-            
-            if (i < 25) {
-                tablaAlumnos.setValueAt(retset.getString("a.nombre"), i, 0);
-                tablaAlumnos.setValueAt(retset.getString("a.primerApellido"), i, 1);
-                tablaAlumnos.setValueAt(retset.getString("a.segundoApellido"), i, 2);
-                tablaAlumnos.setValueAt(retset.getString("fechaNacimiento"), i, 3);
-                
-                tablaAlumnos.setValueAt(retset.getString("a.email"), i, 4);
-                tablaAlumnos.setValueAt(retset.getString("a.talla"), i, 5);
-                tablaAlumnos.setValueAt(retset.getString("a.numerocuenta"), i, 6);
-                tablaAlumnos.setValueAt(retset.getString("a.telmovil"), i, 7);
-                tablaAlumnos.setValueAt(retset.getString("a.telfijo"), i, 8);
-                tablaAlumnos.setValueAt(retset.getString("a.provincia"), i, 9);
-                tablaAlumnos.setValueAt(retset.getString("a.localidad"), i, 10);
-                tablaAlumnos.setValueAt(retset.getString("a.domicilio"), i, 11);
-                tablaAlumnos.setValueAt(retset.getString("a.codigopostal"), i, 12);
-                tablaAlumnos.setValueAt(retset.getString("a.nombrepadre"), i, 13);
-                tablaAlumnos.setValueAt(retset.getString("a.nombremadre"), i, 14);
-                tablaAlumnos.setValueAt(retset.getString("a.colegio"), i, 15);
-                tablaAlumnos.setValueAt(retset.getString("a.sexo"), i, 16);
-            } else {
-                javax.swing.table.DefaultTableModel temp = (javax.swing.table.DefaultTableModel) tablaAlumnos.getModel();
-                Object nuevo[] = {"", "", ""};
-                temp.addRow(nuevo);
-                tablaAlumnos.setValueAt(retset.getString("a.nombre"), i, 0);
-                tablaAlumnos.setValueAt(retset.getString("a.primerApellido"), i, 1);
-                tablaAlumnos.setValueAt(retset.getString("a.segundoApellido"), i, 2);
-                tablaAlumnos.setValueAt(retset.getString("fechaNacimiento"), i, 3);
-                
-                tablaAlumnos.setValueAt(retset.getString("a.email"), i, 4);
-                tablaAlumnos.setValueAt(retset.getString("a.talla"), i, 5);
-                tablaAlumnos.setValueAt(retset.getString("a.numerocuenta"), i, 6);
-                tablaAlumnos.setValueAt(retset.getString("a.telmovil"), i, 7);
-                tablaAlumnos.setValueAt(retset.getString("a.telfijo"), i, 8);
-                tablaAlumnos.setValueAt(retset.getString("a.provincia"), i, 9);
-                tablaAlumnos.setValueAt(retset.getString("a.localidad"), i, 10);
-                tablaAlumnos.setValueAt(retset.getString("a.domicilio"), i, 11);
-                tablaAlumnos.setValueAt(retset.getString("a.codigopostal"), i, 12);
-                tablaAlumnos.setValueAt(retset.getString("a.nombrepadre"), i, 13);
-                tablaAlumnos.setValueAt(retset.getString("a.nombremadre"), i, 14);
-                tablaAlumnos.setValueAt(retset.getString("a.colegio"), i, 15);
-                tablaAlumnos.setValueAt(retset.getString("a.sexo"), i, 16);
-            }
-            i++;
-        }
-    } catch (SQLException ex) {
-        System.out.print(ex.getMessage());
-    }
-    
-}//GEN-LAST:event_botonMostrarAlumnosActionPerformed
-    
-private void botonNuevoAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoAlumnoActionPerformed
-    ocultarMensajesError();
-    new AñadirModificarAlumno(accesoBD).setVisible(true);
-}//GEN-LAST:event_botonNuevoAlumnoActionPerformed
-    
     private boolean isInteger(String cadena) {
         try {
             int num;
@@ -2401,224 +1677,7 @@ private void botonNuevoAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//
             return false;
         }
     }
-    
-private void deshacerCambiosAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deshacerCambiosAlumnoActionPerformed
-    ResultSet estadoActual;
-    estadoActual = GestorAlumnos.consultarAlumno(accesoBD, ultimaConsultaAlumno);
-    ocultarMensajesError();
-    String idAlumno = null, nombre = null, primerApellido = null,
-            segundoApellido = null, fechaNac = null, talla = null,
-            nombrePadre = null, nombreMadre = null, email = null,
-            numeroCuenta = null, telFijo = null, telMovil = null,
-            provincia = null, localidad = null, domicilio = null,
-            codPostal = null, colegio = null, observaciones = null;
-    try {
-        while (estadoActual.next()) {
-            ultimaActualizacionAlumno.next();
-            boolean fila_editada = false;
-            if (!ultimaActualizacionAlumno.getString("a.nombre").equals(estadoActual.getString("a.nombre"))) {
-                fila_editada = true;
-                nombre = ultimaActualizacionAlumno.getString("a.nombre");
-            }
-            if (!ultimaActualizacionAlumno.getString("a.primerApellido").equals(estadoActual.getString("a.primerApellido"))) {
-                fila_editada = true;
-                primerApellido = ultimaActualizacionAlumno.getString("a.primerApellido");
-            }
-            if (!ultimaActualizacionAlumno.getString("a.segundoApellido").equals(estadoActual.getString("a.segundoApellido"))) {
-                fila_editada = true;
-                segundoApellido = ultimaActualizacionAlumno.getString("a.segundoApellido");
-            }
-            if (!ultimaActualizacionAlumno.getString("a.fechaNacimiento").equals(estadoActual.getString("a.fechaNacimiento"))) {
-                fila_editada = true;
-                fechaNac = ultimaActualizacionAlumno.getString("a.fechaNacimiento");
-            }
-            if (!ultimaActualizacionAlumno.getString("a.nombrepadre").equals(estadoActual.getString("a.nombrepadre"))) {
-                fila_editada = true;
-                nombrePadre = ultimaActualizacionAlumno.getString("a.nombrepadre");
-            }
-            if (!ultimaActualizacionAlumno.getString("a.nombremadre").equals(estadoActual.getString("a.nombremadre"))) {
-                fila_editada = true;
-                nombreMadre = ultimaActualizacionAlumno.getString("a.nombremadre");
-            }
-            if (ultimaActualizacionAlumno.getString("a.email") != null) { //antes no estaba a null
-                if (estadoActual.getString("a.email") != null) {    //ahora tampoco esta a null
-                    if (!ultimaActualizacionAlumno.getString("a.email").equals(estadoActual.getString("a.email"))) {
-                        fila_editada = true;
-                        email = ultimaActualizacionAlumno.getString("a.email");
-                    }
-                } else {                                         //ahora esta a null
-                    fila_editada = true;
-                    email = ultimaActualizacionAlumno.getString("a.email");
-                }
-            } else {                                            //antes estaba a null
-                if (estadoActual.getString("a.email") != null) {    //ahora no esta a null
-                    fila_editada = true;
-                    email = "NULL";
-                }
-            }
-            if (ultimaActualizacionAlumno.getString("a.talla") != null) { //antes no estaba a null
-                if (estadoActual.getString("a.talla") != null) {    //ahora tampoco esta a null
-                    if (!ultimaActualizacionAlumno.getString("a.talla").equals(estadoActual.getString("a.talla"))) {
-                        fila_editada = true;
-                        talla = ultimaActualizacionAlumno.getString("a.talla");
-                    }
-                } else {                                         //ahora esta a null
-                    fila_editada = true;
-                    talla = ultimaActualizacionAlumno.getString("a.talla");
-                }
-            } else {                                            //antes estaba a null
-                if (estadoActual.getString("a.talla") != null) {    //ahora no esta a null
-                    fila_editada = true;
-                    talla = "NULL";
-                }
-            }
-            if (ultimaActualizacionAlumno.getString("a.numerocuenta") != null) { //antes no estaba a null
-                if (estadoActual.getString("a.numerocuenta") != null) {    //ahora tampoco esta a null
-                    if (!ultimaActualizacionAlumno.getString("a.numerocuenta").equals(estadoActual.getString("a.numerocuenta"))) {
-                        fila_editada = true;
-                        numeroCuenta = ultimaActualizacionAlumno.getString("a.numerocuenta");
-                    }
-                } else {                                         //ahora esta a null
-                    fila_editada = true;
-                    numeroCuenta = ultimaActualizacionAlumno.getString("a.numerocuenta");
-                }
-            } else {                                            //antes estaba a null
-                if (estadoActual.getString("a.numerocuenta") != null) {    //ahora no esta a null
-                    fila_editada = true;
-                    numeroCuenta = "NULL";
-                }
-            }
-            if (ultimaActualizacionAlumno.getString("a.telmovil") != null) { //antes no estaba a null
-                if (estadoActual.getString("a.telmovil") != null) {    //ahora tampoco esta a null
-                    if (!ultimaActualizacionAlumno.getString("a.telmovil").equals(estadoActual.getString("a.telmovil"))) {
-                        fila_editada = true;
-                        telMovil = ultimaActualizacionAlumno.getString("a.telmovil");
-                    }
-                } else {                                         //ahora esta a null
-                    fila_editada = true;
-                    telMovil = ultimaActualizacionAlumno.getString("a.telmovil");
-                }
-            } else {                                            //antes estaba a null
-                if (estadoActual.getString("a.telmovil") != null) {    //ahora no esta a null
-                    fila_editada = true;
-                    telMovil = "NULL";
-                }
-            }
-            if (ultimaActualizacionAlumno.getString("a.telfijo") != null) { //antes no estaba a null
-                if (estadoActual.getString("a.telfijo") != null) {    //ahora tampoco esta a null
-                    if (!ultimaActualizacionAlumno.getString("a.telfijo").equals(estadoActual.getString("a.telfijo"))) {
-                        fila_editada = true;
-                        telFijo = ultimaActualizacionAlumno.getString("a.telfijo");
-                    }
-                } else {                                         //ahora esta a null
-                    fila_editada = true;
-                    telFijo = ultimaActualizacionAlumno.getString("a.telfijo");
-                }
-            } else {                                            //antes estaba a null
-                if (estadoActual.getString("a.telfijo") != null) {    //ahora no esta a null
-                    fila_editada = true;
-                    telFijo = "NULL";
-                }
-            }
-            if (ultimaActualizacionAlumno.getString("a.provincia") != null) { //antes no estaba a null
-                if (estadoActual.getString("a.provincia") != null) {    //ahora tampoco esta a null
-                    if (!ultimaActualizacionAlumno.getString("a.provincia").equals(estadoActual.getString("a.provincia"))) {
-                        fila_editada = true;
-                        provincia = ultimaActualizacionAlumno.getString("a.provincia");
-                    }
-                } else {                                         //ahora esta a null
-                    fila_editada = true;
-                    provincia = ultimaActualizacionAlumno.getString("a.provincia");
-                }
-            } else {                                            //antes estaba a null
-                if (estadoActual.getString("a.provincia") != null) {    //ahora no esta a null
-                    fila_editada = true;
-                    provincia = "NULL";
-                }
-            }
-            if (ultimaActualizacionAlumno.getString("a.localidad") != null) { //antes no estaba a null
-                if (estadoActual.getString("a.localidad") != null) {    //ahora tampoco esta a null
-                    if (!ultimaActualizacionAlumno.getString("a.localidad").equals(estadoActual.getString("a.localidad"))) {
-                        fila_editada = true;
-                        localidad = ultimaActualizacionAlumno.getString("a.localidad");
-                    }
-                } else {                                         //ahora esta a null
-                    fila_editada = true;
-                    localidad = ultimaActualizacionAlumno.getString("a.localidad");
-                }
-            } else {                                            //antes estaba a null
-                if (estadoActual.getString("a.localidad") != null) {    //ahora no esta a null
-                    fila_editada = true;
-                    localidad = "NULL";
-                }
-            }
-            if (ultimaActualizacionAlumno.getString("a.domicilio") != null) { //antes no estaba a null
-                if (estadoActual.getString("a.domicilio") != null) {    //ahora tampoco esta a null
-                    if (!ultimaActualizacionAlumno.getString("a.domicilio").equals(estadoActual.getString("a.domicilio"))) {
-                        fila_editada = true;
-                        domicilio = ultimaActualizacionAlumno.getString("a.domicilio");
-                    }
-                } else {                                         //ahora esta a null
-                    fila_editada = true;
-                    domicilio = ultimaActualizacionAlumno.getString("a.domicilio");
-                }
-            } else {                                            //antes estaba a null
-                if (estadoActual.getString("a.domicilio") != null) {    //ahora no esta a null
-                    fila_editada = true;
-                    domicilio = "NULL";
-                }
-            }
-            if (ultimaActualizacionAlumno.getString("a.codigopostal") != null) { //antes no estaba a null
-                if (estadoActual.getString("a.codigopostal") != null) {    //ahora tampoco esta a null
-                    if (!ultimaActualizacionAlumno.getString("a.codigopostal").equals(estadoActual.getString("a.codigopostal"))) {
-                        fila_editada = true;
-                        codPostal = ultimaActualizacionAlumno.getString("a.codigopostal");
-                    }
-                } else {                                         //ahora esta a null
-                    fila_editada = true;
-                    codPostal = ultimaActualizacionAlumno.getString("a.codigopostal");
-                }
-            } else {                                            //antes estaba a null
-                if (estadoActual.getString("a.codigopostal") != null) {    //ahora no esta a null
-                    fila_editada = true;
-                    codPostal = "NULL";
-                }
-            }
-            if (ultimaActualizacionAlumno.getString("a.colegio") != null) { //antes no estaba a null
-                if (estadoActual.getString("a.colegio") != null) {    //ahora tampoco esta a null
-                    if (!ultimaActualizacionAlumno.getString("a.colegio").equals(estadoActual.getString("a.colegio"))) {
-                        fila_editada = true;
-                        colegio = ultimaActualizacionAlumno.getString("a.colegio");
-                    }
-                } else {                                         //ahora esta a null
-                    fila_editada = true;
-                    colegio = ultimaActualizacionAlumno.getString("a.colegio");
-                }
-            } else {                                            //antes estaba a null
-                if (estadoActual.getString("a.colegio") != null) {    //ahora no esta a null
-                    fila_editada = true;
-                    colegio = "NULL";
-                }
-            }
-            idAlumno = ultimaActualizacionAlumno.getString("a.idalumno");
-            if (fila_editada == true) {
-                GestorAlumnos.modificarDatos(accesoBD, idAlumno, nombre, primerApellido, segundoApellido, fechaNac,
-                        numeroCuenta, domicilio, localidad, codPostal, provincia, colegio,
-                        nombrePadre, nombreMadre, telFijo, telMovil, email, observaciones, talla);
-                idAlumno = nombre = primerApellido = segundoApellido = null;
-                fechaNac = talla = nombrePadre = nombreMadre = null;
-                email = numeroCuenta = telFijo = telMovil = provincia = null;
-                localidad = domicilio = codPostal = colegio = observaciones = null;
-            }
-        }
         
-        botonMostrarAlumnosActionPerformed(null);
-    } catch (SQLException ex) {
-        System.out.print(ex.getMessage());
-    }
-    
-}//GEN-LAST:event_deshacerCambiosAlumnoActionPerformed
-    
 private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
     this.dispose();
     new Acceso().setVisible(true);
@@ -3115,46 +2174,7 @@ private void boton_mostrar_UsuariosActionPerformed(java.awt.event.ActionEvent ev
     }
     
 }//GEN-LAST:event_boton_mostrar_UsuariosActionPerformed
-    
-private void botonEliminarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarAlumnoActionPerformed
-    ocultarMensajesError();
-    int selection = JOptionPane.showConfirmDialog(this, "Desea eliminar el alumno?", "Eliminar usuario", JOptionPane.YES_NO_OPTION);
-    if (selection == JOptionPane.YES_OPTION) {
         
-        if (tablaAlumnos.getSelectedRow() == -1) {
-            mensajeErrorEliminarAlumno.setVisible(true);
-        } else {
-            int posTabla = tablaAlumnos.getSelectedRow();
-            
-            try {
-                ResultSet alumnosMostrados = GestorAlumnos.consultarAlumno(accesoBD, consultaAlumnosMostrados);
-                int i = 0;
-                while (i <= posTabla) {
-                    alumnosMostrados.next();
-                    i++;
-                }
-                char aux;
-                if (alumnosMostrados.getString("a.sexo").equals("Masculino")) {
-                    aux = 'M';
-                } else {
-                    aux = 'F';
-                }
-                Date fechaNac = Date.valueOf((String) alumnosMostrados.getString("a.fechaNacimiento"));
-                GestorAlumnos.eliminaAlumno(accesoBD,
-                        alumnosMostrados.getString("a.nombre"), alumnosMostrados.getString("a.primerApellido"), alumnosMostrados.getString("a.segundoApellido"),
-                        fechaNac, alumnosMostrados.getString("a.numerocuenta"), alumnosMostrados.getString("a.domicilio"),
-                        alumnosMostrados.getString("a.localidad"), alumnosMostrados.getInt("a.codigoPostal"), alumnosMostrados.getString("a.provincia"),
-                        alumnosMostrados.getString("a.colegio"), alumnosMostrados.getString("a.nombrePadre"), alumnosMostrados.getString("a.nombreMadre"),
-                        alumnosMostrados.getInt("a.telFijo"), alumnosMostrados.getInt("a.telMovil"), alumnosMostrados.getString("a.email"),
-                        alumnosMostrados.getString("a.observaciones"), alumnosMostrados.getString("a.talla"), aux);
-                botonMostrarAlumnosActionPerformed(null);
-            } catch (SQLException ex) {
-                System.out.print(ex.getMessage());
-            }
-        }
-    }
-}//GEN-LAST:event_botonEliminarAlumnoActionPerformed
-    
 private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarUsuarioActionPerformed
     ocultarMensajesError();
     int selection = JOptionPane.showConfirmDialog(this, "Desea eliminar el usuario?", "Eliminar usuario", JOptionPane.YES_NO_OPTION);
@@ -4608,39 +3628,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
             
         }
     }//GEN-LAST:event_verEstadisticasEntrenadorActionPerformed
-    
-    private void estadisticasJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estadisticasJugadorActionPerformed
         
-        String jugadorElegido;
-        ocultarMensajesError();
-        ResultSet retset = null;
-        
-        int i = tablaAlumnos.getSelectedRow();
-        if (i == -1) {
-            JOptionPane.showMessageDialog(null, "Seleccione un jugador para ver estadisticas");
-        } else {
-            String nombre = (String) tablaAlumnos.getValueAt(i, 0);
-            String primerApellido = (String) tablaAlumnos.getValueAt(i, 1);
-            String segundoApellido = (String) tablaAlumnos.getValueAt(i, 2);
-            
-            String numCuenta = (String) tablaAlumnos.getValueAt(i, 6);
-            
-            jugadorElegido = nombre + " " + primerApellido + " " + segundoApellido;
-            
-            try {
-                retset = GestorAlumnos.consultarEstadisticasAlumno(accesoBD, nombre, primerApellido, segundoApellido, numCuenta);
-            } catch (SQLException ex) {
-                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            if (retset != null) {
-                new EstadisticasJugador(accesoBD, retset, jugadorElegido).setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(null, "No hay datos que mostrar para el jugador");
-            }
-        }
-    }//GEN-LAST:event_estadisticasJugadorActionPerformed
-    
     private void verClasificacionEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verClasificacionEquiposActionPerformed
         
         ocultarMensajesError();
@@ -4752,6 +3740,11 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         new PrincipalGrupos(this, this.accesoBD).setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        new PrincipalJugadores(this, this.accesoBD).setVisible(true);
+    }//GEN-LAST:event_jButton8ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AñaridAlumno;
     private javax.swing.JButton BotonJPartido;
@@ -4772,25 +3765,19 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JTable actividadesTable;
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton botonBuscar;
-    private javax.swing.JButton botonEliminarAlumno;
     private javax.swing.JButton botonEliminarEquipo;
     private javax.swing.JButton botonEliminarUsuario;
     private javax.swing.JButton botonFiltrarPartido;
-    private javax.swing.JButton botonGuardarCambiosAl;
     private javax.swing.JButton botonGuardarCambiosUsuario;
     private javax.swing.JButton botonInfoEquipo;
     private javax.swing.JButton botonModificarEquipo;
-    private javax.swing.JButton botonMostrarAlumnos;
     private javax.swing.JButton botonMostrarEquipos;
     private javax.swing.JButton botonMostrarPartidos;
-    private javax.swing.JButton botonNuevoAlumno;
     private javax.swing.JButton botonNuevoEquipo;
     private javax.swing.JButton botonNuevoUsuario;
     private javax.swing.JButton boton_mostrar_Usuarios;
-    private javax.swing.JLabel buscarAlLabel;
     private javax.swing.JLabel buscarLabel;
     private javax.swing.JTextField capacidadInst;
-    private javax.swing.JLabel categoriaAlLabel;
     private javax.swing.JButton cerrarSesion;
     private javax.swing.JComboBox comboCatEquipo;
     private javax.swing.JComboBox comboCategoriaPartidos;
@@ -4798,41 +3785,27 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JComboBox comboEquipoVisitante;
     private javax.swing.JComboBox comboTempEquipo;
     private javax.swing.JComboBox comboTemporadaPartidos;
-    private javax.swing.JComboBox consultaCategoria;
     private javax.swing.JComboBox consultaCategoriaUsuario;
-    private javax.swing.JComboBox consultaEntrenador;
     private javax.swing.JComboBox consultaEntrenadorUsuario;
-    private javax.swing.JComboBox consultaEquipo;
     private javax.swing.JComboBox consultaEquipoUsuario;
-    private javax.swing.JComboBox consultaGrupo;
     private javax.swing.JComboBox consultaGrupoUsuario;
-    private javax.swing.JComboBox consultaTemporada;
     private javax.swing.JComboBox consultaTemporadaUsuario;
-    private javax.swing.JButton deshacerCambiosAlumno;
     private javax.swing.JButton deshacerCambiosUsuario;
-    private javax.swing.JTextField edadAl;
-    private javax.swing.JLabel edadAlLabel;
     private javax.swing.JButton eliminarButton;
-    private javax.swing.JLabel entrenadorAlLabel;
-    private javax.swing.JLabel equipoAlLabel;
     private javax.swing.JLabel errorEliminarUsuario;
-    private javax.swing.JLabel errorModifCP;
-    private javax.swing.JLabel errorModifFijo;
     private javax.swing.JLabel errorModifFijoUsuario;
-    private javax.swing.JLabel errorModifMovil;
     private javax.swing.JLabel errorModifMovilUsuario;
-    private javax.swing.JButton estadisticasJugador;
     private com.toedter.calendar.JDateChooser fechaFinDateChooser;
     private javax.swing.JLabel fechaFinLabel;
     private com.toedter.calendar.JDateChooser fechaInicioDateChooser;
     private javax.swing.JLabel fechaInicioLabel;
     private com.toedter.calendar.JDateChooser fechaPartido;
-    private javax.swing.JLabel grupoAlLabel;
     private javax.swing.JButton introducirButton;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
@@ -4860,6 +3833,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
@@ -4875,6 +3849,9 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
@@ -4892,18 +3869,14 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JLabel labelEquiposMostrados;
     private javax.swing.JLabel labelNumeroEquipos;
-    private javax.swing.JLabel mensajeErrorEliminarAlumno;
     private javax.swing.JMenu menuActividades;
     private javax.swing.JMenu menuEquipos;
     private javax.swing.JMenu menuInicio;
     private javax.swing.JMenu menuInstalaciones;
-    private javax.swing.JMenu menuJugadores;
     private javax.swing.JMenu menuPagos;
     private javax.swing.JMenu menuPartidos;
     private javax.swing.JMenu menuUsuarios;
     private javax.swing.JButton modificarButton;
-    private javax.swing.JTextField nombreAl;
-    private javax.swing.JLabel nombreAlLabel;
     private javax.swing.JTextField nombreCalleInst;
     private javax.swing.JTextField nombreIns;
     private javax.swing.JLabel nombreLabel;
@@ -4925,22 +3898,13 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JPanel panelEquipos;
     private javax.swing.JPanel panelInicio;
     private javax.swing.JPanel panelInstalaciones;
-    private javax.swing.JPanel panelJugadores;
     private javax.swing.JPanel panelPagos;
-    private javax.swing.JScrollPane panelResulAl;
     private javax.swing.JPanel panelUsuarios;
-    private javax.swing.JTextField primerApellidoAl;
-    private javax.swing.JLabel primerApellidoLabel;
-    private javax.swing.JLabel resultadosAlLabel;
-    private javax.swing.JTextField segundoApellidoAl;
-    private javax.swing.JLabel segundoApellidoLabel;
-    private javax.swing.JTable tablaAlumnos;
     private javax.swing.JTable tablaEquipos;
     private javax.swing.JTable tablaInstalacion;
     private javax.swing.JTable tablaPagos;
     private javax.swing.JTable tablaPartidos;
     private javax.swing.JTable tablaUsuarios;
-    private javax.swing.JLabel temporadaLabel;
     private javax.swing.JTextField textEntEquipo;
     private javax.swing.JTextField textNombreEquipo;
     private javax.swing.JTextField textfield_apellidoPrimeroUsuario;
@@ -4952,7 +3916,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
 
     private void ocultarPaneles() {
         panelInicio.setVisible(false);
-        panelJugadores.setVisible(false);
         panelUsuarios.setVisible(false);
         panelInstalaciones.setVisible(false);
         panelActividades.setVisible(false);

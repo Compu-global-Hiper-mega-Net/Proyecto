@@ -32,6 +32,39 @@ public class PrincipalJugadores extends javax.swing.JFrame {
         initComponents();
         this.bd = bd;
         setLocationRelativeTo(pP);
+
+        ResultSet consulta;
+
+        try {
+            consulta = bd.ejecutaConsulta("SELECT * FROM grupo");
+            consultaGrupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
+            while (consulta.next()) {
+                consultaGrupo.addItem(consulta.getInt(1));
+            }
+            consulta = bd.ejecutaConsulta("SELECT * FROM equipo");
+            consultaEquipo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
+            while (consulta.next()) {
+                consultaEquipo.addItem(consulta.getInt(1));
+            }
+            consulta = bd.ejecutaConsulta("SELECT * FROM categoria");
+            consultaCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
+            while (consulta.next()) {
+                consultaCategoria.addItem(consulta.getString("tipo"));
+            }
+            consulta = bd.ejecutaConsulta("SELECT * FROM temporada");
+            consultaTemporada.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
+            while (consulta.next()) {
+                consultaTemporada.addItem(consulta.getString("curso"));
+            }
+            consulta = bd.ejecutaConsulta("SELECT * FROM usuario where usuario.entrenador=true");
+            consultaEntrenador.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
+            while (consulta.next()) {
+                consultaEntrenador.addItem(consulta.getString("nombre") + " " + consulta.getString("primerApellido"));
+            }
+
+        } catch (SQLException ex) {
+            System.out.print(ex.getMessage());
+        }
     }
 
     /**
@@ -42,7 +75,6 @@ public class PrincipalJugadores extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel10 = new javax.swing.JPanel();
         primerApellidoLabel = new javax.swing.JLabel();
@@ -74,7 +106,7 @@ public class PrincipalJugadores extends javax.swing.JFrame {
         jPanel11 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         primerApellidoLabel.setText("Apellido Primero:");
 
@@ -310,6 +342,7 @@ public class PrincipalJugadores extends javax.swing.JFrame {
 
     private void botonNuevoAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoAlumnoActionPerformed
         new AñadirModificarAlumno(this, this.bd).setVisible(true);
+        actualizarTabla();
     }//GEN-LAST:event_botonNuevoAlumnoActionPerformed
 
     private void estadisticasJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estadisticasJugadorActionPerformed
@@ -349,16 +382,28 @@ public class PrincipalJugadores extends javax.swing.JFrame {
     private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarActionPerformed
         int filaSel = tablaAlumnos.getSelectedRow();
         if (filaSel == -1) {
-            JOptionPane.showMessageDialog(this, "Debes seleccionar un grupo", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debes seleccionar un jugador", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            new AñadirModificarAlumno(this, this.bd, (String) tablaAlumnos.getValueAt(filaSel, 0),
-                    (String) tablaAlumnos.getValueAt(filaSel, 1), (String) tablaAlumnos.getValueAt(filaSel, 2),
-                    (String) tablaAlumnos.getValueAt(filaSel, 3), (String) tablaAlumnos.getValueAt(filaSel, 16), (String) tablaAlumnos.getValueAt(filaSel, 6),
-                    (String) tablaAlumnos.getValueAt(filaSel, 7), Integer.parseInt((String) tablaAlumnos.getValueAt(filaSel, 8)),
-                    (String) tablaAlumnos.getValueAt(filaSel, 9), (String) tablaAlumnos.getValueAt(filaSel, 10),
-                    (String) tablaAlumnos.getValueAt(filaSel, 11), (String) tablaAlumnos.getValueAt(filaSel, 12),
-                    Integer.parseInt((String) tablaAlumnos.getValueAt(filaSel, 13)), Integer.parseInt((String) tablaAlumnos.getValueAt(filaSel, 14)),
-                    (String) tablaAlumnos.getValueAt(filaSel, 15), (String) tablaAlumnos.getValueAt(filaSel, 5), (String) tablaAlumnos.getValueAt(filaSel, 4)).setVisible(true);
+            String n = (String) tablaAlumnos.getValueAt(filaSel, 0);
+            String pA = (String) tablaAlumnos.getValueAt(filaSel, 1);
+            String sA = (String) tablaAlumnos.getValueAt(filaSel, 2);
+            String f = (String) tablaAlumnos.getValueAt(filaSel, 3);
+            String c = (String) tablaAlumnos.getValueAt(filaSel, 16);
+            String d = (String) tablaAlumnos.getValueAt(filaSel, 6);
+            String l = (String) tablaAlumnos.getValueAt(filaSel, 7);
+            String cP = (String) tablaAlumnos.getValueAt(filaSel, 8);
+            String p = (String) tablaAlumnos.getValueAt(filaSel, 9);
+            String co = (String) tablaAlumnos.getValueAt(filaSel, 10);
+            String nP = (String) tablaAlumnos.getValueAt(filaSel, 11);
+            String nM = (String) tablaAlumnos.getValueAt(filaSel, 12);
+            String tF = (String) tablaAlumnos.getValueAt(filaSel, 13);
+            String tM = (String) tablaAlumnos.getValueAt(filaSel, 14);
+            String e = (String) tablaAlumnos.getValueAt(filaSel, 15);
+            String t = (String) tablaAlumnos.getValueAt(filaSel, 5);
+            String s = (String) tablaAlumnos.getValueAt(filaSel, 4);
+            new AñadirModificarAlumno(this, this.bd, n, pA, sA, f, c, d, l, Integer.parseInt(cP), p, co, nP, nM,
+                    Integer.parseInt(tF), Integer.parseInt(tM), e, t, s).setVisible(true);
+            actualizarTabla();
         }
     }//GEN-LAST:event_botonModificarActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -498,9 +543,6 @@ public class PrincipalJugadores extends javax.swing.JFrame {
                 }
                 if (!consultaEntrenador.getSelectedItem().equals("")) {
                     tablasImplicadas = tablasImplicadas + " , usuario ";
-                    String nombre, apellido;
-                    int espacios;
-                    espacios = consultaEntrenador.getSelectedItem().toString().indexOf(" ");
                     condicionesConsulta = condicionesConsulta + " alumnogrupo.Grupo_Usuario_idUsuario=usuario.idUsuario and concat(usuario.nombre, ' ', usuario.primerApellido)='" + consultaEntrenador.getSelectedItem() + "' AND ";
                 }
             }
