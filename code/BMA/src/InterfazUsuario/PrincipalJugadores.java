@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package InterfazUsuario;
 
 import GestionDeAlumnos.GestorAlumnos;
@@ -11,22 +7,54 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+/*
+ ******************************************************************************
+ (c) Copyright 2013 
+ * 
+ * Moisés Gautier Gómez
+ * Julio Ros Martínez
+ * Francisco Javier Gómez del Olmo
+ * Francisco Santolalla Quiñonero
+ * Carlos Jesús Fernández Basso
+ * Alexander Moreno Borrego
+ * Jesús Manuel Contreras Siles
+ * Diego Muñoz Rio
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ******************************************************************************
+ */
 /**
+ * Clase que muestra la gestión de alumnos/jugadores
  *
- * @author Dell
+ * @author Compu-global-Hiper-mega-Net
  */
 public class PrincipalJugadores extends javax.swing.JFrame {
 
     private BaseDatos bd;
 
     /**
-     * Creates new form PrincipalJugadores
+     * Constructor de la interfaz de gestión.
+     *
+     * @param pP Contexto de la aplicación.
+     * @param bd Conexión con la BD.
      */
     public PrincipalJugadores(JFrame pP, BaseDatos bd) {
         initComponents();
@@ -35,6 +63,7 @@ public class PrincipalJugadores extends javax.swing.JFrame {
 
         ResultSet consulta;
 
+        // Se cargan los datos de "lookup"
         try {
             consulta = bd.ejecutaConsulta("SELECT * FROM grupo");
             consultaGrupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
@@ -304,10 +333,12 @@ public class PrincipalJugadores extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonEliminarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarAlumnoActionPerformed
+        // Se comprueba si se ha seleccionado un alumno
         int fila = tablaAlumnos.getSelectedRow();
         if (fila == -1) {
             JOptionPane.showMessageDialog(this, "Debes seleccionar un jugador", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
+            // Si se ha seleccionado y se está de acuerdo con borrarlo, se borra.
             int selection = JOptionPane.showConfirmDialog(this, "Desea eliminar el jugador?", "Eliminar jugador", JOptionPane.YES_NO_OPTION);
             if (selection == JOptionPane.YES_OPTION) {
                 char aux;
@@ -316,11 +347,12 @@ public class PrincipalJugadores extends javax.swing.JFrame {
                 } else {
                     aux = 'F';
                 }
-
                 Date fechaNac = Date.valueOf((String) tablaAlumnos.getValueAt(fila, 3));
                 GestorAlumnos.eliminaAlumno(this.bd, (String) tablaAlumnos.getValueAt(fila, 0),
                         (String) tablaAlumnos.getValueAt(fila, 1), (String) tablaAlumnos.getValueAt(fila, 2),
-                        fechaNac, (String) tablaAlumnos.getValueAt(fila, 16), (String) tablaAlumnos.getValueAt(fila, 6),
+                        new GregorianCalendar(Integer.parseInt(fechaNac.toString().split("-")[0]),
+                        Integer.parseInt(fechaNac.toString().split("-")[1]), Integer.parseInt(fechaNac.toString().split("-")[2])),
+                        (String) tablaAlumnos.getValueAt(fila, 16), (String) tablaAlumnos.getValueAt(fila, 6),
                         (String) tablaAlumnos.getValueAt(fila, 7), Integer.parseInt((String) tablaAlumnos.getValueAt(fila, 8)),
                         (String) tablaAlumnos.getValueAt(fila, 9), (String) tablaAlumnos.getValueAt(fila, 10),
                         (String) tablaAlumnos.getValueAt(fila, 11), (String) tablaAlumnos.getValueAt(fila, 12),
@@ -332,13 +364,14 @@ public class PrincipalJugadores extends javax.swing.JFrame {
     }//GEN-LAST:event_botonEliminarAlumnoActionPerformed
 
     private void botonNuevoAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoAlumnoActionPerformed
-        new AñadirModificarAlumno(this, this.bd).setVisible(true);
+        new AñadirModificarJugador(this, this.bd).setVisible(true);
     }//GEN-LAST:event_botonNuevoAlumnoActionPerformed
 
     private void estadisticasJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estadisticasJugadorActionPerformed
         String jugadorElegido;
         ResultSet retset = null;
 
+        // Se comprueba si se ha seleccionado a un alumno.
         int i = tablaAlumnos.getSelectedRow();
         if (i == -1) {
             JOptionPane.showMessageDialog(null, "Seleccione un jugador para ver estadisticas");
@@ -357,6 +390,7 @@ public class PrincipalJugadores extends javax.swing.JFrame {
                 Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
 
+            // Si hay estadisticas se muestran, sino no
             if (retset != null) {
                 new EstadisticasJugador(this.bd, retset, jugadorElegido).setVisible(true);
             } else {
@@ -370,10 +404,12 @@ public class PrincipalJugadores extends javax.swing.JFrame {
     }//GEN-LAST:event_botonMostrarAlumnosActionPerformed
 
     private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarActionPerformed
+        // Se comprueba si se ha seleccionado a un alumno para modificarlo
         int filaSel = tablaAlumnos.getSelectedRow();
         if (filaSel == -1) {
             JOptionPane.showMessageDialog(this, "Debes seleccionar un jugador", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
+            // Se extraen sus datos y se procede a la modificación en otro formulario
             String n = (String) tablaAlumnos.getValueAt(filaSel, 0);
             String pA = (String) tablaAlumnos.getValueAt(filaSel, 1);
             String sA = (String) tablaAlumnos.getValueAt(filaSel, 2);
@@ -391,7 +427,7 @@ public class PrincipalJugadores extends javax.swing.JFrame {
             String e = (String) tablaAlumnos.getValueAt(filaSel, 15);
             String t = (String) tablaAlumnos.getValueAt(filaSel, 5);
             String s = (String) tablaAlumnos.getValueAt(filaSel, 4);
-            new AñadirModificarAlumno(this, this.bd, n, pA, sA, f, c, d, l, Integer.parseInt(cP), p, co, nP, nM,
+            new AñadirModificarJugador(this, this.bd, n, pA, sA, f, c, d, l, Integer.parseInt(cP), p, co, nP, nM,
                     Integer.parseInt(tF), Integer.parseInt(tM), e, t, s).setVisible(true);
         }
     }//GEN-LAST:event_botonModificarActionPerformed
@@ -427,11 +463,15 @@ public class PrincipalJugadores extends javax.swing.JFrame {
     private javax.swing.JLabel temporadaLabel;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Actualiza la tabla donde se muestran los alumnos
+     */
     public void actualizarTabla() {
         try {
             String consulta_alumnos = leeConsultaAlumnosInterfaz();
             ResultSet retset = GestorAlumnos.consultarAlumno(this.bd, consulta_alumnos);
 
+            // Se extraen los datos de la BD segun los filtros que haya puesto el usuario
             ArrayList<ArrayList<Object>> dataCollection = new ArrayList<>();
             ArrayList<Object> row;
             while (retset.next()) {
@@ -461,6 +501,7 @@ public class PrincipalJugadores extends javax.swing.JFrame {
                 data[i] = dataCollection.get(i).toArray(new Object[17]);
             }
 
+            // Se introducen los datos en la tabla
             DefaultTableModel dtm = new DefaultTableModel(data, new String[]{"Nombre", "Primer Apellido", "Segundo Apellido",
                 "Fecha Nacimiento", "Sexo", "Talla", "Domicilio", "Localidad", "CP", "Provincia", "Colegio", "Nombre Padre",
                 "Nombre Madre", "Tel. Fijo", "Tel. Movil", "Email", "Numero Cuenta"
@@ -490,6 +531,11 @@ public class PrincipalJugadores extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Devuelve una consulta segun los filtros que haya puesto el usuario
+     *
+     * @return Un String.
+     */
     private String leeConsultaAlumnosInterfaz() {
         String consulta_alumnos = "SELECT a.idAlumno, a.talla, a.nombre, a.primerApellido, a.segundoApellido, a.nombrePadre, a.nombreMadre, a.numeroCuenta,"
                 + "a.telMovil, a.telFijo, a.observaciones, a.provincia, a.localidad, a.codigoPostal, a.colegio, a.domicilio, a.email, a.fechaNacimiento, "
@@ -497,6 +543,8 @@ public class PrincipalJugadores extends javax.swing.JFrame {
         String tablasImplicadas = " alumno a ";
         String condicionesConsulta = " WHERE ";
 
+        // Se van comprobando los filtros uno por uno, y en caso de que esten
+        // activados se filtra la consutla
         if (!nombreAl.getText().equals("") || !primerApellidoAl.getText().equals("") || !segundoApellidoAl.getText().equals("")
                 || !edadAl.getText().equals("") || !consultaEquipo.getSelectedItem().equals("") || !consultaGrupo.getSelectedItem().equals("")
                 || !consultaCategoria.getSelectedItem().equals("") || !consultaTemporada.getSelectedItem().equals("") || !consultaEntrenador.getSelectedItem().equals("")) {
@@ -552,6 +600,11 @@ public class PrincipalJugadores extends javax.swing.JFrame {
         return consulta_alumnos;
     }
 
+    /**
+     * Método que comprueba si una variable de tipo String es entera.
+     * @param cadena Cadena a comprobar.
+     * @return un Booleano
+     */
     private boolean isInteger(String cadena) {
         try {
             Integer.parseInt(cadena);

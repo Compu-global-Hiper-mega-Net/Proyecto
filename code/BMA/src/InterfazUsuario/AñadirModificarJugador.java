@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package InterfazUsuario;
 
 import GestionDeAlumnos.GestorAlumnos;
@@ -18,11 +14,6 @@ import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
-
-/**
- *
- * @author Alex
- */
 
 /*
  ******************************************************************************
@@ -51,7 +42,12 @@ import javax.swing.border.Border;
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************
  */
-public class AñadirModificarAlumno extends javax.swing.JFrame {
+/**
+ * Clase Interfaz para añadir o modificar un alumno.
+ *
+ * @author Compu-global-Hiper-mega-Net
+ */
+public class AñadirModificarJugador extends javax.swing.JFrame {
 
     private PrincipalJugadores pP;
     private BaseDatos bd;
@@ -62,9 +58,12 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
     private Calendar fechaNacAnt;
 
     /**
-     * Creates new form AnadorAlumno
+     * Constructor para añadir un alumno
+     *
+     * @param pP Contexto de la aplicación.
+     * @param bd Conexión con la BD.
      */
-    public AñadirModificarAlumno(PrincipalJugadores pP, BaseDatos bd) {
+    public AñadirModificarJugador(PrincipalJugadores pP, BaseDatos bd) {
         initComponents();
         this.pP = pP;
         this.bd = bd;
@@ -78,7 +77,30 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
         setTitle("Añadir jugador");
     }
 
-    public AñadirModificarAlumno(PrincipalJugadores pP, BaseDatos bd, String nombre, String primerApellido, String segundoApellido, String fechaNac,
+    /**
+     * Constructor para modificar los datos de un alumno.
+     *
+     * @param pP Contexto de la aplicación.
+     * @param bd Conexión con la BD.
+     * @param nombre Nombre.
+     * @param primerApellido Primer apellido.
+     * @param segundoApellido Segundo apellido.
+     * @param fechaNac Fecha de nacimiento.
+     * @param cuentaCorriente Numero de cuenta.
+     * @param domicilio Residencia habitual.
+     * @param localidad Localidad.
+     * @param codPostal Código postal.
+     * @param provincia Provincia.
+     * @param colegio Colegio.
+     * @param nombrePadre Nombre del padre.
+     * @param nombreMadre Nombre de la madre.
+     * @param telFijo Teléfono fijo.
+     * @param telMovil Teléfono móvil.
+     * @param email Correo electrónico.
+     * @param tallaAlumno Talla de ropa.
+     * @param sexo Sexo.
+     */
+    public AñadirModificarJugador(PrincipalJugadores pP, BaseDatos bd, String nombre, String primerApellido, String segundoApellido, String fechaNac,
             String cuentaCorriente, String domicilio, String localidad, int codPostal, String provincia, String colegio,
             String nombrePadre, String nombreMadre, int telFijo, int telMovil, String email, String tallaAlumno, String sexo) {
         initComponents();
@@ -233,11 +255,6 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
         jPanel2.add(nombreLabel, gridBagConstraints);
 
         nombre.setColumns(20);
-        nombre.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                nombreFocusLost(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -253,11 +270,6 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
         jPanel2.add(primerApellidoLabel, gridBagConstraints);
 
         primerApellido.setColumns(20);
-        primerApellido.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                primerApellidoFocusLost(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 2;
@@ -273,11 +285,6 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
         jPanel2.add(segundoApellidoLabel, gridBagConstraints);
 
         segundoApellido.setColumns(20);
-        segundoApellido.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                segundoApellidoFocusLost(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 2;
@@ -301,11 +308,6 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
 
         fechaNac.setMinimumSize(new java.awt.Dimension(40, 20));
         fechaNac.setPreferredSize(new java.awt.Dimension(120, 20));
-        fechaNac.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                fechaNacFocusLost(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
@@ -343,11 +345,6 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
         jPanel2.add(domicilioLabel, gridBagConstraints);
 
         domicilio.setColumns(50);
-        domicilio.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                domicilioFocusLost(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
@@ -364,11 +361,6 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
         jPanel2.add(localidadLabel, gridBagConstraints);
 
         localidad.setColumns(20);
-        localidad.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                localidadFocusLost(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;
@@ -384,11 +376,6 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
         jPanel2.add(codPostalLabel, gridBagConstraints);
 
         codPostal.setColumns(20);
-        codPostal.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                codPostalFocusLost(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 5;
@@ -404,11 +391,6 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
         jPanel2.add(provinciaLabel, gridBagConstraints);
 
         provincia.setColumns(20);
-        provincia.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                provinciaFocusLost(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 5;
@@ -423,11 +405,6 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
         jPanel2.add(colegioLabel, gridBagConstraints);
 
         colegio.setColumns(25);
-        colegio.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                colegioFocusLost(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 6;
@@ -465,11 +442,6 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
         jPanel2.add(nombrePadreLabel, gridBagConstraints);
 
         nombrePadre.setColumns(50);
-        nombrePadre.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                nombrePadreFocusLost(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 9;
@@ -486,11 +458,6 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
         jPanel2.add(nombreMadreLabel, gridBagConstraints);
 
         nombreMadre.setColumns(50);
-        nombreMadre.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                nombreMadreFocusLost(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 10;
@@ -507,11 +474,6 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
         jPanel2.add(telFijoLabel, gridBagConstraints);
 
         telFijo.setColumns(20);
-        telFijo.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                telFijoFocusLost(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 11;
@@ -527,11 +489,6 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
         jPanel2.add(telMovilLabel, gridBagConstraints);
 
         telMovil.setColumns(20);
-        telMovil.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                telMovilFocusLost(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 11;
@@ -547,11 +504,6 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
         jPanel2.add(emailLabel, gridBagConstraints);
 
         email.setColumns(30);
-        email.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                emailFocusLost(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 12;
@@ -568,11 +520,6 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
         jPanel2.add(numCuentaLabel, gridBagConstraints);
 
         numCuenta.setColumns(50);
-        numCuenta.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                numCuentaFocusLost(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 13;
@@ -611,33 +558,10 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombreFocusLost
-        if (nombre.getText().isEmpty() || nombre.getText().length() > 45) {
-            nombre.setBorder(bordeError);
-        } else {
-            nombre.setBorder(bordeOriginal);
-        }
-    }//GEN-LAST:event_nombreFocusLost
-
-    private void primerApellidoFocusLost(java.awt.event.FocusEvent evt) {
-        if (primerApellido.getText().isEmpty() || primerApellido.getText().length() > 45) {
-            primerApellido.setBorder(bordeError);
-        } else {
-            primerApellido.setBorder(bordeOriginal);
-        }
-    }
-
-    private void segundoApellidoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_primerApellidoFocusLost
-        if (segundoApellido.getText().isEmpty() || segundoApellido.getText().length() > 45) {
-            segundoApellido.setBorder(bordeError);
-        } else {
-            segundoApellido.setBorder(bordeOriginal);
-        }
-    }//GEN-LAST:event_primerApellidoFocusLost
-
     private void botonAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAnadirActionPerformed
         String campos = "";
 
+        // Primero se comprueba que todos los campos sean correctos.
         if (!nombre.getText().matches("[a-zA-Z]{1,45}")) {
             campos = campos + "'Nombre',";
             nombre.setBorder(bordeError);
@@ -702,7 +626,7 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
         }
         //Si no ha habido ningún error al introducir los campos, entonces hacemos el insert
         if (campos.isEmpty()) {
-            boolean error = GestorAlumnos.darAltaAlumno(bd, nombre.getText(), primerApellido.getText(), segundoApellido.getText(), dateFromDateChooser,
+            boolean error = GestorAlumnos.darAltaAlumno(bd, nombre.getText(), primerApellido.getText(), segundoApellido.getText(), fechaNac.getCalendar(),
                     numCuenta.getText(), domicilio.getText(), localidad.getText(),
                     Integer.parseInt(codPostal.getText()), provincia.getText(), colegio.getText(), nombrePadre.getText(),
                     nombreMadre.getText(), Integer.parseInt(telFijo.getText()), Integer.parseInt(telMovil.getText()), email.getText(), "",
@@ -725,105 +649,8 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonAnadirActionPerformed
 
-    private void fechaNacFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fechaNacFocusLost
-        Date dateFromDateChooser = fechaNac.getDate();
-        String dateString = String.format("%1$tY-%1$tm-%1$td", dateFromDateChooser);
-        if (dateString.equals("null-null-null")) {
-            fechaNac.setBorder(bordeError);
-        } else {
-            fechaNac.setBorder(bordeDatePicker);
-        }
-    }//GEN-LAST:event_fechaNacFocusLost
-
-    private void domicilioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_domicilioFocusLost
-        if (domicilio.getText().isEmpty() || domicilio.getText().length() > 100) {
-            domicilio.setBorder(bordeError);
-        } else {
-            domicilio.setBorder(bordeOriginal);
-        }
-    }//GEN-LAST:event_domicilioFocusLost
-
-    private void localidadFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_localidadFocusLost
-        if (localidad.getText().isEmpty() || localidad.getText().length() > 45) {
-            localidad.setBorder(bordeError);
-        } else {
-            localidad.setBorder(bordeOriginal);
-        }
-    }//GEN-LAST:event_localidadFocusLost
-
-    private void codPostalFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_codPostalFocusLost
-        if (codPostal.getText().isEmpty() || codPostal.getText().length() > 10 || !isInteger(codPostal.getText())) {
-            codPostal.setBorder(bordeError);
-        } else {
-            codPostal.setBorder(bordeOriginal);
-        }
-    }//GEN-LAST:event_codPostalFocusLost
-
-    private void provinciaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_provinciaFocusLost
-        if (provincia.getText().isEmpty() || provincia.getText().length() > 70) {
-            provincia.setBorder(bordeError);
-        } else {
-            provincia.setBorder(bordeOriginal);
-        }
-    }//GEN-LAST:event_provinciaFocusLost
-
-    private void colegioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_colegioFocusLost
-        if (colegio.getText().isEmpty() || colegio.getText().length() > 45) {
-            colegio.setBorder(bordeError);
-        } else {
-            colegio.setBorder(bordeOriginal);
-        }
-    }//GEN-LAST:event_colegioFocusLost
-
-    private void nombrePadreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombrePadreFocusLost
-        if (nombrePadre.getText().isEmpty() || nombrePadre.getText().length() > 100) {
-            nombrePadre.setBorder(bordeError);
-        } else {
-            nombrePadre.setBorder(bordeOriginal);
-        }
-    }//GEN-LAST:event_nombrePadreFocusLost
-
-    private void nombreMadreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombreMadreFocusLost
-        if (nombreMadre.getText().isEmpty() || nombreMadre.getText().length() > 100) {
-            nombreMadre.setBorder(bordeError);
-        } else {
-            nombreMadre.setBorder(bordeOriginal);
-        }
-    }//GEN-LAST:event_nombreMadreFocusLost
-
-    private void telFijoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_telFijoFocusLost
-        if (telFijo.getText().isEmpty() || telFijo.getText().length() > 30 || !isInteger(telFijo.getText())) {
-            telFijo.setBorder(bordeError);
-        } else {
-            telFijo.setBorder(bordeOriginal);
-        }
-    }//GEN-LAST:event_telFijoFocusLost
-
-    private void telMovilFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_telMovilFocusLost
-        if (telMovil.getText().isEmpty() || telMovil.getText().length() > 30 || !isInteger(telMovil.getText())) {
-            telMovil.setBorder(bordeError);
-        } else {
-            telMovil.setBorder(bordeOriginal);
-        }
-    }//GEN-LAST:event_telMovilFocusLost
-
-    private void emailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailFocusLost
-        if (email.getText().isEmpty() || email.getText().length() > 75) {
-            email.setBorder(bordeError);
-        } else {
-            email.setBorder(bordeOriginal);
-        }
-    }//GEN-LAST:event_emailFocusLost
-
-    private void numCuentaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_numCuentaFocusLost
-        if (numCuenta.getText().isEmpty() || numCuenta.getText().length() > 40) {
-            numCuenta.setBorder(bordeError);
-        } else {
-            numCuenta.setBorder(bordeOriginal);
-        }
-    }//GEN-LAST:event_numCuentaFocusLost
-
     private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarActionPerformed
+        // Primero se comprueba que aya habido algún cambio y si li ha havido se procede a guardarlo en BD.
         if (!nombre.getText().equals(nombreAnt) || !primerApellido.getText().equals(primerApellidoAnt)
                 || !segundoApellido.getText().equals(segundoApellidoAnt) || !fechaNacAnt.getTime().equals(fechaNac.getDate())
                 || !numCuenta.getText().equals(cuentaCorrienteAnt) || !domicilio.getText().equals(domicilioAnt)
@@ -833,6 +660,8 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
                 || !telFijo.getText().equals(String.valueOf(telFijoAnt)) || !telMovil.getText().equals(String.valueOf(telMovilAnt))
                 || !email.getText().equals(emailAnt) || !((String) talla.getSelectedItem()).equals(tallaAlumnoAnt)
                 || !((String) sexoAlumno.getSelectedItem()).substring(0, 1).equals(sexoAnt)) {
+
+            // Si ha bavido cambios pero hay algun campo vacío se aborta la modificación
             if (nombre.getText().isEmpty() || primerApellido.getText().isEmpty() || segundoApellido.getText().isEmpty()
                     || numCuenta.getText().isEmpty() || domicilio.getText().isEmpty()
                     || localidad.getText().isEmpty() || codPostal.getText().isEmpty()
@@ -855,7 +684,7 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
                         observaciones = al.getString("a.observaciones");
                     }
                 } catch (SQLException ex) {
-                    Logger.getLogger(AñadirModificarAlumno.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(AñadirModificarJugador.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
                 Date dateFromDateChooser = fechaNac.getDate();
@@ -871,16 +700,6 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_botonModificarActionPerformed
-
-    private boolean isInteger(String cadena) {
-        boolean esEntero = true;
-        try {
-            Integer.parseInt(cadena);
-        } catch (Exception e) {
-            esEntero = false;
-        }
-        return esEntero;
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAnadir;
     private javax.swing.JButton botonModificar;
