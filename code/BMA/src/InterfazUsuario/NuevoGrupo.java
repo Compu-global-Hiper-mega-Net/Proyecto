@@ -554,10 +554,11 @@ public class NuevoGrupo extends javax.swing.JFrame {
         try {
             System.out.println("cambio categoria interfaz:"+comboCat.getSelectedItem().toString());
             int anio = GestorCategorias.getAnioCategoria(bd, comboCat.getSelectedItem().toString());
-            
+            listaAlumnos=new ArrayList();
             //lista = GestorAlumnos.getAlumnosCategoria(bd, anio);
             alumnosCat = GestorAlumnos.getAlumnosCategoria(bd, anio);
-            
+            labelAnadir.setText(Integer.toString(listaAlumnos.size())+"/20");
+            labelSelecc.setText("0/"+(20-listaAlumnos.size()));
             actualizaModeloLista(alumnosCat);
             
         } catch (SQLException ex) {
