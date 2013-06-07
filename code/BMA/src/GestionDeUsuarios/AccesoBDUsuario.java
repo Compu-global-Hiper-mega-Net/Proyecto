@@ -77,13 +77,28 @@ class AccesoBDUsuario {
     }
 
     static int getIdEnt(BaseDatos accesoBD, String entrenador) throws SQLException {
+        
         int id = 0;
         String nombre = "", apellido1 = "", apellido2 = "";
         String aux = entrenador;
 
-        nombre = aux.substring(0, aux.indexOf(" "));
-        apellido1 = aux.substring(aux.indexOf(" ") + 1, aux.indexOf(" ", aux.indexOf(" ") + 1));
-        apellido2 = aux.substring(aux.indexOf(" ", aux.indexOf(" ") + 1) + 1, aux.length());
+        int n = 0;
+        for(int i = 0; i < entrenador.length(); i++){
+            if(entrenador.charAt(i) == ' ')
+                n++;
+        }
+        
+        if(n == 3){
+            nombre = aux.substring(0, aux.indexOf(" ", aux.indexOf(" ")+1));
+            aux = aux.substring(aux.indexOf(" ", aux.indexOf(" ")+1), aux.length());
+            apellido1 = aux.substring(aux.indexOf(" ") + 1, aux.indexOf(" ", aux.indexOf(" ") + 1));
+            apellido2 = aux.substring(aux.indexOf(" ", aux.indexOf(" ") + 1) + 1, aux.length());
+        }
+        else{
+            nombre = aux.substring(0, aux.indexOf(" "));
+            apellido1 = aux.substring(aux.indexOf(" ") + 1, aux.indexOf(" ", aux.indexOf(" ") + 1));
+            apellido2 = aux.substring(aux.indexOf(" ", aux.indexOf(" ") + 1) + 1, aux.length());
+        }
 
         String query = "SELECT idUsuario FROM Usuario WHERE nombre='" + nombre + "' AND "
                 + "primerApellido='" + apellido1 + "' AND segundoApellido='" + apellido2 + "'";

@@ -18,6 +18,21 @@ import java.util.List;
  * @author David
  */
 public class PagoBD {
+
+    static List<Integer> getIdCuotas(BaseDatos accesoBD, int idAl, int idTemp) throws SQLException {
+        List<Integer> idCuotas = new ArrayList<Integer>();
+        
+        String query = "SELECT Cuota.idCuota FROM Cuota, PagoTemporada WHERE "
+                + "Cuota.idCuota=PagoTemporada.Cuota_idCuota AND "
+                + "PagoTemporada.AlumnoTemporada_Alumno_idAlumno='"+idAl+"' AND "
+                + "PagoTemporada.AlumnoTemporada_Temporada_idTemporada='"+idTemp+"'";
+        ResultSet res = accesoBD.ejecutaConsulta(query);
+        
+        while(res.next())
+            idCuotas.add(res.getInt(1));
+        
+        return idCuotas;
+    }
     
     ResultSet consultaPagoBD(BaseDatos accesoBD, String consulta){
         ResultSet retset;
