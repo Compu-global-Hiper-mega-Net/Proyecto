@@ -6,10 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Diego
- */
+
 
 /*
  ******************************************************************************
@@ -39,16 +36,44 @@ import javax.swing.JOptionPane;
  ******************************************************************************
  */
 
+/**
+ * Clase Gestora de Categorias que permite interactuar entre las tablas de la 
+ * base de datos referentes a Categorias y los objetos de la clase Categoria.
+ * @author Diego
+ */
 public class GestorCategorias {
     
+    /**
+     * Permite obtener una categoria a partir del identificador de la categoria.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param idCat Contiene el identificador de la categoria de la que queremos 
+     * obtener el nombre.
+     * @return Un <code>String</code> con el nombre de la categoria.
+     * @throws SQLException 
+     */
     public static String getCategoria(BaseDatos accesoBD, int idCat) throws SQLException {
         return CategoriaBD.getCategoria(accesoBD, idCat);
     }
 
+    /**
+     * Permite obtener el identificador de una categoria a partir del nombre.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param categoria Contiene el nombre de la categoria de la que queremos 
+     * saber el identificador.
+     * @return Un <code>int</code> con el identificador de la categoria.
+     * @throws SQLException 
+     */
     public static int getIdCategoria(BaseDatos accesoBD, String categoria) throws SQLException{
         return CategoriaBD.getIdCategoria(accesoBD, categoria);
     }
 
+    /**
+     * Permite insertar una nueva categoria en la base de datos
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param t Contiene el nombre de la categoria que queremos insertar.
+     * @param desc Contiene la descripcion de la categoria que queremos insertar.
+     * @throws SQLException 
+     */
     public static void InsertarDatosCategorias(BaseDatos accesoBD, String t, String desc) throws SQLException {
         boolean validar = CategoriaBD.ConsultarCategoria(accesoBD, t);
         
@@ -61,11 +86,26 @@ public class GestorCategorias {
         }
     }
 
-
+    /**
+     * Permite obtener una lista con las temporadas almacenadas en la base de datos.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @return Una lista de lista de <code>String</code> con las categorias, 
+     * conteniendo tanto el nombre como la descripcion.
+     * @throws SQLException 
+     */
     public static List<List<String>> getListaCategorias(BaseDatos accesoBD) throws SQLException {
         return CategoriaBD.getListaCategorias(accesoBD);
     }
 
+    /**
+     * Permite modificar una categoria existente en la base de datos.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param cNuevo Objeto de la clase Categoria con los nuevos datos que queremos 
+     * modificar.
+     * @param cViejo Objeto de la clase Categoria con los antiguos datos que van a ser 
+     * modificados.
+     * @throws SQLException 
+     */
     public static void ModificarCategoria(BaseDatos accesoBD, Categoria cNuevo, Categoria cViejo) throws SQLException {
         boolean existe = existeCategoria(accesoBD, cNuevo);
         
@@ -78,10 +118,24 @@ public class GestorCategorias {
        
     }
 
+    /**
+     * Permite saber si una cateogoria ya existe en la base de datos.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param c Objeto de la clase Categoria con los datos de la categoria de la 
+     * que queremos saber si ya existe en la BD.
+     * @return TRUE si la categoria ya existe, FALSE en caso contrario.
+     * @throws SQLException 
+     */
     private static boolean existeCategoria(BaseDatos accesoBD, Categoria c) throws SQLException {
         return CategoriaBD.existeCategoria(accesoBD, c);
     }
 
+    /**
+     * Permite eliminar una categoria de la base de datos.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param c Objeto de la clase Categoria con los datos de la categoria 
+     * que queremos eliminar.
+     */
     public static void EliminarCategorias(BaseDatos accesoBD, Categoria c) {
         boolean categoriaEliminada = false;
         
@@ -92,12 +146,18 @@ public class GestorCategorias {
         else
             JOptionPane.showMessageDialog(new PantallaPrincipal(), "Error al eliminar", "Error", JOptionPane.ERROR_MESSAGE);
     }
-
+    
+    /**
+     * Permite obtener los nombres de las cateogiras almacenadas en la BD.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @return Una lista de <code>String</code> con los nombres de las categorias.
+     * @throws SQLException 
+     */
     public static List<String> getTipoCategorias(BaseDatos accesoBD) throws SQLException {
         return CategoriaBD.getTipoCategorias(accesoBD);
     }
 
-    }
+}
 
     
 

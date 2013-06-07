@@ -6,10 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Diego
- */
+
 
 /*
  ******************************************************************************
@@ -39,8 +36,21 @@ import java.util.List;
  ******************************************************************************
  */
 
+/**
+ * Clase que permite hacer el paso de los objetos de tipo Temporada a objetos 
+ * relacionales de la Base de Datos.
+ * @author Diego
+ */
 public class TemporadaBD {
 
+    /**
+     * Permite saber si una temporada ya esta introducida en la base de datos.
+     * @param curso Contiene el año que queremos saber si ya esta introducido en 
+     * la base de datos.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @return TRUE si la temporada ya existe, FALSE en caso contrario.
+     * @throws SQLException 
+     */
     static boolean consultarTemporada(int curso, BaseDatos accesoBD) throws SQLException {
         boolean validar;
         
@@ -58,6 +68,13 @@ public class TemporadaBD {
         return validar;
     }
 
+    /**
+     * Permite insertar una nueva temporada en la Base de Datos.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param t Objeto de la clase Temporada con los datos de la nueva temporada.
+     * @return 1 si la insercion ha sido correcta, 0 en caso contrario.
+     * @throws SQLException 
+     */
     static int insertarTemporadaBD(BaseDatos accesoBD, Temporada t) throws SQLException {
         String query = "INSERT INTO Temporada (curso, inicio, fin, importeMensual) "
                 + "VALUES ('"+t.getCurso()+"','"+t.getInicio()+"','"+t.getFin()+"','"+Double.toString(t.getImporte())+"')";
@@ -65,6 +82,12 @@ public class TemporadaBD {
         return correcto;
     }
 
+    /**
+     * Permite obtener una lista con todas las temporadas almacenadas en el sistema.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @return Lista de <code>String</code> con las temporadas almacenadas.
+     * @throws SQLException 
+     */
     static List<String> getListaTemporadas(BaseDatos accesoBD) throws SQLException {
         String query = "SELECT curso FROM Temporada ORDER BY curso DESC";
         ResultSet resCons = accesoBD.ejecutaConsulta(query);
@@ -78,6 +101,14 @@ public class TemporadaBD {
         return res;
     }
 
+    /**
+     * Permite modificar una temporada previamente almacenada en la BD.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param cursoAnterior Año de la temporada que queremos modificar.
+     * @param cursoNuevo Año de la nueva temporada que queremos almacenar.
+     * @return 1 si la modificacion ha sido correcta, 0 en caso contrario.
+     * @throws SQLException 
+     */
     static int modificarTemporada(BaseDatos accesoBD, String cursoAnterior, String cursoNuevo) throws SQLException {
         int correcto = 0;
         String query = "UPDATE Temporada SET curso='"+cursoNuevo+"' WHERE curso='"+cursoAnterior+"'";
@@ -86,6 +117,13 @@ public class TemporadaBD {
         return correcto;
     }
 
+    /**
+     * Permite eliminar una temporada de la base de datos.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param t Objeto de la clase Temporada con los datos de la temporada que 
+     * queremos eliminar.
+     * @return TRUE si la eliminacion ha sido correcta, FALSE en caso contrario.
+     */
     static boolean eliminarTemporadaBD(BaseDatos accesoBD, Temporada t) {
         boolean correcto = false;
         String query = "DELETE FROM Temporada WHERE curso='"+t.getCurso()+"'";
@@ -94,6 +132,14 @@ public class TemporadaBD {
         return correcto;
     }
 
+    /**
+     * Permite obtener el identificador de una temporada a partir del curso.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param temporada Contiene el curso de la temporada expresado como "anio/anio+1".
+     * @return Un <code>int</code> con el identificador de la temporada pasada 
+     * por parametro.
+     * @throws SQLException 
+     */
     static int getIdTemporada(BaseDatos accesoBD, String temporada) throws SQLException {
         int idTemp = 0;
         
@@ -106,6 +152,14 @@ public class TemporadaBD {
         return idTemp;
     }
 
+    /**
+     * Permite obtener una temporada a partir del identificador.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param s Contiene el identificador de la temporada.
+     * @return <code>String</code> con la temporada correspondiente al identificador 
+     * pasado por parametro.
+     * @throws SQLException 
+     */
     static String getTemporada(BaseDatos accesoBD, String s) throws SQLException {
         String query = "SELECT curso FROM Temporada WHERE idTemporada='"+s+"'";
         ResultSet res = accesoBD.ejecutaConsulta(query);
@@ -117,6 +171,14 @@ public class TemporadaBD {
         return temp;
     }
 
+    /**
+     * Permite obtener una temporada a partir del identificador.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param s Contiene el identificador de la temporada.
+     * @return <code>String</code> con la temporada correspondiente al identificador 
+     * pasado por parametro.
+     * @throws SQLException 
+     */
     static String getTemporada(BaseDatos accesoBD, int idTemp) throws SQLException {
         String query = "SELECT curso FROM Temporada WHERE idTemporada='"+idTemp+"'";
         ResultSet res = accesoBD.ejecutaConsulta(query);
@@ -146,6 +208,15 @@ public class TemporadaBD {
     }
    
 
+    /**
+     * Permite modificar una temporada previamente almacenada en la BD.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param cursoAnterior Año de la temporada que queremos modificar.
+     * @param t Objeto de la clase temporada que contiene los nuevos datos que 
+     * queremos modificar.
+     * @return 1 si la modificacion ha sido correcta, 0 en caso contrario.
+     * @throws SQLException 
+     */
     static int modificarTemporada(BaseDatos accesoBD, String cursoAnterior, Temporada t) throws SQLException {
         int correcto = 0;
         String query = "UPDATE Temporada SET curso='"+t.getCurso()+"',"
@@ -156,6 +227,14 @@ public class TemporadaBD {
         return correcto;
     }
 
+    /**
+     * Permite obtener el importe mensual de una temporada.
+     * @param bd Usado para interactuar con la base de datos.
+     * @param curso Contiene el curso del cual queremos saber el importe de las 
+     * mensualidades.
+     * @return Un <code>double</code> con el importe mensual.
+     * @throws SQLException 
+     */
     static double getImporte(BaseDatos bd, String curso) throws SQLException {
         String query = "SELECT importeMensual FROM Temporada WHERE "
                 + "curso='"+curso+"'";
@@ -168,6 +247,13 @@ public class TemporadaBD {
         return imp;
     }
 
+    /**
+     * Permite obtener la fecha de inicio de un curso.
+     * @param bd Usado para interactuar con la base de datos.
+     * @param curso Contiene el curso de la temporada expresado como "anio/anio+1".
+     * @return Un <code>String</code> con la fecha de inicio de la temporada.
+     * @throws SQLException 
+     */
     static String getInicio(BaseDatos bd, String curso) throws SQLException {
         String query = "SELECT inicio FROM Temporada "
                 + "WHERE curos='"+curso+"'";
@@ -180,6 +266,13 @@ public class TemporadaBD {
         return i;
     }
     
+    /**
+     * Permite obtener la fecha de fin de un curso.
+     * @param bd Usado para interactuar con la base de datos.
+     * @param curso Contiene el curso de la temporada expresado como "anio/anio+1".
+     * @return Un <code>String</code> con la fecha de fin de la temporada.
+     * @throws SQLException 
+     */
     static String getFin(BaseDatos bd, String curso) throws SQLException {
         String query = "SELECT fin FROM Temporada "
                 + "WHERE curos='"+curso+"'";
