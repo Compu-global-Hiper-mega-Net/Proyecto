@@ -169,13 +169,13 @@ public class BaseDatos {
      * @throws SQLException
      */
     
-    public int obtenerUltimoIdActualizacion(String actualizacion) throws SQLException
+    public int obtenerUltimoIdActualizacion(String actualizacion, String id_campo) throws SQLException
     {
         int i = comprobar();
         stmt = conexion.get(i).createStatement();
         int res = stmt.executeUpdate(actualizacion);
         int id = -1;
-        String query = "SELECT MAX(idAlumno) FROM alumno";
+        String query = "SELECT MAX('" + id_campo + "') FROM alumno";
             
         try{
             retset = ejecutaConsulta(query);

@@ -34,6 +34,7 @@ public class PrincipalActividades extends javax.swing.JFrame {
         setLocationRelativeTo(pP);
         this.bd = bd;
         this.pP = pP;
+        mostrarActividades();
     }
 
     /**
@@ -141,6 +142,7 @@ public class PrincipalActividades extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        actividadesTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane4.setViewportView(actividadesTable);
 
         Informacion.setText("Info");

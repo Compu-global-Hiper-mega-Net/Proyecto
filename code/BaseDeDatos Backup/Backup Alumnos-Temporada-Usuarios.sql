@@ -109,26 +109,6 @@ CREATE TABLE `alumno` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
-DROP TABLE IF EXISTS `categoriaalumno`;
-CREATE  TABLE IF NOT EXISTS `mydb`.`categoriaalumno` (
-  `idcategoriaalumno` INT NOT NULL AUTO_INCREMENT ,
-  `categoria_idCategoria` INT(11) NOT NULL ,
-  `alumno_idAlumno` INT(11) NOT NULL ,
-  PRIMARY KEY (`idcategoriaalumno`, `categoria_idCategoria`, `alumno_idAlumno`) ,
-  INDEX `fk_categoriaalumno_categoria1_idx` (`categoria_idCategoria` ASC) ,
-  INDEX `fk_categoriaalumno_alumno1_idx` (`alumno_idAlumno` ASC) ,
-  CONSTRAINT `fk_categoriaalumno_categoria1`
-    FOREIGN KEY (`categoria_idCategoria` )
-    REFERENCES `mydb`.`categoria` (`idCategoria` )
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_categoriaalumno_alumno1`
-    FOREIGN KEY (`alumno_idAlumno` )
-    REFERENCES `mydb`.`alumno` (`idAlumno` )
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-
 --
 -- Dumping data for table `alumno`
 --
@@ -138,6 +118,8 @@ LOCK TABLES `alumno` WRITE;
 INSERT INTO `alumno` VALUES (2,'M','carlos','Fernandez','Basso','Juan','Yolanda','12312213',667787267,977827606,'gran jugador','Granada','Granada',12345,'san idelfonso','C/ luis','carlos@gmail.com','2000-02-03','M'),(3,'L','Juan','Gomez','Gomez','Luis','Juana','23434553',666777888,968776655,NULL,'Granada','Maracena',18023,'Mulacen','C/ pedro','CDS@gmail.com','2001-02-06','M'),(4,'S','Luis','Hernandez','Sierra','Esteban','Luisa','54675545',657898734,958473277,NULL,'Granada','Granada',12098,'Francisco Ayala','C/ del Olmo','vvau@hotmail.com','2005-02-07','M'),(5,'XL','Manuel','Garcia','Fernandez','Manuel','Maria','23421451',677897654,958776898,NULL,'Granada','Granada',12089,'Generalife','C/ Galera','Maga@gmail.com','1998-02-03','M'),(6,'M','Marta','Garcia','Garrido','Luis','Julia','12342344',678398297,987325436,NULL,'Granada','Granada',12083,'Ave Maria','C/ olgoso','Mtarti@gmail.com','1999-02-09','F'),(7,'S','Luisa','Garcia','Ruano','Eladio','Carmen','23423141',678288289,958762839,NULL,'Granada','Granada',12345,'Monaita','C/ lupistre','olgora@gmail.com','2003-08-09','F'),(8,'M','Sebastian','Fernandez','Sierra','Sebastian','Isabel','43524532',653897654,968654346,NULL,'Granada','Maracena',12342,'Francisco Ayala','C/ leonor','Seba@gmail.com','2005-05-06','M'),(9,'L','Maria','Fernandez','Garcia','Luis','Maria','98984308',637824682,962747372,NULL,'Granada','Cajar',13456,'Luis Olmo','C/ Leopete','Marii@gmail.com','2007-06-04','F'),(10,'XL','Elena','Hernandez','Mesa','Juan','Eva','98676377',678265673,978525615,NULL,'Granada','Otura',14525,'Luis Crespo','C/ Gongora','Lssu@gmail.com','1997-07-08','F'),(11,'M','Eva','Fina','Segura','Esteban','Juana','97874847',693829838,978665544,NULL,'Granada','Granada',18097,'Monaita','C/ Herza','efs@gmail.com','1997-09-07','F'),(12,'L','Marcos','Mesa','Fernandez','Luis','Yolanda','98782738',675445454,987545345,'Problemas de rodilla','Granada','Alfacar',15712,'Elisuar','C/ Tensa','Marc@gmail.com','1997-09-14','M'),(13,'M','Pablo','Pozo','Mesa','Francisco','Rosa','12842988',672873872,972637267,NULL,'Granada','Otura',13122,'Generalife','C/ Sensa','Pab@hotmail.com','1998-08-17','M'),(14,'XL','Luis Manuel','Garcia','Pozo','Manuel','Francisca','43356454',687267783,987626661,NULL,'Granada','Granada',18092,'Generalife','C/ Gran capitan','ALsk@gmail.com','2003-09-25','M'),(15,'M','Alfonso','Ortega','Carrillo','Jose','Adela','56345345',678839291,938231827,NULL,'Granada','Granada',18047,'Virgen de gracia','C/ Barriada','alfo@gmail.com','2000-07-06','M'),(16,'XL','Adela','Fernandez','Gomez','Jose Maria ','Jessica','76765176',654323233,967262716,NULL,'Granada','Maracena',18290,'San Jose','C/ Consolacion','ade@hotmail.com','1999-08-12','F'),(17,'M','Carla','Fernandez','Gomez','Carlos Jesus','Jessica','59862445',662578963,952785412,NULL,'Granada','Albolote',18200,'Sagrado Corazon','C/Juan Miguel','carlafg@hotmail.com','2002-01-19','F'),(18,'L','Sergio','Rodriguez','Galvez','Juan','Aurora','87752465',668745230,985632577,NULL,'Granada','Armilla',18662,'Juan XXIII','C/Alhondiga','sergito@hotmail.com','1999-10-12','M'),(19,'S','Juan','Sanchez','Alonso','Carlos','Cristina','15788562',633258746,926548465,NULL,'Granada','Huetor',15825,'Sagrada Corazon','C/Justino','alonsofd@hotmail.com','1998-04-15','M'),(20,'M','Esther','Zamora','Lopez','Daniel','Esther','52335645',665874524,987545223,NULL,'Granada','Zagra',14788,'Emilio Carmona','C/San Sebastian','esther23@hotmail.com','1997-02-01','M');
 /*!40000 ALTER TABLE `alumno` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
 
 --
 -- Table structure for table `alumnoequipo`
@@ -236,6 +218,7 @@ CREATE TABLE `categoria` (
   `idCategoria` int(11) NOT NULL AUTO_INCREMENT,
   `tipo` varchar(45) DEFAULT NULL,
   `descripcion` varchar(45) DEFAULT NULL,
+  `edadmin` int(11) NOT NULL,
   PRIMARY KEY (`idCategoria`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -246,8 +229,36 @@ CREATE TABLE `categoria` (
 
 LOCK TABLES `categoria` WRITE;
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
-INSERT INTO `categoria` VALUES (1,'benjamín','(9-10 años)'),(2,'alevín','(11-12 años)'),(3,'infantil','(13-14 años)'),(4,'cadete','(15-16 años)'),(5,'junior','(17-18 años)');
+INSERT INTO `categoria` VALUES (1,'benjamín','(9-10 años)',9),(2,'alevín','(11-12 años)',11),(3,'infantil','(13-14 años)',13),(4,'cadete','(15-16 años)',15),(5,'junior','(17-18 años)',17);
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `categoriaalumno`
+--
+
+DROP TABLE IF EXISTS `categoriaalumno`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `categoriaalumno` (
+  `idcategoriaalumno` int(11) NOT NULL AUTO_INCREMENT,
+  `categoria_idCategoria` int(11) NOT NULL,
+  `alumno_idAlumno` int(11) NOT NULL,
+  PRIMARY KEY (`idcategoriaalumno`,`categoria_idCategoria`,`alumno_idAlumno`),
+  KEY `fk_categoriaalumno_categoria1_idx` (`categoria_idCategoria`),
+  KEY `fk_categoriaalumno_alumno1_idx` (`alumno_idAlumno`),
+  CONSTRAINT `fk_categoriaalumno_categoria1` FOREIGN KEY (`categoria_idCategoria`) REFERENCES `categoria` (`idCategoria`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_categoriaalumno_alumno1` FOREIGN KEY (`alumno_idAlumno`) REFERENCES `alumno` (`idAlumno`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `categoriaalumno`
+--
+
+LOCK TABLES `categoriaalumno` WRITE;
+/*!40000 ALTER TABLE `categoriaalumno` DISABLE KEYS */;
+/*!40000 ALTER TABLE `categoriaalumno` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -698,4 +709,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-06-02  1:10:50
+-- Dump completed on 2013-06-07 17:36:05

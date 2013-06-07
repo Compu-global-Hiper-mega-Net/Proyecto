@@ -168,6 +168,8 @@ public class PrincipalJugadores extends javax.swing.JFrame {
 
             }
         ));
+        tablaAlumnos.getTableHeader().setResizingAllowed(false);
+        tablaAlumnos.getTableHeader().setReorderingAllowed(false);
         panelResulAl.setViewportView(tablaAlumnos);
 
         edadAlLabel.setText("Edad:");
