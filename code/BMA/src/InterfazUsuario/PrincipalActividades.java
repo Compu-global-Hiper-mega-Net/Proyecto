@@ -62,6 +62,7 @@ public class PrincipalActividades extends javax.swing.JFrame {
         actividadesTable = new javax.swing.JTable();
         Informacion = new javax.swing.JButton();
         AñaridAlumno = new javax.swing.JButton();
+        buscarActividad = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Actividades");
@@ -77,6 +78,11 @@ public class PrincipalActividades extends javax.swing.JFrame {
 
         nombreLabel.setText("Nombre");
 
+        nombreTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nombreTextFieldActionPerformed(evt);
+            }
+        });
         nombreTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 nombreTextFieldKeyTyped(evt);
@@ -117,19 +123,20 @@ public class PrincipalActividades extends javax.swing.JFrame {
             }
         });
 
+        actividadesTable.setAutoCreateRowSorter(true);
         actividadesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nombre", "Fecha de Inicio", "Fecha Fin"
+                "Nombre", "Fecha de Inicio", "Fecha Fin", "Instalacion"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -149,6 +156,13 @@ public class PrincipalActividades extends javax.swing.JFrame {
         AñaridAlumno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AñaridAlumnoActionPerformed(evt);
+            }
+        });
+
+        buscarActividad.setText("Buscar");
+        buscarActividad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarActividadActionPerformed(evt);
             }
         });
 
@@ -188,7 +202,9 @@ public class PrincipalActividades extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(Eliminar)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(Modificar))
+                                    .addComponent(Modificar)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(buscarActividad))
                                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(panelActividadesLayout.createSequentialGroup()
                         .addGap(231, 231, 231)
@@ -216,7 +232,8 @@ public class PrincipalActividades extends javax.swing.JFrame {
                 .addGroup(panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Insertar)
                     .addComponent(Eliminar)
-                    .addComponent(Modificar))
+                    .addComponent(Modificar)
+                    .addComponent(buscarActividad))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -508,6 +525,82 @@ public class PrincipalActividades extends javax.swing.JFrame {
         new AñadirAlumno(bd, idTemporada, idActividad).setVisible(true);
     }//GEN-LAST:event_AñaridAlumnoActionPerformed
 
+    private void buscarActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActividadActionPerformed
+          // TODO add your handling code here:
+        if (!nombreTextField.getText().isEmpty()) {
+            String nombre = nombreTextField.getText();
+            String consulta = "SELECT IdActividaes,nombre, fechaInicio, fechaFin FROM actividades"
+            + " WHERE nombre LIKE '%" + nombre + "%'";
+            String consultaInstalaciones="SELECT * FROM mydb.actividadesinstalacion Where actividades_idActividades=";
+            ResultSet retset;
+            
+
+            retset = bd.ejecutaConsulta(consulta);
+
+            
+            actividadesTable.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{
+                    {null, null, null,null},
+                    {null, null, null,null},
+                    {null, null, null,null},
+                    {null, null, null,null},
+                    {null, null, null,null},
+                    {null, null, null,null},
+                    {null, null, null,null},
+                    {null, null, null,null},
+                    {null, null, null,null},
+                    {null, null, null,null},
+                    {null, null, null,null},
+                    {null, null, null,null},
+                    {null, null, null,null},
+                    {null, null, null,null},
+                    {null, null, null,null},
+                    {null, null, null,null},
+                    {null, null, null,null},
+                    {null, null, null,null},
+                    {null, null, null,null},
+                    {null, null, null,null},
+                    {null, null, null,null},
+                    {null, null, null,null},
+                    {null, null, null,null},
+                    {null, null, null,null},
+                    {null, null, null,null}
+                },
+                new String[]{
+                    "Nombre", "Fecha Inicio", "Fecha Fin","Instalacion",
+                }));
+                javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
+                modelo_tabla = actividadesTable.getModel();
+                int i = 0;
+                try {
+                    while (retset.next()) {
+
+                        if (i < 25) {
+                            actividadesTable.setValueAt(retset.getString("nombre"), i, 0);
+                            actividadesTable.setValueAt(retset.getString("fechaInicio"), i, 1);
+                            actividadesTable.setValueAt(retset.getString("fechaFin"), i, 2);
+                        } else {
+                            javax.swing.table.DefaultTableModel temp = new javax.swing.table.DefaultTableModel();
+                            Object nuevo[] = {"", "", ""};
+                            temp.addRow(nuevo);
+                            actividadesTable.setValueAt(retset.getString("nombre"), i, 0);
+                            actividadesTable.setValueAt(retset.getString("fechaInicio"), i, 1);
+                            actividadesTable.setValueAt(retset.getString("fechaFin"), i, 2);
+                        }
+                        i++;
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                mostrarActividades();
+            }
+    }//GEN-LAST:event_buscarActividadActionPerformed
+
+    private void nombreTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombreTextFieldActionPerformed
+
     public void mostrarActividades() {
         
         actividadesTable.removeAll();
@@ -673,6 +766,7 @@ public class PrincipalActividades extends javax.swing.JFrame {
     private javax.swing.JButton Modificar;
     private javax.swing.JLabel actividadesLabel;
     private javax.swing.JTable actividadesTable;
+    private javax.swing.JButton buscarActividad;
     private javax.swing.JLabel buscarLabel;
     private com.toedter.calendar.JDateChooser fechaFinDateChooser;
     private javax.swing.JLabel fechaFinLabel;

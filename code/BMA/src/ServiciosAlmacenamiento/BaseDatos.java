@@ -6,6 +6,8 @@ package ServiciosAlmacenamiento;
 
 import java.sql.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -126,7 +128,7 @@ public class BaseDatos {
                 reconec();
             }
         } catch (SQLException ex) {
-            System.out.print(ex.getMessage());
+            Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return i;
@@ -140,7 +142,7 @@ public class BaseDatos {
             retset = stmt.executeQuery(consulta);
             
         } catch (SQLException ex) {
-            System.out.print(ex.getMessage());
+            Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return retset;
@@ -148,9 +150,43 @@ public class BaseDatos {
 
     public int ejecutaActualizacion(String actualizacion) throws SQLException {
         int i = comprobar();
+        int res = 0;
+        try{
+        stmt = conexion.get(i).createStatement();
+        res = stmt.executeUpdate(actualizacion);
+        }catch(SQLException ex){
+            Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return res;
+    }
+    
+    /*
+     *  Método modificador
+     * @param actualizacion Parámetro formal que es de tipo String (cadena)
+     * y que contiene la insercción o actualización sobre la tabla del sistema
+     * @return devuelve un tipo ResultSet que contendrá el último ID introducido
+     * en nuestro persistente sql.
+     * @throws SQLException
+     */
+    
+    public int obtenerUltimoIdActualizacion(String actualizacion, String id_campo) throws SQLException
+    {
+        int i = comprobar();
         stmt = conexion.get(i).createStatement();
         int res = stmt.executeUpdate(actualizacion);
-        return res;
+        int id = -1;
+        String query = "SELECT MAX('" + id_campo + "') FROM alumno";
+            
+        try{
+            retset = ejecutaConsulta(query);
+            if(retset.next())
+                id = retset.getInt(1);
+        }catch(SQLException ex)
+        {
+            Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+   
+        return id;
     }
 
     public boolean eliminar(String delete) {
@@ -164,7 +200,7 @@ public class BaseDatos {
                 return false;
             }
         } catch (SQLException ex) {
-            System.out.print(ex.getMessage());
+            Logger.getLogger(BaseDatos.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
 
