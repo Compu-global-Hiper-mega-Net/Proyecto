@@ -65,6 +65,10 @@ public class Usuario {
         this.email = email;
     }
 
+    public Usuario() {
+   
+    }
+    
     public Usuario(String e) {
         this.nombre = e;
     }
@@ -128,5 +132,9 @@ public class Usuario {
 
     public void setIdEnt(int idEnt) {
         this.idUsuario = idEnt;
+    }
+
+    public int getIdEntrenador() {
+        return this.idUsuario;
     }
 }

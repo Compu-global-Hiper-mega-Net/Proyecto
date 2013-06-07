@@ -905,32 +905,46 @@ public class GruposBD {
     static boolean EliminarGrupo(BaseDatos accesoBD, Grupo g) throws SQLException {
         boolean GrupoEliminado = false;
         
-        String query1 = "SELECT Horario_idHorario FROM Grupo WHERE "
+         int idInst = 0;
+        String query1 = "SELECT Horario_idHorario, Horario_Instalacion_idInstalacion"
+                + " FROM Grupo WHERE "
                 + "idGrupo='"+g.getIdGrupo()+"'";
         ResultSet res1 = accesoBD.ejecutaConsulta(query1);
         
+       
+        
         int idHor = 0;
-        if(res1.next())
+        if(res1.next()){
             idHor = res1.getInt(1);
+            idInst = res1.getInt(2);
+        }
         
-        
-        
-        String query3 = "DELETE FROM AlumnoGrupo WHERE "
-                + "Grupo_idGrupo='"+g.getIdGrupo()+"'";
-        boolean eliminaAlumGrup = accesoBD.eliminar(query3);
-        
-        
+       
+       
         
         String query4 = "DELETE FROM Grupo WHERE "
-                + "idGrupo='"+g.getIdGrupo()+"'";
-        boolean eliminaGrupo = accesoBD.eliminar(query4);
+                + "idGrupo='"+g.getIdGrupo()+"';\n";
+        boolean eliminaGrupo ;//= accesoBD.eliminar(query4);
+        System.out.println(query4);
         
-        String query2 = "DELETE FROM Horario WHERE idHorario='"+idHor+"'";
-        boolean eliminaHor = accesoBD.eliminar(query2);
+         String query2 = "DELETE FROM Horario WHERE idHorario='"+idHor+"' AND "
+                + "Instalacion_idInstalacion='"+idInst+"';";
         
-        if(eliminaHor == true && eliminaGrupo == true && eliminaAlumGrup == true)
+        boolean eliminaHor = accesoBD.eliminar(query4+query2);
+        System.out.println(query2);
+        
+         //Alumno_idAlumno='"+g.+"'
+        String query3 = " DELETE FROM alumnogrupo WHERE "
+                + " Grupo_idGrupo = '"+g.getIdGrupo()+"' " 
+                + " AND Grupo_Categoria_idCategoria= '"+g.getIdCategoria()+"' "
+                + " AND Grupo_Usuario_idUsuario = '"+g.getIdEntrenador()+"' AND "
+                + " Grupo_Temporada_idTemporada = '"+g.getIdTemporada()+"' ";
+       System.out.println(query3);
+        boolean eliminaAlumGrup = accesoBD.eliminar(query3);
+        
+       // if(eliminaHor == true && eliminaGrupo == true && eliminaAlumGrup == true)
             GrupoEliminado = true;
-        else
+    //    else
             GrupoEliminado = false;
         
         return GrupoEliminado;

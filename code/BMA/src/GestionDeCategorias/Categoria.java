@@ -115,4 +115,8 @@ public class Categoria {
         this.idCategoria = idCat;
     }
 
+    public String getIdCategoria() {
+        return Integer.toString(this.idCategoria);
+    }
+
 }
