@@ -51,14 +51,14 @@ import javax.swing.JOptionPane;
 public class GestorEquipos {
 
 		/*Metodo para la consulta de un equipo
-		 * @param accesoBD, acceso a la base de datos.
-		 * @param nombre, nombre del equipo a consultar.
-		 * @param temporada, temporada a la que pertenece.
-		 * @param categoria, categoria a la que pertenece.
-		 * @param entrenador, entrenador encargado del equipo.
-		 * @param fundación, valor lógico que comprueba si pertence a la fundación o no.
-		 * @param sexo, sexo del equipo.
-		 * @throws SQLExcepción, algun tipo de error en la base de datos.
+		 * @param accesoBD acceso a la base de datos.
+		 * @param nombre nombre del equipo a consultar.
+		 * @param temporada temporada a la que pertenece.
+		 * @param categoria categoria a la que pertenece.
+		 * @param entrenador entrenador encargado del equipo.
+		 * @param fundación valor lógico que comprueba si pertence a la fundación o no.
+		 * @param sexo sexo del equipo.
+		 * @throws SQLExcepcion algun tipo de error en la base de datos.
 		 * @return Lista<Equipo> (lista) con el atributo interno de un equipo.
 		 */		
 
@@ -90,8 +90,8 @@ public class GestorEquipos {
     }
 
 		/* Metodo que devuelve una lista con todos los equipos.
-		 * @param accesoBD, acceso a la base de datos.
-		 * @throws SQLExcepción, algun tipo de error en la base de datos.
+		 * @param accesoBD acceso a la base de datos.
+		 * @throws SQLExcepcion algun tipo de error en la base de datos.
 		 * @return List<Equipo> (lista) con el atributo interno de todos los equipos.
 		 */
 
@@ -105,10 +105,10 @@ public class GestorEquipos {
     }
 
 		/* Metodo que devuelve el Id de un equipo.
-		 * @param accesoBD,
-		 * @param equipo,
-		 * @param cat, 
-		 * @throws SQLExcepción, algun tipo de error en la base de datos.
+		 * @param accesoBD acceso a la base de datos.
+		 * @param equipo datos relacionados del equipo.
+		 * @param cat dato perteneciente a la categoria del equipo.
+		 * @throws SQLExcepcion algun tipo de error en la base de datos.
 		 * @return int (entero) con el atributo interno del Id de un equipo. 
 		 */
     
@@ -117,9 +117,9 @@ public class GestorEquipos {
     }
     
 		/* Metodo que devuelve el nombre de un equipo
-		 * @param accesoBD, acceso a la base de datos.
-		 * @param s, id del equipo.
-		 * @throws SQLExcepción, algun tipo de error en la base de datos.
+		 * @param accesoBD acceso a la base de datos.
+		 * @param s id del equipo.
+		 * @throws SQLExcepcion algun tipo de error en la base de datos.
 		 * @return String (cadena) con el atributo interno del nombre del equipo.
 		 */
 
@@ -128,9 +128,9 @@ public class GestorEquipos {
     }
 
 		/* Metodo para eliminar un equipo.
-		 * @param accesoBD, acceso a la base de datos.
-		 * @param e, equipo a borrar.
-		 * @throws SQLExcepción, algun tipo de error en la base de datos.
+		 * @param accesoBD acceso a la base de datos.
+		 * @param e equipo a borrar.
+		 * @throws SQLExcepcion algun tipo de error en la base de datos.
 		 * @return boolean (lógico) con el atributo interno del resultado de la eliminación, es decir, si ha tenido exito o no.
 		 */
     
@@ -140,15 +140,15 @@ public class GestorEquipos {
     }
 
 		/* Metodo para insertar un equipo.
-		 * @param accesoBD, acceso a la base de datos.
-		 * @param nombre, nombre del equipo a insertar.
-		 * @param temporada, temporada a la que pertenece.
-		 * @param categoria, categoria a la que pertenece.
-		 * @param entrenador, nombre entrenador encargado del equipo.
-		 * @param entrenador2, nombre del segundo entrenador del equipo.
-		 * @param fundacion, valor logico que determina si pertenece a la fundación o no.
-		 * @param sexo, determina el sexo del equipo.
-		 * @throws SQLExcepción, algun tipo de error en la base de datos.
+		 * @param accesoBD acceso a la base de datos.
+		 * @param nombre nombre del equipo a insertar.
+		 * @param temporada temporada a la que pertenece.
+		 * @param categoria categoria a la que pertenece.
+		 * @param entrenador nombre entrenador encargado del equipo.
+		 * @param entrenador2 nombre del segundo entrenador del equipo.
+		 * @param fundacion valor logico que determina si pertenece a la fundación o no.
+		 * @param sexo determina el sexo del equipo.
+		 * @throws SQLExcepcion algun tipo de error en la base de datos.
 		 */
     
     public static void InsertarDatosEquipo(BaseDatos accesoBD, String nombre,
@@ -168,11 +168,11 @@ public class GestorEquipos {
     }
 
 		/* Metodo para inscribir alumnos en un equipo.
-		 * @param accesoBD, acceso a la base de datos.
-		 * @param modelo, lista de los alumnos a inscribir.
-		 * @param categoria, categoria del equipo.
-		 * @param nombre, nombre del equipo a que se van a inscribir.
-		 * @throws SQLExcepción, algun tipo de error en la base de datos.
+		 * @param accesoBD acceso a la base de datos.
+		 * @param modelo lista de los alumnos a inscribir.
+		 * @param categoria categoria del equipo.
+		 * @param nombre nombre del equipo a que se van a inscribir.
+		 * @throws SQLExcepción algun tipo de error en la base de datos.
 		 */
     
     public static void InsertarJugadoresEquipo (BaseDatos accesoBD, DefaultListModel modelo, String categoria,
@@ -218,10 +218,10 @@ public class GestorEquipos {
     }
     
 		/* Metodo para generar la clasificación
-		 * @param accesoBD, acceso a la base de datos.
-		 * @param idTemp, Id de la temporada del equipo.
-		 * @param idCate, Id de la categoria del equipo.
-		 * @throws SQLExcepción, algun tipo de error en la base de datos.
+		 * @param accesoBD acceso a la base de datos.
+		 * @param idTemp Id de la temporada del equipo.
+		 * @param idCate Id de la categoria del equipo.
+		 * @throws SQLExcepción algun tipo de error en la base de datos.
 		 * @return ResultSet (java.sql.ResultSet)
 		 */
 
@@ -229,6 +229,13 @@ public class GestorEquipos {
         
         return EquipoBD.generaClasificacion(accesoBD, idTemp, idCate);  
     }
+    
+                /* Metodo para generar la clasificación
+		 * @param accesoBD acceso a la base de datos.
+		 * @param idEq identificador del equipo
+		 * @throws SQLExcepción algun tipo de error en la base de datos.
+		 * @return ResultSet (java.sql.ResultSet)
+		 */
     
     public static int getIdFundacionEquipo(BaseDatos accesoBD, int idEq) throws SQLException{
         return EquipoBD.getIdFundacionEquipo(accesoBD, idEq);
