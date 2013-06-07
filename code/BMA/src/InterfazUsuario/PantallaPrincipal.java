@@ -52,8 +52,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
      */
     public PantallaPrincipal(BaseDatos acceso, String usuario) {
         initComponents();
-        this.initComponentsSegunUsuario(usuario);
         this.accesoBD = acceso;
+        this.initComponentsSegunUsuario(usuario);
         this.setLocationRelativeTo(null);
     }
 
