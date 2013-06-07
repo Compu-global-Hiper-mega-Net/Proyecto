@@ -1,3 +1,4 @@
+
 package InterfazUsuario;
 
 import GestionDeUsuarios.GestorUsuarios;
@@ -8,10 +9,6 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Javier
- */
 
 /******************************************************************************
                    (c) Copyright 2013 
@@ -39,16 +36,32 @@ import javax.swing.table.DefaultTableModel;
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 
+/**
+ * Clase para estadisticas de entrenador del paquete InterfazUsuario. Ofrece una manera de interactuar 
+ * con  los elementos de la interfaz de estadisticas y diversas funcionalidades para estos elementos.
+ * @author Javier
+ */
+
 public class EstadisticasEntrenador extends javax.swing.JFrame {
 
     BaseDatos accesoBD;
     ResultSet retset;   
     
+    /**
+    * Constructor sin parametros de la clase
+    */ 
     public EstadisticasEntrenador() {
         
         initComponents();
     }
     
+    /**
+     * Constructor con parametros de la clase, usado para inicializar varios componentes y hacer una llamada al metodo actualizaTablaEstadisticas()
+     * @param acceso parametro de tipo BaseDatos usado para acceder a la base de datos
+     * @param rst parametro de tipo ResultSet usado para obtener el resultado de las consultas al interactuar con la base de datos.
+     * @param usuarioElegido parametro de tipo String usado para obtener de la interfaz principal el nombre del usuario elegido para mostrarlo en 
+     * esta interfaz
+     */
     public EstadisticasEntrenador(BaseDatos acceso, ResultSet rst, String usuarioElegido) {
         
         accesoBD = acceso;
@@ -61,8 +74,13 @@ public class EstadisticasEntrenador extends javax.swing.JFrame {
             Logger.getLogger(EstadisticasEntrenador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-   
     
+   
+    /**
+     * Metodo que actualiza la tabla que se va a mostrar en las estadisitcas del entrenador, para ello obtiene los datos de retset en la consulta que se 
+     * realizo desde la interfaz principal y  para cada fila de la tabla hace dos consultas a las base de datos para obtener los nombres de los equipos 
+     * @throws SQLException 
+     */
     private  void actualizaTablaEstadisticas() throws SQLException {
        
         DefaultTableModel dtm = new DefaultTableModel();
@@ -194,6 +212,10 @@ public class EstadisticasEntrenador extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Metodo que al pulsar el boton para salir de la interfaz de estadistics de entrenador cierra esta ventana.
+     * @param evt parametro de tipo java.awt.event.ActionEvent
+     */
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
 
         this.setVisible(false);

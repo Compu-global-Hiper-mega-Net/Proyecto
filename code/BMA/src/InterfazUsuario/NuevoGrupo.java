@@ -474,7 +474,7 @@ public class NuevoGrupo extends javax.swing.JFrame {
     private void tfBuscarAlKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscarAlKeyTyped
         List<String> als = new ArrayList<>();
         String s = tfBuscarAl.getText();
-        System.out.println(s);
+        
         try {
             als = pP.getListaAlumnos(s);
         } catch (SQLException ex) {

@@ -15,10 +15,6 @@ import org.jfree.chart.*;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-/**
- *
- * @author Javier
- */
 
 /******************************************************************************
                    (c) Copyright 2013 
@@ -46,6 +42,12 @@ import org.jfree.data.category.DefaultCategoryDataset;
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 
+/**
+ * Clase para estadisticas de jugador del paquete InterfazUsuario. Ofrece una manera de interactuar 
+ * con  los elementos de la interfaz de estadisticas y diversas funcionalidades para estos elementos.
+ * @author Javier
+ */
+
  public class EstadisticasJugador extends javax.swing.JFrame {  
    
     BaseDatos accesoBD;
@@ -53,15 +55,25 @@ import org.jfree.data.category.DefaultCategoryDataset;
     JFreeChart Grafica;
     ChartPanel Panel ;
     JFrame Ventana ;
-    List <String> partidosJug = new ArrayList <String>();
     DefaultCategoryDataset Datos = new DefaultCategoryDataset();
     DefaultTableModel dtm = new DefaultTableModel();
-            
+    List <String> partidosJug = new ArrayList <>();
+    
+    /**
+     * Constructor sin parametros de la clase
+     */       
     public EstadisticasJugador() {
         initComponents();
     }
     
-     public EstadisticasJugador(BaseDatos acceso, ResultSet rst, String jugadorElegido) {
+    /**
+     * Constructor con parametros de la clase, usado para inicializar varios componentes y hacer una llamada al metodo actualizaTablaEstadisticas()
+     * @param acceso parametro de tipo BaseDatos usado para acceder a la base de datos
+     * @param rst parametro de tipo ResultSet usado para obtener el resultado de las consultas al interactuar con la base de datos.
+     * @param jugadorElegido parametro de tipo String usado para obtener de la interfaz principal el nombre del jugador elegido para mostrarlo en 
+     * esta interfaz
+     */
+    public EstadisticasJugador(BaseDatos acceso, ResultSet rst, String jugadorElegido) {
         
         accesoBD = acceso;
         retset = rst;
@@ -74,7 +86,11 @@ import org.jfree.data.category.DefaultCategoryDataset;
         }
     }
    
-    
+    /**
+     * Metodo que actualiza la tabla que se va a mostrar en las estadisitcas del jugador, para ello obtiene los datos de retset en la consulta que se 
+     * realizo desde la interfaz principal y  para cada fila de la tabla hace dos consultas a las base de datos para obtener los nombres de los equipos 
+     * @throws SQLException 
+     */
     private  void actualizaTablaEstadisticas() throws SQLException {   
        
         dtm.addColumn("Partido");
@@ -110,20 +126,22 @@ import org.jfree.data.category.DefaultCategoryDataset;
             fila[5] = retset.getString(7);
             fila[6] = retset.getString(8);
 
-
             dtm.addRow(fila);
-
-             tablaJugadoresEstadisticas.setModel(dtm);
         }
         tablaJugadoresEstadisticas.setModel(dtm);
     }
     
-    
+    /**
+     * Metodo que actualiza las graficas que se muestran con los datos de jugadores, para ello primero se comprueba que grupo de datos de ha elegido en 
+     * la interfaz (pudiendo elegir varios o uno solo) y seguidamente se añaden a Datos todos los datos obtenidos en cunsultas anteriores los cuales
+     * se mostraran en  la grafica
+     * @throws SQLException 
+     */
      private  void actualizaGraficas() throws SQLException{ 
          
-        int i=0;
-        List<String> idDatos = new ArrayList<String>();
-        List<Integer> numCol = new ArrayList<Integer>();
+        int i;
+        List<String> idDatos = new ArrayList<>();
+        List<Integer> numCol = new ArrayList<>();
             
             if (estadisticasAsistencias.isSelected()){
                 idDatos.add("asistencias");
@@ -264,30 +282,31 @@ import org.jfree.data.category.DefaultCategoryDataset;
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(verGraficas, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(60, 60, 60)
-                        .addComponent(botonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jugadorLab, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(nombreAlumnoElegido, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(panelTabEstJug, javax.swing.GroupLayout.PREFERRED_SIZE, 936, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelTabEstJug, javax.swing.GroupLayout.PREFERRED_SIZE, 936, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(estadisticasAsistencias)
+                                .addGap(38, 38, 38)
+                                .addComponent(estadisticasRebOfen)
+                                .addGap(35, 35, 35)
+                                .addComponent(estadisticasRebDef)
+                                .addGap(37, 37, 37)
+                                .addComponent(estadisticasRobos)
+                                .addGap(33, 33, 33)
+                                .addComponent(estadisticasPerdidas))
+                            .addComponent(verGraficas, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(39, 39, 39)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botonSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(estadisticasPuntos)
+                                .addGap(18, 18, 18)))))
                 .addContainerGap(36, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(141, 141, 141)
-                .addComponent(estadisticasAsistencias)
-                .addGap(33, 33, 33)
-                .addComponent(estadisticasRebOfen)
-                .addGap(38, 38, 38)
-                .addComponent(estadisticasRebDef)
-                .addGap(37, 37, 37)
-                .addComponent(estadisticasRobos)
-                .addGap(36, 36, 36)
-                .addComponent(estadisticasPerdidas)
-                .addGap(34, 34, 34)
-                .addComponent(estadisticasPuntos)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -316,12 +335,23 @@ import org.jfree.data.category.DefaultCategoryDataset;
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Metodo que al pulsar el boton para salir de la interfaz de estadistics de jugador , cierra esta ventana y ademas cierra
+     * la ventana que muestra las graficas, si es que se creo alguna.
+     * @param evt parametro de tipo java.awt.event.ActionEvent
+     */
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
         
         this.setVisible(false);
         Ventana.setVisible(false);
     }//GEN-LAST:event_botonSalirActionPerformed
 
+    /**
+     * Metodo que al pulsar el boton para ver las graficas de las estadisticas del jugador comprueba que al menos se haya seleccionado un grupo de datos
+     * para mostrar la grafica, mientras no sea asi mostrara un mensaje indicando que se seleccione uno o varios grupos de datos. Seguidamente hace una 
+     * llamada a actualizaGraficas() donde se van a introducir los datos de la grafica en Datos y por ultimo se crea una nueva ventana que muestra la grafica.
+     * @param evt parametro de tipo java.awt.event.ActionEvent
+     */
     private void verGraficasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verGraficasActionPerformed
  
          if(!estadisticasAsistencias.isSelected() && !estadisticasRebOfen.isSelected()&& !estadisticasRebDef.isSelected()
@@ -344,41 +374,6 @@ import org.jfree.data.category.DefaultCategoryDataset;
          }
     }//GEN-LAST:event_verGraficasActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EstadisticasJugador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EstadisticasJugador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EstadisticasJugador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EstadisticasJugador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new EstadisticasJugador().setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton botonSalir;
     private javax.swing.JCheckBox estadisticasAsistencias;

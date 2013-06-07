@@ -3,12 +3,7 @@ package GestionDeCategorias;
 import ServiciosAlmacenamiento.BaseDatos;
 import java.sql.SQLException;
 
-/**
- * Clase que representa las categorías a las que puede pertenecer un alumno.
- *
- * @author Alex Moreno
- * @version 1.0
- */
+
 
 /*
  ******************************************************************************
@@ -38,41 +33,84 @@ import java.sql.SQLException;
  ******************************************************************************
  */
 
+/**
+ * Clase que representa las categorías a las que puede pertenecer un alumno.
+ *
+ */
 public class Categoria {
-
-    static int Modificar(BaseDatos accesoBD, Categoria cNuevo, Categoria cViejo) throws SQLException {
-        return CategoriaBD.ModificarCategoria(accesoBD, cNuevo, cViejo);
-    }
 
     private int idCategoria;
     private String tipo;
     private String descripcion;
     
+    /**
+     * Permite modificar una categoria almacenada en la base de datos.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param cNuevo Objeto de la clase Categoria con los nuevos datos que 
+     * queremos modificar.
+     * @param cViejo Objeto de la clase Categoria con los antiguos datos que van 
+     * a ser modificados.
+     * @return 1 si la modificacion ha tenido exito, 0 en caso contrario.
+     * @throws SQLException 
+     */
+    static int Modificar(BaseDatos accesoBD, Categoria cNuevo, Categoria cViejo) throws SQLException {
+        return CategoriaBD.ModificarCategoria(accesoBD, cNuevo, cViejo);
+    }
+    
+    /**
+     * Contructor de la clase Categoria.
+     * @param categoria Nombre de la categoria.
+     */
     public Categoria(String categoria){
         this.tipo = categoria;
     }
     
+    /**
+     * Constructor de la clase Categoria.
+     * @param t Contiene el nombre de la categoria.
+     * @param desc Contiene la descripcion de la categoria.
+     */
     public Categoria(String t, String desc){
         this.tipo = t;
         this.descripcion = desc;
     }
 
+    /**
+     * Permite obtener el nombre de una cateogira.
+     * @return Un <code>String</code> con el nombre de la categoria.
+     */
     public String getNombreCategoria() {
         return this.tipo;
     }
     
+    /**
+     * Permite obtener la descripcion de una categoria.
+     * @return Un <code>String</code> con la descripcion de la categoria.
+     */
     public String getDescripcion(){
         return this.descripcion;
     }
 
+    /**
+     * Permite establecer la descripcion de la categoria.
+     * @param desc Contiene la descripcion de la categoria.
+     */
     public void setDescripcion(String desc) {
         this.descripcion = desc;
     }
 
+    /**
+     * Permite establecer el nombre de la categoria.
+     * @param desc Contiene el nombre de la categoria.
+     */
     public void setTipo(String t) {
         this.tipo = t;
     }
    
+    /**
+     * Permite establecer el identificador de la categoria.
+     * @param desc Contiene el identificador de la categoria.
+     */
     public void setIdCat(int idCat) {
         this.idCategoria = idCat;
     }

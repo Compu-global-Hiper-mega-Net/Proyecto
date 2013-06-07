@@ -229,5 +229,9 @@ public class GestorEquipos {
         
         return EquipoBD.generaClasificacion(accesoBD, idTemp, idCate);  
     }
+    
+    public static int getIdFundacionEquipo(BaseDatos accesoBD, int idEq) throws SQLException{
+        return EquipoBD.getIdFundacionEquipo(accesoBD, idEq);
+    }
 
 }

@@ -6,10 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Diego
- */
+
 
 /*
  ******************************************************************************
@@ -39,7 +36,21 @@ import java.util.List;
  ******************************************************************************
  */
 
+/**
+ * Clase que permite hacer el paso de los objetos de tipo Categoria a objetos 
+ * relacionales de la Base de Datos.
+ * @author Diego
+ */
 public class CategoriaBD {
+    
+    /**
+     * Permite obtener una categoria a partir del identificador de la categoria.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param idCat Contiene el identificador de la categoria de la que queremos 
+     * obtener el nombre.
+     * @return Un <code>String</code> con el nombre de la categoria.
+     * @throws SQLException 
+     */
     static String getCategoria(BaseDatos accesoBD, int idCat) throws SQLException {
         String query = "SELECT tipo FROM Categoria WHERE "
                 + "idCategoria='"+idCat+"'";
@@ -53,6 +64,14 @@ public class CategoriaBD {
         return cat;
     }
 
+    /**
+     * Permite obtener el identificador de una categoria a partir del nombre.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param categoria Contiene el nombre de la categoria de la que queremos 
+     * saber el identificador.
+     * @return Un <code>int</code> con el identificador de la categoria.
+     * @throws SQLException 
+     */
     static int getIdCategoria(BaseDatos accesoBD, String categoria) throws SQLException {
         String query = "SELECT idCategoria FROM Categoria WHERE "
                 + "tipo='"+categoria+"'";
@@ -65,6 +84,14 @@ public class CategoriaBD {
         return idCat;
     }
 
+    /**
+     * Permite saber si ya existe una categoria en el sistema.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param t Contiene el nombre de la categoria de la que queremos saber si 
+     * ya existe en el sistema.
+     * @return TRUE si la categoria ya existe, FALSE en caso contrario.
+     * @throws SQLException 
+     */
     static boolean ConsultarCategoria(BaseDatos accesoBD, String t) throws SQLException {
              
         String query = "SELECT * FROM Categoria WHERE "
@@ -77,6 +104,14 @@ public class CategoriaBD {
             return true;
     }
 
+    /**
+     * Permite añadir una nueva categoria en la base de datos.
+     * @param accesoBD  Usado para interactuar con la base de datos.
+     * @param c Objeto de la clase Categoria con los datos de la nueva categoria 
+     * que se va a insertar.
+     * @return 1 si la insercion fue correcta, 0 en caso contrario.
+     * @throws SQLException 
+     */
     static int crearCategoria(BaseDatos accesoBD, Categoria c) throws SQLException {
         String query = "INSERT INTO Categoria (tipo, descripcion) VALUES ('"+c.getNombreCategoria()+"',"
                 + "'"+c.getDescripcion()+"')";
@@ -84,6 +119,13 @@ public class CategoriaBD {
         return correcto;
     }
 
+    /**
+     * Permite obtener una lista con las temporadas almacenadas en la base de datos.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @return Una lista de lista de <code>String</code> con las categorias, 
+     * conteniendo tanto el nombre como la descripcion.
+     * @throws SQLException 
+     */
     static List<List<String>> getListaCategorias(BaseDatos accesoBD) throws SQLException {
         List<List<String>> listaCats = new ArrayList<List<String>>();
         
@@ -94,13 +136,24 @@ public class CategoriaBD {
         
         while(res.next()){
             aux = new ArrayList<String>();
-            aux.add(res.getString(1)+" "+res.getString(2));
+            aux.add(res.getString(1));
+            aux.add(res.getString(2));
             listaCats.add(aux);
         }
         
         return listaCats;
     }
 
+    /**
+     * Permite modificar una categoria existente en la base de datos.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param cNuevo Objeto de la clase Categoria con los nuevos datos que queremos 
+     * modificar.
+     * @param cViejo Objeto de la clase Categoria con los antiguos datos que van a ser 
+     * modificados.
+     * @return 1 si la modificacion fue correcta, 0 en caso contrario.
+     * @throws SQLException 
+     */
     static int ModificarCategoria(BaseDatos accesoBD, Categoria cNuevo, Categoria cViejo) throws SQLException {
         int correcto = 0;
         
@@ -122,6 +175,14 @@ public class CategoriaBD {
         return correcto;
     }
 
+    /**
+     * Permite saber si una cateogoria ya existe en la base de datos.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param c Objeto de la clase Categoria con los datos de la categoria de la 
+     * que queremos saber si ya existe en la BD.
+     * @return TRUE si la categoria ya existe, FALSE en caso contrario.
+     * @throws SQLException 
+     */
     static boolean existeCategoria(BaseDatos accesoBD, Categoria c) throws SQLException {
         boolean existe = false;
         String query = "SELECT * FROM Categoria WHERE "
@@ -141,6 +202,13 @@ public class CategoriaBD {
         return existe;
     }
 
+    /**
+     * Permite eliminar una categoria de la base de datos.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param c Objeto de la clase Categoria con los datos de la categoria 
+     * que queremos eliminar.
+     * @return TRUE si se ha eliminado con exito, FALSE en caso contrario.
+     */
     static boolean EliminarCategoria(BaseDatos accesoBD, Categoria c) {
         String query = "DELETE FROM Categoria WHERE "
                 + "tipo='"+c.getNombreCategoria()+"' AND "
@@ -152,6 +220,12 @@ public class CategoriaBD {
         return res;
     }
 
+    /**
+     * Permite obtener los nombres de las cateogiras almacenadas en la BD.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @return Una lista de <code>String</code> con los nombres de las categorias.
+     * @throws SQLException 
+     */
     static List<String> getTipoCategorias(BaseDatos accesoBD) throws SQLException {
         List<String> listaCats = new ArrayList<String>();
         

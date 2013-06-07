@@ -6,16 +6,20 @@ import GestionDeEquipos.GestorEquipos;
 import ServiciosAlmacenamiento.BaseDatos;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 
-/**
- *
- * @author Javier
- */
 /**
  * ****************************************************************************
  * (c) Copyright 2013
@@ -39,17 +43,38 @@ import javax.swing.table.DefaultTableModel;
  *****************************************************************************
  */
 
+/**
+ * Clase para estadisticas de la clasificacion de equipos del paquete InterfazUsuario. Ofrece una manera de interactuar 
+ * con  los elementos de la interfaz de estadisticas y diversas funcionalidades para estos elementos.
+ * @author Javier
+ */
+
 public class ClasificacionLiga extends javax.swing.JFrame {
     
     BaseDatos accesoBD;
     ResultSet retset;
     String temporadaElegida;
     String categoriaElegida;
-
+    JFreeChart Grafica;
+    ChartPanel Panel ;
+    JFrame Ventana ;
+    DefaultCategoryDataset Datos = new DefaultCategoryDataset();
+    DefaultTableModel dtm = new DefaultTableModel();
+    List<Integer> pGanados = new ArrayList<>();
+    List<Integer> pPerdidos = new ArrayList<>();
+    
+   /**
+    * Constructor sin parametros de la clase
+    */ 
     public ClasificacionLiga() {
         initComponents();
     }
     
+    /**
+     * Constructor con parametros de la clase, usado para inicializar varios componentes y hacer una llamada al metodo actualizaComboCategoria() y
+     * actualizaComboTemporada()
+     * @param acceso parametro de tipo BaseDatos usado para acceder a la base de datos.
+     */
     public ClasificacionLiga(BaseDatos acceso) {
         
         accesoBD = acceso;
@@ -63,6 +88,15 @@ public class ClasificacionLiga extends javax.swing.JFrame {
         }
     }
     
+    
+    /**
+     * Metodo que actualiza la tabla que se va a mostrar en las estadisitcas de la clasificacion, para ello hace dos consultas a las base de datos para
+     * obtener el idTemporada y el  idCategoria respectivamente, seguidamente obtiene los datos de la consulta principal haciendo una llamada al
+     * metodo consultarClasificacion(accesoBD, idTemp, idCate) de GestorEquipos y por ultimo va actualizando los datos de la tabla
+     * con los resultados obtenidos en retset de la consulta principal y haciendo para cada fila dos consultas para obtener para cada equipo
+     * el numero de  partidos que ha ganadao y de partidos que ha perdido respectivamente.
+     * @throws SQLException 
+     */
     private void actualizaTablaClasificacion() throws SQLException {
 
         int idTemp = 0, idCate = 0, i=1;
@@ -108,6 +142,7 @@ public class ClasificacionLiga extends javax.swing.JFrame {
                 ResultSet res3 = accesoBD.ejecutaConsulta(consulta3);
                 if (res3.next()) {
                     fila[3] = res3.getString(1);
+                    pGanados.add(res3.getInt(1));
                 }
 
                 String consulta4 = "SELECT COUNT(*) FROM partido p, equipo e WHERE (resultadoLocal < resultadoVisitante)"
@@ -116,6 +151,7 @@ public class ClasificacionLiga extends javax.swing.JFrame {
                 ResultSet res4 = accesoBD.ejecutaConsulta(consulta4);
                 if (res4.next()) {
                     fila[4] = res4.getString(1);
+                    pPerdidos.add(res4.getInt(1));
                 }
                 
                 fila[2] = res3.getInt(1)+res4.getInt(1);
@@ -126,10 +162,15 @@ public class ClasificacionLiga extends javax.swing.JFrame {
                 dtm.addRow(fila);
             }
 
-            tablaClasificacion.setModel(dtm);
+            tablaEstadisticasClasificacion.setModel(dtm);
         }
     }
     
+    /**
+     * Metodo que actualiza el combo con la lista de temporadas existentes en la base de datos,
+     * para ello hace una consulta para obtener estos datos.
+     * @throws SQLException 
+     */
     private void actualizaComboTemporada() throws SQLException {
         elegirTemporadaLis.removeAllItems();
         elegirTemporadaLis.addItem(" ");
@@ -141,6 +182,11 @@ public class ClasificacionLiga extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Metodo que actualiza el combo con la lista de categorias existentes en la base de datos,
+     * para ello hace una consulta para obtener estos datos.
+     * @throws SQLException 
+     */
     private void actualizaComboCategoria() throws SQLException {
         elegirCategoriaLis.removeAllItems();
         elegirCategoriaLis.addItem(" ");
@@ -150,6 +196,57 @@ public class ClasificacionLiga extends javax.swing.JFrame {
         while (res.next()) {
             elegirCategoriaLis.addItem(res.getString(1));
         }
+    }
+    
+    
+    /**
+    * Metodo que actualiza las graficas que se muestran con los datos de la clasificacion, para ello primero se comprueba que grupo de datos de ha elegido en 
+    * la interfaz (pudiendo elegir varios o uno solo) y seguidamente se añaden a Datos todos los datos obtenidos en cunsultas anteriores los cuales
+    * se mostraran en  la grafica
+    * @throws SQLException 
+    */
+    private void actualizaGraficas() throws SQLException {
+        
+        int i=0, j=0, k=0;
+        
+        try {
+            if (estadisticasPartidosJugados.isSelected()){
+                retset.beforeFirst();
+                while(retset.next()){
+                    Datos.addValue((pGanados.get(i)+pPerdidos.get(i)), (Comparable) tablaEstadisticasClasificacion.getColumnName(2), (Comparable) retset.getString(1)); 
+                    i++;
+                }
+            }
+            if (estadisticasPartidosGanados.isSelected()){
+                retset.beforeFirst();
+                while(retset.next()){
+                    Datos.addValue(pGanados.get(j), (Comparable) tablaEstadisticasClasificacion.getColumnName(3), (Comparable) retset.getString(1)); 
+                    j++;
+                }
+            }
+            if(estadisticasPartidosPerdidos.isSelected()){
+                retset.beforeFirst();
+                while(retset.next()){
+                    Datos.addValue(pPerdidos.get(k), (Comparable) tablaEstadisticasClasificacion.getColumnName(4), (Comparable) retset.getString(1)); 
+                        k++;
+                }
+            }
+            if(estadisticasPuntosFavor.isSelected()){
+                retset.beforeFirst();
+                while(retset.next())
+                     Datos.addValue(retset.getInt(2), (Comparable) tablaEstadisticasClasificacion.getColumnName(5), (Comparable) retset.getString(1)); 
+            }
+            if(estadisticasPuntosContra.isSelected()){
+                retset.beforeFirst();
+                while(retset.next())
+                     Datos.addValue(retset.getInt(3), (Comparable) tablaEstadisticasClasificacion.getColumnName(6), (Comparable) retset.getString(1)); 
+            }
+        } catch (SQLException ex) {
+              Logger.getLogger(EstadisticasJugador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        Grafica = ChartFactory.createBarChart3D(null, "Equipos", null,
+                                               Datos, PlotOrientation.HORIZONTAL, true, true, false);   
     }
 
 
@@ -167,9 +264,15 @@ public class ClasificacionLiga extends javax.swing.JFrame {
         elegirCategoriaLab = new javax.swing.JLabel();
         elegirCategoriaLis = new javax.swing.JComboBox();
         panelTabClasificacion = new javax.swing.JScrollPane();
-        tablaClasificacion = new javax.swing.JTable();
+        tablaEstadisticasClasificacion = new javax.swing.JTable();
         elegirTemporadaLis = new javax.swing.JComboBox();
         botonMostrarClasificacion = new javax.swing.JButton();
+        mostrarGraficasLiga = new javax.swing.JButton();
+        estadisticasPuntosContra = new javax.swing.JCheckBox();
+        estadisticasPuntosFavor = new javax.swing.JCheckBox();
+        estadisticasPartidosPerdidos = new javax.swing.JCheckBox();
+        estadisticasPartidosGanados = new javax.swing.JCheckBox();
+        estadisticasPartidosJugados = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -193,14 +296,9 @@ public class ClasificacionLiga extends javax.swing.JFrame {
 
         panelTabClasificacion.setAutoscrolls(true);
 
-        tablaClasificacion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tablaClasificacion.setModel(new javax.swing.table.DefaultTableModel(
+        tablaEstadisticasClasificacion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tablaEstadisticasClasificacion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -234,10 +332,10 @@ public class ClasificacionLiga extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        tablaClasificacion.setColumnSelectionAllowed(true);
-        panelTabClasificacion.setViewportView(tablaClasificacion);
-        tablaClasificacion.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        tablaClasificacion.getColumnModel().getColumn(6).setResizable(false);
+        tablaEstadisticasClasificacion.setColumnSelectionAllowed(true);
+        panelTabClasificacion.setViewportView(tablaEstadisticasClasificacion);
+        tablaEstadisticasClasificacion.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        tablaEstadisticasClasificacion.getColumnModel().getColumn(6).setResizable(false);
 
         elegirTemporadaLis.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -247,6 +345,23 @@ public class ClasificacionLiga extends javax.swing.JFrame {
                 botonMostrarClasificacionActionPerformed(evt);
             }
         });
+
+        mostrarGraficasLiga.setText("Ver Graficas");
+        mostrarGraficasLiga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mostrarGraficasLigaActionPerformed(evt);
+            }
+        });
+
+        estadisticasPuntosContra.setText("Datos Graficas");
+
+        estadisticasPuntosFavor.setText("Datos Graficas");
+
+        estadisticasPartidosPerdidos.setText("Datos Graficas");
+
+        estadisticasPartidosGanados.setText("Datos Graficas");
+
+        estadisticasPartidosJugados.setText("Datos Graficas");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -265,10 +380,25 @@ public class ClasificacionLiga extends javax.swing.JFrame {
                         .addComponent(elegirCategoriaLis, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(botonMostrarClasificacion))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(botonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(panelTabClasificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 921, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(668, 668, 668)
+                        .addComponent(mostrarGraficasLiga, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelTabClasificacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 921, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(28, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(estadisticasPartidosJugados)
+                .addGap(34, 34, 34)
+                .addComponent(estadisticasPartidosGanados)
+                .addGap(35, 35, 35)
+                .addComponent(estadisticasPartidosPerdidos)
+                .addGap(34, 34, 34)
+                .addComponent(estadisticasPuntosFavor)
+                .addGap(34, 34, 34)
+                .addComponent(estadisticasPuntosContra)
+                .addGap(46, 46, 46))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -281,15 +411,29 @@ public class ClasificacionLiga extends javax.swing.JFrame {
                     .addComponent(elegirTemporadaLis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonMostrarClasificacion))
                 .addGap(32, 32, 32)
-                .addComponent(panelTabClasificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(botonSalir)
+                .addComponent(panelTabClasificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(estadisticasPuntosContra)
+                    .addComponent(estadisticasPuntosFavor)
+                    .addComponent(estadisticasPartidosPerdidos)
+                    .addComponent(estadisticasPartidosGanados)
+                    .addComponent(estadisticasPartidosJugados))
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonSalir)
+                    .addComponent(mostrarGraficasLiga))
                 .addGap(31, 31, 31))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    /**
+     * Metodo que al pulsar el boton para salir de la interfaz de estadistics de la clasificacion cierra esta ventana.
+     * @param evt parametro de tipo java.awt.event.ActionEvent
+     */
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
         
         this.setVisible(false);
@@ -299,6 +443,14 @@ public class ClasificacionLiga extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_elegirCategoriaLisActionPerformed
 
+    /**
+     * Metodo que actualiza la tabla que muestra los datos de las estadisticas cada vez que se pulsa el boton Mostrar
+     * de la interfaz, despues de borrar los datos anteriones de  la tabla comprueba que se haya elegido una categoria 
+     * y una temporada de cada respectivo  combo y si no es asi muestra un mensaje indicando que se elija una categoria
+     * y una temporada. Una vez elegida la categoria y la temporada se llama al metodo actualizaTablaEstadisticas() que
+     * actualiza la tabla con los nuevos datos.
+     * @param evt parametro de tipo java.awt.event.ActionEvent
+     */
     private void botonMostrarClasificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarClasificacionActionPerformed
         
         DefaultTableModel dtm = new DefaultTableModel();
@@ -309,7 +461,7 @@ public class ClasificacionLiga extends javax.swing.JFrame {
         dtm.addColumn("Partidos perdidos");
         dtm.addColumn("Puntos a favor");
         dtm.addColumn("Puntos en contra");
-        tablaClasificacion.setModel(dtm);
+        tablaEstadisticasClasificacion.setModel(dtm);
    
         if (elegirTemporadaLis.getSelectedItem().equals(" ") || elegirCategoriaLis.getSelectedItem().equals(" ")) {
             JOptionPane.showMessageDialog(null, "Seleccione temporada y categoria para ver clasificacion");
@@ -321,6 +473,34 @@ public class ClasificacionLiga extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_botonMostrarClasificacionActionPerformed
+
+    /**
+     * Metodo que al pulsar el boton para ver las graficas de las estadisticas de la clasificacion comprueba que al menos se haya seleccionado un grupo de datos
+     * para mostrar la grafica, mientras no sea asi mostrara un mensaje indicando que se seleccione uno o varios grupos de datos. Seguidamente hace una 
+     * llamada a actualizaGraficas() donde se van a introducir los datos de la grafica en Datos y por ultimo se crea una nueva ventana que muestra la grafica.
+     * @param evt parametro de tipo java.awt.event.ActionEvent
+     */
+    private void mostrarGraficasLigaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarGraficasLigaActionPerformed
+       
+        if(!estadisticasPartidosJugados.isSelected() && !estadisticasPartidosGanados.isSelected()&& !estadisticasPartidosPerdidos.isSelected()
+         && !estadisticasPuntosContra.isSelected() && !estadisticasPuntosFavor.isSelected())
+              JOptionPane.showMessageDialog(null,"Seleccione al menos un grupo de datos para ver grafica");
+                                              
+         else{
+             try {
+                 Datos.clear();
+                 actualizaGraficas();
+             } catch (SQLException ex) {
+                 Logger.getLogger(EstadisticasJugador.class.getName()).log(Level.SEVERE, null, ex);
+             }
+             Panel = new ChartPanel(Grafica);
+             Ventana = new JFrame("Gráficas");
+             Ventana.getContentPane().add(Panel);
+             Ventana.pack();
+             Ventana.setVisible(true);
+             Ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
+         }
+    }//GEN-LAST:event_mostrarGraficasLigaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -364,7 +544,14 @@ public class ClasificacionLiga extends javax.swing.JFrame {
     private javax.swing.JLabel elegirCategoriaLab;
     private javax.swing.JComboBox elegirCategoriaLis;
     private javax.swing.JComboBox elegirTemporadaLis;
+    private javax.swing.JCheckBox estadisticasPartidosGanados;
+    private javax.swing.JCheckBox estadisticasPartidosJugados;
+    private javax.swing.JCheckBox estadisticasPartidosPerdidos;
+    private javax.swing.JCheckBox estadisticasPuntosContra;
+    private javax.swing.JCheckBox estadisticasPuntosFavor;
+    private javax.swing.JButton mostrarGraficasLiga;
     private javax.swing.JScrollPane panelTabClasificacion;
-    private javax.swing.JTable tablaClasificacion;
+    private javax.swing.JTable tablaEstadisticasClasificacion;
     // End of variables declaration//GEN-END:variables
+
 }
