@@ -168,6 +168,8 @@ public class PrincipalJugadores extends javax.swing.JFrame {
 
             }
         ));
+        tablaAlumnos.getTableHeader().setResizingAllowed(false);
+        tablaAlumnos.getTableHeader().setReorderingAllowed(false);
         panelResulAl.setViewportView(tablaAlumnos);
 
         edadAlLabel.setText("Edad:");
@@ -380,7 +382,7 @@ public class PrincipalJugadores extends javax.swing.JFrame {
             String primerApellido = (String) tablaAlumnos.getValueAt(i, 1);
             String segundoApellido = (String) tablaAlumnos.getValueAt(i, 2);
 
-            String numCuenta = (String) tablaAlumnos.getValueAt(i, 6);
+            String numCuenta = (String) tablaAlumnos.getValueAt(i, 16);
 
             jugadorElegido = nombre + " " + primerApellido + " " + segundoApellido;
 

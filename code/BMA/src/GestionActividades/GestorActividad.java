@@ -8,6 +8,8 @@ import GestionActividades.AccesoBDActividad;
 import ServiciosAlmacenamiento.BaseDatos;
 import java.sql.*;
 import java.util.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -59,7 +61,7 @@ public class GestorActividad {
         return exito;
     }
     
-    public static boolean InsertarAlumnoActividad (BaseDatos accesoBD, int idAlumno, int idTemporada, int idActividad){
+    public static boolean InsertarAlumnoActividad (BaseDatos accesoBD, int idAlumno, int idTemporada, int idActividad) throws SQLException{
         boolean exito = true;
         
         AccesoBDActividad.InsertarAlumnoActividadBD(accesoBD, idAlumno, idTemporada, idActividad);
@@ -91,5 +93,14 @@ public class GestorActividad {
         actividadBD.eliminarActividadBD(accesoBD, actividadEliminada);
         
     }
+    
+    public static void eliminaraAlumnos (BaseDatos accesoBD, List<Integer> ListaAlumnos, int idActividad) throws SQLException{
+        
+        for(int i = 0; i<ListaAlumnos.size(); i++){
+            AccesoBDActividad.EliminarAlumnoBD(accesoBD, ListaAlumnos.get(i), idActividad);
+        }
+                
+    }
+       
     
 }

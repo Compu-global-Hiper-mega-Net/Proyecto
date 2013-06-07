@@ -144,7 +144,7 @@ class AccesoBDAlumno {
         // Si el parámetro es vacío se devuelven todos los alumnos.
         if (!s.equals("")) {
             query = "SELECT nombre, primerApellido, segundoApellido FROM Alumno "
-                    + "WHERE primerApellido LIKE '%" + s + "%'";
+                    + "WHERE primerApellido LIKE '%" + s + "%' OR nombre LIKE '%" + s + "%' OR segundoApellido LIKE '%" + s + "%'";
         } else {
             query = "SELECT nombre, primerApellido, segundoApellido FROM Alumno";
         }

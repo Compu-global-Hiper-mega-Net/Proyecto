@@ -44,17 +44,15 @@ import javax.swing.JOptionPane;
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************
  */
-
 /**
  * Formulario que añade un alumno a la base de datos
  *
  * @author Alex Moreno
  */
 public class AñadirAlumno extends javax.swing.JFrame {
+
     int idTemporada, idActividad;
     BaseDatos accesoBD;
-    List<String> listaAlumnos = new ArrayList<>();
-    List<String> listaAlumnosQuitados = new ArrayList<>();
     List<Integer> listaIDAlumnos = new ArrayList<>();
     List<Integer> listaIDAlumnosQuitados = new ArrayList<>();
     int sizeModelo;
@@ -113,24 +111,24 @@ public class AñadirAlumno extends javax.swing.JFrame {
         Nombre.setText("Nombre");
 
         NombreTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                NombreTextFieldKeyTyped(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                NombreTextFieldKeyReleased(evt);
             }
         });
 
         PrimerApellido.setText("Primer Apellido");
 
         PrimerApellidoTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                PrimerApellidoTextFieldKeyTyped(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                PrimerApellidoTextFieldKeyReleased(evt);
             }
         });
 
         SegundoApellido.setText("Segudno Apellido");
 
         SegundoApellidoTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                SegundoApellidoTextFieldKeyTyped(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                SegundoApellidoTextFieldKeyReleased(evt);
             }
         });
 
@@ -277,6 +275,7 @@ public class AñadirAlumno extends javax.swing.JFrame {
 
     private void AñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AñadirActionPerformed
         // TODO add your handling code here:
+        List<String> listaAlumnos = new ArrayList<>();
         listaAlumnos.addAll(ListaAlumnos.getSelectedValuesList());
         DefaultListModel modelo = new DefaultListModel();
         DefaultListModel model = new DefaultListModel();
@@ -374,17 +373,16 @@ public class AñadirAlumno extends javax.swing.JFrame {
         alumnosSelecionados();
     }
 
-    public int getIDCuota() throws SQLException {
-        String Consulta = "SELECT MAX(idCuota) FROM Cuota";
-        int id = 0;
-        ResultSet retset = accesoBD.ejecutaConsulta(Consulta);
-        if (retset.next()) {
-            id = retset.getInt(1);
-        }
-        return id;
-    }
-
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
+
+        DefaultListModel modelo = new DefaultListModel();
+        List<String> listaAlumnos = new ArrayList<>();
+
+        modelo = (DefaultListModel) AlumnosMostrados.getModel();
+        for (int i = 0; i < modelo.size(); i++) {
+            listaAlumnos.add((String) modelo.get(i));
+        }
+
 
         System.out.print("\n Antes del try" + listaAlumnos);
         try {
@@ -396,132 +394,70 @@ public class AñadirAlumno extends javax.swing.JFrame {
         if (listaIDAlumnos.size() > 0) {
             ResultSet retset, rts;
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-            Calendar cal1 = Calendar.getInstance();
+            
             for (int i = 0; i < listaIDAlumnos.size(); i++) {
-                String insert = new String("INSERT INTO cuota (fecha, pagado) VALUES (\""
-                        + cal1.get(Calendar.YEAR) + "-" + cal1.get(Calendar.MONTH) + "-" + cal1.get(Calendar.DATE) + "\", 0)");
-                System.out.print(insert);
                 try {
-                    accesoBD.ejecutaActualizacion(insert);
-                } catch (SQLException ex) {
-                    Logger.getLogger(AñadirAlumno.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                int idCuota = 0;
-                try {
-                    idCuota = getIDCuota();
-                } catch (SQLException ex) {
-                    Logger.getLogger(AñadirAlumno.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                String insertAlumno = new String("INSERT INTO pagoactividades (Alumno_idAlumno, Actividades_idActividades, Actividades_Temporada_idTemporada, Cuota_idCuota)"
-                        + "VALUES (" + listaIDAlumnos.get(i) + ", " + idActividad + ", " + idTemporada + ", " + idCuota + ")");
-                System.out.print("\ninsertarAlumno" + insertAlumno);
-                try {
-                    accesoBD.ejecutaActualizacion(insertAlumno);
+                    GestionActividades.GestorActividad.InsertarAlumnoActividad(accesoBD, listaIDAlumnos.get(i), idTemporada, idActividad);
                 } catch (SQLException ex) {
                     Logger.getLogger(AñadirAlumno.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             JOptionPane.showMessageDialog(null, "Alumnos insertados",
                     "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
+            this.setVisible(false);
 
         } else {
             JOptionPane.showMessageDialog(null, "No has seleccionado alumnos",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-        MostrarAlumnos();
+        
 
     }//GEN-LAST:event_GuardarActionPerformed
 
     private void QuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QuitarActionPerformed
         // TODO add your handling code here:
+        List<String> listaAlumnosQuitados = new ArrayList<>();
         listaAlumnosQuitados.addAll(AlumnosMostrados.getSelectedValuesList());
+        int[] indices = AlumnosMostrados.getSelectedIndices();
+        DefaultListModel modelo = new DefaultListModel();
+        DefaultListModel modeloAlumnos = new DefaultListModel();
+
+        modeloAlumnos = (DefaultListModel) ListaAlumnos.getModel();
+        modelo = (DefaultListModel) AlumnosMostrados.getModel();
+
         try {
             listaIDAlumnosQuitados = GestorAlumnos.getIdAl(accesoBD, listaAlumnosQuitados);
+            GestionActividades.GestorActividad.eliminaraAlumnos(accesoBD, listaIDAlumnos, idActividad);
         } catch (SQLException ex) {
             Logger.getLogger(AñadirAlumno.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (listaIDAlumnosQuitados.size() > 0) {
-            String delete;
-            ResultSet retset;
-            for (int i = 0; i < listaIDAlumnosQuitados.size(); i++) {
-                delete = "DELETE FROM pagoactividades WHERE Alumno_idAlumno =" + listaIDAlumnosQuitados.get(i);
-                boolean exito = accesoBD.eliminar(delete);
-                if (!exito) {
-                    JOptionPane.showMessageDialog(null, "Error al eliminar",
-                            "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-            JOptionPane.showMessageDialog(null, "Alumnos eliminados",
-                    "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "No has seleccionado alumnos",
-                    "Error", JOptionPane.ERROR_MESSAGE);
+
+        for (int i = 0; i < indices.length; i++) {
+            modeloAlumnos.addElement(modelo.get(indices[i]));
+            modelo.remove(indices[i]);
         }
-        MostrarAlumnos();
+
+
+        AlumnosMostrados.setModel(modelo);
+        ListaAlumnos.setModel(modeloAlumnos);
 
     }//GEN-LAST:event_QuitarActionPerformed
 
-    private void NombreTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NombreTextFieldKeyTyped
+    private void NombreTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NombreTextFieldKeyReleased
         // TODO add your handling code here:
-        String nombre = NombreTextField.getText();
-        DefaultListModel modelo = new DefaultListModel();
-        String consulta = "SELECT primerApellido, segundoApellido, nombre FROM "
-                + "alumno WHERE nombre LIKE '%" + nombre + "%'";
-        ResultSet retset = accesoBD.ejecutaConsulta(consulta);
+        BuscarAlumnos();
+    }//GEN-LAST:event_NombreTextFieldKeyReleased
 
-        List<String> nuevosAlumnos = new ArrayList<String>();
-        try {
-            while (retset.next()) {
-                modelo.addElement(retset.getString(1) + " " + retset.getString(2) + " " + retset.getString(3));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(AñadirAlumno.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        System.out.print("\nModelo \n" + modelo);
-        ListaAlumnos.setModel(modelo);
-    }//GEN-LAST:event_NombreTextFieldKeyTyped
-
-    private void PrimerApellidoTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PrimerApellidoTextFieldKeyTyped
+    private void PrimerApellidoTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PrimerApellidoTextFieldKeyReleased
         // TODO add your handling code here:
-        String apellido = PrimerApellidoTextField.getText();
-        DefaultListModel modelo = new DefaultListModel();
-        String consulta = "SELECT primerApellido, segundoApellido, nombre FROM "
-                + "alumno WHERE primerApellido LIKE '%" + apellido + "%'";
-        ResultSet retset = accesoBD.ejecutaConsulta(consulta);
+        BuscarAlumnos();
+    }//GEN-LAST:event_PrimerApellidoTextFieldKeyReleased
 
-        List<String> nuevosAlumnos = new ArrayList<String>();
-        try {
-            while (retset.next()) {
-                modelo.addElement(retset.getString(1) + " " + retset.getString(2) + " " + retset.getString(3));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(AñadirAlumno.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        System.out.print("\nModelo \n" + modelo);
-        ListaAlumnos.setModel(modelo);
-    }//GEN-LAST:event_PrimerApellidoTextFieldKeyTyped
-
-    private void SegundoApellidoTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SegundoApellidoTextFieldKeyTyped
+    private void SegundoApellidoTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SegundoApellidoTextFieldKeyReleased
         // TODO add your handling code here:
-        String apellido = SegundoApellidoTextField.getText();
-        DefaultListModel modelo = new DefaultListModel();
-        String consulta = "SELECT primerApellido, segundoApellido, nombre FROM "
-                + "alumno WHERE segundoApellido LIKE '%" + apellido + "%'";
-        ResultSet retset = accesoBD.ejecutaConsulta(consulta);
-
-        List<String> nuevosAlumnos = new ArrayList<String>();
-        try {
-            while (retset.next()) {
-                modelo.addElement(retset.getString(1) + " " + retset.getString(2) + " " + retset.getString(3));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(AñadirAlumno.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        System.out.print("\nModelo \n" + modelo);
-        ListaAlumnos.setModel(modelo);
-    }//GEN-LAST:event_SegundoApellidoTextFieldKeyTyped
-
+        BuscarAlumnos();
+    }//GEN-LAST:event_SegundoApellidoTextFieldKeyReleased
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList AlumnosMostrados;
     private javax.swing.JLabel AlumnosMostradosLabel;
@@ -590,5 +526,65 @@ public class AñadirAlumno extends javax.swing.JFrame {
         ListaAlumnos.setModel(modeloFinal);
         AlumnosMostradosLabel.setText(Integer.toString(modelo.size()));
 
+    }
+
+    private void BuscarAlumnos() {
+
+        String nombre = NombreTextField.getText();
+        DefaultListModel modelo = new DefaultListModel();
+        String consulta = "SELECT primerApellido, segundoApellido, nombre FROM alumno WHERE idAlumno NOT IN (SELECT Alumno_idAlumno FROM pagoactividades WHERE Actividades_idActividades"
+                + " =" + idActividad + ") AND ";
+        String likeNombre = "";
+        String likePApellido = "";
+        String likeSApellido = "";
+
+        if (!NombreTextField.getText().isEmpty() || !PrimerApellidoTextField.getText().isEmpty()
+                || !SegundoApellidoTextField.getText().isEmpty()) {
+            if (!NombreTextField.getText().isEmpty()) {
+                likeNombre = "nombre LIKE '%";
+                likeNombre = likeNombre + NombreTextField.getText() + "%' AND ";
+            }
+
+            if (!PrimerApellidoTextField.getText().isEmpty()) {
+                likePApellido = "primerApellido LIKE '%";
+                likePApellido = likePApellido + PrimerApellidoTextField.getText() + "%' AND ";
+            }
+
+            if (!SegundoApellidoTextField.getText().isEmpty()) {
+                likeSApellido = "segundoApellido LIKE '%";
+                likeSApellido = likeSApellido + SegundoApellidoTextField.getText() + "%' AND ";
+            }
+
+            if (!likeNombre.isEmpty()) {
+                consulta = consulta + likeNombre;
+            }
+
+            if (!likePApellido.isEmpty()) {
+                consulta = consulta + likePApellido;
+            }
+
+            if (!likeSApellido.isEmpty()) {
+                consulta = consulta + likeSApellido;
+            }
+
+            consulta = consulta.substring(0, consulta.length() - 5);
+
+
+
+            ResultSet retset = accesoBD.ejecutaConsulta(consulta);
+
+            List<String> nuevosAlumnos = new ArrayList<String>();
+            try {
+                while (retset.next()) {
+                    modelo.addElement(retset.getString(1) + " " + retset.getString(2) + " " + retset.getString(3));
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(AñadirAlumno.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.print("\nModelo \n" + modelo);
+            ListaAlumnos.setModel(modelo);
+        } else {
+            MostrarAlumnos();
+        }
     }
 }

@@ -410,19 +410,18 @@ public class PrincipalEquipos extends javax.swing.JFrame {
         dtm.addColumn("Segundo Entrenador");
         dtm.addColumn("Sexo");
         
-        String aux;
+        
         Object[] fila = new Object[6];
         for (Equipo it : equipos) {
-            aux = it.getCategoria();
-            fila[0] = aux.substring(0, aux.indexOf(","));
-            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            fila[1] = aux.substring(0, aux.indexOf(","));
-            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            fila[2] = getCategoria(aux.substring(0, aux.indexOf(",")));
-            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            fila[3] = getEntrenador(aux.substring(0, aux.indexOf(",")));
-            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            fila[4] = getTemporada(aux);
+            
+            fila[0] = it.getNombre();
+            fila[1] = it.getCategoria();
+            fila[2] = it.getTemporada();
+            fila[3] = it.getEntrenador();
+            fila[4] = it.getEntrenador2();
+            fila[5] = it.getSexo();
+            
+            System.out.println("TABLA: " + fila.toString());
             dtm.addRow(fila);
         }
         
