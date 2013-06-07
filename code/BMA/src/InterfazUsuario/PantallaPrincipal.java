@@ -163,9 +163,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jPanel16.setLayout(new java.awt.GridBagLayout());
 
         jButton8.setText("Jugadores");
-        jButton8.setMaximumSize(new java.awt.Dimension(95, 23));
-        jButton8.setMinimumSize(new java.awt.Dimension(95, 23));
-        jButton8.setPreferredSize(new java.awt.Dimension(95, 23));
+        jButton8.setMaximumSize(new java.awt.Dimension(97, 23));
+        jButton8.setMinimumSize(new java.awt.Dimension(97, 23));
+        jButton8.setPreferredSize(new java.awt.Dimension(97, 23));
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
@@ -192,9 +192,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jPanel34.setLayout(new java.awt.GridBagLayout());
 
         jButton14.setText("Usuarios");
-        jButton14.setMaximumSize(new java.awt.Dimension(95, 23));
-        jButton14.setMinimumSize(new java.awt.Dimension(95, 23));
-        jButton14.setPreferredSize(new java.awt.Dimension(95, 23));
+        jButton14.setMaximumSize(new java.awt.Dimension(97, 23));
+        jButton14.setMinimumSize(new java.awt.Dimension(97, 23));
+        jButton14.setPreferredSize(new java.awt.Dimension(97, 23));
         jButton14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton14ActionPerformed(evt);
@@ -221,9 +221,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jPanel13.setLayout(new java.awt.GridBagLayout());
 
         jButton7.setText("Grupos");
-        jButton7.setMaximumSize(new java.awt.Dimension(95, 23));
-        jButton7.setMinimumSize(new java.awt.Dimension(95, 23));
-        jButton7.setPreferredSize(new java.awt.Dimension(95, 23));
+        jButton7.setMaximumSize(new java.awt.Dimension(97, 23));
+        jButton7.setMinimumSize(new java.awt.Dimension(97, 23));
+        jButton7.setPreferredSize(new java.awt.Dimension(97, 23));
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
@@ -250,9 +250,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jPanel28.setLayout(new java.awt.GridBagLayout());
 
         jButton9.setText("Equipos");
-        jButton9.setMaximumSize(new java.awt.Dimension(95, 23));
-        jButton9.setMinimumSize(new java.awt.Dimension(95, 23));
-        jButton9.setPreferredSize(new java.awt.Dimension(95, 23));
+        jButton9.setMaximumSize(new java.awt.Dimension(97, 23));
+        jButton9.setMinimumSize(new java.awt.Dimension(97, 23));
+        jButton9.setPreferredSize(new java.awt.Dimension(97, 23));
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
@@ -279,9 +279,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jPanel31.setLayout(new java.awt.GridBagLayout());
 
         jButton13.setText("Partidos");
-        jButton13.setMaximumSize(new java.awt.Dimension(95, 23));
-        jButton13.setMinimumSize(new java.awt.Dimension(95, 23));
-        jButton13.setPreferredSize(new java.awt.Dimension(95, 23));
+        jButton13.setMaximumSize(new java.awt.Dimension(97, 23));
+        jButton13.setMinimumSize(new java.awt.Dimension(97, 23));
+        jButton13.setPreferredSize(new java.awt.Dimension(97, 23));
         jButton13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton13ActionPerformed(evt);
@@ -308,9 +308,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jPanel22.setLayout(new java.awt.GridBagLayout());
 
         jButton11.setText("Actividades");
-        jButton11.setMaximumSize(new java.awt.Dimension(95, 23));
-        jButton11.setMinimumSize(new java.awt.Dimension(95, 23));
-        jButton11.setPreferredSize(new java.awt.Dimension(95, 23));
+        jButton11.setMaximumSize(new java.awt.Dimension(97, 23));
+        jButton11.setMinimumSize(new java.awt.Dimension(97, 23));
+        jButton11.setPreferredSize(new java.awt.Dimension(97, 23));
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton11ActionPerformed(evt);
@@ -337,9 +337,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jPanel25.setLayout(new java.awt.GridBagLayout());
 
         jButton12.setText("Pagos");
-        jButton12.setMaximumSize(new java.awt.Dimension(95, 23));
-        jButton12.setMinimumSize(new java.awt.Dimension(95, 23));
-        jButton12.setPreferredSize(new java.awt.Dimension(95, 23));
+        jButton12.setMaximumSize(new java.awt.Dimension(97, 23));
+        jButton12.setMinimumSize(new java.awt.Dimension(97, 23));
+        jButton12.setPreferredSize(new java.awt.Dimension(97, 23));
         jButton12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton12ActionPerformed(evt);
@@ -366,6 +366,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jPanel19.setLayout(new java.awt.GridBagLayout());
 
         jButton10.setText("Instalaciones");
+        jButton10.setMaximumSize(new java.awt.Dimension(97, 23));
+        jButton10.setMinimumSize(new java.awt.Dimension(97, 23));
+        jButton10.setPreferredSize(new java.awt.Dimension(97, 23));
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton10ActionPerformed(evt);
@@ -392,9 +395,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jPanel10.setLayout(new java.awt.GridBagLayout());
 
         jButton4.setText("Temporadas");
-        jButton4.setMaximumSize(new java.awt.Dimension(95, 23));
-        jButton4.setMinimumSize(new java.awt.Dimension(95, 23));
-        jButton4.setPreferredSize(new java.awt.Dimension(95, 23));
+        jButton4.setMaximumSize(new java.awt.Dimension(97, 23));
+        jButton4.setMinimumSize(new java.awt.Dimension(97, 23));
+        jButton4.setPreferredSize(new java.awt.Dimension(97, 23));
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -421,9 +424,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jPanel3.setLayout(new java.awt.GridBagLayout());
 
         jButton3.setText("Categorias");
-        jButton3.setMaximumSize(new java.awt.Dimension(95, 23));
-        jButton3.setMinimumSize(new java.awt.Dimension(95, 23));
-        jButton3.setPreferredSize(new java.awt.Dimension(95, 23));
+        jButton3.setMaximumSize(new java.awt.Dimension(97, 23));
+        jButton3.setMinimumSize(new java.awt.Dimension(97, 23));
+        jButton3.setPreferredSize(new java.awt.Dimension(97, 23));
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -450,9 +453,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jPanel7.setLayout(new java.awt.GridBagLayout());
 
         cerrarSesion.setText("Cerrar Sesión");
-        cerrarSesion.setMaximumSize(new java.awt.Dimension(95, 23));
-        cerrarSesion.setMinimumSize(new java.awt.Dimension(95, 23));
-        cerrarSesion.setPreferredSize(new java.awt.Dimension(95, 23));
         cerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cerrarSesionActionPerformed(evt);

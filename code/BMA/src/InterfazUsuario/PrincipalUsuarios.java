@@ -105,7 +105,6 @@ public class PrincipalUsuarios extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        panelUsuarios.setVisible(false);
         panelUsuarios.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel18.setText("Resultados de los Usuarios:");
