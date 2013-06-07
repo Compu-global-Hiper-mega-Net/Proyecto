@@ -918,33 +918,35 @@ public class GruposBD {
             idHor = res1.getInt(1);
             idInst = res1.getInt(2);
         }
-        
-       
-       
-        
-        String query4 = "DELETE FROM Grupo WHERE "
-                + "idGrupo='"+g.getIdGrupo()+"';\n";
-        boolean eliminaGrupo ;//= accesoBD.eliminar(query4);
-        System.out.println(query4);
-        
-         String query2 = "DELETE FROM Horario WHERE idHorario='"+idHor+"' AND "
-                + "Instalacion_idInstalacion='"+idInst+"';";
-        
-        boolean eliminaHor = accesoBD.eliminar(query4+query2);
-        System.out.println(query2);
-        
-         //Alumno_idAlumno='"+g.+"'
-        String query3 = " DELETE FROM alumnogrupo WHERE "
+        /*
+         * Primeramente Eliminamos los alumnos del grupos en cuestion
+         */
+       String query3 = " DELETE FROM alumnogrupo WHERE "
                 + " Grupo_idGrupo = '"+g.getIdGrupo()+"' " 
                 + " AND Grupo_Categoria_idCategoria= '"+g.getIdCategoria()+"' "
                 + " AND Grupo_Usuario_idUsuario = '"+g.getIdEntrenador()+"' AND "
                 + " Grupo_Temporada_idTemporada = '"+g.getIdTemporada()+"' ";
        System.out.println(query3);
         boolean eliminaAlumGrup = accesoBD.eliminar(query3);
+       
         
-       // if(eliminaHor == true && eliminaGrupo == true && eliminaAlumGrup == true)
+        String query4 = "DELETE FROM Grupo WHERE "
+                + "idGrupo='"+g.getIdGrupo()+"'";
+        boolean eliminaGrupo = accesoBD.eliminar(query4);
+        System.out.println(query4);
+        
+         String query2 = "DELETE FROM Horario WHERE idHorario='"+idHor+"' AND "
+                + "Instalacion_idInstalacion='"+idInst+"'";
+        
+        boolean eliminaHor = accesoBD.eliminar(query2);
+        System.out.println(query2);
+        
+         //Alumno_idAlumno='"+g.+"'
+        
+        
+        if(eliminaHor == true && eliminaGrupo == true && eliminaAlumGrup == true)
             GrupoEliminado = true;
-    //    else
+        else
             GrupoEliminado = false;
         
         return GrupoEliminado;
