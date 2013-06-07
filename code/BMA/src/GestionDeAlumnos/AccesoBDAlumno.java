@@ -8,9 +8,6 @@ import ServiciosAlmacenamiento.BaseDatos;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -75,7 +72,7 @@ class AccesoBDAlumno {
 
         accesoBD.ejecutaActualizacion(inserccion);
         
-        Calendar fecha = alumnoNuevo.getFechaNacimiento();
+        /*Calendar fecha = alumnoNuevo.getFechaNacimiento();
         Calendar fechasistema;
         fechasistema = new GregorianCalendar();
         String cat_alum = "";
@@ -127,7 +124,7 @@ class AccesoBDAlumno {
         // categoria alumno para así luego no tener que realizar
         // búsqueda en la tabla de los alumnos
         
-        accesoBD.ejecutaActualizacion(categoria_alumno);
+        accesoBD.ejecutaActualizacion(categoria_alumno);*/
        
     }
 
