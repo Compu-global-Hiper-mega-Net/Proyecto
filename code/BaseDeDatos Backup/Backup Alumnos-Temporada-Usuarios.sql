@@ -108,6 +108,27 @@ CREATE TABLE `alumno` (
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+
+DROP TABLE IF EXISTS `categoriaalumno`;
+CREATE  TABLE IF NOT EXISTS `mydb`.`categoriaalumno` (
+  `idcategoriaalumno` INT NOT NULL AUTO_INCREMENT ,
+  `categoria_idCategoria` INT(11) NOT NULL ,
+  `alumno_idAlumno` INT(11) NOT NULL ,
+  PRIMARY KEY (`idcategoriaalumno`, `categoria_idCategoria`, `alumno_idAlumno`) ,
+  INDEX `fk_categoriaalumno_categoria1_idx` (`categoria_idCategoria` ASC) ,
+  INDEX `fk_categoriaalumno_alumno1_idx` (`alumno_idAlumno` ASC) ,
+  CONSTRAINT `fk_categoriaalumno_categoria1`
+    FOREIGN KEY (`categoria_idCategoria` )
+    REFERENCES `mydb`.`categoria` (`idCategoria` )
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_categoriaalumno_alumno1`
+    FOREIGN KEY (`alumno_idAlumno` )
+    REFERENCES `mydb`.`alumno` (`idAlumno` )
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+
 --
 -- Dumping data for table `alumno`
 --
