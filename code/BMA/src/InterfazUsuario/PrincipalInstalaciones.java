@@ -182,6 +182,8 @@ public class PrincipalInstalaciones extends javax.swing.JFrame {
         ));
         tablaInstalacion.setMaximumSize(new java.awt.Dimension(225, 64));
         tablaInstalacion.setMinimumSize(new java.awt.Dimension(225, 64));
+        tablaInstalacion.getTableHeader().setResizingAllowed(false);
+        tablaInstalacion.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(tablaInstalacion);
 
         gridBagConstraints = new java.awt.GridBagConstraints();

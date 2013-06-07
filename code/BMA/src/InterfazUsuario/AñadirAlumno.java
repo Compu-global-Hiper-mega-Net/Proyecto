@@ -53,8 +53,6 @@ public class AñadirAlumno extends javax.swing.JFrame {
 
     int idTemporada, idActividad;
     BaseDatos accesoBD;
-    List<String> listaAlumnos = new ArrayList<>();
-    List<String> listaAlumnosQuitados = new ArrayList<>();
     List<Integer> listaIDAlumnos = new ArrayList<>();
     List<Integer> listaIDAlumnosQuitados = new ArrayList<>();
     int sizeModelo;
@@ -277,6 +275,7 @@ public class AñadirAlumno extends javax.swing.JFrame {
 
     private void AñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AñadirActionPerformed
         // TODO add your handling code here:
+        List<String> listaAlumnos = new ArrayList<>();
         listaAlumnos.addAll(ListaAlumnos.getSelectedValuesList());
         DefaultListModel modelo = new DefaultListModel();
         DefaultListModel model = new DefaultListModel();
@@ -374,17 +373,16 @@ public class AñadirAlumno extends javax.swing.JFrame {
         alumnosSelecionados();
     }
 
-    public int getIDCuota() throws SQLException {
-        String Consulta = "SELECT MAX(idCuota) FROM Cuota";
-        int id = 0;
-        ResultSet retset = accesoBD.ejecutaConsulta(Consulta);
-        if (retset.next()) {
-            id = retset.getInt(1);
-        }
-        return id;
-    }
-
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
+
+        DefaultListModel modelo = new DefaultListModel();
+        List<String> listaAlumnos = new ArrayList<>();
+
+        modelo = (DefaultListModel) AlumnosMostrados.getModel();
+        for (int i = 0; i < modelo.size(); i++) {
+            listaAlumnos.add((String) modelo.get(i));
+        }
+
 
         System.out.print("\n Antes del try" + listaAlumnos);
         try {
@@ -396,69 +394,53 @@ public class AñadirAlumno extends javax.swing.JFrame {
         if (listaIDAlumnos.size() > 0) {
             ResultSet retset, rts;
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-            Calendar cal1 = Calendar.getInstance();
+            
             for (int i = 0; i < listaIDAlumnos.size(); i++) {
-                String insert = new String("INSERT INTO cuota (fecha, pagado) VALUES (\""
-                        + cal1.get(Calendar.YEAR) + "-" + cal1.get(Calendar.MONTH) + "-" + cal1.get(Calendar.DATE) + "\", 0)");
-                System.out.print(insert);
                 try {
-                    accesoBD.ejecutaActualizacion(insert);
-                } catch (SQLException ex) {
-                    Logger.getLogger(AñadirAlumno.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                int idCuota = 0;
-                try {
-                    idCuota = getIDCuota();
-                } catch (SQLException ex) {
-                    Logger.getLogger(AñadirAlumno.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                String insertAlumno = new String("INSERT INTO pagoactividades (Alumno_idAlumno, Actividades_idActividades, Actividades_Temporada_idTemporada, Cuota_idCuota)"
-                        + "VALUES (" + listaIDAlumnos.get(i) + ", " + idActividad + ", " + idTemporada + ", " + idCuota + ")");
-                System.out.print("\ninsertarAlumno" + insertAlumno);
-                try {
-                    accesoBD.ejecutaActualizacion(insertAlumno);
+                    GestionActividades.GestorActividad.InsertarAlumnoActividad(accesoBD, listaIDAlumnos.get(i), idTemporada, idActividad);
                 } catch (SQLException ex) {
                     Logger.getLogger(AñadirAlumno.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             JOptionPane.showMessageDialog(null, "Alumnos insertados",
                     "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
+            this.setVisible(false);
 
         } else {
             JOptionPane.showMessageDialog(null, "No has seleccionado alumnos",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-        MostrarAlumnos();
+        
 
     }//GEN-LAST:event_GuardarActionPerformed
 
     private void QuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QuitarActionPerformed
         // TODO add your handling code here:
+        List<String> listaAlumnosQuitados = new ArrayList<>();
         listaAlumnosQuitados.addAll(AlumnosMostrados.getSelectedValuesList());
+        int[] indices = AlumnosMostrados.getSelectedIndices();
+        DefaultListModel modelo = new DefaultListModel();
+        DefaultListModel modeloAlumnos = new DefaultListModel();
+
+        modeloAlumnos = (DefaultListModel) ListaAlumnos.getModel();
+        modelo = (DefaultListModel) AlumnosMostrados.getModel();
+
         try {
             listaIDAlumnosQuitados = GestorAlumnos.getIdAl(accesoBD, listaAlumnosQuitados);
+            GestionActividades.GestorActividad.eliminaraAlumnos(accesoBD, listaIDAlumnos, idActividad);
         } catch (SQLException ex) {
             Logger.getLogger(AñadirAlumno.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (listaIDAlumnosQuitados.size() > 0) {
-            String delete;
-            ResultSet retset;
-            for (int i = 0; i < listaIDAlumnosQuitados.size(); i++) {
-                delete = "DELETE FROM pagoactividades WHERE Alumno_idAlumno =" + listaIDAlumnosQuitados.get(i);
-                boolean exito = accesoBD.eliminar(delete);
-                if (!exito) {
-                    JOptionPane.showMessageDialog(null, "Error al eliminar",
-                            "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-            JOptionPane.showMessageDialog(null, "Alumnos eliminados",
-                    "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "No has seleccionado alumnos",
-                    "Error", JOptionPane.ERROR_MESSAGE);
+
+        for (int i = 0; i < indices.length; i++) {
+            modeloAlumnos.addElement(modelo.get(indices[i]));
+            modelo.remove(indices[i]);
         }
-        MostrarAlumnos();
+
+
+        AlumnosMostrados.setModel(modelo);
+        ListaAlumnos.setModel(modeloAlumnos);
 
     }//GEN-LAST:event_QuitarActionPerformed
 
@@ -550,7 +532,8 @@ public class AñadirAlumno extends javax.swing.JFrame {
 
         String nombre = NombreTextField.getText();
         DefaultListModel modelo = new DefaultListModel();
-        String consulta = "SELECT primerApellido, segundoApellido, nombre FROM alumno WHERE ";
+        String consulta = "SELECT primerApellido, segundoApellido, nombre FROM alumno WHERE idAlumno NOT IN (SELECT Alumno_idAlumno FROM pagoactividades WHERE Actividades_idActividades"
+                + " =" + idActividad + ") AND ";
         String likeNombre = "";
         String likePApellido = "";
         String likeSApellido = "";
@@ -588,7 +571,6 @@ public class AñadirAlumno extends javax.swing.JFrame {
 
 
 
-
             ResultSet retset = accesoBD.ejecutaConsulta(consulta);
 
             List<String> nuevosAlumnos = new ArrayList<String>();
@@ -601,8 +583,8 @@ public class AñadirAlumno extends javax.swing.JFrame {
             }
             System.out.print("\nModelo \n" + modelo);
             ListaAlumnos.setModel(modelo);
-        }else{
+        } else {
             MostrarAlumnos();
         }
     }
-    }
+}

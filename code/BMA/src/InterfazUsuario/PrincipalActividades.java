@@ -143,6 +143,8 @@ public class PrincipalActividades extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        actividadesTable.getTableHeader().setResizingAllowed(false);
+        actividadesTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(actividadesTable);
 
         Informacion.setText("Info");
@@ -204,11 +206,14 @@ public class PrincipalActividades extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(Modificar)
                                     .addGap(18, 18, 18)
-                                    .addComponent(buscarActividad))
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(buscarActividad)))
+                            .addGap(86, 86, 86)))
                     .addGroup(panelActividadesLayout.createSequentialGroup()
                         .addGap(231, 231, 231)
-                        .addComponent(actividadesLabel)))
+                        .addComponent(actividadesLabel))
+                    .addGroup(panelActividadesLayout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelActividadesLayout.setVerticalGroup(
