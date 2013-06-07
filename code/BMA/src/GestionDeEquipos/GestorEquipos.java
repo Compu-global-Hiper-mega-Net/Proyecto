@@ -63,7 +63,7 @@ public class GestorEquipos {
 		 */		
 
     public static List<Equipo> ConsultaEquipo(BaseDatos accesoBD, String nombre,
-                            String temporada, String categoria, String entrenador,boolean fundacion, char sexo) throws SQLException {
+                            String temporada, String categoria, String entrenador,boolean fundacion, String sexo) throws SQLException {
 
         List<Equipo> listaEquipos = new ArrayList();
         Equipo eq;
@@ -152,7 +152,7 @@ public class GestorEquipos {
 		 */
     
     public static void InsertarDatosEquipo(BaseDatos accesoBD, String nombre,
-            String temporada, String categoria, String entrenador, String entrenador2, boolean fundacion,char sexo) throws SQLException{
+            String temporada, String categoria, String entrenador, String entrenador2, boolean fundacion,String sexo) throws SQLException{
                 
         boolean validar = EquipoBD.ConsultarEquipo(accesoBD, nombre, temporada, categoria);
         
@@ -241,4 +241,9 @@ public class GestorEquipos {
         return EquipoBD.getIdFundacionEquipo(accesoBD, idEq);
     }
 
+    
+    public static boolean modificarEquipos(BaseDatos accesoBD, Equipo equipo) throws SQLException
+    {
+        return EquipoBD.modificarDatosEquipo(accesoBD, equipo);
+    }
 }

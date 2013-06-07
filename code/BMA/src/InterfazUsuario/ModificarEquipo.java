@@ -4,10 +4,14 @@
  */
 package InterfazUsuario;
 
+import GestionDeEquipos.Equipo;
+import GestionDeEquipos.GestorEquipos;
 import ServiciosAlmacenamiento.BaseDatos;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.border.Border;
@@ -52,7 +56,8 @@ public class ModificarEquipo extends javax.swing.JFrame {
     BaseDatos accesoBD;
     DefaultListModel modeloGuardar = new DefaultListModel(); 
     Border bordeError;
-    String nombreEquipo, campoCategoria, campoTemporada, campoPrimerEntr, campoSegundoEntr;
+    String nombreEquipo, campoCategoria, campoTemporada, campoPrimerEntr, campoSegundoEntr, campoSexo;
+    String nombreEquipo_anterior, campoPrimerEntr_anterior;
     
     /**
      * Creates new form ModificarEquipo
@@ -61,7 +66,7 @@ public class ModificarEquipo extends javax.swing.JFrame {
         initComponents();
     }
     
-    public ModificarEquipo(BaseDatos acceso, String nombreEquip, String selecCat, String selecTemp, String primerEntr, String segundoEntr) throws SQLException
+    public ModificarEquipo(BaseDatos acceso, String nombreEquip, String selecCat, String selecTemp, String primerEntr, String segundoEntr, String sexo) throws SQLException
     {
         initComponents();
         this.setLocation(300, 300);
@@ -69,15 +74,32 @@ public class ModificarEquipo extends javax.swing.JFrame {
         bordeError = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.red);
         this.actualizarCategoria();
         this.actualizarTemporada();
+        this.actualizarEntrenadores();
+        this.actualizarSexo();
+        nombreEquipo_anterior = nombreEquip;
+        campoPrimerEntr_anterior = primerEntr;
         this.fieldNombreEquipo.setText(nombreEquip);
         this.comboCat.setSelectedItem(selecCat);
         this.comboTemp.setSelectedItem(selecTemp);
-        this.fieldPrimerEntrenador.setText(primerEntr);
-        this.fieldSegundoEntrenador.setText(segundoEntr);
+        this.comboPrimerEntrenador.setSelectedItem(primerEntr);
+        this.comboSegundoEntrenador.setSelectedItem(segundoEntr);
+        this.comboSexo.setSelectedItem(sexo);
         
-        
-        
-        
+    }
+    
+    public void actualizarEntrenadores() throws SQLException
+    {
+        comboPrimerEntrenador.removeAllItems();
+        comboSegundoEntrenador.removeAllItems();
+        String consulta = "SELECT CONCAT(`nombre`,' ',`primerApellido`,' ',`segundoApellido`) as nombre FROM Usuario " 
+                + "WHERE entrenador = 1";
+        ResultSet retset = accesoBD.ejecutaConsulta(consulta);
+
+
+        while (retset.next()) {
+            comboPrimerEntrenador.addItem(retset.getString(1));
+            comboSegundoEntrenador.addItem(retset.getString(1));
+        }
     }
 
     /**
@@ -95,13 +117,15 @@ public class ModificarEquipo extends javax.swing.JFrame {
         labelTemporada = new javax.swing.JLabel();
         labelPrimerEntrenador = new javax.swing.JLabel();
         laberSegundoEntrenador = new javax.swing.JLabel();
-        fieldPrimerEntrenador = new javax.swing.JTextField();
-        fieldSegundoEntrenador = new javax.swing.JTextField();
         comboCat = new javax.swing.JComboBox();
         comboTemp = new javax.swing.JComboBox();
         botonGuardar = new javax.swing.JButton();
         botonCancelar = new javax.swing.JButton();
         fieldNombreEquipo = new javax.swing.JTextField();
+        comboPrimerEntrenador = new javax.swing.JComboBox();
+        comboSegundoEntrenador = new javax.swing.JComboBox();
+        labelSexo = new javax.swing.JLabel();
+        comboSexo = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("ModificarEquipo"); // NOI18N
@@ -136,55 +160,67 @@ public class ModificarEquipo extends javax.swing.JFrame {
             }
         });
 
+        comboPrimerEntrenador.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        comboSegundoEntrenador.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        labelSexo.setText("Sexo:");
+
+        comboSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelModificarEquipo)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(labelModificarEquipo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(labelSexo))
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(labelPrimerEntrenador)
-                                .addGap(18, 18, 18)
-                                .addComponent(fieldPrimerEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(comboPrimerEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(labelNombreEquipo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(fieldNombreEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fieldNombreEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(labelCategoria)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(comboCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35)
-                                .addComponent(labelTemporada)
-                                .addGap(18, 18, 18)
-                                .addComponent(comboTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(62, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(botonCancelar)
                                     .addComponent(laberSegundoEntrenador))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(comboSegundoEntrenador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(comboSexo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(comboCat, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(35, 35, 35)
+                                .addComponent(labelTemporada)
                                 .addGap(18, 18, 18)
-                                .addComponent(fieldSegundoEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(136, 136, 136)
-                .addComponent(botonGuardar)
-                .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(comboTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(136, 136, 136)
+                        .addComponent(botonGuardar)))
+                .addGap(0, 62, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(labelModificarEquipo)
-                .addGap(23, 23, 23)
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelModificarEquipo)
+                    .addComponent(labelSexo)
+                    .addComponent(comboSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelNombreEquipo)
                     .addComponent(labelCategoria)
@@ -196,8 +232,8 @@ public class ModificarEquipo extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelPrimerEntrenador)
                     .addComponent(laberSegundoEntrenador)
-                    .addComponent(fieldPrimerEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fieldSegundoEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboPrimerEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboSegundoEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonGuardar)
@@ -217,6 +253,37 @@ public class ModificarEquipo extends javax.swing.JFrame {
         // TODO add your handling code here:
         nombreEquipo = this.fieldNombreEquipo.getText();
         campoCategoria = this.comboCat.getSelectedItem().toString();
+        campoPrimerEntr = this.comboPrimerEntrenador.getSelectedItem().toString();
+        campoSegundoEntr = this.comboSegundoEntrenador.getSelectedItem().toString();
+        campoTemporada = this.comboTemp.getSelectedItem().toString();
+        campoSexo = this.comboSexo.getSelectedItem().toString();
+        
+        String fundacion = "SELECT rango.Equipo_Fundacion_idFundacion FROM rango, equipo, usuario WHERE equipo.idEquipo = rango.Equipo_idEquipo AND "
+                + "equipo.nombre = '"+ nombreEquipo_anterior +"' AND usuario.idUsuario = rango.Usuario_idUsuario AND CONCAT(`usuario`.`nombre`,' ',`usuario`.`primerApellido`,' ',`usuario`.`segundoApellido`) = '"+ campoPrimerEntr_anterior +
+                "' AND rango.tipo = 'Primero'"; 
+        int int_fundacion = 0;
+        try {
+        ResultSet res = accesoBD.ejecutaConsulta(fundacion);
+            
+            if(res.next())
+                int_fundacion = res.getInt(1);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ModificarEquipo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+        
+        boolean valor = (int_fundacion == 1)? true : false;
+        
+        
+        Equipo equipo = new Equipo(nombreEquipo, campoTemporada, campoCategoria, campoPrimerEntr, campoSegundoEntr, valor, campoSexo);
+        
+        try {
+            GestorEquipos.modificarEquipos(accesoBD, equipo);
+        } catch (SQLException ex) {
+            Logger.getLogger(ModificarEquipo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
         
     }//GEN-LAST:event_botonGuardarActionPerformed
 
@@ -229,6 +296,15 @@ public class ModificarEquipo extends javax.swing.JFrame {
         while (retset.next()) {
             comboCat.addItem(retset.getString(1));
         }
+    }
+    
+    private void actualizarSexo() throws SQLException
+    {
+        comboSexo.removeAllItems();
+        
+        comboSexo.addItem('V');
+        comboSexo.addItem('H');
+        
     }
     
     private void actualizarTemporada() throws SQLException {
@@ -279,14 +355,16 @@ public class ModificarEquipo extends javax.swing.JFrame {
     private javax.swing.JButton botonCancelar;
     private javax.swing.JButton botonGuardar;
     private javax.swing.JComboBox comboCat;
+    private javax.swing.JComboBox comboPrimerEntrenador;
+    private javax.swing.JComboBox comboSegundoEntrenador;
+    private javax.swing.JComboBox comboSexo;
     private javax.swing.JComboBox comboTemp;
     private javax.swing.JTextField fieldNombreEquipo;
-    private javax.swing.JTextField fieldPrimerEntrenador;
-    private javax.swing.JTextField fieldSegundoEntrenador;
     private javax.swing.JLabel labelCategoria;
     private javax.swing.JLabel labelModificarEquipo;
     private javax.swing.JLabel labelNombreEquipo;
     private javax.swing.JLabel labelPrimerEntrenador;
+    private javax.swing.JLabel labelSexo;
     private javax.swing.JLabel labelTemporada;
     private javax.swing.JLabel laberSegundoEntrenador;
     // End of variables declaration//GEN-END:variables

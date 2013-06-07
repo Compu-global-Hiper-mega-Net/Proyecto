@@ -165,7 +165,7 @@ public class EquipoBD {
 
         int id = 0;
 
-        String consulta = "SELECT idUsuario FROM Usuario, Rango WHERE Usuario.nombre='" + nombre + "'";
+        String consulta = "SELECT idUsuario FROM usuario WHERE CONCAT(`primerApellido`,' ',`segundoApellido`,' ',`nombre`) = '" + nombre + "'";
 
         ResultSet res = accesoBD.ejecutaConsulta(consulta);
 
@@ -186,13 +186,12 @@ public class EquipoBD {
 
         List<Equipo> equipos = new ArrayList();
 
-        String consulta = "SELECT Equipo.nombre, Categoria.tipo, Temporada.curso, Usuario.nombre, Equipo.fundacion "
+        String consulta = "SELECT Equipo.nombre, Categoria.tipo, Temporada.curso, CONCAT(`Usuario`.`nombre`,' ',`Usuario`.`primerApellido`,' ',`Usuario`.`segundoApellido`) as nombre, Equipo.fundacion, Equipo.sexo "
                 + "FROM Equipo, Categoria, Temporada, Usuario, Rango "
                 + "WHERE Equipo.Categoria_idCategoria = Categoria.idCategoria AND "
                 + "Equipo.Temporada_idTemporada = Temporada.idTemporada AND "
                 + "Usuario.idUsuario = Rango.Usuario_idUsuario AND "
-                + "Rango.Equipo_idEquipo = Equipo.idEquipo AND "
-                + "Rango.tipo = 'primero'";
+                + "Rango.Equipo_idEquipo = Equipo.idEquipo";
 
         ResultSet res = accesoBD.ejecutaConsulta(consulta);
 
@@ -202,7 +201,7 @@ public class EquipoBD {
         String entrena;
         String entrena2 = "";
         boolean fundacion;
-        char sexo;
+        String sexo;
         Equipo eq;
 
         while (res.next()) {
@@ -210,8 +209,10 @@ public class EquipoBD {
             cat = res.getString(2);
             temp = res.getString(3);
             entrena = res.getString(4);
+            if(res.next())
+                entrena2 = res.getString(4);
             fundacion = res.getBoolean(5);
-            sexo = res.getObject(6, char.class);
+            sexo = res.getString(6);
             eq = new Equipo(n, temp, cat, entrena, entrena2, fundacion, sexo);
 
             equipos.add(eq);
@@ -321,26 +322,27 @@ public class EquipoBD {
         int idEntrenador2 = getIdUsuarioNuevo(accesoBD, equipo.getEntrenador2());
         int idFundacion = getIDFundacion(accesoBD);
         int idLiga = getIDLiga(accesoBD);
-        char sexo = equipo.getSexo();
+        String sexo = equipo.getSexo();
 
         String Consulta = "INSERT INTO equipo (Fundacion_idFundacion, Categoria_idCategoria, nombre, fundacion, liga_idLiga, "
                 + "temporada_idTemporada, sexo) VALUES ("
                 + idFundacion + ", " + idCategoria + ", '" + equipo.getNombre() + "', " + equipo.getFundacion() + ", "
                 + idLiga + ", " + idTemporada + ", '" + sexo + "')";
-        int idequipo=accesoBD.obtenerUltimoIdActualizacion(Consulta, "idEquipo");
+        int idequipo=accesoBD.obtenerUltimoIdActualizacion(Consulta, "idEquipo", "equipo");
         
         String InsercionEntrenadorPrimero ="INSERT INTO `mydb`.`rango`"
                 + " (`Usuario_idUsuario`, `Equipo_idEquipo`, `Equipo_Fundacion_idFundacion`, "
                 + "`Equipo_Categoria_idCategoria`, `Equipo_Temporada_idTemporada`, `tipo`) "
-                + "VALUES ('"+idEntrenador+"', '"+idequipo+"', '1', '"+idCategoria+"', '"+idTemporada+"', 'Primero')";
+                + "VALUES ("+idEntrenador+", "+idequipo+", 1, "+idCategoria+", "+idTemporada+", 'Primero')";
         
         String InsercionEntrenadorSegundo ="INSERT INTO `mydb`.`rango`"
                 + " (`Usuario_idUsuario`, `Equipo_idEquipo`, `Equipo_Fundacion_idFundacion`, "
                 + "`Equipo_Categoria_idCategoria`, `Equipo_Temporada_idTemporada`, `tipo`) "
-                + "VALUES ('"+idEntrenador2+"', '"+idequipo+"', '1', '"+idCategoria+"', '"+idTemporada+"', 'Segundo')";
-        System.out.print("\n\nAcanderMore " + Consulta);
+                + "VALUES ("+idEntrenador2+", "+idequipo+", 1, "+idCategoria+", "+idTemporada+", 'Segundo')";
         
-        accesoBD.ejecutaActualizacion(Consulta);
+       
+        accesoBD.ejecutaActualizacion(InsercionEntrenadorPrimero);
+        accesoBD.ejecutaActualizacion(InsercionEntrenadorSegundo);
 
     }
 
@@ -417,10 +419,30 @@ public class EquipoBD {
 		 * @return boolean (lógico) con el atributo interno de la comprobación si se ha modificado un equipo con exito o no.
 		 */
 
-    private static boolean modificarDatosEquipo(BaseDatos accesoBD)
+    public static boolean modificarDatosEquipo(BaseDatos accesoBD, Equipo equipo) throws SQLException
     {
-        boolean exito = true;
         
+        boolean exito = true;
+        int idCategoria = GestorCategorias.getIdCategoria(accesoBD, equipo.getCategoria());
+        int idFundacion = (equipo.getFundacion() == true? 1:0);
+        int idTemporada = GestorTemporadas.getIdTemporada(accesoBD, equipo.getTemporada());
+        int idEquipo = getIdEq(accesoBD, equipo.getNombre(), equipo.getCategoria());
+        
+        
+        String actualizacion = "UPDATE Equipo SET " 
+                + "Fundacion_idFundacion = 1 , Categoria_idCategoria = " + idCategoria + ", "
+                + "nombre = '" + equipo.getNombre() + "', fundacion = " 
+                + idFundacion + ", liga_idLiga = 1, temporada_idTemporada = "
+                + idTemporada + ", sexo = '" + equipo.getSexo() + "'"
+                + " WHERE idEquipo = " + idEquipo;
+
+        try {
+            accesoBD.ejecutaActualizacion(actualizacion);
+            System.out.print("\nModificado act\n " + actualizacion);
+        } catch (SQLException ex) {
+            exito = false;
+        }
+
         return exito;
     }
     

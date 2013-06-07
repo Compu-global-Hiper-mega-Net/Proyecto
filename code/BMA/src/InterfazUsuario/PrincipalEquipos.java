@@ -122,6 +122,8 @@ public class PrincipalEquipos extends javax.swing.JFrame {
                 "Nombre", "Categoria", "Temporada", "Primer Entrenador", "Segundo Entrenador", "Sexo"
             }
         ));
+        tablaEquipos.getTableHeader().setResizingAllowed(false);
+        tablaEquipos.getTableHeader().setReorderingAllowed(false);
         jScrollPane5.setViewportView(tablaEquipos);
 
         botonModificarEquipo.setText("Modificar");
@@ -318,18 +320,19 @@ public class PrincipalEquipos extends javax.swing.JFrame {
     }//GEN-LAST:event_botonBuscarActionPerformed
 
     private void botonModificarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarEquipoActionPerformed
-        // TODO add your handling code here:
+        int fila = tablaEquipos.getSelectedRow();
 
-        if (tablaEquipos.getSelectedRow() > 1) {
+        if (fila != -1) {
             String nombreEquipo = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 0);
             String selecCat = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 1);
             String selecTemp = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 2);
             String primerEntr = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 3);
             String segundoEntr = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 4);
+            String sexo = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 5);
 
-            if (!nombreEquipo.isEmpty() || !selecCat.isEmpty() || !selecTemp.isEmpty() || !primerEntr.isEmpty() || !segundoEntr.isEmpty()) {
+            if (!nombreEquipo.isEmpty() || !selecCat.isEmpty() || !selecTemp.isEmpty() || !primerEntr.isEmpty() || !segundoEntr.isEmpty() || !sexo.isEmpty()) {
                 try {
-                    new ModificarEquipo(accesoBD, nombreEquipo, selecCat, selecTemp, primerEntr, segundoEntr).setVisible(true);
+                    new ModificarEquipo(accesoBD, nombreEquipo, selecCat, selecTemp, primerEntr, segundoEntr, sexo).setVisible(true);
                 } catch (SQLException ex) {
                     Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -420,7 +423,7 @@ public class PrincipalEquipos extends javax.swing.JFrame {
             fila[3] = it.getEntrenador();
             fila[4] = it.getEntrenador2();
             fila[5] = it.getSexo();
-            
+
             System.out.println("TABLA: " + fila.toString());
             dtm.addRow(fila);
         }
