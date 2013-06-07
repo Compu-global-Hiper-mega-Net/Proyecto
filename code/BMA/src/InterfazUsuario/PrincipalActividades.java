@@ -122,7 +122,6 @@ public class PrincipalActividades extends javax.swing.JFrame {
             }
         });
 
-        actividadesTable.setAutoCreateRowSorter(true);
         actividadesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -142,6 +141,7 @@ public class PrincipalActividades extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        actividadesTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane4.setViewportView(actividadesTable);
 
         Informacion.setText("Info");
