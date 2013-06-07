@@ -423,8 +423,7 @@ public class PrincipalEquipos extends javax.swing.JFrame {
             fila[3] = it.getEntrenador();
             fila[4] = it.getEntrenador2();
             fila[5] = it.getSexo();
-
-            System.out.println("TABLA: " + fila.toString());
+            
             dtm.addRow(fila);
         }
         
