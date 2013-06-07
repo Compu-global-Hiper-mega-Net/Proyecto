@@ -1,9 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * InterfazPrincipal.java
  *
  * Created on 16-mar-2013, 16:58:04
@@ -43,36 +38,35 @@ import javax.swing.border.Border;
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************
  */
+/**
+ * Pantalla de gestión principal de la aplicación
+ *
+ * @author Compu-global-Hiper-mega-Net
+ */
 public class PantallaPrincipal extends javax.swing.JFrame {
-    
-    BaseDatos accesoBD;
-    String usuario;
-    Statement stmt;
-    ResultSet retset;
-    ResultSet ultimaActualizacionAlumno;
-    String consultaAlumnosMostrados;
-    String consultaInstalacionesMostradas;
-    Border bordeError;
+
+    private BaseDatos accesoBD;
 
     /**
-     * Creates new form InterfazPrincipal
+     * Constructor de la clase de Gestión Principal
      */
-    public PantallaPrincipal() {
-        initComponents();
-        setLocationRelativeTo(null);
-    }
-    
     public PantallaPrincipal(BaseDatos acceso, String usuario) {
-        accesoBD = acceso;
-        this.usuario = usuario;
         initComponents();
+        this.initComponentsSegunUsuario(usuario);
+        this.accesoBD = acceso;
         this.setLocationRelativeTo(null);
-        initComponentsSegunUsuario();
     }
-    
-    private void initComponentsSegunUsuario() {
+
+    /**
+     * Método que dependiendo de los privilegios del usuario que ha iniciado
+     * sesión, elimina funcionalidades.
+     *
+     * @param usuario Nombre del usuario que ha iniciado sesión.
+     */
+    private void initComponentsSegunUsuario(String usuario) {
         if (!GestorUsuarios.tengoPermisosAdministrador(accesoBD, usuario)) {
-            jPanel33.setVisible(false);
+            this.remove(usuarios);
+            this.remove(usuariosDescripcion);
         }
     }
 
@@ -84,373 +78,282 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        panelInicio = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel29 = new javax.swing.JLabel();
-        jPanel15 = new javax.swing.JPanel();
-        jPanel16 = new javax.swing.JPanel();
-        jButton8 = new javax.swing.JButton();
-        jPanel17 = new javax.swing.JPanel();
-        jLabel35 = new javax.swing.JLabel();
-        jPanel33 = new javax.swing.JPanel();
-        jPanel34 = new javax.swing.JPanel();
-        jButton14 = new javax.swing.JButton();
-        jPanel35 = new javax.swing.JPanel();
-        jLabel33 = new javax.swing.JLabel();
-        jPanel12 = new javax.swing.JPanel();
-        jPanel13 = new javax.swing.JPanel();
-        jButton7 = new javax.swing.JButton();
-        jPanel14 = new javax.swing.JPanel();
-        jLabel32 = new javax.swing.JLabel();
-        jPanel27 = new javax.swing.JPanel();
-        jPanel28 = new javax.swing.JPanel();
-        jButton9 = new javax.swing.JButton();
-        jPanel29 = new javax.swing.JPanel();
-        jLabel44 = new javax.swing.JLabel();
-        jPanel30 = new javax.swing.JPanel();
-        jPanel31 = new javax.swing.JPanel();
-        jButton13 = new javax.swing.JButton();
-        jPanel32 = new javax.swing.JPanel();
-        jLabel45 = new javax.swing.JLabel();
-        jPanel21 = new javax.swing.JPanel();
-        jPanel22 = new javax.swing.JPanel();
-        jButton11 = new javax.swing.JButton();
-        jPanel23 = new javax.swing.JPanel();
-        jLabel42 = new javax.swing.JLabel();
-        jPanel24 = new javax.swing.JPanel();
-        jPanel25 = new javax.swing.JPanel();
-        jButton12 = new javax.swing.JButton();
-        jPanel26 = new javax.swing.JPanel();
-        jLabel43 = new javax.swing.JLabel();
-        jPanel18 = new javax.swing.JPanel();
-        jPanel19 = new javax.swing.JPanel();
-        jButton10 = new javax.swing.JButton();
-        jPanel20 = new javax.swing.JPanel();
-        jLabel41 = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
-        jPanel11 = new javax.swing.JPanel();
-        jLabel31 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
+        panelGestion = new javax.swing.JPanel();
+        titulo = new javax.swing.JLabel();
+        jugadores = new javax.swing.JButton();
+        jugadoresDescripcion = new javax.swing.JLabel();
+        usuarios = new javax.swing.JButton();
+        usuariosDescripcion = new javax.swing.JLabel();
+        grupos = new javax.swing.JButton();
+        gruposDescripcion = new javax.swing.JLabel();
+        equipos = new javax.swing.JButton();
+        equiposDescripcion = new javax.swing.JLabel();
+        partidos = new javax.swing.JButton();
+        partidosDescripcion = new javax.swing.JLabel();
+        actividades = new javax.swing.JButton();
+        acrividadesDescripcion = new javax.swing.JLabel();
+        pagos = new javax.swing.JButton();
+        pagosDescripcion = new javax.swing.JLabel();
+        instalaciones = new javax.swing.JButton();
+        instalacionesDescripcion = new javax.swing.JLabel();
+        temporadas = new javax.swing.JButton();
+        temporadasDescripcion = new javax.swing.JLabel();
+        categorias = new javax.swing.JButton();
+        categoriasDescripcion = new javax.swing.JLabel();
         cerrarSesion = new javax.swing.JButton();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel30 = new javax.swing.JLabel();
+        cerrarSesionDescripcion = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(610, 395));
-
-        panelInicio.setLayout(new javax.swing.BoxLayout(panelInicio, javax.swing.BoxLayout.PAGE_AXIS));
-
-        jLabel29.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel29.setText("Panel de gestión");
-        jPanel1.add(jLabel29);
-
-        panelInicio.add(jPanel1);
-
-        jPanel15.setLayout(new javax.swing.BoxLayout(jPanel15, javax.swing.BoxLayout.LINE_AXIS));
-
-        jPanel16.setMaximumSize(new java.awt.Dimension(170, 33));
-        jPanel16.setMinimumSize(new java.awt.Dimension(170, 33));
-        jPanel16.setPreferredSize(new java.awt.Dimension(170, 33));
-        jPanel16.setLayout(new java.awt.GridBagLayout());
-
-        jButton8.setText("Jugadores");
-        jButton8.setMaximumSize(new java.awt.Dimension(97, 23));
-        jButton8.setMinimumSize(new java.awt.Dimension(97, 23));
-        jButton8.setPreferredSize(new java.awt.Dimension(97, 23));
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
             }
         });
-        jPanel16.add(jButton8, new java.awt.GridBagConstraints());
 
-        jPanel15.add(jPanel16);
+        panelGestion.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        panelGestion.setLayout(new java.awt.GridBagLayout());
 
-        jPanel17.setLayout(new java.awt.GridBagLayout());
+        titulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        titulo.setText("Panel de gestión");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
+        panelGestion.add(titulo, gridBagConstraints);
 
-        jLabel35.setText("Esta opción permite gestionar todos los jugadores, esto es: insertar, modificar o eliminar.");
-        jPanel17.add(jLabel35, new java.awt.GridBagConstraints());
-
-        jPanel15.add(jPanel17);
-
-        panelInicio.add(jPanel15);
-
-        jPanel33.setLayout(new javax.swing.BoxLayout(jPanel33, javax.swing.BoxLayout.LINE_AXIS));
-
-        jPanel34.setMaximumSize(new java.awt.Dimension(170, 33));
-        jPanel34.setMinimumSize(new java.awt.Dimension(170, 33));
-        jPanel34.setPreferredSize(new java.awt.Dimension(170, 33));
-        jPanel34.setLayout(new java.awt.GridBagLayout());
-
-        jButton14.setText("Usuarios");
-        jButton14.setMaximumSize(new java.awt.Dimension(97, 23));
-        jButton14.setMinimumSize(new java.awt.Dimension(97, 23));
-        jButton14.setPreferredSize(new java.awt.Dimension(97, 23));
-        jButton14.addActionListener(new java.awt.event.ActionListener() {
+        jugadores.setText("Jugadores");
+        jugadores.setMaximumSize(new java.awt.Dimension(97, 23));
+        jugadores.setMinimumSize(new java.awt.Dimension(97, 23));
+        jugadores.setPreferredSize(new java.awt.Dimension(97, 23));
+        jugadores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton14ActionPerformed(evt);
+                jugadoresActionPerformed(evt);
             }
         });
-        jPanel34.add(jButton14, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelGestion.add(jugadores, gridBagConstraints);
 
-        jPanel33.add(jPanel34);
+        jugadoresDescripcion.setText("Esta opción permite gestionar todos los jugadores, esto es: insertar, modificar o eliminar.");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelGestion.add(jugadoresDescripcion, gridBagConstraints);
 
-        jPanel35.setLayout(new java.awt.GridBagLayout());
-
-        jLabel33.setText("Esta opción permite gestionar todos los usuarios, esto es: insertar, modificar o eliminar.");
-        jPanel35.add(jLabel33, new java.awt.GridBagConstraints());
-
-        jPanel33.add(jPanel35);
-
-        panelInicio.add(jPanel33);
-
-        jPanel12.setLayout(new javax.swing.BoxLayout(jPanel12, javax.swing.BoxLayout.LINE_AXIS));
-
-        jPanel13.setMaximumSize(new java.awt.Dimension(170, 33));
-        jPanel13.setMinimumSize(new java.awt.Dimension(170, 33));
-        jPanel13.setPreferredSize(new java.awt.Dimension(170, 33));
-        jPanel13.setLayout(new java.awt.GridBagLayout());
-
-        jButton7.setText("Grupos");
-        jButton7.setMaximumSize(new java.awt.Dimension(97, 23));
-        jButton7.setMinimumSize(new java.awt.Dimension(97, 23));
-        jButton7.setPreferredSize(new java.awt.Dimension(97, 23));
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        usuarios.setText("Usuarios");
+        usuarios.setMaximumSize(new java.awt.Dimension(97, 23));
+        usuarios.setMinimumSize(new java.awt.Dimension(97, 23));
+        usuarios.setPreferredSize(new java.awt.Dimension(97, 23));
+        usuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                usuariosActionPerformed(evt);
             }
         });
-        jPanel13.add(jButton7, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelGestion.add(usuarios, gridBagConstraints);
 
-        jPanel12.add(jPanel13);
+        usuariosDescripcion.setText("Esta opción permite gestionar todos los usuarios, esto es: insertar, modificar o eliminar.");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelGestion.add(usuariosDescripcion, gridBagConstraints);
 
-        jPanel14.setLayout(new java.awt.GridBagLayout());
-
-        jLabel32.setText("Esta opción permite gestionar todos los grupos, esto es: insertar, modificar o eliminar.");
-        jPanel14.add(jLabel32, new java.awt.GridBagConstraints());
-
-        jPanel12.add(jPanel14);
-
-        panelInicio.add(jPanel12);
-
-        jPanel27.setLayout(new javax.swing.BoxLayout(jPanel27, javax.swing.BoxLayout.LINE_AXIS));
-
-        jPanel28.setMaximumSize(new java.awt.Dimension(170, 33));
-        jPanel28.setMinimumSize(new java.awt.Dimension(170, 33));
-        jPanel28.setPreferredSize(new java.awt.Dimension(170, 33));
-        jPanel28.setLayout(new java.awt.GridBagLayout());
-
-        jButton9.setText("Equipos");
-        jButton9.setMaximumSize(new java.awt.Dimension(97, 23));
-        jButton9.setMinimumSize(new java.awt.Dimension(97, 23));
-        jButton9.setPreferredSize(new java.awt.Dimension(97, 23));
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        grupos.setText("Grupos");
+        grupos.setMaximumSize(new java.awt.Dimension(97, 23));
+        grupos.setMinimumSize(new java.awt.Dimension(97, 23));
+        grupos.setPreferredSize(new java.awt.Dimension(97, 23));
+        grupos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                gruposActionPerformed(evt);
             }
         });
-        jPanel28.add(jButton9, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelGestion.add(grupos, gridBagConstraints);
 
-        jPanel27.add(jPanel28);
+        gruposDescripcion.setText("Esta opción permite gestionar todos los grupos, esto es: insertar, modificar o eliminar.");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelGestion.add(gruposDescripcion, gridBagConstraints);
 
-        jPanel29.setLayout(new java.awt.GridBagLayout());
-
-        jLabel44.setText("Esta opción permite gestionar todos los equipos, esto es: insertar, modificar o eliminar.");
-        jPanel29.add(jLabel44, new java.awt.GridBagConstraints());
-
-        jPanel27.add(jPanel29);
-
-        panelInicio.add(jPanel27);
-
-        jPanel30.setLayout(new javax.swing.BoxLayout(jPanel30, javax.swing.BoxLayout.LINE_AXIS));
-
-        jPanel31.setMaximumSize(new java.awt.Dimension(170, 33));
-        jPanel31.setMinimumSize(new java.awt.Dimension(170, 33));
-        jPanel31.setPreferredSize(new java.awt.Dimension(170, 33));
-        jPanel31.setLayout(new java.awt.GridBagLayout());
-
-        jButton13.setText("Partidos");
-        jButton13.setMaximumSize(new java.awt.Dimension(97, 23));
-        jButton13.setMinimumSize(new java.awt.Dimension(97, 23));
-        jButton13.setPreferredSize(new java.awt.Dimension(97, 23));
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
+        equipos.setText("Equipos");
+        equipos.setMaximumSize(new java.awt.Dimension(97, 23));
+        equipos.setMinimumSize(new java.awt.Dimension(97, 23));
+        equipos.setPreferredSize(new java.awt.Dimension(97, 23));
+        equipos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
+                equiposActionPerformed(evt);
             }
         });
-        jPanel31.add(jButton13, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelGestion.add(equipos, gridBagConstraints);
 
-        jPanel30.add(jPanel31);
+        equiposDescripcion.setText("Esta opción permite gestionar todos los equipos, esto es: insertar, modificar o eliminar.");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelGestion.add(equiposDescripcion, gridBagConstraints);
 
-        jPanel32.setLayout(new java.awt.GridBagLayout());
-
-        jLabel45.setText("Esta opción permite gestionar todos los partidos, esto es: insertar, modificar o eliminar.");
-        jPanel32.add(jLabel45, new java.awt.GridBagConstraints());
-
-        jPanel30.add(jPanel32);
-
-        panelInicio.add(jPanel30);
-
-        jPanel21.setLayout(new javax.swing.BoxLayout(jPanel21, javax.swing.BoxLayout.LINE_AXIS));
-
-        jPanel22.setMaximumSize(new java.awt.Dimension(170, 33));
-        jPanel22.setMinimumSize(new java.awt.Dimension(170, 33));
-        jPanel22.setPreferredSize(new java.awt.Dimension(170, 33));
-        jPanel22.setLayout(new java.awt.GridBagLayout());
-
-        jButton11.setText("Actividades");
-        jButton11.setMaximumSize(new java.awt.Dimension(97, 23));
-        jButton11.setMinimumSize(new java.awt.Dimension(97, 23));
-        jButton11.setPreferredSize(new java.awt.Dimension(97, 23));
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        partidos.setText("Partidos");
+        partidos.setMaximumSize(new java.awt.Dimension(97, 23));
+        partidos.setMinimumSize(new java.awt.Dimension(97, 23));
+        partidos.setPreferredSize(new java.awt.Dimension(97, 23));
+        partidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                partidosActionPerformed(evt);
             }
         });
-        jPanel22.add(jButton11, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelGestion.add(partidos, gridBagConstraints);
 
-        jPanel21.add(jPanel22);
+        partidosDescripcion.setText("Esta opción permite gestionar todos los partidos, esto es: insertar, modificar o eliminar.");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelGestion.add(partidosDescripcion, gridBagConstraints);
 
-        jPanel23.setLayout(new java.awt.GridBagLayout());
-
-        jLabel42.setText("Esta opción permite gestionar todos los actividades, esto es: insertar, modificar o eliminar.");
-        jPanel23.add(jLabel42, new java.awt.GridBagConstraints());
-
-        jPanel21.add(jPanel23);
-
-        panelInicio.add(jPanel21);
-
-        jPanel24.setLayout(new javax.swing.BoxLayout(jPanel24, javax.swing.BoxLayout.LINE_AXIS));
-
-        jPanel25.setMaximumSize(new java.awt.Dimension(170, 33));
-        jPanel25.setMinimumSize(new java.awt.Dimension(170, 33));
-        jPanel25.setPreferredSize(new java.awt.Dimension(170, 33));
-        jPanel25.setLayout(new java.awt.GridBagLayout());
-
-        jButton12.setText("Pagos");
-        jButton12.setMaximumSize(new java.awt.Dimension(97, 23));
-        jButton12.setMinimumSize(new java.awt.Dimension(97, 23));
-        jButton12.setPreferredSize(new java.awt.Dimension(97, 23));
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
+        actividades.setText("Actividades");
+        actividades.setMaximumSize(new java.awt.Dimension(97, 23));
+        actividades.setMinimumSize(new java.awt.Dimension(97, 23));
+        actividades.setPreferredSize(new java.awt.Dimension(97, 23));
+        actividades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
+                actividadesActionPerformed(evt);
             }
         });
-        jPanel25.add(jButton12, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelGestion.add(actividades, gridBagConstraints);
 
-        jPanel24.add(jPanel25);
+        acrividadesDescripcion.setText("Esta opción permite gestionar todos los actividades, esto es: insertar, modificar o eliminar.");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelGestion.add(acrividadesDescripcion, gridBagConstraints);
 
-        jPanel26.setLayout(new java.awt.GridBagLayout());
-
-        jLabel43.setText("Esta opción permite gestionar todos los pagos, esto es: modificar o eliminar.");
-        jPanel26.add(jLabel43, new java.awt.GridBagConstraints());
-
-        jPanel24.add(jPanel26);
-
-        panelInicio.add(jPanel24);
-
-        jPanel18.setLayout(new javax.swing.BoxLayout(jPanel18, javax.swing.BoxLayout.LINE_AXIS));
-
-        jPanel19.setMaximumSize(new java.awt.Dimension(170, 33));
-        jPanel19.setMinimumSize(new java.awt.Dimension(170, 33));
-        jPanel19.setPreferredSize(new java.awt.Dimension(170, 33));
-        jPanel19.setLayout(new java.awt.GridBagLayout());
-
-        jButton10.setText("Instalaciones");
-        jButton10.setMaximumSize(new java.awt.Dimension(97, 23));
-        jButton10.setMinimumSize(new java.awt.Dimension(97, 23));
-        jButton10.setPreferredSize(new java.awt.Dimension(97, 23));
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        pagos.setText("Pagos");
+        pagos.setMaximumSize(new java.awt.Dimension(97, 23));
+        pagos.setMinimumSize(new java.awt.Dimension(97, 23));
+        pagos.setPreferredSize(new java.awt.Dimension(97, 23));
+        pagos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                pagosActionPerformed(evt);
             }
         });
-        jPanel19.add(jButton10, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelGestion.add(pagos, gridBagConstraints);
 
-        jPanel18.add(jPanel19);
+        pagosDescripcion.setText("Esta opción permite gestionar todos los pagos, esto es: modificar o eliminar.");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelGestion.add(pagosDescripcion, gridBagConstraints);
 
-        jPanel20.setLayout(new java.awt.GridBagLayout());
-
-        jLabel41.setText("Esta opción permite gestionar todos los instalaciones, esto es: insertar, modificar o eliminar.");
-        jPanel20.add(jLabel41, new java.awt.GridBagConstraints());
-
-        jPanel18.add(jPanel20);
-
-        panelInicio.add(jPanel18);
-
-        jPanel9.setLayout(new javax.swing.BoxLayout(jPanel9, javax.swing.BoxLayout.LINE_AXIS));
-
-        jPanel10.setMaximumSize(new java.awt.Dimension(170, 33));
-        jPanel10.setMinimumSize(new java.awt.Dimension(170, 33));
-        jPanel10.setPreferredSize(new java.awt.Dimension(170, 33));
-        jPanel10.setLayout(new java.awt.GridBagLayout());
-
-        jButton4.setText("Temporadas");
-        jButton4.setMaximumSize(new java.awt.Dimension(97, 23));
-        jButton4.setMinimumSize(new java.awt.Dimension(97, 23));
-        jButton4.setPreferredSize(new java.awt.Dimension(97, 23));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        instalaciones.setText("Instalaciones");
+        instalaciones.setMaximumSize(new java.awt.Dimension(97, 23));
+        instalaciones.setMinimumSize(new java.awt.Dimension(97, 23));
+        instalaciones.setPreferredSize(new java.awt.Dimension(97, 23));
+        instalaciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                instalacionesActionPerformed(evt);
             }
         });
-        jPanel10.add(jButton4, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelGestion.add(instalaciones, gridBagConstraints);
 
-        jPanel9.add(jPanel10);
+        instalacionesDescripcion.setText("Esta opción permite gestionar todos los instalaciones, esto es: insertar, modificar o eliminar.");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelGestion.add(instalacionesDescripcion, gridBagConstraints);
 
-        jPanel11.setLayout(new java.awt.GridBagLayout());
-
-        jLabel31.setText("Esta opción permite gestionar todas las temporadas, esto es: insertar, modificar o eliminar.");
-        jPanel11.add(jLabel31, new java.awt.GridBagConstraints());
-
-        jPanel9.add(jPanel11);
-
-        panelInicio.add(jPanel9);
-
-        jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
-
-        jPanel3.setMaximumSize(new java.awt.Dimension(170, 33));
-        jPanel3.setMinimumSize(new java.awt.Dimension(170, 33));
-        jPanel3.setPreferredSize(new java.awt.Dimension(170, 33));
-        jPanel3.setLayout(new java.awt.GridBagLayout());
-
-        jButton3.setText("Categorias");
-        jButton3.setMaximumSize(new java.awt.Dimension(97, 23));
-        jButton3.setMinimumSize(new java.awt.Dimension(97, 23));
-        jButton3.setPreferredSize(new java.awt.Dimension(97, 23));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        temporadas.setText("Temporadas");
+        temporadas.setMaximumSize(new java.awt.Dimension(97, 23));
+        temporadas.setMinimumSize(new java.awt.Dimension(97, 23));
+        temporadas.setPreferredSize(new java.awt.Dimension(97, 23));
+        temporadas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                temporadasActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton3, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelGestion.add(temporadas, gridBagConstraints);
 
-        jPanel2.add(jPanel3);
+        temporadasDescripcion.setText("Esta opción permite gestionar todas las temporadas, esto es: insertar, modificar o eliminar.");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelGestion.add(temporadasDescripcion, gridBagConstraints);
 
-        jPanel5.setLayout(new java.awt.GridBagLayout());
+        categorias.setText("Categorias");
+        categorias.setMaximumSize(new java.awt.Dimension(97, 23));
+        categorias.setMinimumSize(new java.awt.Dimension(97, 23));
+        categorias.setPreferredSize(new java.awt.Dimension(97, 23));
+        categorias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                categoriasActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelGestion.add(categorias, gridBagConstraints);
 
-        jLabel1.setText("Esta opción permite gestionar todas las categorias, esto es: insertar, modificar o eliminar.");
-        jPanel5.add(jLabel1, new java.awt.GridBagConstraints());
-
-        jPanel2.add(jPanel5);
-
-        panelInicio.add(jPanel2);
-
-        jPanel6.setLayout(new javax.swing.BoxLayout(jPanel6, javax.swing.BoxLayout.LINE_AXIS));
-
-        jPanel7.setMaximumSize(new java.awt.Dimension(170, 33));
-        jPanel7.setMinimumSize(new java.awt.Dimension(170, 33));
-        jPanel7.setPreferredSize(new java.awt.Dimension(170, 33));
-        jPanel7.setLayout(new java.awt.GridBagLayout());
+        categoriasDescripcion.setText("Esta opción permite gestionar todas las categorias, esto es: insertar, modificar o eliminar.");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelGestion.add(categoriasDescripcion, gridBagConstraints);
 
         cerrarSesion.setText("Cerrar Sesión");
         cerrarSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -458,130 +361,98 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 cerrarSesionActionPerformed(evt);
             }
         });
-        jPanel7.add(cerrarSesion, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 11;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelGestion.add(cerrarSesion, gridBagConstraints);
 
-        jPanel6.add(jPanel7);
+        cerrarSesionDescripcion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        cerrarSesionDescripcion.setText("Salir del panel de gestión.");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 11;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelGestion.add(cerrarSesionDescripcion, gridBagConstraints);
 
-        jPanel8.setLayout(new java.awt.GridBagLayout());
-
-        jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel30.setText("Salir del panel de gestión.");
-        jPanel8.add(jLabel30, new java.awt.GridBagConstraints());
-
-        jPanel6.add(jPanel8);
-
-        panelInicio.add(jPanel6);
-
-        getContentPane().add(panelInicio, java.awt.BorderLayout.CENTER);
+        getContentPane().add(panelGestion, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-                    
-        
+
 private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
     this.dispose();
     new Acceso().setVisible(true);
 }//GEN-LAST:event_cerrarSesionActionPerformed
-                                                                                                                                                                                                
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+
+    private void categoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoriasActionPerformed
         new PrincipalCategorias(this, this.accesoBD).setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
-    
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_categoriasActionPerformed
+
+    private void temporadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporadasActionPerformed
         new PrincipalTemporadas(this, this.accesoBD).setVisible(true);
-    }//GEN-LAST:event_jButton4ActionPerformed
-    
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_temporadasActionPerformed
+
+    private void gruposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gruposActionPerformed
         new PrincipalGrupos(this, this.accesoBD).setVisible(true);
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_gruposActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void jugadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jugadoresActionPerformed
         new PrincipalJugadores(this, this.accesoBD).setVisible(true);
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_jugadoresActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void instalacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_instalacionesActionPerformed
         new PrincipalInstalaciones(this, this.accesoBD).setVisible(true);
-    }//GEN-LAST:event_jButton10ActionPerformed
+    }//GEN-LAST:event_instalacionesActionPerformed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+    private void actividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actividadesActionPerformed
         new PrincipalActividades(this, this.accesoBD).setVisible(true);
-    }//GEN-LAST:event_jButton11ActionPerformed
+    }//GEN-LAST:event_actividadesActionPerformed
 
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+    private void pagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagosActionPerformed
         new PrincipalPagos(this, this.accesoBD).setVisible(true);
-    }//GEN-LAST:event_jButton12ActionPerformed
+    }//GEN-LAST:event_pagosActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void equiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_equiposActionPerformed
         new PrincipalEquipos(this, this.accesoBD).setVisible(true);
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_equiposActionPerformed
 
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+    private void partidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_partidosActionPerformed
         new PrincipalPartidos(this, this.accesoBD).setVisible(true);
-    }//GEN-LAST:event_jButton13ActionPerformed
+    }//GEN-LAST:event_partidosActionPerformed
 
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+    private void usuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuariosActionPerformed
         new PrincipalUsuarios(this, this.accesoBD).setVisible(true);
-    }//GEN-LAST:event_jButton14ActionPerformed
+    }//GEN-LAST:event_usuariosActionPerformed
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        new Acceso().setVisible(true);
+    }//GEN-LAST:event_formWindowClosing
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel acrividadesDescripcion;
+    private javax.swing.JButton actividades;
+    private javax.swing.JButton categorias;
+    private javax.swing.JLabel categoriasDescripcion;
     private javax.swing.JButton cerrarSesion;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
-    private javax.swing.JPanel jPanel16;
-    private javax.swing.JPanel jPanel17;
-    private javax.swing.JPanel jPanel18;
-    private javax.swing.JPanel jPanel19;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel20;
-    private javax.swing.JPanel jPanel21;
-    private javax.swing.JPanel jPanel22;
-    private javax.swing.JPanel jPanel23;
-    private javax.swing.JPanel jPanel24;
-    private javax.swing.JPanel jPanel25;
-    private javax.swing.JPanel jPanel26;
-    private javax.swing.JPanel jPanel27;
-    private javax.swing.JPanel jPanel28;
-    private javax.swing.JPanel jPanel29;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel30;
-    private javax.swing.JPanel jPanel31;
-    private javax.swing.JPanel jPanel32;
-    private javax.swing.JPanel jPanel33;
-    private javax.swing.JPanel jPanel34;
-    private javax.swing.JPanel jPanel35;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
-    private javax.swing.JPanel panelInicio;
+    private javax.swing.JLabel cerrarSesionDescripcion;
+    private javax.swing.JButton equipos;
+    private javax.swing.JLabel equiposDescripcion;
+    private javax.swing.JButton grupos;
+    private javax.swing.JLabel gruposDescripcion;
+    private javax.swing.JButton instalaciones;
+    private javax.swing.JLabel instalacionesDescripcion;
+    private javax.swing.JButton jugadores;
+    private javax.swing.JLabel jugadoresDescripcion;
+    private javax.swing.JButton pagos;
+    private javax.swing.JLabel pagosDescripcion;
+    private javax.swing.JPanel panelGestion;
+    private javax.swing.JButton partidos;
+    private javax.swing.JLabel partidosDescripcion;
+    private javax.swing.JButton temporadas;
+    private javax.swing.JLabel temporadasDescripcion;
+    private javax.swing.JLabel titulo;
+    private javax.swing.JButton usuarios;
+    private javax.swing.JLabel usuariosDescripcion;
     // End of variables declaration//GEN-END:variables
-
 }
