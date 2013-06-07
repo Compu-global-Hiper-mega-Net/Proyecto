@@ -84,9 +84,7 @@ public class PrincipalPagos extends javax.swing.JFrame {
         pagos_etiqActividad = new javax.swing.JLabel();
         pagos_actividad = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        panelPagos.setVisible(false);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel15.setText("Pagos");

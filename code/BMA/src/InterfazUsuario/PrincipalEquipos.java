@@ -76,9 +76,7 @@ public class PrincipalEquipos extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox();
         verClasificacionEquipos = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        panelEquipos.setVisible(false);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel8.setText("Equipos");
