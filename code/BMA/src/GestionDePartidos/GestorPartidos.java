@@ -69,11 +69,14 @@ public class GestorPartidos {
         return partido.consultaPartidoBD(accesoBD, consulta);
     }
     
-    public static boolean modificaPartido(BaseDatos accesoBD,int idPartido, 
-            Date fecha, Time hora, int resultadoLocal, int resultadoVisitante) {
+    public static boolean modificaPartido(BaseDatos accesoBD, int idEquipoLocal, int idEquipoLocalFundacion,
+           int idEquipoLocalCategoria, int idEquipoLocalTemporada, int idEquipoLocalLiga, int idEquipoVisitante,
+           int idEquipoVisitanteFundacion, int idEquipoVisitanteCategoria, int idEquipoVisitanteTemporada, 
+           int idEquipoVisitanteLiga, Date fecha, Time hora, int idPartido) {
 
-        return PartidoBD.modificarDatosPartidoBD(accesoBD, idPartido, fecha, 
-                hora, resultadoLocal, resultadoVisitante);
+        return PartidoBD.modificarDatosPartidoBD(accesoBD, idEquipoLocal, idEquipoLocalFundacion,idEquipoLocalCategoria,
+                idEquipoLocalTemporada, idEquipoLocalLiga, idEquipoVisitante,idEquipoVisitanteFundacion, idEquipoVisitanteCategoria,
+                idEquipoVisitanteTemporada, idEquipoVisitanteLiga, fecha, hora, idPartido);
     }
         
     public static void eliminaPartido(BaseDatos accesoBD, int idEquipoLocal, int idEquipoLocalFundacion,
@@ -92,8 +95,8 @@ public class GestorPartidos {
         
     }
     
-    public static int getIdPartido(BaseDatos accesoBD, Date fecha, Time hora) throws SQLException {
-        return PartidoBD.getIdPartido(accesoBD, fecha, hora);
+    public static int getIdPartido(BaseDatos accesoBD, String fecha, String hora, int equipoLocal, int equipoVisitante) throws SQLException {
+        return PartidoBD.getIdPartido(accesoBD, fecha, hora, equipoLocal, equipoVisitante);
     }
 
     public static List<List<String>> getListaPartidos(BaseDatos accesoBD) throws SQLException {
