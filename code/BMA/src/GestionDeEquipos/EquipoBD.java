@@ -160,6 +160,21 @@ public class EquipoBD {
 
         return id;
     }
+    
+     static int getIdUsuarioNuevo(BaseDatos accesoBD, String nombre) throws SQLException {
+
+        int id = 0;
+
+        String consulta = "SELECT idUsuario FROM Usuario, Rango WHERE Usuario.nombre='" + nombre + "'";
+
+        ResultSet res = accesoBD.ejecutaConsulta(consulta);
+
+        if (res.next()) {
+            id = res.getInt(1);
+        }
+
+        return id;
+    }
 
 		/* Metodo para buscar todos los equipos
 		 * @param accesoBD, acceso a la base de datos.
@@ -302,8 +317,8 @@ public class EquipoBD {
 
         int idTemporada = GestorTemporadas.getIdTemporada(accesoBD, equipo.getTemporada());
         int idCategoria = GestorCategorias.getIdCategoria(accesoBD, equipo.getCategoria());
-        int idEntrenador = getIdUsuario(accesoBD, equipo.getEntrenador(), "primero");
-        int idEntrenador2 = getIdUsuario(accesoBD, equipo.getEntrenador2(), "segundo");
+        int idEntrenador = getIdUsuarioNuevo(accesoBD, equipo.getEntrenador());
+        int idEntrenador2 = getIdUsuarioNuevo(accesoBD, equipo.getEntrenador2());
         int idFundacion = getIDFundacion(accesoBD);
         int idLiga = getIDLiga(accesoBD);
         char sexo = equipo.getSexo();
@@ -312,6 +327,17 @@ public class EquipoBD {
                 + "temporada_idTemporada, sexo) VALUES ("
                 + idFundacion + ", " + idCategoria + ", '" + equipo.getNombre() + "', " + equipo.getFundacion() + ", "
                 + idLiga + ", " + idTemporada + ", '" + sexo + "')";
+        int idequipo=accesoBD.obtenerUltimoIdActualizacion(Consulta, "idEquipo");
+        
+        String InsercionEntrenadorPrimero ="INSERT INTO `mydb`.`rango`"
+                + " (`Usuario_idUsuario`, `Equipo_idEquipo`, `Equipo_Fundacion_idFundacion`, "
+                + "`Equipo_Categoria_idCategoria`, `Equipo_Temporada_idTemporada`, `tipo`) "
+                + "VALUES ('"+idEntrenador+"', '"+idequipo+"', '1', '"+idCategoria+"', '"+idTemporada+"', 'Primero')";
+        
+        String InsercionEntrenadorSegundo ="INSERT INTO `mydb`.`rango`"
+                + " (`Usuario_idUsuario`, `Equipo_idEquipo`, `Equipo_Fundacion_idFundacion`, "
+                + "`Equipo_Categoria_idCategoria`, `Equipo_Temporada_idTemporada`, `tipo`) "
+                + "VALUES ('"+idEntrenador2+"', '"+idequipo+"', '1', '"+idCategoria+"', '"+idTemporada+"', 'Segundo')";
         System.out.print("\n\nAcanderMore " + Consulta);
         
         accesoBD.ejecutaActualizacion(Consulta);

@@ -277,10 +277,19 @@ public class GestorTemporadas {
         
     }*/
     
-     //***************************************JAVI******************************************************//  
+    
+     /**
+     * Permite generar las estadisticas de una temporada haciendo una llamada al metodo
+     * correspondiente de TemporadaBD.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param idTemp Entero que identifica el id de la temporada para realizar la consulta.
+     * @param idCate Entero que identifica el id de la categoria para realizar la consulta.
+     * @return ResultSet con los datos de la consulta o null en caso de que no se encuentren
+     * datos en la BD.
+     * @throws SQLException 
+     */
     public static ResultSet consultarEstadisticasTemporada(BaseDatos accesoBD, int idTemp, int idCate)throws SQLException{
         
         return TemporadaBD.generaEstadisticasTemporada(accesoBD, idTemp, idCate);  
-    }
-    //***************************************JAVI******************************************************//   
+    } 
 }

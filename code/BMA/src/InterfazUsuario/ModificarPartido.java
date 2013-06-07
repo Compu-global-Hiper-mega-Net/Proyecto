@@ -4,13 +4,25 @@
  */
 package InterfazUsuario;
 
+import GestionDeCategorias.GestorCategorias;
+import GestionDeEquipos.GestorEquipos;
+import GestionDePartidos.GestorPartidos;
+import GestionDeTemporadas.GestorTemporadas;
 import ServiciosAlmacenamiento.BaseDatos;
+import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 
 
@@ -23,6 +35,11 @@ public class ModificarPartido extends javax.swing.JFrame {
     private Border bordeError;
     private Border bordeDatePicker;
     PrincipalPartidos principal;
+    String fch, hr, cat, temp, eL, eV, inst;
+    int rL, rV, idP;
+    boolean noEntry,meter;
+    int idCat, idTemp;
+    Object equipoAnterior1, equipoAnterior2;
 
     /**
      * Creates new form ModificarPartido
@@ -33,23 +50,58 @@ public class ModificarPartido extends javax.swing.JFrame {
     }
     
     public ModificarPartido(BaseDatos acceso, String fecha, String hora, String categoria, 
-            String temporada, String eqLoc, String eqVis, int resLoc, int resVis, int idPartido, PrincipalPartidos p) throws SQLException {
+            String temporada, String eqLoc, String eqVis, String instalac, int resLoc, int resVis, int idPartido, PrincipalPartidos p) throws SQLException {
         accesoBD = acceso;
         initComponents();
         principal = p;
+        fch = fecha;
+        hr = hora;
+        cat = categoria;
+        temp = temporada;
+        eL = eqLoc;
+        eV = eqVis;
+        rV = resVis;
+        rL = resLoc;
+        idP = idPartido;
         bordeError = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.red);
+        noEntry = meter = true;
+        ((JTextFieldDateEditor) fechaPartido.getComponents()[1]).setEditable(false);
         
-        List<String> temporadas = new ArrayList<String>();
+        List<String> temporadas = new ArrayList<>();
         temporadas = principal.getListaTemps();
         actualizaComboTemporada(temporadas);
         
-        List<List<String>> categorias = new ArrayList<List<String>>();
+        List<List<String>> categorias = new ArrayList<>();
         categorias = principal.getListaCategorias();
         actualizaComboCategoria(categorias);
         
-        List<String> instalaciones = new ArrayList<String>();
-        instalaciones = principal.getListaInstalaciones(null);
-        actualizaComboInstalacion(instalaciones);
+        
+        idCat =  GestorCategorias.getIdCategoria(accesoBD, cat);
+        idTemp = GestorTemporadas.getIdTemporada(accesoBD, temp);
+        List<String> equipos = new ArrayList<>();
+        equipos = principal.getListaEquipos(idCat,idTemp);
+        actualizaComboEquipo(equipos, 1);
+        actualizaComboEquipo(equipos, 2);
+        equipoAnterior1 = eL;
+        equipoAnterior2 = eV;
+        ComboEquipo.removeItem(eV);
+        ComboEquipo2.removeItem(eL);
+        
+        noEntry = meter = false;
+        
+        
+        textHora.setText(convierteHoraString(hr));
+        textMin.setText(convierteMinString(hr));
+        
+        Date fecha_aux = null;
+        try {
+            fecha_aux = strToDate(fch);
+        } catch (ParseException ex) {
+            Logger.getLogger(ModificarPartido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        java.util.Date utilDate = new java.util.Date(fecha_aux.getTime());        
+        fechaPartido.setDate(utilDate);
         
     }
 
@@ -73,14 +125,12 @@ public class ModificarPartido extends javax.swing.JFrame {
         ComboEquipo2 = new javax.swing.JComboBox();
         fechaLabel = new javax.swing.JLabel();
         fechaPartido = new com.toedter.calendar.JDateChooser();
-        lugarLabel = new javax.swing.JLabel();
-        ComboInstalacion = new javax.swing.JComboBox();
         Cancelar = new javax.swing.JButton();
         Guardar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         horaLabel = new javax.swing.JLabel();
-        horaPartido = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
+        textHora = new javax.swing.JTextField();
+        textMin = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
         CrearPartidoLabel.setText("Modificar Partido");
@@ -89,18 +139,38 @@ public class ModificarPartido extends javax.swing.JFrame {
 
         ComboTemporada.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         ComboTemporada.setName(""); // NOI18N
+        ComboTemporada.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ComboTemporadaItemStateChanged(evt);
+            }
+        });
 
         CategoriaLabel.setText("Categoría: ");
 
         ComboCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ComboCategoria.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ComboCategoriaItemStateChanged(evt);
+            }
+        });
 
         EquipoLocalLabel.setText("Equipo Local: ");
 
         EquipoVisitanteLabel.setText("Equipo Visitante: ");
 
         ComboEquipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ComboEquipo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ComboEquipoItemStateChanged(evt);
+            }
+        });
 
         ComboEquipo2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ComboEquipo2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                ComboEquipo2ItemStateChanged(evt);
+            }
+        });
 
         fechaLabel.setText("Fecha: ");
 
@@ -110,10 +180,6 @@ public class ModificarPartido extends javax.swing.JFrame {
             }
         });
 
-        lugarLabel.setText("Lugar: ");
-
-        ComboInstalacion.setEditable(true);
-
         Cancelar.setText("Cancelar");
         Cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,7 +187,7 @@ public class ModificarPartido extends javax.swing.JFrame {
             }
         });
 
-        Guardar.setText("Guardar");
+        Guardar.setText("Guardar Cambios");
         Guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GuardarActionPerformed(evt);
@@ -130,9 +196,9 @@ public class ModificarPartido extends javax.swing.JFrame {
 
         horaLabel.setText("Hora (hh:mm) ");
 
-        horaPartido.addActionListener(new java.awt.event.ActionListener() {
+        textHora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                horaPartidoActionPerformed(evt);
+                textHoraActionPerformed(evt);
             }
         });
 
@@ -145,11 +211,11 @@ public class ModificarPartido extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(horaLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(horaPartido, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textHora, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(textMin, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,9 +223,9 @@ public class ModificarPartido extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(horaLabel)
-                    .addComponent(horaPartido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(textMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -176,17 +242,10 @@ public class ModificarPartido extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(CrearPartidoLabel)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(lugarLabel)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(ComboInstalacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(fechaLabel)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(fechaPartido, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(32, 32, 32)))
+                                        .addComponent(fechaLabel)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(fechaPartido, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(32, 32, 32)
                                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
@@ -206,7 +265,7 @@ public class ModificarPartido extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(ComboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(ComboEquipo2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(3, 138, Short.MAX_VALUE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Guardar)
@@ -239,11 +298,7 @@ public class ModificarPartido extends javax.swing.JFrame {
                     .addComponent(fechaLabel)
                     .addComponent(fechaPartido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lugarLabel)
-                    .addComponent(ComboInstalacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Cancelar)
                     .addComponent(Guardar))
@@ -264,18 +319,210 @@ public class ModificarPartido extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_fechaPartidoFocusLost
 
-    private void horaPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horaPartidoActionPerformed
+    private void textHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textHoraActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_horaPartidoActionPerformed
+    }//GEN-LAST:event_textHoraActionPerformed
 
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
         // TODO add your handling code here:
+        String mensajeError = "ERROR: Se han encontrado los siguientes errores: \n";
+        boolean error = false;
+        /*
+         * Comprobacion de errores
+         */
+        if(ComboTemporada.getSelectedItem() == "-Temporada-"){
+            error = true;
+            mensajeError += "-No se ha introducido Temporada\n";
+        }
+        if(ComboCategoria.getSelectedItem() == "-Categoria-"){
+            error = true;
+            mensajeError += "-No se ha introducido Categoria\n";
+        }
+        if(ComboEquipo.getSelectedItem() == "-Equipo Local-"){
+            error = true;
+            mensajeError += "-No se ha introducido Equipo Local\n";
+        }
+        if(ComboEquipo2.getSelectedItem() == "-Equipo Visitante-"){
+            error = true;
+            mensajeError += "-No se ha introducido Equipo Visitante\n";
+        }        
+        if(fechaPartido.equals(null)){
+            error = true;
+            mensajeError += "-No se ha introducido Fecha\n";
+        }
+        if(textHora.getText().length() != 2 || textMin.getText().length() != 2 || Integer.parseInt(textHora.getText()) > 24 
+           || Integer.parseInt(textHora.getText()) < 0 || Integer.parseInt(textMin.getText()) > 59 || Integer.parseInt(textMin.getText()) < 0){
+            error = true;
+            mensajeError += "-Error en los campos de la hora\n";
+        }
+        /*
+         * Fin Comprobacion de Errores
+         */
+        
+        if(!error){            
+                /*Revisar esta insercion por:
+                 * idLiga, etc
+                 */
+            java.sql.Date sqlDate = new java.sql.Date(fechaPartido.getDate().getTime());
+            int idEquip1 = 0;
+            int idEquip2 = 0;
+            try {
+                idEquip1 = GestorEquipos.getIdEquipo(accesoBD,ComboEquipo.getSelectedItem().toString(),ComboCategoria.getSelectedItem().toString());
+                idEquip2 = GestorEquipos.getIdEquipo(accesoBD,ComboEquipo2.getSelectedItem().toString(),ComboCategoria.getSelectedItem().toString());
+            } catch (SQLException ex) {
+                Logger.getLogger(NuevoPartido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                boolean exito = GestorPartidos.modificaPartido(accesoBD, idEquip1, 
+                                GestorEquipos.getIdFundacionEquipo(accesoBD, idEquip1),
+                                GestorCategorias.getIdCategoria(accesoBD, ComboCategoria.getSelectedItem().toString()), 
+                                GestorTemporadas.getIdTemporada(accesoBD, ComboTemporada.getSelectedItem().toString()), 1, 
+                                idEquip2, GestorEquipos.getIdFundacionEquipo(accesoBD, idEquip2), 
+                                GestorCategorias.getIdCategoria(accesoBD, ComboCategoria.getSelectedItem().toString()), 
+                                GestorTemporadas.getIdTemporada(accesoBD, ComboTemporada.getSelectedItem().toString()), 1, 
+                                sqlDate, convierteHoraTime(textHora.getText(), textMin.getText()),
+                                GestorPartidos.getIdPartido(accesoBD, fch, hr, GestorEquipos.getIdEquipo(accesoBD, eL, cat), GestorEquipos.getIdEquipo(accesoBD, eV, cat)));
+                if(exito){
+                    JOptionPane.showMessageDialog(null, "Partido modificado con exito", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
+                    this.setVisible(false);
+                    this.dispose();
+                } else{
+                    JOptionPane.showMessageDialog(null, "Ha habido un error en la base de datos",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(NuevoPartido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            this.setVisible(false);
+        } else{
+            JOptionPane.showMessageDialog(this, mensajeError, "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_GuardarActionPerformed
 
     private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_CancelarActionPerformed
+
+    private void ComboCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboCategoriaItemStateChanged
+        // TODO add your handling code here:
+        if(!noEntry){
+            if(ComboCategoria.getSelectedItem() != "-Categoria-"){
+                try {            
+                    idCat = GestorCategorias.getIdCategoria(accesoBD, ComboCategoria.getSelectedItem().toString());
+                } catch (SQLException ex) {
+                    Logger.getLogger(NuevoPartido.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                List<String> equipos = new ArrayList<String>();
+                try {
+                    noEntry = true;
+                    equipos = principal.getListaEquipos(idCat,idTemp);
+                    actualizaComboEquipo(equipos, 1);
+                    actualizaComboEquipo(equipos, 2);
+                    noEntry = false;
+                } catch (SQLException ex) {
+                    Logger.getLogger(NuevoPartido.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else{
+                idCat = 0;
+                List<String> equipos = new ArrayList<String>();
+                try {
+                    noEntry = true;
+                    equipos = principal.getListaEquipos(idCat,idTemp);
+                    actualizaComboEquipo(equipos, 1);
+                    actualizaComboEquipo(equipos, 2);
+                    noEntry = false;
+                } catch (SQLException ex) {
+                    Logger.getLogger(NuevoPartido.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+                equipoAnterior1 = "";
+                equipoAnterior2 = "";
+        }
+    }//GEN-LAST:event_ComboCategoriaItemStateChanged
+
+    private void ComboTemporadaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboTemporadaItemStateChanged
+        // TODO add your handling code here:
+        
+        if(!noEntry){
+            if(ComboTemporada.getSelectedItem() != "-Temporada-"){
+                try {            
+                    idTemp = GestorTemporadas.getIdTemporada(accesoBD, ComboTemporada.getSelectedItem().toString());
+                } catch (SQLException ex) {
+                   Logger.getLogger(NuevoPartido.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                List<String> equipos = new ArrayList<String>();
+                try {
+                    noEntry = true;
+                    equipos = principal.getListaEquipos(idCat,idTemp);
+                    actualizaComboEquipo(equipos, 1);
+                    actualizaComboEquipo(equipos, 2);
+                    noEntry = false;
+                } catch (SQLException ex) {
+                    Logger.getLogger(NuevoPartido.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else{
+                idTemp = 0;
+                List<String> equipos = new ArrayList<String>();
+                try {
+                    noEntry = true;
+                    equipos = principal.getListaEquipos(idCat,idTemp);
+                    actualizaComboEquipo(equipos, 1);
+                    actualizaComboEquipo(equipos, 2);
+                    noEntry = false;
+                } catch (SQLException ex) {
+                    Logger.getLogger(NuevoPartido.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+                equipoAnterior1 = "";
+                equipoAnterior2 = "";   
+        }
+    }//GEN-LAST:event_ComboTemporadaItemStateChanged
+
+    private void ComboEquipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboEquipoItemStateChanged
+        // TODO add your handling code here:
+        if(!noEntry){
+            if(ComboEquipo.getSelectedItem() != "-Equipo Local-"){
+                if(equipoAnterior1 == ""){
+                    equipoAnterior1 = ComboEquipo.getSelectedItem();
+                    ComboEquipo2.removeItem(equipoAnterior1);
+
+                }else {
+                    ComboEquipo2.addItem(equipoAnterior1);
+                    equipoAnterior1 = ComboEquipo.getSelectedItem();
+                    ComboEquipo2.removeItem(equipoAnterior1); 
+                }
+            } else{
+                if(equipoAnterior1 != ""){
+                    ComboEquipo2.addItem(equipoAnterior1);
+                    equipoAnterior1 = "";
+                }
+            }
+        }
+    }//GEN-LAST:event_ComboEquipoItemStateChanged
+
+    private void ComboEquipo2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboEquipo2ItemStateChanged
+        // TODO add your handling code here:
+        if(!noEntry){
+            if(ComboEquipo2.getSelectedItem() != "-Equipo Visitante-"){
+                if(equipoAnterior2 == ""){
+                    equipoAnterior2 = ComboEquipo2.getSelectedItem();
+                    ComboEquipo.removeItem(equipoAnterior2);
+
+                }else {
+                    ComboEquipo.addItem(equipoAnterior2);
+                    equipoAnterior2 = ComboEquipo2.getSelectedItem();
+                    ComboEquipo.removeItem(equipoAnterior2); 
+                }
+            } else{
+                if(equipoAnterior2 != ""){
+                    ComboEquipo.addItem(equipoAnterior2);
+                    equipoAnterior2 = "";
+                }
+            }
+        }
+    }//GEN-LAST:event_ComboEquipo2ItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancelar;
@@ -283,7 +530,6 @@ public class ModificarPartido extends javax.swing.JFrame {
     private javax.swing.JComboBox ComboCategoria;
     private javax.swing.JComboBox ComboEquipo;
     private javax.swing.JComboBox ComboEquipo2;
-    private javax.swing.JComboBox ComboInstalacion;
     private javax.swing.JComboBox ComboTemporada;
     private javax.swing.JLabel CrearPartidoLabel;
     private javax.swing.JLabel EquipoLocalLabel;
@@ -293,32 +539,101 @@ public class ModificarPartido extends javax.swing.JFrame {
     private javax.swing.JLabel fechaLabel;
     private com.toedter.calendar.JDateChooser fechaPartido;
     private javax.swing.JLabel horaLabel;
-    private javax.swing.JTextField horaPartido;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JLabel lugarLabel;
+    private javax.swing.JTextField textHora;
+    private javax.swing.JTextField textMin;
     // End of variables declaration//GEN-END:variables
     private void actualizaComboTemporada(List<String> temps) throws SQLException {
         ComboTemporada.removeAllItems();
-        ComboTemporada.addItem("-Temporada-");
-        for(String s : temps)
-            ComboTemporada.addItem(s);
+        if(noEntry)
+            ComboTemporada.addItem(temp);
+        else
+            ComboTemporada.addItem("-Temporada-");
+        for(String s : temps){
+            if(!s.equals(temp))
+                ComboTemporada.addItem(s);
+            else if(!noEntry)
+                ComboTemporada.addItem(s);
+        }
         
     }
     
     private void actualizaComboCategoria(List<List<String>> cats) throws SQLException {
         ComboCategoria.removeAllItems();
-        ComboCategoria.addItem("-Categoria-");
-        for(List<String> s : cats)
-            ComboCategoria.addItem(s);
-        
+        if(noEntry)
+            ComboCategoria.addItem(cat);
+        else
+            ComboCategoria.addItem("-Categoria-");
+        for(List<String> s : cats){
+            if(!s.get(0).equals(cat))
+                ComboCategoria.addItem(s.get(0));
+            else if(!noEntry)
+                ComboCategoria.addItem(s.get(0));
+        }        
     }
     
-    private void actualizaComboInstalacion(List<String> insts) throws SQLException {
-        ComboInstalacion.removeAllItems();
-        ComboInstalacion.addItem("-Instalacion-");
-        for(String s : insts)
-            ComboInstalacion.addItem(s);
+    private void actualizaComboEquipo(List<String> equipos, int numEquipo) throws SQLException {
+        if(numEquipo == 1){
+            ComboEquipo.removeAllItems();
+            if(meter)
+                ComboEquipo.addItem(eL);
+            else
+                ComboEquipo.addItem("-Equipo Local-");
+            for(String s : equipos)
+                if(!s.equals(eL))
+                    ComboEquipo.addItem(s);
+                else if(!meter)
+                    ComboEquipo.addItem(s);
+        } else{
+            ComboEquipo2.removeAllItems();
+            if(meter)
+                ComboEquipo2.addItem(eV);
+            else
+                ComboEquipo2.addItem("-Equipo Visitante-");
+            for(String s : equipos)
+                if(!s.equals(eV))
+                    ComboEquipo2.addItem(s);
+                else if(!meter)
+                    ComboEquipo2.addItem(s);
+        }
+    }
+    
+    private Time convierteHoraTime(String h, String m){
+        String hora = h+":"+m;
+        java.sql.Time horaDate = null;
+        
+        try{
+            SimpleDateFormat sdf = new java.text.SimpleDateFormat("hh:mm", new Locale("es","ES"));
+            horaDate = new java.sql.Time(sdf.parse(hora).getTime());
+            
+        } catch(Exception e){
+            System.out.println("Error al obtener el formato de la hora: " + e.getMessage());
+        }
+        
+        return horaDate;
+    }
+    
+    private Date strToDate(String str) throws ParseException{
+        java.sql.Date dat = null;
+        
+        SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd", new Locale("es","ES"));
+        dat = new java.sql.Date(sdf.parse(str).getTime());
+        
+        return dat;
+    }
+    
+    private String convierteHoraString(String hora){
+        String hra = hora.substring(0, hora.indexOf(":"));
+        
+        return hra;
+    }
+    
+    private String convierteMinString(String hora){
+        String min = hora.substring(hora.indexOf(":")+1,hora.length());
+        min = min.substring(0,min.indexOf(":"));
+
+        
+        return min;
     }
 }
