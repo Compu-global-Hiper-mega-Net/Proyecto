@@ -34,6 +34,7 @@ public class PrincipalActividades extends javax.swing.JFrame {
         setLocationRelativeTo(pP);
         this.bd = bd;
         this.pP = pP;
+        mostrarActividades();
     }
 
     /**
