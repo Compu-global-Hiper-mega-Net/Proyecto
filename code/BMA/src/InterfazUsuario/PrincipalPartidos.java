@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -42,7 +43,7 @@ public class PrincipalPartidos extends javax.swing.JFrame {
         setLocationRelativeTo(pP);
         idC = idT = 0;
         noEntry = true;
-        tablaPartidos.setEnabled(false);
+        //tablaPartidos.setEnabled(false);
         ((JTextFieldDateEditor) fechaPartido.getComponents()[1]).setEditable(false);
         try {
             actualizaComboTemporadaPartidos();
@@ -323,7 +324,50 @@ public class PrincipalPartidos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonModificarPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonModificarPartidoActionPerformed
-        new ModificarPartido().setVisible(true);
+
+        ResultSet retsetMostrados;
+
+        int idPartido;
+
+        int iTablaPartido = tablaPartidos.getSelectedRow();
+
+        if (iTablaPartido >= 0) {
+            String consulta = null;
+            try {
+                consulta = "SELECT idPartido FROM partido WHERE fecha = '"
+                 + tablaPartidos.getValueAt(iTablaPartido, 0) + "' AND hora = '"
+                 + tablaPartidos.getValueAt(iTablaPartido, 1) + "' AND equipo_Categoria_idCategoria = '"                        
+                 + GestorCategorias.getIdCategoria(accesoBD, tablaPartidos.getValueAt(iTablaPartido,2).toString()) + "' AND equipo_Temporada_idTemporada = '"
+                 + GestorTemporadas.getIdTemporada(accesoBD, tablaPartidos.getValueAt(iTablaPartido, 3).toString())+ "' AND idEquipo = '"
+                 + GestorEquipos.getIdEquipo(accesoBD, tablaPartidos.getValueAt(iTablaPartido, 4).toString(), tablaPartidos.getValueAt(iTablaPartido, 2).toString())
+                 + "' AND idEquipoVisitante = '" + GestorEquipos.getIdEquipo(accesoBD, tablaPartidos.getValueAt(iTablaPartido, 4).toString(), tablaPartidos.getValueAt(iTablaPartido, 2).toString()) + "'";
+            } catch (SQLException ex) {
+                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            retsetMostrados = accesoBD.ejecutaConsulta(consulta);
+
+            try {
+                if (retsetMostrados.next()) {
+                    idPartido = retsetMostrados.getInt("idPartido");
+
+                    new ModificarPartido(accesoBD, 
+                            tablaPartidos.getValueAt(iTablaPartido, 0).toString(),
+                            tablaPartidos.getValueAt(iTablaPartido, 1).toString(),
+                            tablaPartidos.getValueAt(iTablaPartido, 2).toString(),
+                            tablaPartidos.getValueAt(iTablaPartido, 3).toString(),
+                            tablaPartidos.getValueAt(iTablaPartido, 4).toString(),
+                            tablaPartidos.getValueAt(iTablaPartido, 5).toString(),
+                            Integer.parseInt(tablaPartidos.getValueAt(iTablaPartido, 6).toString()),
+                            Integer.parseInt(tablaPartidos.getValueAt(iTablaPartido, 7).toString()),
+                            idPartido, this).setVisible(true);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (iTablaPartido == -1) {
+            JOptionPane.showMessageDialog(this, "No se ha seleccionado ninguna actividad", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_BotonModificarPartidoActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
