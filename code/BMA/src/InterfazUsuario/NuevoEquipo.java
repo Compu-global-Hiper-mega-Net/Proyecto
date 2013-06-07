@@ -441,12 +441,12 @@ public class NuevoEquipo extends javax.swing.JFrame {
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
 
         String errores = "";
-        char sexo;
+        String sexo;
         
         if (comSexo.getSelectedItem().toString().equals("Masculino"))
-            sexo = 'V';
+            sexo = "V";
         else
-            sexo = 'H';
+            sexo = "H";
              
         if (textNombre.getText().isEmpty()){
             errores = errores + "Campo \"Nombre\" vacio\n";
@@ -482,7 +482,7 @@ public class NuevoEquipo extends javax.swing.JFrame {
         
         try {
             GestorEquipos.InsertarDatosEquipo(accesoBD, textNombre.getText(), comboTemp.getSelectedItem().toString(),
-                    comboCat.getSelectedItem().toString(), textPrimerEnt.getText(), textSegundoEnt.getText(), PerteneceFundacion.isSelected(),sexo);
+                    comboCat.getSelectedItem().toString(), comboEntrenador.getSelectedItem().toString(), comboEntrenador2.getSelectedItem().toString(), PerteneceFundacion.isSelected(),sexo);
             GestorEquipos.InsertarJugadoresEquipo(accesoBD, modeloGuardar,comboCat.getSelectedItem().toString(),textNombre.getText());
         } catch (SQLException ex) {
             Logger.getLogger(NuevoEquipo.class.getName()).log(Level.SEVERE, null, ex);
@@ -812,17 +812,6 @@ public class NuevoEquipo extends javax.swing.JFrame {
         }
     }
 
-    private void ActualizaSegundoEntrenador() throws SQLException {
-        comboEntrenador2.removeAllItems();
-        String consulta = "SELECT primerApellido, segundoApellido, nombre FROM usuario WHERE entrenador = 1";
-        ResultSet retset = accesoBD.ejecutaConsulta(consulta);
-
-        while (retset.next()) {
-            comboEntrenador2.addItem(retset.getString(1) + " " + retset.getString(2) + " "
-                    + retset.getString(3));
-        }
-    }
-
     private void ActualizarCombo2Entrenador(String name) {
         String entrenador = name;
         comboEntrenador2.removeAllItems();
@@ -843,8 +832,8 @@ public class NuevoEquipo extends javax.swing.JFrame {
         ResultSet retset = accesoBD.ejecutaConsulta(consulta);
         try {
             while (retset.next()) {
-                comboEntrenador2.addItem(retset.getString(3) + " " + retset.getString(2) + " "
-                        + retset.getString(1));
+                comboEntrenador2.addItem(retset.getString(1) + " " + retset.getString(2) + " "
+                        + retset.getString(3));
 
 
             }

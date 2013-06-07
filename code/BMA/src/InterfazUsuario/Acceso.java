@@ -111,6 +111,11 @@ public class Acceso extends javax.swing.JFrame {
         jPanel1.add(titulo2, gridBagConstraints);
 
         userTextfield.setColumns(20);
+        userTextfield.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userTextfieldActionPerformed(evt);
+            }
+        });
         userTextfield.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 userTextfieldKeyReleased(evt);
@@ -240,6 +245,10 @@ private void authenticateButtonActionPerformed(java.awt.event.ActionEvent evt) {
             }
         }
     }//GEN-LAST:event_passTextfieldKeyReleased
+
+    private void userTextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userTextfieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userTextfieldActionPerformed
 
     /**
      * @param args the command line arguments

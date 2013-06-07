@@ -42,6 +42,25 @@ import java.util.List;
  ******************************************************************************
  */
 public class GestorPartidos {
+
+		/* Método para insertar un partido
+		 * @param accesoBD, acceso a la base de datos.
+		 * @param idEquipoLocal, id del equipo local.
+                 * @param idEquipoLocalFundacion, id de la fundación a la que pertenece el equipo local
+                 * @param idEquipoLocalCategoria, id de la categoría a la que pertenece el equipo local
+                 * @param idEquipoLocalTemporada, id de la temporada a la que pertenece el equipo local
+                 * @param idEquipoLocalLiga, id de la liga a la que pertenece el equipo local
+		 * @param idEquipoVisitante, id del equipo visitante.
+                 * @param idEquipoVisitanteFundacion, id de la fundación a la que pertenece el equipo Visitante
+                 * @param idEquipoVisitanteCategoria, id de la categoría a la que pertenece el equipo Visitante
+                 * @param idEquipoVisitanteTemporada, id de la temporada a la que pertenece el equipo Visitante
+                 * @param idEquipoVisitanteLiga, id de la liga a la que pertenece el equipo visitante
+                 * @param fecha, la fecha del partido
+                 * @param hora, la hora del partido
+                 * @param idPart, id del partido a introducir
+		 * @throws SQLExcepción, algun tipo de error en la base de datos.
+		 * @return boolean (valor lógico) que indica si la inserción se ha realizado correctamente o no.
+		 */ 
     
    public static boolean introducirPartido(BaseDatos accesoBD, int idEquipoLocal, int idEquipoLocalFundacion,
            int idEquipoLocalCategoria, int idEquipoLocalTemporada, int idEquipoLocalLiga, int idEquipoVisitante,
@@ -63,12 +82,38 @@ public class GestorPartidos {
 
         return exito;
     }
+
+		/* Funcion para consultar un partido
+		 * @param accesoBD, acceso a la base de datos.
+		 * @param consulta, la consulta a realizar.
+		 * @throws SQLExcepción, algun tipo de error en la base de datos.
+		 * @return ResultSet (java.sql.ResultSet) con el atributo interno de la consulta del partido.
+		 */ 
    
     public static ResultSet consultaPartido(BaseDatos accesoBD, String consulta) {
         PartidoBD partido = new PartidoBD();
 
         return partido.consultaPartidoBD(accesoBD, consulta);
     }
+
+		/* Funcion para modificar los datos de un partido
+		 * @param accesoBD, acceso a la base de datos.
+		 * @param idEquipoLocal, id del equipo local.
+                 * @param idEquipoLocalFundacion, id de la fundación a la que pertenece el equipo local
+                 * @param idEquipoLocalCategoria, id de la categoría a la que pertenece el equipo local
+                 * @param idEquipoLocalTemporada, id de la temporada a la que pertenece el equipo local
+                 * @param idEquipoLocalLiga, id de la liga a la que pertenece el equipo local
+		 * @param idEquipoVisitante, id del equipo visitante.
+                 * @param idEquipoVisitanteFundacion, id de la fundación a la que pertenece el equipo Visitante
+                 * @param idEquipoVisitanteCategoria, id de la categoría a la que pertenece el equipo Visitante
+                 * @param idEquipoVisitanteTemporada, id de la temporada a la que pertenece el equipo Visitante
+                 * @param idEquipoVisitanteLiga, id de la liga a la que pertenece el equipo visitante
+                 * @param fecha, la fecha del partido
+                 * @param hora, la hora del partido
+                 * @param idPart, id del partido a modificar
+		 * @throws SQLExcepción, algun tipo de error en la base de datos.
+		 * @return boolean (valor lógico) que indica si la modificación se ha realizado correctamente o no.
+		 */
     
     public static boolean modificaPartido(BaseDatos accesoBD, int idEquipoLocal, int idEquipoLocalFundacion,
            int idEquipoLocalCategoria, int idEquipoLocalTemporada, int idEquipoLocalLiga, int idEquipoVisitante,
@@ -79,6 +124,12 @@ public class GestorPartidos {
                 idEquipoLocalTemporada, idEquipoLocalLiga, idEquipoVisitante,idEquipoVisitanteFundacion, idEquipoVisitanteCategoria,
                 idEquipoVisitanteTemporada, idEquipoVisitanteLiga, fecha, hora, idPartido);
     }
+
+		/* Procedimiento para eliminar un partido
+		 * @param accesoBD, acceso a la base de datos.
+		 * @param nuevoPartido, el partido a eliminar.
+		 * @throws SQLExcepción, algun tipo de error en la base de datos.
+		 */ 
         
     public static void eliminaPartido(BaseDatos accesoBD, int idEquipoLocal, int idEquipoLocalFundacion,
            int idEquipoLocalCategoria, int idEquipoLocalTemporada, int idEquipoLocalLiga, int idEquipoVisitante,
@@ -95,13 +146,41 @@ public class GestorPartidos {
         
     }
     
+                /*
+		 * Funcion para obtener el id de un partido
+		 * @param accesoBD, acceso a la base de datos.
+                 * @param fch, fecha del partido
+                 * @param hr, hora del partido
+                 * @param eqL, id del equipo local
+                 * @param eqV, id del equipo Visitante
+		 * @throws SQLExcepción, algun tipo de error en la base de datos.
+                 * @return int (entero) con el atributo interno del id de un partido
+		 */    
+    
     public static int getIdPartido(BaseDatos accesoBD, String fecha, String hora, int equipoLocal, int equipoVisitante) throws SQLException {
         return PartidoBD.getIdPartido(accesoBD, fecha, hora, equipoLocal, equipoVisitante);
     }
+                /*
+		 * Funcion para obtener una lista de partidos
+                 * @param accesoBD, acceso a la base de datos
+		 * @throws SQLExcepción, algun tipo de error en la base de datos.
+                 * @return List<List<String>> (Lista de lista de cadenas) con los datos de los partidos almacenados en la base de datos
+		 */
 
     public static List<List<String>> getListaPartidos(BaseDatos accesoBD) throws SQLException {
         return PartidoBD.getListaPartidos(accesoBD);
     }
+                /*
+		 * Funcion para obtener una lista de partidos a través de una serie de atributos dados
+                 * @param accesoBD, acceso a la base de datos.
+                 * @param fecha, la fecha del partido
+                 * @param temporada, temporada en la que se juega ese partido
+                 * @param categoria, categoría en la que se juega ese partido
+                 * @param equipoLoc, id del equipo local
+                 * @param equipoVis, id del equipo visitante
+		 * @throws SQLExcepción, algun tipo de error en la base de datos.
+                 * @return List<List<String>> (Lista de lista de cadenas) con los datos de los partidos almacenados en la base de datos que cumplen con los atributos
+		 */
     
     public static List<List<String>> getListaPartidosFiltro(BaseDatos accesoBD, String fecha, String temporada, String categoria, String equipoLoc, String equipoVis) throws SQLException{
         return PartidoBD.getListaPartidosFiltro(accesoBD, fecha, temporada, categoria, equipoLoc, equipoVis);

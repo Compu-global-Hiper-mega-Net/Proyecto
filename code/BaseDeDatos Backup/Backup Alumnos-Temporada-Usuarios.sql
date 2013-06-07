@@ -625,8 +625,8 @@ CREATE TABLE `rango` (
   PRIMARY KEY (`Usuario_idUsuario`,`Equipo_idEquipo`,`Equipo_Fundacion_idFundacion`,`Equipo_Categoria_idCategoria`,`Equipo_Temporada_idTemporada`),
   KEY `fk_Usuario_has_Equipo_Equipo1_idx` (`Equipo_idEquipo`,`Equipo_Fundacion_idFundacion`,`Equipo_Categoria_idCategoria`,`Equipo_Temporada_idTemporada`),
   KEY `fk_Usuario_has_Equipo_Usuario1_idx` (`Usuario_idUsuario`),
-  CONSTRAINT `fk_Usuario_has_Equipo_Equipo1` FOREIGN KEY (`Equipo_idEquipo`, `Equipo_Fundacion_idFundacion`, `Equipo_Categoria_idCategoria`) REFERENCES `equipo` (`idEquipo`, `Fundacion_idFundacion`, `Categoria_idCategoria`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Usuario_has_Equipo_Usuario1` FOREIGN KEY (`Usuario_idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_Usuario_has_Equipo_Equipo1` FOREIGN KEY (`Equipo_idEquipo`, `Equipo_Fundacion_idFundacion`, `Equipo_Categoria_idCategoria`) REFERENCES `equipo` (`idEquipo`, `Fundacion_idFundacion`, `Categoria_idCategoria`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_Usuario_has_Equipo_Usuario1` FOREIGN KEY (`Usuario_idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

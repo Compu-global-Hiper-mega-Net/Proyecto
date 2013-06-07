@@ -50,7 +50,7 @@ public class Equipo {
     private boolean Fundacion;
     private String entrenador;
     private String entrenador2;
-    private char sexo;
+    private String sexo;
 
 		/*
 		* Metodo constructor
@@ -63,7 +63,7 @@ public class Equipo {
 		* @param sexo, determina el sexo de los componentes del equipo.
 		*/ 
 
-    public Equipo(String nombre, String temporada, String categoria, String entrenador, String entrenador2, boolean fundacion, char sexo) {
+    public Equipo(String nombre, String temporada, String categoria, String entrenador, String entrenador2, boolean fundacion, String sexo) {
         this.nombre = nombre;
         this.temporada = temporada;
         this.categoria = categoria;
@@ -141,7 +141,7 @@ public class Equipo {
      * @return char (caracter) con el atributo interno del sexo del equipo.
      */
 
-    public char getSexo() {
+    public String getSexo() {
         return sexo;
     }
 }
