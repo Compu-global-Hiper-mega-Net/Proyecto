@@ -108,6 +108,7 @@ CREATE TABLE `alumno` (
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+
 --
 -- Dumping data for table `alumno`
 --
@@ -119,26 +120,6 @@ INSERT INTO `alumno` VALUES (2,'M','carlos','Fernandez','Basso','Juan','Yolanda'
 UNLOCK TABLES;
 
 
-
-DROP TABLE IF EXISTS `categoriaalumno`;
-CREATE  TABLE IF NOT EXISTS `mydb`.`categoriaalumno` (
-  `idcategoriaalumno` INT NOT NULL AUTO_INCREMENT ,
-  `categoria_idCategoria` INT(11) NOT NULL ,
-  `alumno_idAlumno` INT(11) NOT NULL ,
-  PRIMARY KEY (`idcategoriaalumno`, `categoria_idCategoria`, `alumno_idAlumno`) ,
-  INDEX `fk_categoriaalumno_categoria1_idx` (`categoria_idCategoria` ASC) ,
-  INDEX `fk_categoriaalumno_alumno1_idx` (`alumno_idAlumno` ASC) ,
-  CONSTRAINT `fk_categoriaalumno_categoria1`
-    FOREIGN KEY (`categoria_idCategoria` )
-    REFERENCES `mydb`.`categoria` (`idCategoria` )
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_categoriaalumno_alumno1`
-    FOREIGN KEY (`alumno_idAlumno` )
-    REFERENCES `mydb`.`alumno` (`idAlumno` )
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
 
 --
 -- Table structure for table `alumnoequipo`
@@ -237,6 +218,7 @@ CREATE TABLE `categoria` (
   `idCategoria` int(11) NOT NULL AUTO_INCREMENT,
   `tipo` varchar(45) DEFAULT NULL,
   `descripcion` varchar(45) DEFAULT NULL,
+  `edadmin` int(11) NOT NULL,
   PRIMARY KEY (`idCategoria`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -247,8 +229,36 @@ CREATE TABLE `categoria` (
 
 LOCK TABLES `categoria` WRITE;
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
-INSERT INTO `categoria` VALUES (1,'benjamín','(9-10 años)'),(2,'alevín','(11-12 años)'),(3,'infantil','(13-14 años)'),(4,'cadete','(15-16 años)'),(5,'junior','(17-18 años)');
+INSERT INTO `categoria` VALUES (1,'benjamín','(9-10 años)',9),(2,'alevín','(11-12 años)',11),(3,'infantil','(13-14 años)',13),(4,'cadete','(15-16 años)',15),(5,'junior','(17-18 años)',17);
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `categoriaalumno`
+--
+
+DROP TABLE IF EXISTS `categoriaalumno`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `categoriaalumno` (
+  `idcategoriaalumno` int(11) NOT NULL AUTO_INCREMENT,
+  `categoria_idCategoria` int(11) NOT NULL,
+  `alumno_idAlumno` int(11) NOT NULL,
+  PRIMARY KEY (`idcategoriaalumno`,`categoria_idCategoria`,`alumno_idAlumno`),
+  KEY `fk_categoriaalumno_categoria1_idx` (`categoria_idCategoria`),
+  KEY `fk_categoriaalumno_alumno1_idx` (`alumno_idAlumno`),
+  CONSTRAINT `fk_categoriaalumno_categoria1` FOREIGN KEY (`categoria_idCategoria`) REFERENCES `categoria` (`idCategoria`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_categoriaalumno_alumno1` FOREIGN KEY (`alumno_idAlumno`) REFERENCES `alumno` (`idAlumno`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `categoriaalumno`
+--
+
+LOCK TABLES `categoriaalumno` WRITE;
+/*!40000 ALTER TABLE `categoriaalumno` DISABLE KEYS */;
+/*!40000 ALTER TABLE `categoriaalumno` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -699,4 +709,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-06-02  1:10:50
+-- Dump completed on 2013-06-07 17:36:05

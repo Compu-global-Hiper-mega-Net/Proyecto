@@ -44,6 +44,7 @@ import javax.swing.border.Border;
  ******************************************************************************
  */
 public class AñadirModificarInstalacion extends javax.swing.JFrame {
+
     private PrincipalInstalaciones pP;
     private BaseDatos bd;
     private Border bordeError;
@@ -63,6 +64,7 @@ public class AñadirModificarInstalacion extends javax.swing.JFrame {
         bordeError = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.red);
         Titulo1.setVisible(false);
         modificar.setVisible(false);
+        setTitle("Añadir Instalacion");
     }
 
     public AñadirModificarInstalacion(PrincipalInstalaciones pP, BaseDatos bd, int id, String nombre, String capacidad, String localizacion) {
@@ -79,7 +81,9 @@ public class AñadirModificarInstalacion extends javax.swing.JFrame {
         this.capacidad = capacidad;
         capacidadTextField.setText(capacidad);
         this.localizacion = localizacion;
-        direccionTextField.setText(localizacion.substring(localizacion.indexOf("0"), localizacion.length()));
+        direccionComboBox.setSelectedItem(localizacion.substring(0, localizacion.indexOf(" ")));
+        direccionTextField.setText(localizacion.substring(localizacion.indexOf(" ") + 1, localizacion.length()));
+        setTitle("Modificar Instalacion");
     }
 
     /**
@@ -232,10 +236,15 @@ public class AñadirModificarInstalacion extends javax.swing.JFrame {
             campos = campos + "'Direccion',";
             direccionTextField.setBorder(bordeError);
         }
-        if (!capacidadTextField.getText().matches("[1-9][0-9]*")) {
+        //if (!capacidadTextField.getText().matches("[1-9[0-9]*]")) {
+        if (!isNumber(capacidadTextField.getText())) {
+            campos = campos + "'Capacidad',";
+            capacidadTextField.setBorder(bordeError);
+        } else if (capacidadTextField.getText().isEmpty()) {
             campos = campos + "'Capacidad',";
             capacidadTextField.setBorder(bordeError);
         }
+
         if (campos.isEmpty()) {
             String direccion = (String) direccionComboBox.getSelectedItem() + " "
                     + direccionTextField.getText();
@@ -258,12 +267,17 @@ public class AñadirModificarInstalacion extends javax.swing.JFrame {
     }//GEN-LAST:event_aceptarActionPerformed
 
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
+        String campos = "";
+
         if (!nombreTextField.getText().equals(nombre) || !capacidadTextField.getText().equals(capacidad)
                 || !direccionTextField.getText().equals(localizacion)) {
             if (nombreTextField.getText().isEmpty() || capacidadTextField.getText().isEmpty() || direccionTextField.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio",
-                        "Errores en el formulario", JOptionPane.ERROR_MESSAGE);
-            } else {
+                campos = campos + "Ningun campo puede estar vacio\n";
+            } else if (!isNumber(capacidadTextField.getText())) {
+                campos = campos + "'Capacidad',";
+                capacidadTextField.setBorder(bordeError);
+            }
+            if (campos.isEmpty()) {
                 boolean exito = GestorInstalacion.modificaInstalacion(this.bd, id,
                         nombreTextField.getText(), capacidadTextField.getText(),
                         direccionComboBox.getSelectedItem().toString() + " " + direccionTextField.getText());
@@ -277,6 +291,10 @@ public class AñadirModificarInstalacion extends javax.swing.JFrame {
                     pP.actualizarTablaInstalaciones();
                 }
                 this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null,
+                        campos.substring(0, campos.length() - 1),
+                        "Errores en el formulario", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_modificarActionPerformed
@@ -294,4 +312,13 @@ public class AñadirModificarInstalacion extends javax.swing.JFrame {
     private javax.swing.JLabel nombreLabel;
     private javax.swing.JTextField nombreTextField;
     // End of variables declaration//GEN-END:variables
+
+    private boolean isNumber(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException ex) {
+            return false;
+        }
+    }
 }

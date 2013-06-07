@@ -164,7 +164,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="NombreTextField">
       <Events>
-        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="NombreTextFieldKeyTyped"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="NombreTextFieldKeyReleased"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="PrimerApellido">
@@ -174,7 +174,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="PrimerApellidoTextField">
       <Events>
-        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="PrimerApellidoTextFieldKeyTyped"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="PrimerApellidoTextFieldKeyReleased"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="SegundoApellido">
@@ -184,7 +184,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="SegundoApellidoTextField">
       <Events>
-        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="SegundoApellidoTextFieldKeyTyped"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="SegundoApellidoTextFieldKeyReleased"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="A&#xf1;adir">
