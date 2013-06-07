@@ -10,7 +10,6 @@
  */
 package InterfazUsuario;
 
-import GestionActividades.GestorActividad;
 import GestionDeAlumnos.*;
 import GestionDeCategorias.GestorCategorias;
 import GestionDeUsuarios.*;
@@ -21,12 +20,9 @@ import GestionDePagos.GestorPagos;
 import GestionDePartidos.GestorPartidos;
 import ServiciosAlmacenamiento.BaseDatos;
 import com.toedter.calendar.JTextFieldDateEditor;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -74,7 +70,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     String consultaAlumnosMostrados;
     String consultaUsuariosMostrados;
     String consultaInstalacionesMostradas;
-    String consultaActividadesMostradas;
     Border bordeError;
     String consultaPagosMostrados;
     boolean noEntry;
@@ -129,6 +124,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jPanel14 = new javax.swing.JPanel();
         jLabel32 = new javax.swing.JLabel();
+        jPanel21 = new javax.swing.JPanel();
+        jPanel22 = new javax.swing.JPanel();
+        jButton11 = new javax.swing.JButton();
+        jPanel23 = new javax.swing.JPanel();
+        jLabel42 = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
         jPanel19 = new javax.swing.JPanel();
         jButton10 = new javax.swing.JButton();
@@ -225,22 +225,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         pagos_botonModificar = new javax.swing.JButton();
         pagos_etiqActividad = new javax.swing.JLabel();
         pagos_actividad = new javax.swing.JTextField();
-        panelActividades = new javax.swing.JPanel();
-        actividadesLabel = new javax.swing.JLabel();
-        buscarLabel = new javax.swing.JLabel();
-        nombreLabel = new javax.swing.JLabel();
-        nombreTextField = new javax.swing.JTextField();
-        fechaInicioLabel = new javax.swing.JLabel();
-        fechaInicioDateChooser = new com.toedter.calendar.JDateChooser();
-        fechaFinLabel = new javax.swing.JLabel();
-        fechaFinDateChooser = new com.toedter.calendar.JDateChooser();
-        Insertar = new javax.swing.JButton();
-        Eliminar = new javax.swing.JButton();
-        Modificar = new javax.swing.JButton();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        actividadesTable = new javax.swing.JTable();
-        Informacion = new javax.swing.JButton();
-        AñaridAlumno = new javax.swing.JButton();
         PanelPartidos = new javax.swing.JPanel();
         Partidos = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
@@ -266,7 +250,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         menuInicio = new javax.swing.JMenu();
         menuEquipos = new javax.swing.JMenu();
         menuUsuarios = new javax.swing.JMenu();
-        menuActividades = new javax.swing.JMenu();
         menuPagos = new javax.swing.JMenu();
         menuPartidos = new javax.swing.JMenu();
 
@@ -333,6 +316,32 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jPanel12.add(jPanel14);
 
         panelInicio.add(jPanel12);
+
+        jPanel21.setLayout(new javax.swing.BoxLayout(jPanel21, javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanel22.setMaximumSize(new java.awt.Dimension(170, 33));
+        jPanel22.setMinimumSize(new java.awt.Dimension(170, 33));
+        jPanel22.setPreferredSize(new java.awt.Dimension(170, 33));
+        jPanel22.setLayout(new java.awt.GridBagLayout());
+
+        jButton11.setText("Actividades");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+        jPanel22.add(jButton11, new java.awt.GridBagConstraints());
+
+        jPanel21.add(jPanel22);
+
+        jPanel23.setLayout(new java.awt.GridBagLayout());
+
+        jLabel42.setText("Esta opción permite gestionar todos los actividades, esto es: insertar, modificar o eliminar.");
+        jPanel23.add(jLabel42, new java.awt.GridBagConstraints());
+
+        jPanel21.add(jPanel23);
+
+        panelInicio.add(jPanel21);
 
         jPanel18.setLayout(new javax.swing.BoxLayout(jPanel18, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -1041,171 +1050,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         getContentPane().add(panelPagos, gridBagConstraints);
 
-        panelActividades.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        panelActividades.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        panelActividades.setMinimumSize(new java.awt.Dimension(1300, 640));
-
-        actividadesLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        actividadesLabel.setText("Actividades");
-
-        buscarLabel.setText("Buscar por");
-
-        nombreLabel.setText("Nombre");
-
-        nombreTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                nombreTextFieldKeyTyped(evt);
-            }
-        });
-
-        fechaInicioLabel.setText("Fecha inicio");
-
-        fechaInicioDateChooser.setDateFormatString("dd-MM-yyyy");
-        fechaInicioDateChooser.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                fechaInicioDateChooserKeyTyped(evt);
-            }
-        });
-
-        fechaFinLabel.setText("Fecha Fin");
-
-        fechaFinDateChooser.setDateFormatString("dd-MM-yyyy");
-
-        Insertar.setText("Insertar");
-        Insertar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                InsertarActionPerformed(evt);
-            }
-        });
-
-        Eliminar.setText("Eliminar");
-        Eliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EliminarActionPerformed(evt);
-            }
-        });
-
-        Modificar.setText("Modificar");
-        Modificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ModificarActionPerformed(evt);
-            }
-        });
-
-        actividadesTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Nombre", "Fecha de Inicio", "Fecha Fin"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane4.setViewportView(actividadesTable);
-
-        Informacion.setText("Info");
-        Informacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                InformacionActionPerformed(evt);
-            }
-        });
-
-        AñaridAlumno.setText("Añadir Alumno");
-        AñaridAlumno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AñaridAlumnoActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelActividadesLayout = new javax.swing.GroupLayout(panelActividades);
-        panelActividades.setLayout(panelActividadesLayout);
-        panelActividadesLayout.setHorizontalGroup(
-            panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelActividadesLayout.createSequentialGroup()
-                .addGroup(panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelActividadesLayout.createSequentialGroup()
-                        .addGap(300, 300, 300)
-                        .addComponent(fechaFinLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(fechaFinDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelActividadesLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buscarLabel)
-                            .addComponent(actividadesLabel)))
-                    .addGroup(panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(panelActividadesLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(AñaridAlumno)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(Informacion))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelActividadesLayout.createSequentialGroup()
-                            .addGap(81, 81, 81)
-                            .addGroup(panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(panelActividadesLayout.createSequentialGroup()
-                                    .addComponent(fechaInicioLabel)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(fechaInicioDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(panelActividadesLayout.createSequentialGroup()
-                                    .addComponent(nombreLabel)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(nombreTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(panelActividadesLayout.createSequentialGroup()
-                                    .addComponent(Insertar)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(Eliminar)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(Modificar))
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(1093, Short.MAX_VALUE))
-        );
-        panelActividadesLayout.setVerticalGroup(
-            panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelActividadesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(actividadesLabel)
-                .addGap(38, 38, 38)
-                .addComponent(buscarLabel)
-                .addGap(3, 3, 3)
-                .addGroup(panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nombreLabel)
-                    .addComponent(nombreTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(fechaInicioLabel)
-                    .addComponent(fechaInicioDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fechaFinLabel)
-                    .addComponent(fechaFinDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Insertar)
-                    .addComponent(Eliminar)
-                    .addComponent(Modificar))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(panelActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(AñaridAlumno)
-                    .addComponent(Informacion))
-                .addContainerGap(471, Short.MAX_VALUE))
-        );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.ipadx = 164;
-        gridBagConstraints.ipady = 92;
-        getContentPane().add(panelActividades, gridBagConstraints);
-
         PanelPartidos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         Partidos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -1444,14 +1288,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
         barraMenu.add(menuUsuarios);
-
-        menuActividades.setText("Actividades");
-        menuActividades.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuActividadesMouseClicked(evt);
-            }
-        });
-        barraMenu.add(menuActividades);
 
         menuPagos.setText("Pagos");
         menuPagos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -2042,16 +1878,7 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
             
     
     
-                    
-    private void menuActividadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuActividadesMouseClicked
-        // TODO add your handling code here:
-        ocultarPaneles();
-        panelActividades.setVisible(true);
-        panelActividades.setLocation(500, 250);
-        
-        mostrarActividades();
-    }//GEN-LAST:event_menuActividadesMouseClicked
-    
+                        
     private void textNombreEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNombreEquipoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textNombreEquipoActionPerformed
@@ -2079,136 +1906,7 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
             Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_menuEquiposMouseClicked
-    
-    private int getIDTemporada() {
-        
-        int indiceTabla = actividadesTable.getSelectedRow();
-        ResultSet rts;
-        int idTemporada = 0;
-        
-        String actividad = "SELECT Temporada_idTemporada FROM actividades WHERE nombre = '"
-                + actividadesTable.getValueAt(indiceTabla, 0) + "' AND fechaInicio = '"
-                + actividadesTable.getValueAt(indiceTabla, 1) + "' AND fechaFin = '"
-                + actividadesTable.getValueAt(indiceTabla, 2) + "'";
-        
-        
-        
-        rts = accesoBD.ejecutaConsulta(actividad);
-        System.out.print("\n\n Busaca " + rts + "\n\n");
-        try {
-            if (rts.next()) {
-                idTemporada = rts.getInt("Temporada_idTemporada");
-                
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return idTemporada;
-    }
-        
-    private String leeConsultaActividad() {
-        
-        
-        String consulta_actividades = "SELECT a.idActividades, a.nAlumnos, a.descripcion, a.precioSocio,"
-                + " a.precioNoSocio, a.Temporada_idTemporada, a.fechaInicio, a.fechaFin, a.nombre FROM ";
-        String TablasImplicadas = " actividades a";
-        String condicionConsulta = " WHERE";
-
-        //Date fechaInicio = (Date) fechaInicioDateChooser.getDate();
-        //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-        
-        if (!nombreTextField.getText().equals("") || !fechaInicioDateChooser.getDateFormatString().equals("dd-MMM-yyyy")
-                || !fechaFinDateChooser.getDateFormatString().equals("dd-MMM-yyyy")) {
-            if (!nombreTextField.getText().equals("")) {
-                condicionConsulta = condicionConsulta + " a.nombre= '" + nombreTextField.getText() + "' AND ";
-            }
-            
-            if (!fechaInicioDateChooser.getDateFormatString().equals("dd-MM-yyyy")) {
-                condicionConsulta = condicionConsulta + " a.fechaInicio = " + fechaInicioDateChooser.getDateFormatString() + " AND ";
-                System.out.print("\n\n fecha" + fechaInicioDateChooser.getDateFormatString());
-            }
-            if (!fechaFinDateChooser.getDateFormatString().equals("dd-MM-yyyy")) {
-                condicionConsulta = condicionConsulta + " a.fechaFin = " + fechaFinDateChooser.getDateFormatString() + " AND  ";
-            }
-            
-            
-            condicionConsulta = condicionConsulta.substring(0, condicionConsulta.length() - 5);
-            TablasImplicadas = TablasImplicadas + condicionConsulta;
-        }
-        
-        
-        consulta_actividades = consulta_actividades + TablasImplicadas;
-        
-        
-        return consulta_actividades;
-        
-        
-    }
-    
-    private void InsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertarActionPerformed
-        // TODO add your handling code here:
-        new AltaActividad(accesoBD, this).setVisible(true);
-    }//GEN-LAST:event_InsertarActionPerformed
-    
-    private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
-        // TODO add your handling code here:
-        ResultSet retsetMostrados;
-        
-        int idActividad, plazas;
-        String decripcion = new String();
-        
-        int indiceTabla = actividadesTable.getSelectedRow();
-        
-        if (indiceTabla >= 0) {
-            String consulta = "SELECT idActividades, descripcion, nAlumnos FROM actividades WHERE nombre = '"
-                    + actividadesTable.getValueAt(indiceTabla, 0) + "' AND fechaInicio = '"
-                    + actividadesTable.getValueAt(indiceTabla, 1) + "' AND fechaFin = '"
-                    + actividadesTable.getValueAt(indiceTabla, 2) + "'";
-            
-            retsetMostrados = accesoBD.ejecutaConsulta(consulta);
-            
-            try {
-                if (retsetMostrados.next()) {
-                    idActividad = retsetMostrados.getInt("idActividades");
-                    decripcion = retsetMostrados.getString("descripcion");
-                    plazas = retsetMostrados.getInt("nAlumnos");
                     
-                    new ModificarActividad(accesoBD, actividadesTable.getValueAt(indiceTabla, 0).toString(),
-                            actividadesTable.getValueAt(indiceTabla, 1).toString(),
-                            actividadesTable.getValueAt(indiceTabla, 2).toString(), idActividad, decripcion, plazas, this).setVisible(true);
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else if (indiceTabla == -1) {
-            JOptionPane.showMessageDialog(this, "No se ha seleccionado ninguna actividad", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        
-    }//GEN-LAST:event_ModificarActionPerformed
-    
-    private void InformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InformacionActionPerformed
-        // TODO add your handling code here:
-        int nTabla = actividadesTable.getSelectedRow();
-        try {
-            new InformacionActividad(accesoBD, (String) actividadesTable.getValueAt(nTabla, 0),
-                    actividadesTable.getValueAt(nTabla, 1).toString(), actividadesTable.getValueAt(nTabla, 2).toString()).setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }//GEN-LAST:event_InformacionActionPerformed
-    
-    private void AñaridAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AñaridAlumnoActionPerformed
-        // TODO add your handling code here:
-        int idTemporada = 0;
-        int idActividad = 0;
-        
-        idTemporada = getIDTemporada();
-        idActividad = getIDActividad();
-        new AñadirAlumno(accesoBD, idTemporada, idActividad).setVisible(true);
-    }//GEN-LAST:event_AñaridAlumnoActionPerformed
-    
     private void comboCatEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCatEquipoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboCatEquipoActionPerformed
@@ -2255,66 +1953,7 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
     
     private void botonEliminarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarEquipoActionPerformed
     }//GEN-LAST:event_botonEliminarEquipoActionPerformed
-    
-    private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
-        // TODO add your handling code here:
-        int nTabla = actividadesTable.getSelectedRow();
-        ResultSet retset;
-        float precioS = 50;
-        float precioNS = 70;
-        String descripcion = "";
-        int temporada = 0;
-        int plazas = 0;
         
-        if (nTabla >= 0) {
-            int idActividad = getIDActividad();
-            SimpleDateFormat formato = new java.text.SimpleDateFormat("yyyy-MM-dd");
-            java.sql.Date fechaInicio = null;
-            java.sql.Date fechafin = null;
-            try {
-                fechaInicio = new java.sql.Date(formato.parse(actividadesTable.getValueAt(nTabla, 1).toString()).getTime());
-                System.out.print(fechaInicio);
-            } catch (ParseException ex) {
-            }
-            try {
-                fechafin = new java.sql.Date(formato.parse(actividadesTable.getValueAt(nTabla, 2).toString()).getTime());
-            } catch (ParseException ex) {
-                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            
-            String consulta = "SELECT Temporada_idTemporada, nAlumnos, descripcion FROM actividades where idActividades = "
-                    + idActividad;
-
-            /*nombre = ' "
-             + actividadesTable.getValueAt(nTabla, 0) + "' AND fechaInicio ='" + actividadesTable.getValueAt(nTabla, 1)
-             + "' AND fechaFin = '" + actividadesTable.getValueAt(nTabla, 2) + "'"*/
-            
-            System.out.print("\n\n" + consulta);
-            System.out.print("\n\n" + actividadesTable.getValueAt(nTabla, 1));
-            System.out.print("\n\n" + actividadesTable.getValueAt(nTabla, 2));
-            retset = accesoBD.ejecutaConsulta(consulta);
-            int selection = JOptionPane.showConfirmDialog(this, "Desea eliminar la Instalacion?", "Instalacion usuario", JOptionPane.YES_NO_OPTION);
-            if (selection == JOptionPane.YES_OPTION) {
-                try {
-                    if (retset.next()) {
-                        temporada = retset.getInt(1);
-                        plazas = retset.getInt(2);
-                        descripcion = retset.getString(3);
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
-                GestorActividad.eliminaActividad(accesoBD, descripcion, plazas, precioS, precioNS, temporada, fechaInicio, fechafin, (String) actividadesTable.getValueAt(nTabla, 0));
-                
-            }
-        } else if (nTabla == -1) {
-            JOptionPane.showMessageDialog(this, "No se ha seleccionado ninguna instalacion", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        mostrarActividades();
-    }//GEN-LAST:event_EliminarActionPerformed
-    
 private void pago_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pago_nombreActionPerformed
 // TODO add your handling code here:
 }//GEN-LAST:event_pago_nombreActionPerformed
@@ -2840,144 +2479,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         noEntry = false;
         PanelPartidos.setVisible(true);
     }//GEN-LAST:event_menuPartidosMouseClicked
-                
-    private void nombreTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreTextFieldKeyTyped
-        // TODO add your handling code here:
-        if (!nombreTextField.getText().isEmpty()) {
-            String nombre = nombreTextField.getText();
-            String consulta = "SELECT nombre, fechaInicio, fechaFin FROM actividades"
-                    + " WHERE nombre LIKE '%" + nombre + "%'";
-            ResultSet retset;
-            
-            retset = accesoBD.ejecutaConsulta(consulta);
-            
-            actividadesTable.setModel(new javax.swing.table.DefaultTableModel(
-                    new Object[][]{
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-                    new String[]{
-                "Nombre", "Fecha Inicio", "Fecha Fin"
-            }));
-            javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
-            modelo_tabla = actividadesTable.getModel();
-            int i = 0;
-            try {
-                while (retset.next()) {
-                    
-                    if (i < 25) {
-                        actividadesTable.setValueAt(retset.getString("nombre"), i, 0);
-                        actividadesTable.setValueAt(retset.getString("fechaInicio"), i, 1);
-                        actividadesTable.setValueAt(retset.getString("fechaFin"), i, 2);
-                    } else {
-                        javax.swing.table.DefaultTableModel temp = new javax.swing.table.DefaultTableModel();
-                        Object nuevo[] = {"", "", ""};
-                        temp.addRow(nuevo);
-                        actividadesTable.setValueAt(retset.getString("nombre"), i, 0);
-                        actividadesTable.setValueAt(retset.getString("fechaInicio"), i, 1);
-                        actividadesTable.setValueAt(retset.getString("fechaFin"), i, 2);
-                    }
-                    i++;
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            mostrarActividades();
-        }
-    }//GEN-LAST:event_nombreTextFieldKeyTyped
-    
-    private void fechaInicioDateChooserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fechaInicioDateChooserKeyTyped
-        // TODO add your handling code here:
-        Date nombre = (java.sql.Date) fechaInicioDateChooser.getDate();
-        String consulta = "SELECT nombre, fechaInicio, fechaFin FROM actividades"
-                + " WHERE fechaInicio LIKE '%" + nombre + "%'";
-        ResultSet retset;
-        
-        System.out.println("Consulta Fecha " + consulta);
-        
-        retset = accesoBD.ejecutaConsulta(consulta);
-        
-        actividadesTable.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
-            {null, null, null},
-            {null, null, null},
-            {null, null, null},
-            {null, null, null},
-            {null, null, null},
-            {null, null, null},
-            {null, null, null},
-            {null, null, null},
-            {null, null, null},
-            {null, null, null},
-            {null, null, null},
-            {null, null, null},
-            {null, null, null},
-            {null, null, null},
-            {null, null, null},
-            {null, null, null},
-            {null, null, null},
-            {null, null, null},
-            {null, null, null},
-            {null, null, null},
-            {null, null, null},
-            {null, null, null},
-            {null, null, null},
-            {null, null, null},
-            {null, null, null}
-        },
-                new String[]{
-            "Nombre", "Fecha Inicio", "Fecha Fin"
-        }));
-        javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
-        modelo_tabla = actividadesTable.getModel();
-        int i = 0;
-        try {
-            while (retset.next()) {
-                
-                if (i < 25) {
-                    actividadesTable.setValueAt(retset.getString("nombre"), i, 0);
-                    actividadesTable.setValueAt(retset.getString("fechaInicio"), i, 1);
-                    actividadesTable.setValueAt(retset.getString("fechaFin"), i, 2);
-                } else {
-                    
-                        javax.swing.table.DefaultTableModel temp = new javax.swing.table.DefaultTableModel();
-                    Object nuevo[] = {"", "", ""};
-                    temp.addRow(nuevo);
-                    actividadesTable.setValueAt(retset.getString("nombre"), i, 0);
-                    actividadesTable.setValueAt(retset.getString("fechaInicio"), i, 1);
-                    actividadesTable.setValueAt(retset.getString("fechaFin"), i, 2);
-                }
-                i++;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_fechaInicioDateChooserKeyTyped
-    
+                        
     private void botonFiltrarPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFiltrarPartidoActionPerformed
         // TODO add your handling code here:
         String fecha, temporada, categoria, equipoLoc, equipoVis;
@@ -3376,19 +2878,16 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
         new PrincipalInstalaciones(this, this.accesoBD).setVisible(true);
     }//GEN-LAST:event_jButton10ActionPerformed
 
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton11ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AñaridAlumno;
     private javax.swing.JButton BotonJPartido;
     private javax.swing.JButton BotonModificarPartido;
     private javax.swing.JButton BotonNPartido;
-    private javax.swing.JButton Eliminar;
-    private javax.swing.JButton Informacion;
-    private javax.swing.JButton Insertar;
-    private javax.swing.JButton Modificar;
     private javax.swing.JPanel PanelPartidos;
     private javax.swing.JLabel Partidos;
-    private javax.swing.JLabel actividadesLabel;
-    private javax.swing.JTable actividadesTable;
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton botonBuscar;
     private javax.swing.JButton botonEliminarEquipo;
@@ -3402,7 +2901,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JButton botonNuevoEquipo;
     private javax.swing.JButton botonNuevoUsuario;
     private javax.swing.JButton boton_mostrar_Usuarios;
-    private javax.swing.JLabel buscarLabel;
     private javax.swing.JButton cerrarSesion;
     private javax.swing.JComboBox comboCatEquipo;
     private javax.swing.JComboBox comboCategoriaPartidos;
@@ -3419,12 +2917,9 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JLabel errorEliminarUsuario;
     private javax.swing.JLabel errorModifFijoUsuario;
     private javax.swing.JLabel errorModifMovilUsuario;
-    private com.toedter.calendar.JDateChooser fechaFinDateChooser;
-    private javax.swing.JLabel fechaFinLabel;
-    private com.toedter.calendar.JDateChooser fechaInicioDateChooser;
-    private javax.swing.JLabel fechaInicioLabel;
     private com.toedter.calendar.JDateChooser fechaPartido;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
@@ -3464,6 +2959,7 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -3479,6 +2975,9 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel22;
+    private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -3486,7 +2985,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane8;
@@ -3494,14 +2992,11 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JLabel labelEquiposMostrados;
     private javax.swing.JLabel labelNumeroEquipos;
-    private javax.swing.JMenu menuActividades;
     private javax.swing.JMenu menuEquipos;
     private javax.swing.JMenu menuInicio;
     private javax.swing.JMenu menuPagos;
     private javax.swing.JMenu menuPartidos;
     private javax.swing.JMenu menuUsuarios;
-    private javax.swing.JLabel nombreLabel;
-    private javax.swing.JTextField nombreTextField;
     private javax.swing.JComboBox pago_grupo;
     private javax.swing.JTextField pago_nombre;
     private javax.swing.JTextField pago_primer_apellido;
@@ -3514,7 +3009,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private javax.swing.JButton pagos_botonMostrar;
     private javax.swing.JLabel pagos_etiqActividad;
     private javax.swing.JLabel pagos_etiqGrupo;
-    private javax.swing.JPanel panelActividades;
     private javax.swing.JPanel panelEquipos;
     private javax.swing.JPanel panelInicio;
     private javax.swing.JPanel panelPagos;
@@ -3535,7 +3029,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     private void ocultarPaneles() {
         panelInicio.setVisible(false);
         panelUsuarios.setVisible(false);
-        panelActividades.setVisible(false);
         panelEquipos.setVisible(false);
         panelPagos.setVisible(false);
         PanelPartidos.setVisible(false);
@@ -3724,98 +3217,6 @@ private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//G
     
     private String getEquipo(String s) throws SQLException {
         return GestorEquipos.getEquipo(accesoBD, s);
-    }
-    
-    private int getIDActividad() {
-        
-        int indiceTabla = actividadesTable.getSelectedRow();
-        ResultSet rts;
-        int idActividad = 0;
-        
-        String actividad = "SELECT idActividades FROM actividades WHERE nombre = '"
-                + actividadesTable.getValueAt(indiceTabla, 0) + "' AND fechaInicio = '"
-                + actividadesTable.getValueAt(indiceTabla, 1) + "' AND fechaFin = '"
-                + actividadesTable.getValueAt(indiceTabla, 2) + "'";
-        
-        
-        
-        rts = accesoBD.ejecutaConsulta(actividad);
-        System.out.print("\n\n Busaca " + rts + "\n\n");
-        try {
-            if (rts.next()) {
-                idActividad = rts.getInt("idActividades");
-                
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return idActividad;
-    }
-    
-    public void mostrarActividades() {
-        
-        actividadesTable.removeAll();
-        try {
-            // TODO add your handling code here:
-            String consulta_actividades = leeConsultaActividad();
-            consultaActividadesMostradas = consulta_actividades;
-            System.out.print("\nLA consulta a " + consulta_actividades + "  y aqui termina ");
-            retset = GestorActividad.consultaActividad(accesoBD, consulta_actividades);
-            ocultarMensajesError();
-            actividadesTable.setModel(new javax.swing.table.DefaultTableModel(
-                    new Object[][]{
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-                    new String[]{
-                "Nombre", "Fecha Inicio", "Fecha Fin"
-            }));
-            javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
-            modelo_tabla = actividadesTable.getModel();
-            int i = 0;
-            while (retset.next()) {
-                
-                if (i < 25) {
-                    actividadesTable.setValueAt(retset.getString("a.nombre"), i, 0);
-                    actividadesTable.setValueAt(retset.getString("a.fechaInicio"), i, 1);
-                    actividadesTable.setValueAt(retset.getString("a.fechaFin"), i, 2);
-                } else {
-                    javax.swing.table.DefaultTableModel temp = new javax.swing.table.DefaultTableModel();
-                    Object nuevo[] = {"", "", ""};
-                    temp.addRow(nuevo);
-                    actividadesTable.setValueAt(retset.getString("a.nombre"), i, 0);
-                    actividadesTable.setValueAt(retset.getString("a.fechaInicio"), i, 1);
-                    actividadesTable.setValueAt(retset.getString("a.fechaFin"), i, 2);
-                }
-                i++;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
     }
     
     List<String> getListaTemps() throws SQLException {
