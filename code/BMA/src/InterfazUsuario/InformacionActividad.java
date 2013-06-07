@@ -45,6 +45,7 @@ public class InformacionActividad extends javax.swing.JFrame {
 
     BaseDatos accesoBD;
     String nombreAct, fechainicio, fechafin;
+    int idActividad;
 
     /**
      * Creates new form InformacionActividad
@@ -53,12 +54,13 @@ public class InformacionActividad extends javax.swing.JFrame {
         initComponents();
     }
 
-    public InformacionActividad(BaseDatos acceso, String nombre, String fInicio, String fFin) throws SQLException {
+    public InformacionActividad(BaseDatos acceso, String nombre, String fInicio, String fFin, int id) throws SQLException {
         accesoBD = acceso;
         initComponents();
         nombreAct = nombre;
         fechainicio = fInicio;
         fechafin = fFin;
+        idActividad = id;
 
         nombreTextField.setEditable(false);
         fechaInicioTextField.setEditable(false);
@@ -66,6 +68,7 @@ public class InformacionActividad extends javax.swing.JFrame {
         //lugarTextField.setEditable(false);
         plazasTextField.setEditable(false);
         jTextArea1.setEditable(false);
+        Instalacion.setEditable(false);
 
         nombreTextField.setText(nombre);
         fechaInicioTextField.setText(fInicio);
@@ -96,6 +99,8 @@ public class InformacionActividad extends javax.swing.JFrame {
         descripcionScrollPane = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         Salir = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        Instalacion = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -122,6 +127,8 @@ public class InformacionActividad extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Instalacion");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -145,14 +152,18 @@ public class InformacionActividad extends javax.swing.JFrame {
                                 .addComponent(nombreTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(informacionLabel)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(plazasLabel)
-                                .addGap(18, 18, 18)
-                                .addComponent(plazasTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(descripcionLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(descripcionScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 68, Short.MAX_VALUE)))
+                        .addGap(0, 68, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(plazasLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(plazasTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(121, 121, 121)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Instalacion)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -177,7 +188,9 @@ public class InformacionActividad extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(plazasLabel)
-                    .addComponent(plazasTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(plazasTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(Instalacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(descripcionLabel)
@@ -190,7 +203,7 @@ public class InformacionActividad extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void mostrarActividad() {
+    public void mostrarActividad() throws SQLException {
         ResultSet retset;
         String consulta = "SELECT nAlumnos, descripcion FROM actividades WHERE "
                 + "nombre = '" + nombreAct + "' AND fechaInicio = '" + fechainicio
@@ -215,6 +228,25 @@ public class InformacionActividad extends javax.swing.JFrame {
 
         plazasTextField.setText(plazas);
         jTextArea1.append(descripcion);
+        Instalacion.setText(getInstalacion());
+    }
+    
+    private String getInstalacion() throws SQLException{
+        String nombre = "";
+        String consulta = "SELECT Instalacion.nombre FROM actividadesinstalacion, Instalacion "
+                + "WHERE actividades_idActividades = " + idActividad + " AND Instalacion_idInstalacion = Instalacion.idInstalacion";
+        ResultSet retset;
+        
+        System.out.print("\nConsulta Instalacion " + consulta);
+        
+        retset = accesoBD.ejecutaConsulta(consulta);
+        
+        if(retset.next()){
+            nombre = retset.getString(1);
+        }
+        
+        return nombre;
+     
     }
     private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
         // TODO add your handling code here:
@@ -222,6 +254,7 @@ public class InformacionActividad extends javax.swing.JFrame {
     }//GEN-LAST:event_SalirActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Instalacion;
     private javax.swing.JButton Salir;
     private javax.swing.JLabel descripcionLabel;
     private javax.swing.JScrollPane descripcionScrollPane;
@@ -230,6 +263,7 @@ public class InformacionActividad extends javax.swing.JFrame {
     private javax.swing.JLabel fechaInicioLabel;
     private javax.swing.JTextField fechaInicioTextField;
     private javax.swing.JLabel informacionLabel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel nombreLabel;
     private javax.swing.JTextField nombreTextField;

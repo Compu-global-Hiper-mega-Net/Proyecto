@@ -157,6 +157,10 @@ public class GestorCategorias {
         return CategoriaBD.getTipoCategorias(accesoBD);
     }
 
+    public static int getAnioCategoria(BaseDatos bd, String cat) throws SQLException {
+        return CategoriaBD.getAnioCategoria(bd, cat);
+    }
+
 }
 
     

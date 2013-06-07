@@ -71,6 +71,9 @@ public class ConsultarGrupo extends javax.swing.JFrame {
     private String ent;
     private boolean avanzadas;
     
+    private List<String> alumnosCat;
+    private List<String> listaAlumnosIntroducidos;
+    
 
     /**
      * Creates new form ConsultarGrupo
@@ -111,6 +114,8 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         List<String> aux = pP.getlistaAlumnosIntroducidos(idGrupo);
         labelFijados.setText(Integer.toString(aux.size()));
         actualizaListaAlumnosIntroducidos(aux);
+        
+        listaAlumnosIntroducidos = aux;
         
         aux = pP.getListaTemps();
         actualizaComboTemp(aux);
@@ -165,6 +170,10 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         
         avanzadas = false;
         panelAvanzadas.setVisible(false);
+        
+        actualizaListaPorCategoria();
+        
+        //listaAlumnosIntroducidos = GestorGrupos.getListaAlumnosIntroducidos(bd, idGrupo);
     }
 
     /**
@@ -318,6 +327,11 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         comboTemp.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         comboCat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboCat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboCatActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("Horario");
 
@@ -893,6 +907,26 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonAvanzadasActionPerformed
 
+    private void comboCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCatActionPerformed
+        
+        if(bd != null && comboCat.getItemAt(0) != null){
+            List<String> lista = new ArrayList<String>();
+        
+            try {
+                int anio = GestorCategorias.getAnioCategoria(bd, comboCat.getSelectedItem().toString());
+            
+                //lista = GestorAlumnos.getAlumnosCategoria(bd, anio);
+                alumnosCat = GestorAlumnos.getAlumnosCategoria(bd, anio);
+            
+                //actualizaModeloLista(alumnosCat);
+                actualizaListaPorCategoria();
+            
+            } catch (SQLException ex) {
+                Logger.getLogger(NuevoGrupo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_comboCatActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAceptar;
     private javax.swing.JButton botonAnadir;
@@ -1002,5 +1036,26 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         
         jlAlumIntr.removeAll();
         jlAlumIntr.setModel(modelo);
+    }
+
+    private void actualizaListaPorCategoria() {
+        List<String> auxList = new ArrayList<String>();
+        
+        if(bd != null && comboCat.getItemAt(0) != null){
+        
+            try {
+                int anio = GestorCategorias.getAnioCategoria(bd, comboCat.getSelectedItem().toString());
+                alumnosCat = GestorAlumnos.getAlumnosCategoria(bd, anio);
+                
+                auxList = alumnosCat;
+                
+                auxList.removeAll(listaAlumnosIntroducidos);
+                
+                actualizaModeloLista(alumnosCat);
+            
+            } catch (SQLException ex) {
+                Logger.getLogger(NuevoGrupo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

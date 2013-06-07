@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -21,11 +22,12 @@ import javax.swing.JOptionPane;
  * @author Dell
  */
 public class PrincipalActividades extends javax.swing.JFrame {
+
     private JFrame pP;
     private BaseDatos bd;
     private String consultaActividadesMostradas;
     private ResultSet retset;
-    
+
     /**
      * Creates new form PrincipalActividades
      */
@@ -142,7 +144,12 @@ public class PrincipalActividades extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+
+        actividadesTable.getTableHeader().setResizingAllowed(false);
+        actividadesTable.getTableHeader().setReorderingAllowed(false);
+
         actividadesTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
         jScrollPane4.setViewportView(actividadesTable);
 
         Informacion.setText("Info");
@@ -204,11 +211,14 @@ public class PrincipalActividades extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(Modificar)
                                     .addGap(18, 18, 18)
-                                    .addComponent(buscarActividad))
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(buscarActividad)))
+                            .addGap(86, 86, 86)))
                     .addGroup(panelActividadesLayout.createSequentialGroup()
                         .addGap(231, 231, 231)
-                        .addComponent(actividadesLabel)))
+                        .addComponent(actividadesLabel))
+                    .addGroup(panelActividadesLayout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelActividadesLayout.setVerticalGroup(
@@ -272,83 +282,13 @@ public class PrincipalActividades extends javax.swing.JFrame {
         if (!nombreTextField.getText().isEmpty()) {
             String nombre = nombreTextField.getText();
             String consulta = "SELECT nombre, fechaInicio, fechaFin FROM actividades"
-            + " WHERE nombre LIKE '%" + nombre + "%'";
+                    + " WHERE nombre LIKE '%" + nombre + "%'";
             ResultSet retset;
 
             retset = bd.ejecutaConsulta(consulta);
 
             actividadesTable.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null},
-                    {null, null, null}
-                },
-                new String[]{
-                    "Nombre", "Fecha Inicio", "Fecha Fin"
-                }));
-                javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
-                modelo_tabla = actividadesTable.getModel();
-                int i = 0;
-                try {
-                    while (retset.next()) {
-
-                        if (i < 25) {
-                            actividadesTable.setValueAt(retset.getString("nombre"), i, 0);
-                            actividadesTable.setValueAt(retset.getString("fechaInicio"), i, 1);
-                            actividadesTable.setValueAt(retset.getString("fechaFin"), i, 2);
-                        } else {
-                            javax.swing.table.DefaultTableModel temp = new javax.swing.table.DefaultTableModel();
-                            Object nuevo[] = {"", "", ""};
-                            temp.addRow(nuevo);
-                            actividadesTable.setValueAt(retset.getString("nombre"), i, 0);
-                            actividadesTable.setValueAt(retset.getString("fechaInicio"), i, 1);
-                            actividadesTable.setValueAt(retset.getString("fechaFin"), i, 2);
-                        }
-                        i++;
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                mostrarActividades();
-            }
-    }//GEN-LAST:event_nombreTextFieldKeyTyped
-
-    private void fechaInicioDateChooserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fechaInicioDateChooserKeyTyped
-        // TODO add your handling code here:
-        Date nombre = (java.sql.Date) fechaInicioDateChooser.getDate();
-        String consulta = "SELECT nombre, fechaInicio, fechaFin FROM actividades"
-        + " WHERE fechaInicio LIKE '%" + nombre + "%'";
-        ResultSet retset;
-
-        System.out.println("Consulta Fecha " + consulta);
-
-        retset = bd.ejecutaConsulta(consulta);
-
-        actividadesTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object[][]{
+                    new Object[][]{
                 {null, null, null},
                 {null, null, null},
                 {null, null, null},
@@ -375,7 +315,7 @@ public class PrincipalActividades extends javax.swing.JFrame {
                 {null, null, null},
                 {null, null, null}
             },
-            new String[]{
+                    new String[]{
                 "Nombre", "Fecha Inicio", "Fecha Fin"
             }));
             javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
@@ -389,7 +329,6 @@ public class PrincipalActividades extends javax.swing.JFrame {
                         actividadesTable.setValueAt(retset.getString("fechaInicio"), i, 1);
                         actividadesTable.setValueAt(retset.getString("fechaFin"), i, 2);
                     } else {
-
                         javax.swing.table.DefaultTableModel temp = new javax.swing.table.DefaultTableModel();
                         Object nuevo[] = {"", "", ""};
                         temp.addRow(nuevo);
@@ -402,6 +341,77 @@ public class PrincipalActividades extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } else {
+            mostrarActividades();
+        }
+    }//GEN-LAST:event_nombreTextFieldKeyTyped
+
+    private void fechaInicioDateChooserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fechaInicioDateChooserKeyTyped
+        // TODO add your handling code here:
+        Date nombre = (java.sql.Date) fechaInicioDateChooser.getDate();
+        String consulta = "SELECT nombre, fechaInicio, fechaFin FROM actividades"
+                + " WHERE fechaInicio LIKE '%" + nombre + "%'";
+        ResultSet retset;
+
+        System.out.println("Consulta Fecha " + consulta);
+
+        retset = bd.ejecutaConsulta(consulta);
+
+        actividadesTable.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null},
+            {null, null, null}
+        },
+                new String[]{
+            "Nombre", "Fecha Inicio", "Fecha Fin"
+        }));
+        javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
+        modelo_tabla = actividadesTable.getModel();
+        int i = 0;
+        try {
+            while (retset.next()) {
+
+                if (i < 25) {
+                    actividadesTable.setValueAt(retset.getString("nombre"), i, 0);
+                    actividadesTable.setValueAt(retset.getString("fechaInicio"), i, 1);
+                    actividadesTable.setValueAt(retset.getString("fechaFin"), i, 2);
+                } else {
+
+                    javax.swing.table.DefaultTableModel temp = new javax.swing.table.DefaultTableModel();
+                    Object nuevo[] = {"", "", ""};
+                    temp.addRow(nuevo);
+                    actividadesTable.setValueAt(retset.getString("nombre"), i, 0);
+                    actividadesTable.setValueAt(retset.getString("fechaInicio"), i, 1);
+                    actividadesTable.setValueAt(retset.getString("fechaFin"), i, 2);
+                }
+                i++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_fechaInicioDateChooserKeyTyped
 
     private void InsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertarActionPerformed
@@ -436,11 +446,11 @@ public class PrincipalActividades extends javax.swing.JFrame {
             }
 
             String consulta = "SELECT Temporada_idTemporada, nAlumnos, descripcion FROM actividades where idActividades = "
-            + idActividad;
+                    + idActividad;
 
             /*nombre = ' "
-            + actividadesTable.getValueAt(nTabla, 0) + "' AND fechaInicio ='" + actividadesTable.getValueAt(nTabla, 1)
-            + "' AND fechaFin = '" + actividadesTable.getValueAt(nTabla, 2) + "'"*/
+             + actividadesTable.getValueAt(nTabla, 0) + "' AND fechaInicio ='" + actividadesTable.getValueAt(nTabla, 1)
+             + "' AND fechaFin = '" + actividadesTable.getValueAt(nTabla, 2) + "'"*/
 
             System.out.print("\n\n" + consulta);
             System.out.print("\n\n" + actividadesTable.getValueAt(nTabla, 1));
@@ -478,9 +488,9 @@ public class PrincipalActividades extends javax.swing.JFrame {
 
         if (indiceTabla >= 0) {
             String consulta = "SELECT idActividades, descripcion, nAlumnos FROM actividades WHERE nombre = '"
-            + actividadesTable.getValueAt(indiceTabla, 0) + "' AND fechaInicio = '"
-            + actividadesTable.getValueAt(indiceTabla, 1) + "' AND fechaFin = '"
-            + actividadesTable.getValueAt(indiceTabla, 2) + "'";
+                    + actividadesTable.getValueAt(indiceTabla, 0) + "' AND fechaInicio = '"
+                    + actividadesTable.getValueAt(indiceTabla, 1) + "' AND fechaFin = '"
+                    + actividadesTable.getValueAt(indiceTabla, 2) + "'";
 
             retsetMostrados = bd.ejecutaConsulta(consulta);
 
@@ -491,8 +501,8 @@ public class PrincipalActividades extends javax.swing.JFrame {
                     plazas = retsetMostrados.getInt("nAlumnos");
 
                     new ModificarActividad(bd, actividadesTable.getValueAt(indiceTabla, 0).toString(),
-                        actividadesTable.getValueAt(indiceTabla, 1).toString(),
-                        actividadesTable.getValueAt(indiceTabla, 2).toString(), idActividad, decripcion, plazas, this).setVisible(true);
+                            actividadesTable.getValueAt(indiceTabla, 1).toString(),
+                            actividadesTable.getValueAt(indiceTabla, 2).toString(), idActividad, decripcion, plazas, this).setVisible(true);
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -506,9 +516,10 @@ public class PrincipalActividades extends javax.swing.JFrame {
     private void InformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InformacionActionPerformed
         // TODO add your handling code here:
         int nTabla = actividadesTable.getSelectedRow();
+        int idActividad = getIDActividad();
         try {
             new InformacionActividad(bd, (String) actividadesTable.getValueAt(nTabla, 0),
-                actividadesTable.getValueAt(nTabla, 1).toString(), actividadesTable.getValueAt(nTabla, 2).toString()).setVisible(true);
+                    actividadesTable.getValueAt(nTabla, 1).toString(), actividadesTable.getValueAt(nTabla, 2).toString(), idActividad).setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -526,75 +537,80 @@ public class PrincipalActividades extends javax.swing.JFrame {
     }//GEN-LAST:event_AñaridAlumnoActionPerformed
 
     private void buscarActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActividadActionPerformed
-          // TODO add your handling code here:
-        if (!nombreTextField.getText().isEmpty()) {
+        // TODO add your handling code here:
+        if (fechaInicioDateChooser.getDate() != null && fechaFinDateChooser.getDate() != null) {
+            Date dateFromDateChooser = fechaInicioDateChooser.getDate();
+            String dateString = String.format("%1$tY-%1$tm-%1$td", dateFromDateChooser);
+
+            Date dateFromDateChooser1 = fechaFinDateChooser.getDate();
+            String dateString1 = String.format("%1$tY-%1$tm-%1$td", dateFromDateChooser1);
             String nombre = nombreTextField.getText();
-            String consulta = "SELECT IdActividaes,nombre, fechaInicio, fechaFin FROM actividades"
-            + " WHERE nombre LIKE '%" + nombre + "%'";
-            String consultaInstalaciones="SELECT * FROM mydb.actividadesinstalacion Where actividades_idActividades=";
+
+            String consulta = "SELECT nombre, fechaInicio, fechaFin, FROM actividades"
+                    + " WHERE fechaInicio>='" + dateString + "' AND fechaFin<='" + dateString1 + "'";
             ResultSet retset;
-            
+
+            System.out.print("\n\nThe fucker: " + consulta);
 
             retset = bd.ejecutaConsulta(consulta);
 
-            
-            actividadesTable.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
-                    {null, null, null,null},
-                    {null, null, null,null},
-                    {null, null, null,null},
-                    {null, null, null,null},
-                    {null, null, null,null},
-                    {null, null, null,null},
-                    {null, null, null,null},
-                    {null, null, null,null},
-                    {null, null, null,null},
-                    {null, null, null,null},
-                    {null, null, null,null},
-                    {null, null, null,null},
-                    {null, null, null,null},
-                    {null, null, null,null},
-                    {null, null, null,null},
-                    {null, null, null,null},
-                    {null, null, null,null},
-                    {null, null, null,null},
-                    {null, null, null,null},
-                    {null, null, null,null},
-                    {null, null, null,null},
-                    {null, null, null,null},
-                    {null, null, null,null},
-                    {null, null, null,null},
-                    {null, null, null,null}
-                },
-                new String[]{
-                    "Nombre", "Fecha Inicio", "Fecha Fin","Instalacion",
-                }));
-                javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
-                modelo_tabla = actividadesTable.getModel();
-                int i = 0;
-                try {
-                    while (retset.next()) {
 
-                        if (i < 25) {
-                            actividadesTable.setValueAt(retset.getString("nombre"), i, 0);
-                            actividadesTable.setValueAt(retset.getString("fechaInicio"), i, 1);
-                            actividadesTable.setValueAt(retset.getString("fechaFin"), i, 2);
-                        } else {
-                            javax.swing.table.DefaultTableModel temp = new javax.swing.table.DefaultTableModel();
-                            Object nuevo[] = {"", "", ""};
-                            temp.addRow(nuevo);
-                            actividadesTable.setValueAt(retset.getString("nombre"), i, 0);
-                            actividadesTable.setValueAt(retset.getString("fechaInicio"), i, 1);
-                            actividadesTable.setValueAt(retset.getString("fechaFin"), i, 2);
-                        }
-                        i++;
+            actividadesTable.setModel(new javax.swing.table.DefaultTableModel(
+                    new Object[][]{
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+                    new String[]{
+                "Nombre", "Fecha Inicio", "Fecha Fin", "Instalacion",}));
+            javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
+            modelo_tabla = actividadesTable.getModel();
+            int i = 0;
+            try {
+                while (retset.next()) {
+
+                    if (i < 25) {
+                        actividadesTable.setValueAt(retset.getString("nombre"), i, 0);
+                        actividadesTable.setValueAt(retset.getString("fechaInicio"), i, 1);
+                        actividadesTable.setValueAt(retset.getString("fechaFin"), i, 2);
+                    } else {
+                        javax.swing.table.DefaultTableModel temp = new javax.swing.table.DefaultTableModel();
+                        Object nuevo[] = {"", "", ""};
+                        temp.addRow(nuevo);
+                        actividadesTable.setValueAt(retset.getString("nombre"), i, 0);
+                        actividadesTable.setValueAt(retset.getString("fechaInicio"), i, 1);
+                        actividadesTable.setValueAt(retset.getString("fechaFin"), i, 2);
                     }
-                } catch (SQLException ex) {
-                    Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    i++;
                 }
-            } else {
-                mostrarActividades();
+            } catch (SQLException ex) {
+                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } else {
+            mostrarActividades();
+        }
     }//GEN-LAST:event_buscarActividadActionPerformed
 
     private void nombreTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreTextFieldActionPerformed
@@ -602,7 +618,7 @@ public class PrincipalActividades extends javax.swing.JFrame {
     }//GEN-LAST:event_nombreTextFieldActionPerformed
 
     public void mostrarActividades() {
-        
+
         actividadesTable.removeAll();
         try {
             // TODO add your handling code here:
@@ -645,7 +661,7 @@ public class PrincipalActividades extends javax.swing.JFrame {
             modelo_tabla = actividadesTable.getModel();
             int i = 0;
             while (retset.next()) {
-                
+
                 if (i < 25) {
                     actividadesTable.setValueAt(retset.getString("a.nombre"), i, 0);
                     actividadesTable.setValueAt(retset.getString("a.fechaInicio"), i, 1);
@@ -663,64 +679,64 @@ public class PrincipalActividades extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
+
     private int getIDActividad() {
-        
+
         int indiceTabla = actividadesTable.getSelectedRow();
         ResultSet rts;
         int idActividad = 0;
-        
+
         String actividad = "SELECT idActividades FROM actividades WHERE nombre = '"
                 + actividadesTable.getValueAt(indiceTabla, 0) + "' AND fechaInicio = '"
                 + actividadesTable.getValueAt(indiceTabla, 1) + "' AND fechaFin = '"
                 + actividadesTable.getValueAt(indiceTabla, 2) + "'";
-        
-        
-        
+
+
+
         rts = bd.ejecutaConsulta(actividad);
         System.out.print("\n\n Busaca " + rts + "\n\n");
         try {
             if (rts.next()) {
                 idActividad = rts.getInt("idActividades");
-                
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
         return idActividad;
     }
-    
+
     private int getIDTemporada() {
-        
+
         int indiceTabla = actividadesTable.getSelectedRow();
         ResultSet rts;
         int idTemporada = 0;
-        
+
         String actividad = "SELECT Temporada_idTemporada FROM actividades WHERE nombre = '"
                 + actividadesTable.getValueAt(indiceTabla, 0) + "' AND fechaInicio = '"
                 + actividadesTable.getValueAt(indiceTabla, 1) + "' AND fechaFin = '"
                 + actividadesTable.getValueAt(indiceTabla, 2) + "'";
-        
-        
-        
+
+
+
         rts = bd.ejecutaConsulta(actividad);
         System.out.print("\n\n Busaca " + rts + "\n\n");
         try {
             if (rts.next()) {
                 idTemporada = rts.getInt("Temporada_idTemporada");
-                
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
         return idTemporada;
     }
-    
+
     private String leeConsultaActividad() {
-        
-        
+
+
         String consulta_actividades = "SELECT a.idActividades, a.nAlumnos, a.descripcion, a.precioSocio,"
                 + " a.precioNoSocio, a.Temporada_idTemporada, a.fechaInicio, a.fechaFin, a.nombre FROM ";
         String TablasImplicadas = " actividades a";
@@ -729,13 +745,13 @@ public class PrincipalActividades extends javax.swing.JFrame {
         //Date fechaInicio = (Date) fechaInicioDateChooser.getDate();
         //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-        
+
         if (!nombreTextField.getText().equals("") || !fechaInicioDateChooser.getDateFormatString().equals("dd-MMM-yyyy")
                 || !fechaFinDateChooser.getDateFormatString().equals("dd-MMM-yyyy")) {
             if (!nombreTextField.getText().equals("")) {
                 condicionConsulta = condicionConsulta + " a.nombre= '" + nombreTextField.getText() + "' AND ";
             }
-            
+
             if (!fechaInicioDateChooser.getDateFormatString().equals("dd-MM-yyyy")) {
                 condicionConsulta = condicionConsulta + " a.fechaInicio = " + fechaInicioDateChooser.getDateFormatString() + " AND ";
                 System.out.print("\n\n fecha" + fechaInicioDateChooser.getDateFormatString());
@@ -743,21 +759,20 @@ public class PrincipalActividades extends javax.swing.JFrame {
             if (!fechaFinDateChooser.getDateFormatString().equals("dd-MM-yyyy")) {
                 condicionConsulta = condicionConsulta + " a.fechaFin = " + fechaFinDateChooser.getDateFormatString() + " AND  ";
             }
-            
-            
+
+
             condicionConsulta = condicionConsulta.substring(0, condicionConsulta.length() - 5);
             TablasImplicadas = TablasImplicadas + condicionConsulta;
         }
-        
-        
+
+
         consulta_actividades = consulta_actividades + TablasImplicadas;
-        
-        
+
+
         return consulta_actividades;
-        
-        
+
+
     }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AñaridAlumno;
     private javax.swing.JButton Eliminar;

@@ -325,7 +325,9 @@ public class PrincipalGrupos extends javax.swing.JFrame {
                 g.setIdGrupo(idGrup);
                 g.setIdCat(idCat);
                 g.setIdEnt(idEnt);
-                g.setIdInst(idInst);
+                System.out.println("ideentrenador vale:"+idEnt);
+                //g.setIdInst(1);
+                
                 g.setIdTemp(idTemp);
 
                 boolean GrupoEliminado = false;

@@ -3,8 +3,7 @@ package GestionDeCategorias;
 import ServiciosAlmacenamiento.BaseDatos;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
 
@@ -237,5 +236,20 @@ public class CategoriaBD {
         }
         
         return listaCats;
+    }
+
+    static int getAnioCategoria(BaseDatos bd, String cat) throws SQLException {
+        String query = "SELECT edadmin FROM Categoria WHERE "
+                + "tipo='"+cat+"'";
+        ResultSet res = bd.ejecutaConsulta(query);
+        
+        int edadMin = 0;
+        if(res.next())
+            edadMin = res.getInt(1);
+        
+        GregorianCalendar g = new GregorianCalendar();
+        int edad = g.get(GregorianCalendar.YEAR) - edadMin;
+        
+        return edad;
     }
 }
