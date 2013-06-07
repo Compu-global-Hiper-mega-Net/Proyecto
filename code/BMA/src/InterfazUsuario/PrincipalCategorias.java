@@ -184,13 +184,10 @@ public class PrincipalCategorias extends javax.swing.JFrame {
 
     protected void actualizarTabla() throws SQLException {
         List<List<String>> listaCats = GestorCategorias.getListaCategorias(this.bd);
-        String aux;
         Object[][] data = new Object[listaCats.size()][2];
         for (int i = 0; i < listaCats.size(); i++) {
-            aux = listaCats.get(i).get(0);
-            data[i][0] = aux.substring(0, aux.indexOf(" "));
-            aux = aux.substring(aux.indexOf(" ") + 1, aux.length());
-            data[i][1] = aux.substring(0, aux.length());
+            data[i][0] = listaCats.get(i).get(0);
+            data[i][1] = listaCats.get(i).get(1).substring(0, listaCats.get(i).get(1).length());
         }
 
         DefaultTableModel dtm = new DefaultTableModel(data, new String[] { "Tipo", "Descripcion"}) {
