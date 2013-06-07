@@ -46,29 +46,74 @@ import javax.swing.border.Border;
  ******************************************************************************
  */
 
-public class AltaAlumno extends javax.swing.JFrame {
-
-    BaseDatos accesoBD;
-    Border bordeOriginal, bordeDatePicker, bordeError;
+public class AñadirModificarAlumno extends javax.swing.JFrame {
+    private PrincipalJugadores pP;
+    private BaseDatos bd;
+    private Border bordeOriginal, bordeDatePicker, bordeError;
+    private String nombreAnt, primerApellidoAnt, segundoApellidoAnt, cuentaCorrienteAnt, domicilioAnt, localidadAnt,
+            provinciaAnt, colegioAnt, nombrePadreAnt, nombreMadreAnt, emailAnt, tallaAlumnoAnt, sexoAnt, fechaNacAnt;
+    private int codPostalAnt, telFijoAnt, telMovilAnt;
 
     /**
      * Creates new form AnadorAlumno
      */
-    public AltaAlumno() {
+    public AñadirModificarAlumno(PrincipalJugadores pP, BaseDatos bd) {
+        this.pP = pP;
+        this.bd = bd;
         initComponents();
         bordeOriginal = nombre.getBorder();
         bordeDatePicker = fechaNac.getBorder();
         bordeError = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.red);
         ((JTextFieldDateEditor) fechaNac.getComponents()[1]).setEditable(false);
+        jLabel4.setVisible(false);
     }
-
-    public AltaAlumno(BaseDatos acceso) {
-        accesoBD = acceso;
+    
+    public AñadirModificarAlumno(PrincipalJugadores pP, BaseDatos bd, String nombre, String primerApellido, String segundoApellido, String fechaNac,
+            String cuentaCorriente, String domicilio, String localidad, int codPostal, String provincia, String colegio,
+            String nombrePadre, String nombreMadre, int telFijo, int telMovil, String email, String tallaAlumno, String sexo) {
+        this.pP = pP;
+        this.bd = bd;
         initComponents();
-        bordeOriginal = nombre.getBorder();
-        bordeDatePicker = fechaNac.getBorder();
+        bordeOriginal = this.nombre.getBorder();
+        bordeDatePicker = this.fechaNac.getBorder();
         bordeError = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.red);
-        ((JTextFieldDateEditor) fechaNac.getComponents()[1]).setEditable(false);
+        ((JTextFieldDateEditor) this.fechaNac.getComponents()[1]).setEditable(false);
+        jLabel2.setVisible(false);
+        nombreAnt = nombre;
+        this.nombre.setText(nombre);
+        primerApellidoAnt = primerApellido;
+        this.primerApellido.setText(primerApellido);
+        segundoApellidoAnt = segundoApellido;
+        this.segundoApellido.setText(segundoApellido);
+        fechaNacAnt = fechaNac;
+        this.fechaNac.setDate(new Date(fechaNac));
+        cuentaCorrienteAnt = cuentaCorriente;
+        this.numCuenta.setText(cuentaCorriente);
+        domicilioAnt = domicilio;
+        this.domicilio.setText(domicilioAnt);
+        localidadAnt = localidad;
+        this.localidad.setText(localidad);
+        codPostalAnt = codPostal;
+        this.codPostal.setText(String.valueOf(codPostal));
+        provinciaAnt = provincia;
+        this.provincia.setText(provincia);
+        colegioAnt = colegio;
+        this.colegio.setText(colegio);
+        nombrePadreAnt = nombrePadre;
+        this.nombrePadre.setText(nombrePadre);
+        nombreMadreAnt = nombreMadre;
+        this.nombreMadre.setText(nombreMadre);
+        telFijoAnt = telFijo;
+        this.telFijo.setText(String.valueOf(telFijo));
+        telMovilAnt = telMovil;
+        this.telMovil.setText(String.valueOf(telMovil));
+        emailAnt = email;
+        this.email.setText(email);
+        tallaAlumnoAnt = tallaAlumno;
+        this.talla.setSelectedItem(tallaAlumno);
+        sexoAnt = sexo;
+        if (sexo.equals("M")) this.sexoAlumno.setSelectedItem("Masculino");
+        else this.sexoAlumno.setSelectedItem("Femenino");
     }
 
     /**
@@ -92,7 +137,6 @@ public class AltaAlumno extends javax.swing.JFrame {
         segundoApellido = new javax.swing.JTextField();
         nombrePadre = new javax.swing.JTextField();
         datosFamiliares = new javax.swing.JLabel();
-        botonVolverAtras = new javax.swing.JButton();
         domicilio = new javax.swing.JTextField();
         nombreMadre = new javax.swing.JTextField();
         botonAnadir = new javax.swing.JButton();
@@ -120,23 +164,21 @@ public class AltaAlumno extends javax.swing.JFrame {
         provinciaLabel = new javax.swing.JLabel();
         sexoAlumno = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        botonModificar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nuevo alumno");
         setMinimumSize(new java.awt.Dimension(850, 480));
         setResizable(false);
 
-        jPanel1.setMaximumSize(new java.awt.Dimension(807, 430));
-        jPanel1.setMinimumSize(new java.awt.Dimension(807, 430));
-        jPanel1.setPreferredSize(new java.awt.Dimension(807, 430));
+        jPanel1.setMaximumSize(new java.awt.Dimension(807, 450));
+        jPanel1.setMinimumSize(new java.awt.Dimension(807, 450));
+        jPanel1.setPreferredSize(new java.awt.Dimension(807, 450));
 
         colegioLabel.setText("Colegio:");
 
-        nombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreActionPerformed(evt);
-            }
-        });
         nombre.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 nombreFocusLost(evt);
@@ -145,11 +187,6 @@ public class AltaAlumno extends javax.swing.JFrame {
 
         talla.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SinMedir", "6", "8", "10", "12", "XS", "S", "M", "L", "XL", "XXL" }));
 
-        provincia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                provinciaActionPerformed(evt);
-            }
-        });
         provincia.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 provinciaFocusLost(evt);
@@ -161,7 +198,7 @@ public class AltaAlumno extends javax.swing.JFrame {
         codPostalLabel.setText("Codigo Postal:");
 
         participante.setBackground(new java.awt.Color(191, 138, 138));
-        participante.setFont(new java.awt.Font("Tahoma", 0, 18));
+        participante.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         participante.setForeground(new java.awt.Color(242, 236, 236));
         participante.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         participante.setText("PARTICIPANTE");
@@ -169,22 +206,12 @@ public class AltaAlumno extends javax.swing.JFrame {
 
         nombreLabel.setText("Nombre:");
 
-        segundoApellido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                segundoApellidoActionPerformed(evt);
-            }
-        });
         segundoApellido.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 segundoApellidoFocusLost(evt);
             }
         });
 
-        nombrePadre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombrePadreActionPerformed(evt);
-            }
-        });
         nombrePadre.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 nombrePadreFocusLost(evt);
@@ -192,18 +219,11 @@ public class AltaAlumno extends javax.swing.JFrame {
         });
 
         datosFamiliares.setBackground(new java.awt.Color(134, 190, 134));
-        datosFamiliares.setFont(new java.awt.Font("Tahoma", 0, 18));
+        datosFamiliares.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         datosFamiliares.setForeground(new java.awt.Color(242, 236, 236));
         datosFamiliares.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         datosFamiliares.setText("DATOS FAMILIARES");
         datosFamiliares.setOpaque(true);
-
-        botonVolverAtras.setText("Volver Atras");
-        botonVolverAtras.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonVolverAtrasActionPerformed(evt);
-            }
-        });
 
         domicilio.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -211,18 +231,13 @@ public class AltaAlumno extends javax.swing.JFrame {
             }
         });
 
-        nombreMadre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreMadreActionPerformed(evt);
-            }
-        });
         nombreMadre.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 nombreMadreFocusLost(evt);
             }
         });
 
-        botonAnadir.setText("Añadir");
+        botonAnadir.setText("Aceptar");
         botonAnadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonAnadirActionPerformed(evt);
@@ -241,33 +256,18 @@ public class AltaAlumno extends javax.swing.JFrame {
 
         emailLabel.setText("Email:");
 
-        localidad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                localidadActionPerformed(evt);
-            }
-        });
         localidad.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 localidadFocusLost(evt);
             }
         });
 
-        telMovil.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                telMovilActionPerformed(evt);
-            }
-        });
         telMovil.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 telMovilFocusLost(evt);
             }
         });
 
-        primerApellido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                primerApellidoActionPerformed(evt);
-            }
-        });
         primerApellido.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 primerApellidoFocusLost(evt);
@@ -280,11 +280,6 @@ public class AltaAlumno extends javax.swing.JFrame {
             }
         });
 
-        colegio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                colegioActionPerformed(evt);
-            }
-        });
         colegio.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 colegioFocusLost(evt);
@@ -293,11 +288,6 @@ public class AltaAlumno extends javax.swing.JFrame {
 
         fechaNacLabel.setText("Fecha Nacimiento: ");
 
-        telFijo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                telFijoActionPerformed(evt);
-            }
-        });
         telFijo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 telFijoFocusLost(evt);
@@ -318,22 +308,12 @@ public class AltaAlumno extends javax.swing.JFrame {
 
         segundoApellidoLabel.setText("Segundo apellido:");
 
-        codPostal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                codPostalActionPerformed(evt);
-            }
-        });
         codPostal.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 codPostalFocusLost(evt);
             }
         });
 
-        numCuenta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                numCuentaActionPerformed(evt);
-            }
-        });
         numCuenta.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 numCuentaFocusLost(evt);
@@ -346,23 +326,43 @@ public class AltaAlumno extends javax.swing.JFrame {
 
         jLabel1.setText("Sexo:");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setText("Nuevo Jugador");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setText("Modificar Jugador");
+
+        botonModificar.setText("Guardar");
+        botonModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonModificarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(577, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(581, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botonVolverAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonAnadir, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(sexoAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(84, 84, 84))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(78, 78, 78)
+                        .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(334, 334, 334)
+                        .addComponent(jLabel4)))
+                .addGap(0, 466, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sexoAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(311, 311, 311))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(botonAnadir, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(187, 187, 187))))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -440,21 +440,30 @@ public class AltaAlumno extends javax.swing.JFrame {
                                     .addGap(3, 3, 3)
                                     .addComponent(numCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(344, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addContainerGap(474, Short.MAX_VALUE)))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(615, Short.MAX_VALUE)
+                    .addComponent(botonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(187, 187, 187)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(60, 60, 60)
+                .addComponent(jLabel4)
+                .addGap(54, 54, 54)
                 .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(sexoAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 185, Short.MAX_VALUE)
-                .addComponent(botonAnadir, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(botonVolverAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53))
+                    .addComponent(jLabel1)
+                    .addComponent(sexoAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 193, Short.MAX_VALUE)
+                .addComponent(botonAnadir)
+                .addGap(114, 114, 114))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(0, 20, Short.MAX_VALUE)
@@ -518,6 +527,15 @@ public class AltaAlumno extends javax.swing.JFrame {
                         .addComponent(numCuentaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(numCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(0, 20, Short.MAX_VALUE)))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addComponent(jLabel2)
+                    .addGap(0, 435, Short.MAX_VALUE)))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(313, Short.MAX_VALUE)
+                    .addComponent(botonModificar)
+                    .addGap(114, 114, 114)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -536,17 +554,13 @@ public class AltaAlumno extends javax.swing.JFrame {
             .addGap(0, 480, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 25, Short.MAX_VALUE)
+                    .addGap(0, 16, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(0, 25, Short.MAX_VALUE)))
+                    .addGap(0, 14, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombreActionPerformed
 
     private void nombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombreFocusLost
         if (nombre.getText().isEmpty() || nombre.getText().length() > 45) {
@@ -572,145 +586,74 @@ public class AltaAlumno extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_primerApellidoFocusLost
 
-    private void provinciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_provinciaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_provinciaActionPerformed
-
-    private void segundoApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_segundoApellidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_segundoApellidoActionPerformed
-
-    private void nombrePadreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombrePadreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombrePadreActionPerformed
-
-    private void botonVolverAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVolverAtrasActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_botonVolverAtrasActionPerformed
-
-    private void nombreMadreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreMadreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombreMadreActionPerformed
-
     private void botonAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAnadirActionPerformed
-        String errores = "";
+        String campos = "";
 
-        if (nombre.getText().isEmpty()) {
-            errores = errores + "Debes rellenar el campo 'Nombre'\n";
-            nombre.setBorder(bordeError);
-        } else if (nombre.getText().length() > 45) {
-            errores = errores + "La longitud del campo 'Nombre' no puede superar los 45 caracteres\n";
+        if (!nombre.getText().matches("[a-zA-Z]{1,45}")) {
+            campos = campos + "'Nombre',";
             nombre.setBorder(bordeError);
         }
-        if (primerApellido.getText().isEmpty()) {
-            errores = errores + "Debes rellenar el campo 'Primer apellido'\n";
-            primerApellido.setBorder(bordeError);
-        } else if (primerApellido.getText().length() > 45) {
-            errores = errores + "La longitud del campo 'Primer apellido' no puede superar los 45 caracteres\n";
+        if (!primerApellido.getText().matches("[a-zA-Z]{1,45}")) {
+            campos = campos + "'Primer apellido',";
             primerApellido.setBorder(bordeError);
         }
-        if (segundoApellido.getText().isEmpty()) {
-            errores = errores + "Debes rellenar el campo 'Segundo apellido'\n";
-            segundoApellido.setBorder(bordeError);
-        } else if (segundoApellido.getText().length() > 45) {
-            errores = errores + "La longitud del campo 'Segundo apellido' no puede superar los 45 caracteres\n";
+        if (!segundoApellido.getText().matches("[a-zA-Z]{1,45}")) {
+            campos = campos + "'Segundo apellido',";
             segundoApellido.setBorder(bordeError);
         }
         Date dateFromDateChooser = fechaNac.getDate();
         String dateString = String.format("%1$tY-%1$tm-%1$td", dateFromDateChooser);
         if (dateString.equals("null-null-null")) {
-            errores = errores + "Debes rellenar el campo 'Fecha de nacimiento'\n";
+            campos = campos + "'Fecha de nacimiento',";
             fechaNac.setBorder(bordeError);
         }
-        if (domicilio.getText().isEmpty()) {
-            errores = errores + "Debes rellenar el campo 'Domicilio'\n";
-            domicilio.setBorder(bordeError);
-        } else if (domicilio.getText().length() > 100) {
-            errores = errores + "La longitud del campo 'Domicilio' no puede superar los 100 caracteres\n";
+        if (!domicilio.getText().matches("[a-zA-Z0-9/ºª.,()-]{1,100}")) {
+            campos = campos + "'Domicilio',";
             domicilio.setBorder(bordeError);
         }
-        if (localidad.getText().isEmpty()) {
-            errores = errores + "Debes rellenar el campo 'Localidad'\n";
-            localidad.setBorder(bordeError);
-        } else if (localidad.getText().length() > 45) {
-            errores = errores + "La longitud del campo 'Localidad' no puede superar los 45 caracteres\n";
+        if (!localidad.getText().matches("[a-zA-Z-]{1,45}")) {
+            campos = campos + "'Localidad',";
             localidad.setBorder(bordeError);
         }
-        if (codPostal.getText().isEmpty()) {
-            errores = errores + "Debes rellenar el campo 'Codigo postal'\n";
-            codPostal.setBorder(bordeError);
-        } else if (codPostal.getText().length() > 10) {
-            errores = errores + "La longitud del campo 'Codigo postal' no puede superar los 10 caracteres\n";
-            codPostal.setBorder(bordeError);
-        } else if (!isInteger(codPostal.getText())) {
-            errores = errores + "El campo 'Codigo postal' debe estar compuesto por numeros\n";
+        if (!codPostal.getText().matches("[0-9]{1,10}")) {
+            campos = campos + "'Codigo postal',";
             codPostal.setBorder(bordeError);
         }
-        if (provincia.getText().isEmpty()) {
-            errores = errores + "Debes rellenar el campo 'Provincia'\n";
-            provincia.setBorder(bordeError);
-        } else if (provincia.getText().length() > 70) {
-            errores = errores + "La longitud del campo 'Provincia' no puede superar los 70 caracteres\n";
+        if (!provincia.getText().matches("[a-zA-Z-]{1,70}")) {
+            campos = campos + "'Provincia',";
             provincia.setBorder(bordeError);
         }
-        if (colegio.getText().isEmpty()) {
-            errores = errores + "Debes rellenar el campo 'Colegio'\n";
-            colegio.setBorder(bordeError);
-        } else if (colegio.getText().length() > 45) {
-            errores = errores + "La longitud del campo 'Colegio' no puede superar los 45 caracteres\n";
+        if (!colegio.getText().matches("[a-zA-Z-]{1,45}")) {
+            campos = campos + "'Colegio',";
             colegio.setBorder(bordeError);
         }
-        if (nombrePadre.getText().isEmpty()) {
-            errores = errores + "Debes rellenar el campo 'Nombre padre'\n";
-            nombrePadre.setBorder(bordeError);
-        } else if (nombrePadre.getText().length() > 100) {
-            errores = errores + "La longitud del campo 'Nombre padre' no puede superar los 100 caracteres\n";
+        if (!nombrePadre.getText().matches("[a-zA-Z-]{1,100}")) {
+            campos = campos + "'Nombre padre',";
             nombrePadre.setBorder(bordeError);
         }
-        if (nombreMadre.getText().isEmpty()) {
-            errores = errores + "Debes rellenar el campo 'Nombre madre'\n";
-            nombreMadre.setBorder(bordeError);
-        } else if (nombreMadre.getText().length() > 100) {
-            errores = errores + "La longitud del campo 'Nombre madre' no puede superar los 100 caracteres\n";
+        if (!nombreMadre.getText().matches("[a-zA-Z-]{1,100}")) {
+            campos = campos + "'Nombre madre',";
             nombreMadre.setBorder(bordeError);
         }
-        if (telFijo.getText().isEmpty()) {
-            errores = errores + "Debes rellenar el campo 'Telefono fijo'\n";
-            telFijo.setBorder(bordeError);
-        } else if (telFijo.getText().length() > 30) {
-            errores = errores + "La longitud del campo 'Telefono fijo' no puede superar los 30 caracteres\n";
-            telFijo.setBorder(bordeError);
-        } else if (!isInteger(telFijo.getText())) {
-            errores = errores + "El campo 'Telefono fijo' debe estar compuesto por numeros\n";
+        if (!telFijo.getText().matches("[0-9]{1,30}")) {
+            campos = campos + "'Telefono fijo',";
             telFijo.setBorder(bordeError);
         }
-        if (telMovil.getText().isEmpty()) {
-            errores = errores + "Debes rellenar el campo 'Telefono movil'\n";
-            telMovil.setBorder(bordeError);
-        } else if (telMovil.getText().length() > 30) {
-            errores = errores + "La longitud del campo 'Telefono movil' no puede superar los 30 caracteres\n";
-            telMovil.setBorder(bordeError);
-        } else if (!isInteger(telMovil.getText())) {
-            errores = errores + "El campo 'Telefono movil' debe estar compuesto por numeros\n";
+        if (!telMovil.getText().matches("[0-9]{1,30}")) {
+            campos = campos + "'Telefono movil',";
             telMovil.setBorder(bordeError);
         }
-        if (email.getText().isEmpty()) {
-            errores = errores + "Debes rellenar el campo 'Email'\n";
-            email.setBorder(bordeError);
-        } else if (email.getText().length() > 75) {
-            errores = errores + "La longitud del campo 'Email' no puede superar los 75 caracteres\n";
+        if (!email.getText().matches("[a-zA-Z0-9_-]{1,45}@[a-zA-Z0-9_-]{1,25}.[a-z]{1,5}")) {
+            campos = campos + "'Email',";
             email.setBorder(bordeError);
         }
-        if (numCuenta.getText().isEmpty()) {
-            errores = errores + "Debes rellenar el campo 'Numero de cuenta'\n";
-            numCuenta.setBorder(bordeError);
-        } else if (numCuenta.getText().length() > 40) {
-            errores = errores + "La longitud del campo 'Numero de cuenta' no puede superar los 40 caracteres\n";
+        if (!numCuenta.getText().matches("[0-9]{1,40}")) {
+            campos = campos + "'Telefono movil',";
             numCuenta.setBorder(bordeError);
         }
         //Si no ha habido ningún error al introducir los campos, entonces hacemos el insert
-        if (errores.isEmpty()) {
-            boolean error = GestorAlumnos.darAltaAlumno(accesoBD, nombre.getText(), primerApellido.getText(), segundoApellido.getText(), dateFromDateChooser,
+        if (campos.isEmpty()) {
+            boolean error = GestorAlumnos.darAltaAlumno(bd, nombre.getText(), primerApellido.getText(), segundoApellido.getText(), dateFromDateChooser,
                     numCuenta.getText(), domicilio.getText(), localidad.getText(),
                     Integer.parseInt(codPostal.getText()), provincia.getText(), colegio.getText(), nombrePadre.getText(),
                     nombreMadre.getText(), Integer.parseInt(telFijo.getText()), Integer.parseInt(telMovil.getText()), email.getText(), "",
@@ -725,39 +668,11 @@ public class AltaAlumno extends javax.swing.JFrame {
             }
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(null,
-                    errores.substring(0, errores.length() - 1),
+            JOptionPane.showMessageDialog(null, "Se han encontrado errores en los siguientes campos:\n" +
+                    campos.substring(0, campos.length() - 1),
                     "Errores en el formulario", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_botonAnadirActionPerformed
-
-    private void localidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_localidadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_localidadActionPerformed
-
-    private void telMovilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telMovilActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_telMovilActionPerformed
-
-    private void colegioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_colegioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_colegioActionPerformed
-
-    private void telFijoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telFijoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_telFijoActionPerformed
-
-    private void codPostalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codPostalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_codPostalActionPerformed
-
-    private void numCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numCuentaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_numCuentaActionPerformed
-
-    private void primerApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_primerApellidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_primerApellidoActionPerformed
 
     private void fechaNacFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fechaNacFocusLost
         Date dateFromDateChooser = fechaNac.getDate();
@@ -857,6 +772,20 @@ public class AltaAlumno extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_numCuentaFocusLost
 
+    private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarActionPerformed
+        if (!nombre.getText().equals(nombreAnt) || !primerApellido.getText().equals(primerApellidoAnt)
+                || !segundoApellido.getText().equals(segundoApellidoAnt)
+                || !numCuenta.getText().equals(cuentaCorrienteAnt) || !domicilio.getText().equals(domicilioAnt)
+                || !localidad.getText().equals(localidadAnt) || !codPostal.getText().equals(String.valueOf(codPostalAnt))
+                || !provincia.getText().equals(provinciaAnt) || !colegio.getText().equals(colegioAnt)
+                || !nombrePadre.getText().equals(nombrePadreAnt) || !nombreMadre.getText().equals(nombreMadreAnt)
+                || !telFijo.getText().equals(String.valueOf(telFijoAnt)) || !telMovil.getText().equals(String.valueOf(telMovilAnt))
+                || !email.getText().equals(emailAnt) || !((String)talla.getSelectedItem()).equals(tallaAlumnoAnt)
+                || !((String)sexoAlumno.getSelectedItem()).substring(0, 1).equals(sexoAnt)) {
+            GestorAlumnos.modificarDatos(bd, emailAnt, nombreAnt, primerApellidoAnt, segundoApellidoAnt, fechaNacAnt, cuentaCorrienteAnt, domicilioAnt, localidadAnt, nombreAnt, provinciaAnt, colegioAnt, nombrePadreAnt, nombreMadreAnt, sexoAnt, sexoAnt, emailAnt, colegioAnt, tallaAlumnoAnt);
+        }
+    }//GEN-LAST:event_botonModificarActionPerformed
+
     private boolean isInteger(String cadena) {
         boolean esEntero = true;
         try {
@@ -867,44 +796,9 @@ public class AltaAlumno extends javax.swing.JFrame {
         return esEntero;
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AltaAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AltaAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AltaAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AltaAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new AltaAlumno().setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAnadir;
-    private javax.swing.JButton botonVolverAtras;
+    private javax.swing.JButton botonModificar;
     private javax.swing.JTextField codPostal;
     private javax.swing.JLabel codPostalLabel;
     private javax.swing.JTextField colegio;
@@ -917,6 +811,8 @@ public class AltaAlumno extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser fechaNac;
     private javax.swing.JLabel fechaNacLabel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField localidad;
     private javax.swing.JLabel localidadLabel;

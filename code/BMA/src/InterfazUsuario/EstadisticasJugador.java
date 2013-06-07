@@ -53,7 +53,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
     JFreeChart Grafica;
     ChartPanel Panel ;
     JFrame Ventana ;
-    List <String> partidosJug = new ArrayList <String>();
+    List <String> partidosJug = new ArrayList <>();
     DefaultCategoryDataset Datos = new DefaultCategoryDataset();
     DefaultTableModel dtm = new DefaultTableModel();
             
@@ -110,10 +110,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
             fila[5] = retset.getString(7);
             fila[6] = retset.getString(8);
 
-
             dtm.addRow(fila);
-
-             tablaJugadoresEstadisticas.setModel(dtm);
         }
         tablaJugadoresEstadisticas.setModel(dtm);
     }
@@ -122,8 +119,8 @@ import org.jfree.data.category.DefaultCategoryDataset;
      private  void actualizaGraficas() throws SQLException{ 
          
         int i=0;
-        List<String> idDatos = new ArrayList<String>();
-        List<Integer> numCol = new ArrayList<Integer>();
+        List<String> idDatos = new ArrayList<>();
+        List<Integer> numCol = new ArrayList<>();
             
             if (estadisticasAsistencias.isSelected()){
                 idDatos.add("asistencias");
@@ -264,30 +261,32 @@ import org.jfree.data.category.DefaultCategoryDataset;
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(verGraficas, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(60, 60, 60)
-                        .addComponent(botonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jugadorLab, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(nombreAlumnoElegido, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(panelTabEstJug, javax.swing.GroupLayout.PREFERRED_SIZE, 936, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelTabEstJug, javax.swing.GroupLayout.PREFERRED_SIZE, 936, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(estadisticasAsistencias)
+                                .addGap(38, 38, 38)
+                                .addComponent(estadisticasRebOfen)
+                                .addGap(35, 35, 35)
+                                .addComponent(estadisticasRebDef)
+                                .addGap(37, 37, 37)
+                                .addComponent(estadisticasRobos)
+                                .addGap(33, 33, 33)
+                                .addComponent(estadisticasPerdidas))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(verGraficas, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(39, 39, 39)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botonSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(estadisticasPuntos)
+                                .addGap(18, 18, 18)))))
                 .addContainerGap(36, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(141, 141, 141)
-                .addComponent(estadisticasAsistencias)
-                .addGap(33, 33, 33)
-                .addComponent(estadisticasRebOfen)
-                .addGap(38, 38, 38)
-                .addComponent(estadisticasRebDef)
-                .addGap(37, 37, 37)
-                .addComponent(estadisticasRobos)
-                .addGap(36, 36, 36)
-                .addComponent(estadisticasPerdidas)
-                .addGap(34, 34, 34)
-                .addComponent(estadisticasPuntos)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

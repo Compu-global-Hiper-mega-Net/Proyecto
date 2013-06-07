@@ -63,8 +63,8 @@ CREATE TABLE `actividadesinstalacion` (
   PRIMARY KEY (`actividades_idActividades`,`actividades_Temporada_idTemporada`,`Instalacion_idInstalacion`),
   KEY `fk_actividades_has_Instalacion_Instalacion1_idx` (`Instalacion_idInstalacion`),
   KEY `fk_actividades_has_Instalacion_actividades1_idx` (`actividades_idActividades`,`actividades_Temporada_idTemporada`),
-  CONSTRAINT `fk_actividades_has_Instalacion_actividades1` FOREIGN KEY (`actividades_idActividades`) REFERENCES `actividades` (`idActividades`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_actividades_has_Instalacion_Instalacion1` FOREIGN KEY (`Instalacion_idInstalacion`) REFERENCES `instalacion` (`idInstalacion`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_actividades_has_Instalacion_actividades1` FOREIGN KEY (`actividades_idActividades`) REFERENCES `actividades` (`idActividades`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_actividades_has_Instalacion_Instalacion1` FOREIGN KEY (`Instalacion_idInstalacion`) REFERENCES `instalacion` (`idInstalacion`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

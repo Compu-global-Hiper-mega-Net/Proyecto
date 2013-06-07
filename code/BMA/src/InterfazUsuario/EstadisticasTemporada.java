@@ -3,10 +3,18 @@ package InterfazUsuario;
 import GestionDeTemporadas.GestorTemporadas;
 import ServiciosAlmacenamiento.BaseDatos;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -39,6 +47,13 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
     BaseDatos accesoBD;
     ResultSet retset;
     String temporadaElegida;
+    JFreeChart Grafica;
+    ChartPanel Panel ;
+    JFrame Ventana ;
+    DefaultCategoryDataset Datos = new DefaultCategoryDataset();
+    DefaultTableModel dtm = new DefaultTableModel();
+    List<Integer> pGanados = new ArrayList<>();
+    List<Integer> pPerdidos = new ArrayList<>();
 
     public EstadisticasTemporada() {
         initComponents();
@@ -100,6 +115,7 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
                 ResultSet res3 = accesoBD.ejecutaConsulta(consulta3);
                 if (res3.next()) {
                     fila[2] = res3.getString(1);
+                    pGanados.add(res3.getInt(1));
                 }
 
                 String consulta4 = "SELECT COUNT(*) FROM partido p, equipo e WHERE (resultadoLocal < resultadoVisitante)"
@@ -108,6 +124,7 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
                 ResultSet res4 = accesoBD.ejecutaConsulta(consulta4);
                 if (res4.next()) {
                     fila[3] = res4.getString(1);
+                    pPerdidos.add(res4.getInt(1));
                 }
 
                 fila[4] = retset.getString(5);
@@ -129,6 +146,39 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
             elegirCategoriaLista.addItem(res.getString(1));
         }
     }
+    
+    
+    private void actualizaGraficas() throws SQLException {
+        
+        int i=0, j=0;
+
+        try {
+            if (estadisticasPartidosGanados.isSelected()){
+                retset.beforeFirst();
+                while(retset.next()){
+                    Datos.addValue(pGanados.get(i), (Comparable) tablaTemporadaEstadisticas.getColumnName(2), (Comparable) retset.getString(1)); 
+                    i++;
+                }
+            }
+            if(estadisticasPartidosPerdidos.isSelected()){
+                retset.beforeFirst();
+                while(retset.next()){
+                    Datos.addValue(pPerdidos.get(j), (Comparable) tablaTemporadaEstadisticas.getColumnName(3), (Comparable) retset.getString(1));
+                        j++;
+                }
+            }
+            if(estadisticasPuntosLiga.isSelected()){
+                retset.beforeFirst();
+                while(retset.next())
+                     Datos.addValue(retset.getInt(5), (Comparable) tablaTemporadaEstadisticas.getColumnName(4), (Comparable) retset.getString(1)); 
+            }
+        } catch (SQLException ex) {
+              Logger.getLogger(EstadisticasJugador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        Grafica = ChartFactory.createBarChart3D(null, "Equipos", null,
+                                               Datos, PlotOrientation.HORIZONTAL, true, true, false);  
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -147,6 +197,11 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
         elegirCategoriaLista = new javax.swing.JComboBox();
         botonMostrarEstadisticasTemporada = new javax.swing.JButton();
         temporadaElegidaTexto = new javax.swing.JLabel();
+        estadisticasAsistencias = new javax.swing.JCheckBox();
+        mostrarGraficasTemporada = new javax.swing.JButton();
+        estadisticasPuntosLiga = new javax.swing.JCheckBox();
+        estadisticasPartidosPerdidos = new javax.swing.JCheckBox();
+        estadisticasPartidosGanados = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -155,11 +210,6 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
         tablaTemporadaEstadisticas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tablaTemporadaEstadisticas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -222,6 +272,21 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
             }
         });
 
+        estadisticasAsistencias.setText("Datos Graficas");
+
+        mostrarGraficasTemporada.setText("Ver Graficas");
+        mostrarGraficasTemporada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mostrarGraficasTemporadaActionPerformed(evt);
+            }
+        });
+
+        estadisticasPuntosLiga.setText("Datos Graficas");
+
+        estadisticasPartidosPerdidos.setText("Datos Graficas");
+
+        estadisticasPartidosGanados.setText("Datos Graficas");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -243,8 +308,26 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(panelTabEstTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 856, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(botonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(estadisticasPartidosGanados)
+                                .addGap(66, 66, 66)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(estadisticasPartidosPerdidos)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(estadisticasPuntosLiga))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(8, 8, 8)
+                                        .addComponent(mostrarGraficasTemporada, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(61, 61, 61)
+                                        .addComponent(botonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(20, 20, 20)))))
                 .addContainerGap(31, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(401, 401, 401)
+                    .addComponent(estadisticasAsistencias)
+                    .addContainerGap(401, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -256,15 +339,23 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
                     .addComponent(elegirCategoriaLista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonMostrarEstadisticasTemporada)
                     .addComponent(temporadaElegidaTexto))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(panelTabEstTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(81, 81, 81))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botonSalir)
-                        .addGap(32, 32, 32))))
+                .addGap(40, 40, 40)
+                .addComponent(panelTabEstTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(estadisticasPuntosLiga)
+                    .addComponent(estadisticasPartidosPerdidos)
+                    .addComponent(estadisticasPartidosGanados))
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonSalir)
+                    .addComponent(mostrarGraficasTemporada))
+                .addGap(32, 32, 32))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(242, 242, 242)
+                    .addComponent(estadisticasAsistencias)
+                    .addContainerGap(242, Short.MAX_VALUE)))
         );
 
         pack();
@@ -301,6 +392,26 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_botonMostrarEstadisticasTemporadaActionPerformed
+
+    private void mostrarGraficasTemporadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarGraficasTemporadaActionPerformed
+        
+        if(!estadisticasPartidosGanados.isSelected()&& !estadisticasPartidosPerdidos.isSelected() && !estadisticasPuntosLiga.isSelected())
+              JOptionPane.showMessageDialog(null,"Seleccione al menos un grupo de datos para ver grafica");                                           
+         else{
+             try {
+                 Datos.clear();
+                 actualizaGraficas();
+             } catch (SQLException ex) {
+                 Logger.getLogger(EstadisticasJugador.class.getName()).log(Level.SEVERE, null, ex);
+             }
+             Panel = new ChartPanel(Grafica);
+             Ventana = new JFrame("Gráficas");
+             Ventana.getContentPane().add(Panel);
+             Ventana.pack();
+             Ventana.setVisible(true);
+             Ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
+         }
+    }//GEN-LAST:event_mostrarGraficasTemporadaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -342,6 +453,11 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
     private javax.swing.JToggleButton botonSalir;
     private javax.swing.JLabel elegirCategoriaLab;
     private javax.swing.JComboBox elegirCategoriaLista;
+    private javax.swing.JCheckBox estadisticasAsistencias;
+    private javax.swing.JCheckBox estadisticasPartidosGanados;
+    private javax.swing.JCheckBox estadisticasPartidosPerdidos;
+    private javax.swing.JCheckBox estadisticasPuntosLiga;
+    private javax.swing.JButton mostrarGraficasTemporada;
     private javax.swing.JScrollPane panelTabEstTemp;
     private javax.swing.JTable tablaTemporadaEstadisticas;
     private javax.swing.JLabel temporadaElegidaTexto;
