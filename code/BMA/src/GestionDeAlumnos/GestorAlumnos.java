@@ -71,10 +71,10 @@ public class GestorAlumnos {
     
     public static boolean modificarDatos(BaseDatos accesoBD, String idAlumno, String nombre, String primerApellido, String segundoApellido, String fechaNac,
             String cuentaCorriente, String domicilio, String localidad, String codPostal, String provincia, String colegio,
-            String nombrePadre, String nombreMadre, String telFijo, String telMovil, String email, String observaciones, String tallaAlumno) {
+            String nombrePadre, String nombreMadre, String telFijo, String telMovil, String email, String observaciones, String tallaAlumno, String sexo) {
         
         return AccesoBDAlumno.modificarDatosAlumno(accesoBD, idAlumno, nombre, primerApellido, segundoApellido, fechaNac,
-            cuentaCorriente, domicilio, localidad, codPostal, provincia, colegio,
+            cuentaCorriente, domicilio, localidad, codPostal, provincia, colegio, sexo,
             nombrePadre, nombreMadre, telFijo, telMovil, email, observaciones, tallaAlumno);
     }
     public static void eliminaAlumno(BaseDatos accesoBD, String nombre, String primerApellido, String segundoApellido, java.util.Date fechaNac,

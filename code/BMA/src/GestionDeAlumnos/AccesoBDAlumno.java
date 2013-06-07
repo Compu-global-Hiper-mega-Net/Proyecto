@@ -218,7 +218,7 @@ class AccesoBDAlumno {
     }
 
     public static boolean modificarDatosAlumno(BaseDatos accesoBD, String idAlumno, String nombre, String primerApellido, String segundoApellido, String fechaNac,
-            String cuentaCorriente, String domicilio, String localidad, String codPostal, String provincia, String colegio,
+            String cuentaCorriente, String domicilio, String localidad, String codPostal, String provincia, String colegio, String sexo, 
             String nombrePadre, String nombreMadre, String telFijo, String telMovil, String email, String observaciones, String tallaAlumno) {
         boolean exito = true;
         String actualizacion = "UPDATE alumno SET ";
@@ -232,7 +232,7 @@ class AccesoBDAlumno {
             actualizacion = actualizacion + "segundoApellido='" + segundoApellido + "', ";
         }
         if (fechaNac != null) {
-            actualizacion = actualizacion + "fechaNacimiento='" + segundoApellido + "', ";
+            actualizacion = actualizacion + "fechaNacimiento='" + fechaNac + "', ";
         }
         if (cuentaCorriente != null) {
             actualizacion = actualizacion + "numeroCuenta='" + cuentaCorriente + "', ";

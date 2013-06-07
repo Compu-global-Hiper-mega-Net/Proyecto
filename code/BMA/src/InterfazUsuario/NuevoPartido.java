@@ -8,6 +8,7 @@ import GestionDePartidos.*;
 import GestionDeTemporadas.*;
 import GestionDeCategorias.*;
 import GestionDeEquipos.*;
+import GestionDeInstalaciones.GestorInstalacion;
 import ServiciosAlmacenamiento.BaseDatos;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
@@ -33,7 +34,7 @@ public class NuevoPartido extends javax.swing.JFrame {
     BaseDatos accesoBD;
     private Border bordeError;
     private Border bordeDatePicker;
-    PantallaPrincipal principal;
+    PrincipalPartidos principal;
     Object equipoAnterior1, equipoAnterior2;
     int idCat, idTemp;
     boolean noEntry; //Variable que impide el paso a los ItemStateChanged mientras se actualizan los ComboBox
@@ -46,7 +47,7 @@ public class NuevoPartido extends javax.swing.JFrame {
         bordeError = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.red);
     }
     
-    public NuevoPartido(BaseDatos acceso, PantallaPrincipal p) throws SQLException {
+    public NuevoPartido(BaseDatos acceso, PrincipalPartidos p) throws SQLException {
         accesoBD = acceso;
         initComponents();
         principal = p;
@@ -54,20 +55,20 @@ public class NuevoPartido extends javax.swing.JFrame {
         noEntry = true;
         ((JTextFieldDateEditor) fechaPartido.getComponents()[1]).setEditable(false);
         
-        List<String> temporadas = new ArrayList<String>();
+        List<String> temporadas = new ArrayList<>();
         temporadas = principal.getListaTemps();
         actualizaComboTemporada(temporadas);
         
-        List<List<String>> categorias = new ArrayList<List<String>>();
+        List<List<String>> categorias = new ArrayList<>();
         categorias = principal.getListaCategorias();
         actualizaComboCategoria(categorias);  
         
-        List<String> instalaciones = new ArrayList<String>();
+        List<String> instalaciones = new ArrayList<>();
         instalaciones = principal.getListaInstalaciones(null);
         actualizaComboInstalacion(instalaciones);
         
         idCat = idTemp = 0;
-        List<String> equipos = new ArrayList<String>();
+        List<String> equipos = new ArrayList<>();
         equipos = principal.getListaEquipos(idCat,idTemp);
         actualizaComboEquipo(equipos, 1);
         actualizaComboEquipo(equipos, 2);
@@ -493,41 +494,7 @@ public class NuevoPartido extends javax.swing.JFrame {
                 equipoAnterior2 = "";
         }
     }//GEN-LAST:event_ComboCategoriaItemStateChanged
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NuevoPartido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NuevoPartido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NuevoPartido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NuevoPartido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new NuevoPartido().setVisible(true);
-            }
-        });
-    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancelar;
     private javax.swing.JLabel CategoriaLabel;

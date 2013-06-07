@@ -2,6 +2,7 @@ package GestionDeGrupos;
 
 import GestionDeAlumnos.GestorAlumnos;
 import GestionDeCategorias.GestorCategorias;
+import GestionDePagos.GestorPagos;
 import GestionDeTemporadas.GestorTemporadas;
 import GestionDeUsuarios.GestorUsuarios;
 import InterfazUsuario.PantallaPrincipal;
@@ -104,15 +105,12 @@ public class GruposBD {
         while(res.next())
             idCat = res.getInt(1);
         
-        System.out.println();
-        
         query = "SELECT count(*) from mydb.categoria, mydb.Grupo, mydb.horario, mydb.instalacion where "
                 + "horario.Instalacion_idInstalacion=instalacion.idInstalacion AND "
                 + "horario.hora1='18:00:00' AND grupo.categoria_idCategoria=categoria.idCategoria AND "
                 + "grupo.Categoria_idCategoria='1' ";
         
         res = accesoBD.ejecutaConsulta(query);
-        System.out.println(query);
         
         int nCons = 0, nCons2 = 0;
         while(res.next())
@@ -125,7 +123,6 @@ public class GruposBD {
                 + "horario.hora1='18:00:00' AND grupo.categoria_idCategoria=categoria.idCategoria AND "
                 + "grupo.Categoria_idCategoria<>'1' ";
         res = accesoBD.ejecutaConsulta(query);
-        System.out.println(query);
         
         while(res.next())
             nCons2 = res.getInt(1);
@@ -150,9 +147,6 @@ public class GruposBD {
         
         int resta = capacidad - (nCons + nCons2);
         
-        System.out.println(capacidad);
-        System.out.println(nCons);
-        System.out.println(nCons2);
         
         if(resta == 0){
             JOptionPane.showMessageDialog(new PantallaPrincipal(), "La instalacion esta llena", "Error", JOptionPane.ERROR_MESSAGE);
@@ -239,8 +233,6 @@ public class GruposBD {
                 query5 = "INSERT INTO AlumnoTemporada (Alumno_idAlumno,"
                             + "Temporada_idTemporada) VALUES "
                             + "('"+it+"','"+idTemp+"')";
-                System.out.println();
-                System.out.println(query5);
                 res5 = accesoBD.ejecutaActualizacion(query5);
                 
                 for(int i = 0; i < 9; i++){
@@ -617,11 +609,38 @@ public class GruposBD {
      */
     static void eliminarAlumnoIntroducido(BaseDatos accesoBD, int idGrupo, int idAl) throws SQLException {
         ResultSet resSet;
-        String query = "DELETE FROM AlumnoGrupo WHERE "
+        boolean res;
+        List<Integer> idCuotas = new ArrayList<Integer>();
+        String query = null;
+        
+        int idTemp = GestorGrupos.getIdTemporada(accesoBD, idGrupo);
+                
+        boolean existe = GestorGrupos.existeAlumnoEnDosGrupos(accesoBD, idAl, idTemp);
+        if(!existe){
+            idCuotas = GestorPagos.getIdCuotas(accesoBD, idAl, idTemp);
+            
+            query = "DELETE FROM PagoTemporada WHERE "
+                    + "AlumnoTemporada_Alumno_idAlumno='"+idAl+"' AND "
+                    + "AlumnoTemporada_Temporada_idTemporada='"+idTemp+"'";
+            res = accesoBD.eliminar(query);
+            
+            for(Integer i : idCuotas){
+                query = "DELETE FROM Cuota WHERE "
+                        + "idCuota='"+i+"'";
+                res = accesoBD.eliminar(query);
+            }
+        }
+        
+        
+        query = "DELETE FROM AlumnoGrupo WHERE "
                 + "Alumno_idAlumno='"+idAl+"' AND Grupo_idGrupo='"+idGrupo+"'";
        
-        boolean res = accesoBD.eliminar(query);
+        res = accesoBD.eliminar(query);
         
+        
+        
+        
+        /* Con esto se actualiza el numero de alumnos en el grupo */
         query = "SELECT n_alumnos FROM Grupo WHERE "
                 + "idGrupo='"+idGrupo+"'";
         resSet = accesoBD.ejecutaConsulta(query);
@@ -634,8 +653,8 @@ public class GruposBD {
         
         query = "UPDATE Grupo SET n_alumnos='"+nAls+"' WHERE "
                     + "idGrupo='"+idGrupo+"'";
-        
         int nRes = accesoBD.ejecutaActualizacion(query);
+        
         
         if(res)
             System.out.println("se ha eliminado");
@@ -693,6 +712,7 @@ public class GruposBD {
         idCat = GestorCategorias.getIdCategoria(accesoBD, gViejo.getCategoria());
         
         if(gNuevo.getTemporada() != gViejo.getTemporada()){
+            
             idTemp = GestorTemporadas.getIdTemporada(accesoBD, gNuevo.getTemporada());
             query1 = "UPDATE Grupo SET Temporada_idTemporada='"+idTemp+"' "
                     + "WHERE idGrupo='"+idGrupo+"'";
@@ -704,11 +724,9 @@ public class GruposBD {
         
         if(gNuevo.getEntrenador() != gViejo.getEntrenador()){
             idEnt = GestorUsuarios.getIdEnt(accesoBD, gNuevo.getEntrenador());
+            
             query1 = "UPDATE Grupo SET Usuario_idUsuario='"+idEnt+"' "
                     + "WHERE idGrupo='"+idGrupo+"'";
-            res1 = accesoBD.ejecutaActualizacion(query1);
-            query1 = "UPDATE AlumnoGrupo SET Grupo_Usuario_idUsuario='"+idEnt+"' "
-                    + "WHERE Grupo_idGrupo='"+idGrupo+"'";
             res1 = accesoBD.ejecutaActualizacion(query1);
         }
         
@@ -835,6 +853,23 @@ public class GruposBD {
                         + "('"+it+"','"+idGrupo+"','"+idCat+"','"+idEnt+"','"+idTemp+"')";
                 res = accesoBD.ejecutaActualizacion(query);
             }
+            
+            query = "SELECT n_alumnos FROM Grupo WHERE "
+                    + "idGrupo='"+idGrupo+"'";
+            auxR = accesoBD.ejecutaConsulta(query);
+            
+            int nAls = 0;
+            if(auxR.next())
+                nAls = auxR.getInt(1);
+            
+            System.out.println("nAls antes vale:"+nAls);
+            
+            nAls = nAls + listaAlumnos.size();
+            System.out.println("nAls despues vale:"+nAls);
+            
+            query = "UPDATE Grupo SET n_alumnos='"+nAls+"' "
+                    + "WHERE idGrupo='"+idGrupo+"'";
+            res = accesoBD.ejecutaActualizacion(query); 
         }
     }
 
@@ -901,6 +936,16 @@ public class GruposBD {
         return GrupoEliminado;
     }
 
+    /**
+     * Permite saber si un alumno esta dado de alta en una temporada.
+     * @param bd Usado para interactuar con la base de datos.
+     * @param idAl Identificador del alumno del que queremos saber si se encuentra 
+     * en la temporada.
+     * @param idTemp Identificador de la temporada en la que queremos saber si se 
+     * encuentra el alumno.
+     * @return TRUE si el alumno esta en la temporada, FALSE en caso contrario.
+     * @throws SQLException 
+     */
     static boolean existeAlumnoTemporada(BaseDatos bd, int idAl, int idTemp) throws SQLException {
         String query = "SELECT * FROM AlumnoTemporada "
                 + "WHERE Alumno_idAlumno='"+idAl+"' "
@@ -915,6 +960,14 @@ public class GruposBD {
         return existe;
     }
 
+    /**
+     * Permite obtener el año (expresado como "anio/anio+1" de una temporada.
+     * @param bd Usado para interactuar con la base de datos.
+     * @param idTemp Identificador de la temporada de la que queremos saber el 
+     * curso.
+     * @return Un <code>int</code> con el curso de la temporada.
+     * @throws SQLException 
+     */
     public static int getAnio(BaseDatos bd, int idTemp) throws SQLException {
         String query = "SELECT curso FROM Temporada "
                 + "WHERE idTemporada='"+idTemp+"'";
@@ -927,6 +980,32 @@ public class GruposBD {
         auxAnio = auxAnio.substring(0, auxAnio.indexOf("/"));
         
         return Integer.parseInt(auxAnio);
+    }
+
+    /**
+     * Permite saber si un alumno esta en dos grupos de entrenamiento.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param idAl Identificador con el alumno del que queremos saber si esta 
+     * en dos grupos de entrenamiento.
+     * @param idTemp Identificador de la temporada.
+     * @return TRUE si el alumno esta en dos grupos de entrenamiento, FALSE en 
+     * caso contrario.
+     * @throws SQLException 
+     */
+    static boolean existeAlumnoEnDosGrupos(BaseDatos accesoBD, int idAl, int idTemp) throws SQLException {
+        String query = "SELECT * FROM AlumnoGrupo WHERE "
+                + "Alumno_idAlumno='"+idAl+"' AND "
+                + "Grupo_Temporada_idTemporada='"+idTemp+"'";
+        ResultSet res = accesoBD.ejecutaConsulta(query);
+        
+        int cont = 0;
+        while(res.next())
+            cont++;
+        
+        if(cont > 1)
+            return true;
+        else
+            return false;
     }
     
 }

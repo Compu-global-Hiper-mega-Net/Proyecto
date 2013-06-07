@@ -2,11 +2,9 @@ package GestionDeTemporadas;
 
 import GestionActividades.Actividad;
 import GestionDeAlumnos.Alumno;
-import GestionDeGrupos.Grupo;
 import GestionDeEquipos.Equipo;
-import java.util.Date;
+import GestionDeGrupos.Grupo;
 import java.util.List;
-import javax.swing.JTextField;
 
 /**
  * Clase que representa la temporada.

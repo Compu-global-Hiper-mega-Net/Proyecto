@@ -35,4 +35,8 @@ public class GestorPagos {
         pago.modificarCuotaBD(accesoBD, idCuota, pagado);
         
     }
+
+    public static List<Integer> getIdCuotas(BaseDatos accesoBD, int idAl, int idTemp) throws SQLException {
+        return PagoBD.getIdCuotas(accesoBD, idAl, idTemp);
+    }
 }

@@ -8,7 +8,13 @@ import GestionDeAlumnos.GestorAlumnos;
 import ServiciosAlmacenamiento.BaseDatos;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
@@ -20,73 +26,82 @@ import javax.swing.border.Border;
 
 /*
  ******************************************************************************
-                   (c) Copyright 2013 
-                   * 
-                   * Moisés Gautier Gómez
-                   * Julio Ros Martínez
-                   * Francisco Javier Gómez del Olmo
-                   * Francisco Santolalla Quiñonero
-                   * Carlos Jesús Fernández Basso
-                   * Alexander Moreno Borrego
-                   * Jesús Manuel Contreras Siles
-                   * Diego Muñoz Rio
+ (c) Copyright 2013 
+ * 
+ * Moisés Gautier Gómez
+ * Julio Ros Martínez
+ * Francisco Javier Gómez del Olmo
+ * Francisco Santolalla Quiñonero
+ * Carlos Jesús Fernández Basso
+ * Alexander Moreno Borrego
+ * Jesús Manuel Contreras Siles
+ * Diego Muñoz Rio
  
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************
  */
-
 public class AñadirModificarAlumno extends javax.swing.JFrame {
+
     private PrincipalJugadores pP;
     private BaseDatos bd;
     private Border bordeOriginal, bordeDatePicker, bordeError;
     private String nombreAnt, primerApellidoAnt, segundoApellidoAnt, cuentaCorrienteAnt, domicilioAnt, localidadAnt,
-            provinciaAnt, colegioAnt, nombrePadreAnt, nombreMadreAnt, emailAnt, tallaAlumnoAnt, sexoAnt, fechaNacAnt;
+            provinciaAnt, colegioAnt, nombrePadreAnt, nombreMadreAnt, emailAnt, tallaAlumnoAnt, sexoAnt;
     private int codPostalAnt, telFijoAnt, telMovilAnt;
+    private Calendar fechaNacAnt;
 
     /**
      * Creates new form AnadorAlumno
      */
     public AñadirModificarAlumno(PrincipalJugadores pP, BaseDatos bd) {
+        initComponents();
         this.pP = pP;
         this.bd = bd;
-        initComponents();
+        setLocationRelativeTo(pP);
         bordeOriginal = nombre.getBorder();
         bordeDatePicker = fechaNac.getBorder();
         bordeError = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.red);
         ((JTextFieldDateEditor) fechaNac.getComponents()[1]).setEditable(false);
         jLabel4.setVisible(false);
+        botonModificar.setVisible(false);
+        setTitle("Añadir jugador");
     }
-    
+
     public AñadirModificarAlumno(PrincipalJugadores pP, BaseDatos bd, String nombre, String primerApellido, String segundoApellido, String fechaNac,
             String cuentaCorriente, String domicilio, String localidad, int codPostal, String provincia, String colegio,
             String nombrePadre, String nombreMadre, int telFijo, int telMovil, String email, String tallaAlumno, String sexo) {
+        initComponents();
         this.pP = pP;
         this.bd = bd;
-        initComponents();
+        setLocationRelativeTo(pP);
         bordeOriginal = this.nombre.getBorder();
         bordeDatePicker = this.fechaNac.getBorder();
         bordeError = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.red);
         ((JTextFieldDateEditor) this.fechaNac.getComponents()[1]).setEditable(false);
         jLabel2.setVisible(false);
+        botonAnadir.setVisible(false);
+        setTitle("Modificar jugador");
         nombreAnt = nombre;
         this.nombre.setText(nombre);
         primerApellidoAnt = primerApellido;
         this.primerApellido.setText(primerApellido);
         segundoApellidoAnt = segundoApellido;
         this.segundoApellido.setText(segundoApellido);
-        fechaNacAnt = fechaNac;
-        this.fechaNac.setDate(new Date(fechaNac));
+        String[] fecha = fechaNac.split("-");
+        Calendar date = new GregorianCalendar(Integer.parseInt(fecha[0]), Integer.parseInt(fecha[1]) - 1, Integer.parseInt(fecha[2]));
+        fechaNacAnt = date;
+        this.fechaNac.setDate(date.getTime());
         cuentaCorrienteAnt = cuentaCorriente;
         this.numCuenta.setText(cuentaCorriente);
         domicilioAnt = domicilio;
@@ -112,8 +127,11 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
         tallaAlumnoAnt = tallaAlumno;
         this.talla.setSelectedItem(tallaAlumno);
         sexoAnt = sexo;
-        if (sexo.equals("M")) this.sexoAlumno.setSelectedItem("Masculino");
-        else this.sexoAlumno.setSelectedItem("Femenino");
+        if (sexo.equals("M")) {
+            this.sexoAlumno.setSelectedItem("Masculino");
+        } else {
+            this.sexoAlumno.setSelectedItem("Femenino");
+        }
     }
 
     /**
@@ -124,78 +142,74 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        jPanel1 = new javax.swing.JPanel();
-        colegioLabel = new javax.swing.JLabel();
-        nombre = new javax.swing.JTextField();
-        talla = new javax.swing.JComboBox();
-        provincia = new javax.swing.JTextField();
-        tallaLabel = new javax.swing.JLabel();
-        codPostalLabel = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         participante = new javax.swing.JLabel();
         nombreLabel = new javax.swing.JLabel();
-        segundoApellido = new javax.swing.JTextField();
-        nombrePadre = new javax.swing.JTextField();
-        datosFamiliares = new javax.swing.JLabel();
-        domicilio = new javax.swing.JTextField();
-        nombreMadre = new javax.swing.JTextField();
-        botonAnadir = new javax.swing.JButton();
-        telFijoLabel = new javax.swing.JLabel();
-        separador = new javax.swing.JSeparator();
-        nombreMadreLabel = new javax.swing.JLabel();
-        nombrePadreLabel = new javax.swing.JLabel();
-        numCuentaLabel = new javax.swing.JLabel();
-        telMovilLabel = new javax.swing.JLabel();
-        emailLabel = new javax.swing.JLabel();
-        localidad = new javax.swing.JTextField();
-        telMovil = new javax.swing.JTextField();
-        primerApellido = new javax.swing.JTextField();
-        email = new javax.swing.JTextField();
-        colegio = new javax.swing.JTextField();
-        fechaNacLabel = new javax.swing.JLabel();
-        telFijo = new javax.swing.JTextField();
-        fechaNac = new com.toedter.calendar.JDateChooser();
-        domicilioLabel = new javax.swing.JLabel();
-        localidadLabel = new javax.swing.JLabel();
+        nombre = new javax.swing.JTextField();
         primerApellidoLabel = new javax.swing.JLabel();
+        primerApellido = new javax.swing.JTextField();
         segundoApellidoLabel = new javax.swing.JLabel();
-        codPostal = new javax.swing.JTextField();
-        numCuenta = new javax.swing.JTextField();
-        provinciaLabel = new javax.swing.JLabel();
-        sexoAlumno = new javax.swing.JComboBox();
+        segundoApellido = new javax.swing.JTextField();
+        talla = new javax.swing.JComboBox();
+        tallaLabel = new javax.swing.JLabel();
+        fechaNac = new com.toedter.calendar.JDateChooser();
+        fechaNacLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        sexoAlumno = new javax.swing.JComboBox();
+        domicilioLabel = new javax.swing.JLabel();
+        domicilio = new javax.swing.JTextField();
+        localidadLabel = new javax.swing.JLabel();
+        localidad = new javax.swing.JTextField();
+        codPostalLabel = new javax.swing.JLabel();
+        codPostal = new javax.swing.JTextField();
+        provinciaLabel = new javax.swing.JLabel();
+        provincia = new javax.swing.JTextField();
+        colegioLabel = new javax.swing.JLabel();
+        colegio = new javax.swing.JTextField();
+        separador = new javax.swing.JSeparator();
+        datosFamiliares = new javax.swing.JLabel();
+        nombrePadreLabel = new javax.swing.JLabel();
+        nombrePadre = new javax.swing.JTextField();
+        nombreMadreLabel = new javax.swing.JLabel();
+        nombreMadre = new javax.swing.JTextField();
+        telFijoLabel = new javax.swing.JLabel();
+        telFijo = new javax.swing.JTextField();
+        telMovilLabel = new javax.swing.JLabel();
+        telMovil = new javax.swing.JTextField();
+        emailLabel = new javax.swing.JLabel();
+        email = new javax.swing.JTextField();
+        numCuentaLabel = new javax.swing.JLabel();
+        numCuenta = new javax.swing.JTextField();
         botonModificar = new javax.swing.JButton();
+        botonAnadir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Nuevo alumno");
         setMinimumSize(new java.awt.Dimension(850, 480));
         setResizable(false);
 
-        jPanel1.setMaximumSize(new java.awt.Dimension(807, 450));
-        jPanel1.setMinimumSize(new java.awt.Dimension(807, 450));
-        jPanel1.setPreferredSize(new java.awt.Dimension(807, 450));
+        jPanel2.setLayout(new java.awt.GridBagLayout());
 
-        colegioLabel.setText("Colegio:");
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setText("Modificar Jugador");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 6;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        jPanel2.add(jLabel4, gridBagConstraints);
 
-        nombre.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                nombreFocusLost(evt);
-            }
-        });
-
-        talla.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SinMedir", "6", "8", "10", "12", "XS", "S", "M", "L", "XL", "XXL" }));
-
-        provincia.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                provinciaFocusLost(evt);
-            }
-        });
-
-        tallaLabel.setText("Talla:");
-
-        codPostalLabel.setText("Codigo Postal:");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setText("Nuevo Jugador");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 6;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        jPanel2.add(jLabel2, gridBagConstraints);
 
         participante.setBackground(new java.awt.Color(191, 138, 138));
         participante.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -203,20 +217,230 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
         participante.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         participante.setText("PARTICIPANTE");
         participante.setOpaque(true);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 5);
+        jPanel2.add(participante, gridBagConstraints);
 
         nombreLabel.setText("Nombre:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
+        jPanel2.add(nombreLabel, gridBagConstraints);
 
+        nombre.setColumns(20);
+        nombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                nombreFocusLost(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        jPanel2.add(nombre, gridBagConstraints);
+
+        primerApellidoLabel.setText("Primer apellido:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(10, 15, 10, 5);
+        jPanel2.add(primerApellidoLabel, gridBagConstraints);
+
+        primerApellido.setColumns(20);
+        primerApellido.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                primerApellidoFocusLost(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel2.add(primerApellido, gridBagConstraints);
+
+        segundoApellidoLabel.setText("Segundo apellido:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(10, 15, 10, 5);
+        jPanel2.add(segundoApellidoLabel, gridBagConstraints);
+
+        segundoApellido.setColumns(20);
         segundoApellido.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 segundoApellidoFocusLost(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel2.add(segundoApellido, gridBagConstraints);
 
-        nombrePadre.addFocusListener(new java.awt.event.FocusAdapter() {
+        talla.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SinMedir", "6", "8", "10", "12", "XS", "S", "M", "L", "XL", "XXL" }));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel2.add(talla, gridBagConstraints);
+
+        tallaLabel.setText("Talla:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
+        jPanel2.add(tallaLabel, gridBagConstraints);
+
+        fechaNac.setMinimumSize(new java.awt.Dimension(40, 20));
+        fechaNac.setPreferredSize(new java.awt.Dimension(120, 20));
+        fechaNac.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                nombrePadreFocusLost(evt);
+                fechaNacFocusLost(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel2.add(fechaNac, gridBagConstraints);
+
+        fechaNacLabel.setText("Fecha Nacimiento: ");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
+        jPanel2.add(fechaNacLabel, gridBagConstraints);
+
+        jLabel1.setText("Sexo:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
+        jPanel2.add(jLabel1, gridBagConstraints);
+
+        sexoAlumno.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Masculino", "Femenino" }));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel2.add(sexoAlumno, gridBagConstraints);
+
+        domicilioLabel.setText("Domicilio:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
+        jPanel2.add(domicilioLabel, gridBagConstraints);
+
+        domicilio.setColumns(50);
+        domicilio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                domicilioFocusLost(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel2.add(domicilio, gridBagConstraints);
+
+        localidadLabel.setText("Localidad:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
+        jPanel2.add(localidadLabel, gridBagConstraints);
+
+        localidad.setColumns(20);
+        localidad.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                localidadFocusLost(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel2.add(localidad, gridBagConstraints);
+
+        codPostalLabel.setText("Codigo Postal:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
+        jPanel2.add(codPostalLabel, gridBagConstraints);
+
+        codPostal.setColumns(20);
+        codPostal.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                codPostalFocusLost(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel2.add(codPostal, gridBagConstraints);
+
+        provinciaLabel.setText("Provincia:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
+        jPanel2.add(provinciaLabel, gridBagConstraints);
+
+        provincia.setColumns(20);
+        provincia.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                provinciaFocusLost(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel2.add(provincia, gridBagConstraints);
+
+        colegioLabel.setText("Colegio:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
+        jPanel2.add(colegioLabel, gridBagConstraints);
+
+        colegio.setColumns(25);
+        colegio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                colegioFocusLost(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel2.add(colegio, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridwidth = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 0);
+        jPanel2.add(separador, gridBagConstraints);
 
         datosFamiliares.setBackground(new java.awt.Color(134, 190, 134));
         datosFamiliares.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -224,113 +448,137 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
         datosFamiliares.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         datosFamiliares.setText("DATOS FAMILIARES");
         datosFamiliares.setOpaque(true);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 5);
+        jPanel2.add(datosFamiliares, gridBagConstraints);
 
-        domicilio.addFocusListener(new java.awt.event.FocusAdapter() {
+        nombrePadreLabel.setText("Nombre Padre:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
+        jPanel2.add(nombrePadreLabel, gridBagConstraints);
+
+        nombrePadre.setColumns(50);
+        nombrePadre.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                domicilioFocusLost(evt);
+                nombrePadreFocusLost(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel2.add(nombrePadre, gridBagConstraints);
 
+        nombreMadreLabel.setText("Nombre Madre:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
+        jPanel2.add(nombreMadreLabel, gridBagConstraints);
+
+        nombreMadre.setColumns(50);
         nombreMadre.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 nombreMadreFocusLost(evt);
             }
         });
-
-        botonAnadir.setText("Aceptar");
-        botonAnadir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonAnadirActionPerformed(evt);
-            }
-        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel2.add(nombreMadre, gridBagConstraints);
 
         telFijoLabel.setText("Telefono Fijo:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 11;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
+        jPanel2.add(telFijoLabel, gridBagConstraints);
 
-        nombreMadreLabel.setText("Nombre Madre:");
-
-        nombrePadreLabel.setText("Nombre Padre:");
-
-        numCuentaLabel.setText("Numero Cuenta:");
-
-        telMovilLabel.setText("Telefono Móvil:");
-
-        emailLabel.setText("Email:");
-
-        localidad.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                localidadFocusLost(evt);
-            }
-        });
-
-        telMovil.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                telMovilFocusLost(evt);
-            }
-        });
-
-        primerApellido.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                primerApellidoFocusLost(evt);
-            }
-        });
-
-        email.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                emailFocusLost(evt);
-            }
-        });
-
-        colegio.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                colegioFocusLost(evt);
-            }
-        });
-
-        fechaNacLabel.setText("Fecha Nacimiento: ");
-
+        telFijo.setColumns(20);
         telFijo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 telFijoFocusLost(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 11;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel2.add(telFijo, gridBagConstraints);
 
-        fechaNac.addFocusListener(new java.awt.event.FocusAdapter() {
+        telMovilLabel.setText("Telefono Móvil:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 11;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
+        jPanel2.add(telMovilLabel, gridBagConstraints);
+
+        telMovil.setColumns(20);
+        telMovil.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                fechaNacFocusLost(evt);
+                telMovilFocusLost(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridy = 11;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel2.add(telMovil, gridBagConstraints);
 
-        domicilioLabel.setText("Domicilio:");
+        emailLabel.setText("Email:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
+        jPanel2.add(emailLabel, gridBagConstraints);
 
-        localidadLabel.setText("Localidad:");
-
-        primerApellidoLabel.setText("Primer apellido:");
-
-        segundoApellidoLabel.setText("Segundo apellido:");
-
-        codPostal.addFocusListener(new java.awt.event.FocusAdapter() {
+        email.setColumns(30);
+        email.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                codPostalFocusLost(evt);
+                emailFocusLost(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 12;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel2.add(email, gridBagConstraints);
 
+        numCuentaLabel.setText("Numero Cuenta:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 13;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(10, 5, 10, 5);
+        jPanel2.add(numCuentaLabel, gridBagConstraints);
+
+        numCuenta.setColumns(50);
         numCuenta.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 numCuentaFocusLost(evt);
             }
         });
-
-        provinciaLabel.setText("Provincia:");
-
-        sexoAlumno.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Masculino", "Femenino" }));
-
-        jLabel1.setText("Sexo:");
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel2.setText("Nuevo Jugador");
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel4.setText("Modificar Jugador");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 13;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel2.add(numCuenta, gridBagConstraints);
 
         botonModificar.setText("Guardar");
         botonModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -338,226 +586,27 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
                 botonModificarActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 2;
+        jPanel2.add(botonModificar, gridBagConstraints);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(334, 334, 334)
-                        .addComponent(jLabel4)))
-                .addGap(0, 466, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sexoAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(311, 311, 311))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(botonAnadir, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(187, 187, 187))))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(participante, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(separador, javax.swing.GroupLayout.PREFERRED_SIZE, 910, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(datosFamiliares, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(30, 30, 30)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(nombreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(180, 180, 180)
-                                    .addComponent(primerApellidoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, 0)
-                                    .addComponent(primerApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(30, 30, 30)
-                                    .addComponent(segundoApellidoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, 0)
-                                    .addComponent(segundoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(fechaNacLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, 0)
-                                    .addComponent(fechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(40, 40, 40)
-                                    .addComponent(tallaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, 0)
-                                    .addComponent(talla, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(domicilioLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, 0)
-                                    .addComponent(domicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(localidadLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addGap(50, 50, 50)
-                                            .addComponent(localidad, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGap(30, 30, 30)
-                                    .addComponent(codPostalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, 0)
-                                    .addComponent(codPostal, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(30, 30, 30)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(provinciaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addGap(50, 50, 50)
-                                            .addComponent(provincia, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(colegioLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, 0)
-                                    .addComponent(colegio, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(nombrePadreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, 0)
-                                    .addComponent(nombrePadre, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(nombreMadreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(telFijoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(nombreMadre, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(telFijo, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(35, 35, 35)
-                                            .addComponent(telMovilLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(0, 0, 0)
-                                            .addComponent(telMovil, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(emailLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, 0)
-                                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(numCuentaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(3, 3, 3)
-                                    .addComponent(numCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGap(0, 0, Short.MAX_VALUE)))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(344, Short.MAX_VALUE)
-                    .addComponent(jLabel2)
-                    .addContainerGap(474, Short.MAX_VALUE)))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(615, Short.MAX_VALUE)
-                    .addComponent(botonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(187, 187, 187)))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel4)
-                .addGap(54, 54, 54)
-                .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(sexoAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 193, Short.MAX_VALUE)
-                .addComponent(botonAnadir)
-                .addGap(114, 114, 114))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(0, 20, Short.MAX_VALUE)
-                    .addComponent(participante, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(20, 20, 20)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(nombreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(primerApellidoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(primerApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(segundoApellidoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(segundoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(10, 10, 10)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(fechaNacLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(fechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tallaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(talla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(10, 10, 10)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(domicilioLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(domicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(10, 10, 10)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(localidadLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(localidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(codPostalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(codPostal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(provinciaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(provincia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(10, 10, 10)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(colegioLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(colegio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(20, 20, 20)
-                    .addComponent(separador, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, 0)
-                    .addComponent(datosFamiliares, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(20, 20, 20)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(nombrePadreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(nombrePadre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(10, 10, 10)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(nombreMadreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(10, 10, 10)
-                            .addComponent(telFijoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(nombreMadre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(10, 10, 10)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(telFijo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(telMovilLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(telMovil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGap(10, 10, 10)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(emailLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(10, 10, 10)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(numCuentaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(numCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(0, 20, Short.MAX_VALUE)))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addComponent(jLabel2)
-                    .addGap(0, 435, Short.MAX_VALUE)))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(313, Short.MAX_VALUE)
-                    .addComponent(botonModificar)
-                    .addGap(114, 114, 114)))
-        );
+        botonAnadir.setText("Aceptar");
+        botonAnadir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAnadirActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 4;
+        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 2;
+        jPanel2.add(botonAnadir, gridBagConstraints);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 850, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 21, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(0, 22, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 480, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 16, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(0, 14, Short.MAX_VALUE)))
-        );
+        getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -607,11 +656,11 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
             campos = campos + "'Fecha de nacimiento',";
             fechaNac.setBorder(bordeError);
         }
-        if (!domicilio.getText().matches("[a-zA-Z0-9/ºª.,()-]{1,100}")) {
+        if (!domicilio.getText().matches("[a-zA-Z0-9/ºª.,()\\-\\s]{1,100}")) {
             campos = campos + "'Domicilio',";
             domicilio.setBorder(bordeError);
         }
-        if (!localidad.getText().matches("[a-zA-Z-]{1,45}")) {
+        if (!localidad.getText().matches("[a-zA-Z\\-]{1,45}")) {
             campos = campos + "'Localidad',";
             localidad.setBorder(bordeError);
         }
@@ -619,19 +668,19 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
             campos = campos + "'Codigo postal',";
             codPostal.setBorder(bordeError);
         }
-        if (!provincia.getText().matches("[a-zA-Z-]{1,70}")) {
+        if (!provincia.getText().matches("[a-zA-Z\\-]{1,70}")) {
             campos = campos + "'Provincia',";
             provincia.setBorder(bordeError);
         }
-        if (!colegio.getText().matches("[a-zA-Z-]{1,45}")) {
+        if (!colegio.getText().matches("[a-zA-Z\\-]{1,45}")) {
             campos = campos + "'Colegio',";
             colegio.setBorder(bordeError);
         }
-        if (!nombrePadre.getText().matches("[a-zA-Z-]{1,100}")) {
+        if (!nombrePadre.getText().matches("[a-zA-Z\\-\\s]{1,100}")) {
             campos = campos + "'Nombre padre',";
             nombrePadre.setBorder(bordeError);
         }
-        if (!nombreMadre.getText().matches("[a-zA-Z-]{1,100}")) {
+        if (!nombreMadre.getText().matches("[a-zA-Z\\-\\s]{1,100}")) {
             campos = campos + "'Nombre madre',";
             nombreMadre.setBorder(bordeError);
         }
@@ -643,12 +692,12 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
             campos = campos + "'Telefono movil',";
             telMovil.setBorder(bordeError);
         }
-        if (!email.getText().matches("[a-zA-Z0-9_-]{1,45}@[a-zA-Z0-9_-]{1,25}.[a-z]{1,5}")) {
+        if (!email.getText().matches("[a-zA-Z0-9_ \\-]{1,45}@[a-zA-Z0-9_\\-]{1,25}.[a-z]{1,5}")) {
             campos = campos + "'Email',";
             email.setBorder(bordeError);
         }
         if (!numCuenta.getText().matches("[0-9]{1,40}")) {
-            campos = campos + "'Telefono movil',";
+            campos = campos + "'Numero de cuenta',";
             numCuenta.setBorder(bordeError);
         }
         //Si no ha habido ningún error al introducir los campos, entonces hacemos el insert
@@ -659,17 +708,19 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
                     nombreMadre.getText(), Integer.parseInt(telFijo.getText()), Integer.parseInt(telMovil.getText()), email.getText(), "",
                     (String) talla.getSelectedItem(), (String) sexoAlumno.getSelectedItem());
 
-            if(false==error){
+            if (false == error) {
                 JOptionPane.showMessageDialog(null, "Ha habido un error en la base de datos",
                         "Error", JOptionPane.ERROR_MESSAGE);
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Alumno creado con exito",
                         "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
+
+                pP.actualizarTabla();
             }
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(null, "Se han encontrado errores en los siguientes campos:\n" +
-                    campos.substring(0, campos.length() - 1),
+            JOptionPane.showMessageDialog(null, "Se han encontrado errores en los siguientes campos:\n"
+                    + campos.substring(0, campos.length() - 1),
                     "Errores en el formulario", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_botonAnadirActionPerformed
@@ -774,15 +825,50 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
 
     private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarActionPerformed
         if (!nombre.getText().equals(nombreAnt) || !primerApellido.getText().equals(primerApellidoAnt)
-                || !segundoApellido.getText().equals(segundoApellidoAnt)
+                || !segundoApellido.getText().equals(segundoApellidoAnt) || !fechaNacAnt.getTime().equals(fechaNac.getDate())
                 || !numCuenta.getText().equals(cuentaCorrienteAnt) || !domicilio.getText().equals(domicilioAnt)
                 || !localidad.getText().equals(localidadAnt) || !codPostal.getText().equals(String.valueOf(codPostalAnt))
                 || !provincia.getText().equals(provinciaAnt) || !colegio.getText().equals(colegioAnt)
                 || !nombrePadre.getText().equals(nombrePadreAnt) || !nombreMadre.getText().equals(nombreMadreAnt)
                 || !telFijo.getText().equals(String.valueOf(telFijoAnt)) || !telMovil.getText().equals(String.valueOf(telMovilAnt))
-                || !email.getText().equals(emailAnt) || !((String)talla.getSelectedItem()).equals(tallaAlumnoAnt)
-                || !((String)sexoAlumno.getSelectedItem()).substring(0, 1).equals(sexoAnt)) {
-            GestorAlumnos.modificarDatos(bd, emailAnt, nombreAnt, primerApellidoAnt, segundoApellidoAnt, fechaNacAnt, cuentaCorrienteAnt, domicilioAnt, localidadAnt, nombreAnt, provinciaAnt, colegioAnt, nombrePadreAnt, nombreMadreAnt, sexoAnt, sexoAnt, emailAnt, colegioAnt, tallaAlumnoAnt);
+                || !email.getText().equals(emailAnt) || !((String) talla.getSelectedItem()).equals(tallaAlumnoAnt)
+                || !((String) sexoAlumno.getSelectedItem()).substring(0, 1).equals(sexoAnt)) {
+            if (nombre.getText().isEmpty() || primerApellido.getText().isEmpty() || segundoApellido.getText().isEmpty()
+                    || numCuenta.getText().isEmpty() || domicilio.getText().isEmpty()
+                    || localidad.getText().isEmpty() || codPostal.getText().isEmpty()
+                    || provincia.getText().isEmpty() || colegio.getText().isEmpty()
+                    || nombrePadre.getText().isEmpty() || nombreMadre.getText().isEmpty()
+                    || telFijo.getText().isEmpty() || telMovil.getText().isEmpty()
+                    || email.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Ningun campo puede estar vacio",
+                        "Errores en el formulario", JOptionPane.ERROR_MESSAGE);
+            } else {
+                String consulta_alumnos = "SELECT a.idAlumno, a.observaciones FROM alumno a WHERE "
+                        + "a.nombre='" + nombreAnt + "' AND a.primerApellido='" + primerApellidoAnt + "' AND "
+                        + "a.segundoApellido='" + segundoApellidoAnt + "' AND a.nombrePadre='" + nombrePadreAnt + "' AND "
+                        + "a.nombreMadre='" + nombreMadreAnt + "' AND a.codigoPostal=" + codPostalAnt;
+                ResultSet al = GestorAlumnos.consultarAlumno(bd, consulta_alumnos);
+                String idAlumno = "", observaciones = "";
+                try {
+                    while (al.next()) {
+                        idAlumno = al.getString("a.idAlumno");
+                        observaciones = al.getString("a.observaciones");
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(AñadirModificarAlumno.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                Date dateFromDateChooser = fechaNac.getDate();
+                String dateString = String.format("%1$tY-%1$tm-%1$td", dateFromDateChooser);
+                GestorAlumnos.modificarDatos(bd, idAlumno, nombre.getText(), primerApellido.getText(), segundoApellido.getText(),
+                        dateString, numCuenta.getText(), domicilio.getText(), localidad.getText(), codPostal.getText(),
+                        provincia.getText(), colegio.getText(), nombrePadre.getText(), nombreMadre.getText(),
+                        telFijo.getText(), telMovil.getText(), email.getText(), observaciones, (String) talla.getSelectedItem(),
+                        ((String) sexoAlumno.getSelectedItem()).substring(0, 1));
+                JOptionPane.showMessageDialog(null, "Alumno modificado con exito",
+                        "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
+                pP.actualizarTabla();
+            }
         }
     }//GEN-LAST:event_botonModificarActionPerformed
 
@@ -795,7 +881,6 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
         }
         return esEntero;
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAnadir;
     private javax.swing.JButton botonModificar;
@@ -813,7 +898,7 @@ public class AñadirModificarAlumno extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField localidad;
     private javax.swing.JLabel localidadLabel;
     private javax.swing.JTextField nombre;
