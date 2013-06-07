@@ -247,7 +247,7 @@ public class PartidoBD {
                  * @param idEquipoVisitanteFundacion, id de la fundación a la que pertenece el equipo Visitante
                  * @param idEquipoVisitanteCategoria, id de la categoría a la que pertenece el equipo Visitante
                  * @param idEquipoVisitanteTemporada, id de la temporada a la que pertenece el equipo Visitante
-                 * @param idEquipoVisitanteLiga, id de la liga a la que pertenece el equipo local
+                 * @param idEquipoVisitanteLiga, id de la liga a la que pertenece el equipo visitante
                  * @param fecha, la fecha del partido
                  * @param hora, la hora del partido
                  * @param idPart, id del partido a modificar
