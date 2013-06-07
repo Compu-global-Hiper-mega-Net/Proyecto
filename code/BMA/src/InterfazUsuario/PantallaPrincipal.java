@@ -11,15 +11,8 @@
 package InterfazUsuario;
 
 import GestionDeAlumnos.*;
-import GestionDeCategorias.GestorCategorias;
-import GestionDeUsuarios.*;
-import GestionDeTemporadas.*;
-import GestionDeEquipos.*;
-import GestionDeInstalaciones.GestorInstalacion;
-import GestionDePagos.GestorPagos;
-import GestionDePartidos.GestorPartidos;
+import GestionDeUsuarios.GestorUsuarios;
 import ServiciosAlmacenamiento.BaseDatos;
-import com.toedter.calendar.JTextFieldDateEditor;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -28,7 +21,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
-import javax.swing.table.DefaultTableModel;
 
 /*
  ******************************************************************************
@@ -71,9 +63,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     String consultaUsuariosMostrados;
     String consultaInstalacionesMostradas;
     Border bordeError;
-    boolean noEntry;
-    int idC, idT;
-    Object equipoAnterior1, equipoAnterior2;
 
     /**
      * Creates new form InterfazPrincipal
@@ -123,6 +112,16 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jPanel14 = new javax.swing.JPanel();
         jLabel32 = new javax.swing.JLabel();
+        jPanel27 = new javax.swing.JPanel();
+        jPanel28 = new javax.swing.JPanel();
+        jButton9 = new javax.swing.JButton();
+        jPanel29 = new javax.swing.JPanel();
+        jLabel44 = new javax.swing.JLabel();
+        jPanel30 = new javax.swing.JPanel();
+        jPanel31 = new javax.swing.JPanel();
+        jButton13 = new javax.swing.JButton();
+        jPanel32 = new javax.swing.JPanel();
+        jLabel45 = new javax.swing.JLabel();
         jPanel21 = new javax.swing.JPanel();
         jPanel22 = new javax.swing.JPanel();
         jButton11 = new javax.swing.JButton();
@@ -183,55 +182,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         botonEliminarUsuario = new javax.swing.JButton();
         errorEliminarUsuario = new javax.swing.JLabel();
         verEstadisticasEntrenador = new javax.swing.JButton();
-        panelEquipos = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        textNombreEquipo = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        comboCatEquipo = new javax.swing.JComboBox();
-        jLabel12 = new javax.swing.JLabel();
-        comboTempEquipo = new javax.swing.JComboBox();
-        jLabel13 = new javax.swing.JLabel();
-        textEntEquipo = new javax.swing.JTextField();
-        botonBuscar = new javax.swing.JButton();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        tablaEquipos = new javax.swing.JTable();
-        botonModificarEquipo = new javax.swing.JButton();
-        botonEliminarEquipo = new javax.swing.JButton();
-        botonInfoEquipo = new javax.swing.JButton();
-        botonNuevoEquipo = new javax.swing.JButton();
-        botonMostrarEquipos = new javax.swing.JButton();
-        labelEquiposMostrados = new javax.swing.JLabel();
-        labelNumeroEquipos = new javax.swing.JLabel();
-        jSeparator4 = new javax.swing.JSeparator();
-        jComboBox1 = new javax.swing.JComboBox();
-        verClasificacionEquipos = new javax.swing.JButton();
-        PanelPartidos = new javax.swing.JPanel();
-        Partidos = new javax.swing.JLabel();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        tablaPartidos = new javax.swing.JTable();
-        BotonModificarPartido = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        BotonJPartido = new javax.swing.JButton();
-        jSeparator6 = new javax.swing.JSeparator();
-        BotonNPartido = new javax.swing.JButton();
-        botonMostrarPartidos = new javax.swing.JButton();
-        jLabel16 = new javax.swing.JLabel();
-        comboTemporadaPartidos = new javax.swing.JComboBox();
-        comboCategoriaPartidos = new javax.swing.JComboBox();
-        jLabel26 = new javax.swing.JLabel();
-        botonFiltrarPartido = new javax.swing.JButton();
-        jLabel27 = new javax.swing.JLabel();
-        comboEquipoLocal = new javax.swing.JComboBox();
-        comboEquipoVisitante = new javax.swing.JComboBox();
-        jLabel28 = new javax.swing.JLabel();
-        fechaPartido = new com.toedter.calendar.JDateChooser();
-        jButton6 = new javax.swing.JButton();
         barraMenu = new javax.swing.JMenuBar();
         menuInicio = new javax.swing.JMenu();
-        menuEquipos = new javax.swing.JMenu();
         menuUsuarios = new javax.swing.JMenu();
-        menuPartidos = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1400, 750));
@@ -296,6 +249,58 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jPanel12.add(jPanel14);
 
         panelInicio.add(jPanel12);
+
+        jPanel27.setLayout(new javax.swing.BoxLayout(jPanel27, javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanel28.setMaximumSize(new java.awt.Dimension(170, 33));
+        jPanel28.setMinimumSize(new java.awt.Dimension(170, 33));
+        jPanel28.setPreferredSize(new java.awt.Dimension(170, 33));
+        jPanel28.setLayout(new java.awt.GridBagLayout());
+
+        jButton9.setText("Equipos");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jPanel28.add(jButton9, new java.awt.GridBagConstraints());
+
+        jPanel27.add(jPanel28);
+
+        jPanel29.setLayout(new java.awt.GridBagLayout());
+
+        jLabel44.setText("Esta opción permite gestionar todos los equipos, esto es: insertar, modificar o eliminar.");
+        jPanel29.add(jLabel44, new java.awt.GridBagConstraints());
+
+        jPanel27.add(jPanel29);
+
+        panelInicio.add(jPanel27);
+
+        jPanel30.setLayout(new javax.swing.BoxLayout(jPanel30, javax.swing.BoxLayout.LINE_AXIS));
+
+        jPanel31.setMaximumSize(new java.awt.Dimension(170, 33));
+        jPanel31.setMinimumSize(new java.awt.Dimension(170, 33));
+        jPanel31.setPreferredSize(new java.awt.Dimension(170, 33));
+        jPanel31.setLayout(new java.awt.GridBagLayout());
+
+        jButton13.setText("Partidos");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
+        jPanel31.add(jButton13, new java.awt.GridBagConstraints());
+
+        jPanel30.add(jPanel31);
+
+        jPanel32.setLayout(new java.awt.GridBagLayout());
+
+        jLabel45.setText("Esta opción permite gestionar todos los partidos, esto es: insertar, modificar o eliminar.");
+        jPanel32.add(jLabel45, new java.awt.GridBagConstraints());
+
+        jPanel30.add(jPanel32);
+
+        panelInicio.add(jPanel30);
 
         jPanel21.setLayout(new javax.swing.BoxLayout(jPanel21, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -643,415 +648,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(22, 0, 22, 0);
         getContentPane().add(panelUsuarios, gridBagConstraints);
 
-        panelEquipos.setVisible(false);
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel8.setText("Equipos");
-
-        jLabel10.setText("Nombre:");
-
-        textNombreEquipo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textNombreEquipoActionPerformed(evt);
-            }
-        });
-
-        jLabel11.setText("Categoria:");
-
-        comboCatEquipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Categoria-" }));
-        comboCatEquipo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboCatEquipoActionPerformed(evt);
-            }
-        });
-
-        jLabel12.setText("Temporada:");
-
-        comboTempEquipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Temporada-" }));
-
-        jLabel13.setText("Primer Entrenador:");
-
-        botonBuscar.setText("Buscar");
-        botonBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonBuscarActionPerformed(evt);
-            }
-        });
-
-        tablaEquipos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Nombre", "Categoria", "Temporada", "Primer Entrenador", "Segundo Entrenador", "Sexo"
-            }
-        ));
-        jScrollPane5.setViewportView(tablaEquipos);
-
-        botonModificarEquipo.setText("Modificar");
-        botonModificarEquipo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonModificarEquipoActionPerformed(evt);
-            }
-        });
-
-        botonEliminarEquipo.setText("Eliminar");
-        botonEliminarEquipo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonEliminarEquipoActionPerformed(evt);
-            }
-        });
-
-        botonInfoEquipo.setText("Info");
-
-        botonNuevoEquipo.setText("Nuevo");
-        botonNuevoEquipo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonNuevoEquipoActionPerformed(evt);
-            }
-        });
-
-        botonMostrarEquipos.setText("Mostrar Todos");
-        botonMostrarEquipos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonMostrarEquiposActionPerformed(evt);
-            }
-        });
-
-        labelEquiposMostrados.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        labelEquiposMostrados.setText("Numero de equipos:");
-
-        labelNumeroEquipos.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Entrenador-" }));
-
-        verClasificacionEquipos.setText("Clasificacion");
-        verClasificacionEquipos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                verClasificacionEquiposActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelEquiposLayout = new javax.swing.GroupLayout(panelEquipos);
-        panelEquipos.setLayout(panelEquiposLayout);
-        panelEquiposLayout.setHorizontalGroup(
-            panelEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelEquiposLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addGroup(panelEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 717, Short.MAX_VALUE)
-                    .addGroup(panelEquiposLayout.createSequentialGroup()
-                        .addGroup(panelEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addGroup(panelEquiposLayout.createSequentialGroup()
-                                .addGap(62, 62, 62)
-                                .addGroup(panelEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelEquiposLayout.createSequentialGroup()
-                                        .addGroup(panelEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(panelEquiposLayout.createSequentialGroup()
-                                                .addComponent(jLabel10)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(textNombreEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jLabel11)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(comboCatEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jLabel12))
-                                            .addGroup(panelEquiposLayout.createSequentialGroup()
-                                                .addComponent(jLabel13)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(textEntEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(comboTempEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(panelEquiposLayout.createSequentialGroup()
-                                        .addGap(51, 51, 51)
-                                        .addComponent(botonBuscar)
-                                        .addGap(56, 56, 56)
-                                        .addComponent(botonMostrarEquipos)
-                                        .addGap(62, 62, 62)
-                                        .addComponent(verClasificacionEquipos))))
-                            .addGroup(panelEquiposLayout.createSequentialGroup()
-                                .addGap(157, 157, 157)
-                                .addComponent(labelEquiposMostrados)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelNumeroEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelEquiposLayout.createSequentialGroup()
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(panelEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(botonModificarEquipo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
-                                    .addComponent(botonInfoEquipo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(botonEliminarEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(botonNuevoEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        panelEquiposLayout.setVerticalGroup(
-            panelEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelEquiposLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(jLabel8)
-                .addGap(59, 59, 59)
-                .addGroup(panelEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel12)
-                        .addComponent(comboTempEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel10)
-                        .addComponent(textNombreEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel11)
-                        .addComponent(comboCatEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(panelEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(textEntEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(panelEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonBuscar)
-                    .addComponent(botonMostrarEquipos)
-                    .addComponent(verClasificacionEquipos))
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(panelEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelEquiposLayout.createSequentialGroup()
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(panelEquiposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelEquiposMostrados)
-                            .addComponent(labelNumeroEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelEquiposLayout.createSequentialGroup()
-                        .addComponent(botonNuevoEquipo)
-                        .addGap(18, 18, 18)
-                        .addComponent(botonInfoEquipo)
-                        .addGap(18, 18, 18)
-                        .addComponent(botonModificarEquipo)
-                        .addGap(18, 18, 18)
-                        .addComponent(botonEliminarEquipo)))
-                .addGap(80, 80, 80))
-        );
-
-        this.labelEquiposMostrados.setVisible(false);
-
-        getContentPane().add(panelEquipos, new java.awt.GridBagConstraints());
-
-        PanelPartidos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        Partidos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Partidos.setText("Partidos");
-
-        tablaPartidos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Fecha", "Hora", "Categoría", "Temporada", "Equipo Local", "Equipo Visitante", "Resultado Local", "Resultado Visitante"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane8.setViewportView(tablaPartidos);
-
-        BotonModificarPartido.setText("Modificar Partido");
-        BotonModificarPartido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonModificarPartidoActionPerformed(evt);
-            }
-        });
-
-        jButton9.setText("Eliminar Partido");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
-            }
-        });
-
-        BotonJPartido.setText("Jugar Partido");
-        BotonJPartido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonJPartidoActionPerformed(evt);
-            }
-        });
-
-        BotonNPartido.setText("Nuevo Partido");
-        BotonNPartido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonNPartidoActionPerformed(evt);
-            }
-        });
-
-        botonMostrarPartidos.setText("Mostrar Partidos");
-        botonMostrarPartidos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonMostrarPartidosActionPerformed(evt);
-            }
-        });
-
-        jLabel16.setText("Buscar");
-
-        comboTemporadaPartidos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboTemporadaPartidos.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comboTemporadaPartidosItemStateChanged(evt);
-            }
-        });
-
-        comboCategoriaPartidos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboCategoriaPartidos.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comboCategoriaPartidosItemStateChanged(evt);
-            }
-        });
-
-        jLabel26.setText("Equipo Local");
-
-        botonFiltrarPartido.setText("Filtrar Partidos");
-        botonFiltrarPartido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonFiltrarPartidoActionPerformed(evt);
-            }
-        });
-
-        jLabel27.setText("Equipo Visitante");
-
-        comboEquipoLocal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboEquipoLocal.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comboEquipoLocalItemStateChanged(evt);
-            }
-        });
-
-        comboEquipoVisitante.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboEquipoVisitante.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comboEquipoVisitanteItemStateChanged(evt);
-            }
-        });
-
-        jLabel28.setText("Fecha");
-
-        fechaPartido.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                fechaPartidoFocusLost(evt);
-            }
-        });
-
-        jButton6.setText("Introducir XML al Partido");
-
-        javax.swing.GroupLayout PanelPartidosLayout = new javax.swing.GroupLayout(PanelPartidos);
-        PanelPartidos.setLayout(PanelPartidosLayout);
-        PanelPartidosLayout.setHorizontalGroup(
-            PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelPartidosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelPartidosLayout.createSequentialGroup()
-                        .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(PanelPartidosLayout.createSequentialGroup()
-                                .addComponent(BotonNPartido)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(BotonModificarPartido)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton9))
-                            .addGroup(PanelPartidosLayout.createSequentialGroup()
-                                .addComponent(botonMostrarPartidos)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(botonFiltrarPartido)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(PanelPartidosLayout.createSequentialGroup()
-                        .addComponent(Partidos)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPartidosLayout.createSequentialGroup()
-                        .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(PanelPartidosLayout.createSequentialGroup()
-                                .addComponent(jLabel16)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(comboTemporadaPartidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(comboCategoriaPartidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(46, 46, 46)
-                                .addComponent(jLabel26)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboEquipoLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
-                                .addComponent(jLabel27)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboEquipoVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel28)
-                                .addGap(18, 18, 18)
-                                .addComponent(fechaPartido, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(PanelPartidosLayout.createSequentialGroup()
-                                .addComponent(jScrollPane8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(BotonJPartido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(36, 36, 36))))
-        );
-        PanelPartidosLayout.setVerticalGroup(
-            PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelPartidosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Partidos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel16)
-                        .addComponent(comboTemporadaPartidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(comboCategoriaPartidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel26)
-                        .addComponent(jLabel27)
-                        .addComponent(comboEquipoLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(comboEquipoVisitante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel28))
-                    .addComponent(fechaPartido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(PanelPartidosLayout.createSequentialGroup()
-                        .addComponent(BotonJPartido)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton6)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonMostrarPartidos)
-                    .addComponent(botonFiltrarPartido))
-                .addGap(19, 19, 19)
-                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PanelPartidosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BotonNPartido)
-                    .addComponent(BotonModificarPartido)
-                    .addComponent(jButton9))
-                .addContainerGap())
-        );
-
-        getContentPane().add(PanelPartidos, new java.awt.GridBagConstraints());
-
         menuInicio.setText("Inicio");
         menuInicio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1065,14 +661,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         });
         barraMenu.add(menuInicio);
 
-        menuEquipos.setText("Equipos");
-        menuEquipos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuEquiposMouseClicked(evt);
-            }
-        });
-        barraMenu.add(menuEquipos);
-
         menuUsuarios.setText("Usuarios");
         menuUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1080,14 +668,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
         barraMenu.add(menuUsuarios);
-
-        menuPartidos.setText("Partidos");
-        menuPartidos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuPartidosMouseClicked(evt);
-            }
-        });
-        barraMenu.add(menuPartidos);
 
         setJMenuBar(barraMenu);
 
@@ -1657,321 +1237,7 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
             
     
     
-                        
-    private void textNombreEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNombreEquipoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textNombreEquipoActionPerformed
-    
-    private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
-        try {
-            actualizaTablaEquiposFiltro(textNombreEquipo.getText(), comboTempEquipo.getSelectedItem().toString(), comboCatEquipo.getSelectedItem().toString(),
-                    textEntEquipo.getText());
-            labelEquiposMostrados.setVisible(true);
-            labelNumeroEquipos.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }//GEN-LAST:event_botonBuscarActionPerformed
-    
-    private void menuEquiposMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuEquiposMouseClicked
-        ocultarPaneles();
-        panelEquipos.setVisible(true);
-        
-        try {
-            actualizaComboCatEquipo();
-            actualizaComboTempEquipo();
-        } catch (SQLException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_menuEquiposMouseClicked
-                    
-    private void comboCatEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCatEquipoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboCatEquipoActionPerformed
-    
-    private void botonNuevoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoEquipoActionPerformed
-        try {
-            new NuevoEquipo(accesoBD).setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_botonNuevoEquipoActionPerformed
-        
-    private void botonMostrarEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarEquiposActionPerformed
-        try {
-            actualizaTablaEquipos();
-            labelEquiposMostrados.setVisible(true);
-            labelNumeroEquipos.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_botonMostrarEquiposActionPerformed
-    
-    private void botonEliminarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarEquipoActionPerformed
-    }//GEN-LAST:event_botonEliminarEquipoActionPerformed
-                                            
-    private void menuPartidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuPartidosMouseClicked
-        // TODO add your handling code here:
-        ocultarPaneles();
-        idC = idT = 0;
-        noEntry = true;
-        tablaPartidos.setEnabled(false);
-        ((JTextFieldDateEditor) fechaPartido.getComponents()[1]).setEditable(false);
-        try {
-            actualizaComboTemporadaPartidos();
-            actualizaComboCategoriaPartidos();
-            List<String> equipos = new ArrayList<String>();
-            equipos = getListaEquipos(idC, idT);
-            actualizaComboEquipoPartidos(equipos, 1);
-            actualizaComboEquipoPartidos(equipos, 2);
-        } catch (SQLException e) {
-            Logger.getLogger(AñadirModificarTemporada.class.getName()).log(Level.SEVERE, null, e);
-        }
-        noEntry = false;
-        PanelPartidos.setVisible(true);
-    }//GEN-LAST:event_menuPartidosMouseClicked
-                        
-    private void botonFiltrarPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFiltrarPartidoActionPerformed
-        // TODO add your handling code here:
-        String fecha, temporada, categoria, equipoLoc, equipoVis;
-        if (fechaPartido.getDate() != null) {
-            java.sql.Date sqlFechaPartido = new java.sql.Date(fechaPartido.getDate().getTime());
-            fecha = sqlFechaPartido.toString();
-        } else {
-            fecha = null;
-        }
-        if (comboTemporadaPartidos.getSelectedItem() != "-Temporada-") {
-            temporada = comboTemporadaPartidos.getSelectedItem().toString();
-        } else {
-            temporada = null;
-        }
-        
-        if (comboCategoriaPartidos.getSelectedItem() != "-Categoria-") {
-            categoria = comboCategoriaPartidos.getSelectedItem().toString();
-        } else {
-            categoria = null;
-        }
-        
-        if (comboEquipoLocal.getSelectedItem() != "-Equipo Local-") {
-            equipoLoc = comboEquipoLocal.getSelectedItem().toString();
-        } else {
-            equipoLoc = null;
-        }
-        
-        if (comboEquipoVisitante.getSelectedItem() != "-Equipo Visitante-") {
-            equipoVis = comboEquipoVisitante.getSelectedItem().toString();
-        } else {
-            equipoVis = null;
-        }
-        try {
-            actualizaTablaPartidosFiltro(fecha, temporada, categoria, equipoLoc, equipoVis);
-        } catch (SQLException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_botonFiltrarPartidoActionPerformed
-    
-    private void BotonNPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonNPartidoActionPerformed
-        // TODO add your handling code here:
-        ocultarMensajesError();
-        try {
-            new NuevoPartido(accesoBD, this).setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_BotonNPartidoActionPerformed
-    
-    private void BotonJPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonJPartidoActionPerformed
-        // TODO add your handling code here:
-        ocultarMensajesError();
-        new JugarPartido().setVisible(true);
-    }//GEN-LAST:event_BotonJPartidoActionPerformed
-    
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
-    
-    private void BotonModificarPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonModificarPartidoActionPerformed
-        // TODO add your handling code here:
-        ocultarMensajesError();
-        new ModificarPartido().setVisible(true);
-    }//GEN-LAST:event_BotonModificarPartidoActionPerformed
-    
-    private void fechaPartidoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_fechaPartidoFocusLost
-        /*Date dateFromDateChooser = fechaPartido.getDate();
-         String dateString = String.format("%1$tY-%1$tm-%1$td", dateFromDateChooser);
-         if (dateString.equals("null-null-null")) {
-         fechaPartido.setBorder(bordeError);
-         } else {
-         fechaPartido.setBorder(bordeDatePicker);
-         }*/
-    }//GEN-LAST:event_fechaPartidoFocusLost
-    
-    private void botonMostrarPartidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarPartidosActionPerformed
-        // TODO add your handling code here:
-
-        actualizaTablaPartidos();
-        
-    }//GEN-LAST:event_botonMostrarPartidosActionPerformed
-    
-    private void actualizaTablaPartidos() {
-        List<List<String>> lpar = new ArrayList<List<String>>();
-        try {
-            lpar = GestorPartidos.getListaPartidos(accesoBD);
-        } catch (SQLException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        DefaultTableModel dtm = new DefaultTableModel();
-        dtm.addColumn("Fecha");
-        dtm.addColumn("Hora");
-        dtm.addColumn("Categoría");
-        dtm.addColumn("Temporada");
-        dtm.addColumn("Equipo Local");
-        dtm.addColumn("Equipo Visitante");
-        dtm.addColumn("Resultado Local");
-        dtm.addColumn("Resultado Visitante");
-        
-        String aux;
-        Object[] fila = new Object[8];
-        for (List<String> it : lpar) {
-            aux = it.get(0);
-            fila[0] = aux.substring(0, aux.indexOf(","));
-            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            fila[1] = aux.substring(0, aux.indexOf(","));
-            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            try {
-                fila[2] = getCategoria(aux.substring(0, aux.indexOf(",")));
-            } catch (SQLException ex) {
-                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            try {
-                fila[3] = getTemporada(aux.substring(0, aux.indexOf(",")));
-            } catch (SQLException ex) {
-                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            try {
-                fila[4] = getEquipo(aux.substring(0, aux.indexOf(",")));
-            } catch (SQLException ex) {
-                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            try {
-                fila[5] = getEquipo(aux.substring(0, aux.indexOf(",")));
-            } catch (SQLException ex) {
-                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            fila[6] = aux.substring(0, aux.indexOf(","));
-            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            fila[7] = aux;
-            dtm.addRow(fila);
-        }
-        
-        tablaPartidos.setModel(dtm);
-        
-    }
-    
-    private void actualizaTablaPartidosFiltro(String fecha, String temporada, String categoria, String equipoLoc, String equipoVis) throws SQLException {
-        List<List<String>> lpar = new ArrayList<List<String>>();
-        int idCat = 0;
-        idCat = GestorCategorias.getIdCategoria(accesoBD, categoria);
-        System.out.println();
-        System.out.println(equipoLoc);
-        try {
-            lpar = GestorPartidos.getListaPartidosFiltro(accesoBD, fecha, String.valueOf(GestorTemporadas.getIdTemporada(accesoBD, temporada)),
-                    String.valueOf(idCat), String.valueOf(GestorEquipos.getIdEquipo(accesoBD, equipoLoc, categoria)),
-                    String.valueOf(GestorEquipos.getIdEquipo(accesoBD, equipoVis, categoria)));
-        } catch (SQLException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        DefaultTableModel dtm = new DefaultTableModel();
-        dtm.addColumn("Fecha");
-        dtm.addColumn("Hora");
-        dtm.addColumn("Categoría");
-        dtm.addColumn("Temporada");
-        dtm.addColumn("Equipo Local");
-        dtm.addColumn("Equipo Visitante");
-        dtm.addColumn("Resultado Local");
-        dtm.addColumn("Resultado Visitante");
-        
-        String aux;
-        Object[] fila = new Object[8];
-        for (List<String> it : lpar) {
-            aux = it.get(0);
-            fila[0] = aux.substring(0, aux.indexOf(","));
-            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            fila[1] = aux.substring(0, aux.indexOf(","));
-            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            try {
-                fila[2] = getCategoria(aux.substring(0, aux.indexOf(",")));
-            } catch (SQLException ex) {
-                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            try {
-                fila[3] = getTemporada(aux.substring(0, aux.indexOf(",")));
-            } catch (SQLException ex) {
-                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            try {
-                fila[4] = getEquipo(aux.substring(0, aux.indexOf(",")));
-            } catch (SQLException ex) {
-                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            try {
-                fila[5] = getEquipo(aux.substring(0, aux.indexOf(",")));
-            } catch (SQLException ex) {
-                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            fila[6] = aux.substring(0, aux.indexOf(","));
-            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            fila[7] = aux;
-            dtm.addRow(fila);
-        }
-        
-        tablaPartidos.setModel(dtm);
-        
-    }
-    
-    private void mostrarMensajeError(String mensaje) {
-        JOptionPane.showMessageDialog(null,
-                mensaje, "Error",
-                JOptionPane.ERROR_MESSAGE);
-    }
-    
-    private void botonModificarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarEquipoActionPerformed
-        // TODO add your handling code here:
-
-        if (tablaEquipos.getSelectedRow() > 1) {
-            String nombreEquipo = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 0);
-            String selecCat = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 1);
-            String selecTemp = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 2);
-            String primerEntr = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 3);
-            String segundoEntr = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 4);
-            
-            if (!nombreEquipo.isEmpty() || !selecCat.isEmpty() || !selecTemp.isEmpty() || !primerEntr.isEmpty() || !segundoEntr.isEmpty()) {
-                ocultarMensajesError();
-                
-                try {
-                    new ModificarEquipo(accesoBD, nombreEquipo, selecCat, selecTemp, primerEntr, segundoEntr).setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                mostrarMensajeError("Falta algún campo por editar");
-            }
-            
-        } else {
-            mostrarMensajeError("No se ha seleccionado ninguna fila de la tabla");
-        }
-    }//GEN-LAST:event_botonModificarEquipoActionPerformed
-
-    //***************************************JAVI******************************************************//
+                                                                                                                                                                    
     private void verEstadisticasEntrenadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verEstadisticasEntrenadorActionPerformed
         
         String usuarioElegido;
@@ -2009,107 +1275,7 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
             
         }
     }//GEN-LAST:event_verEstadisticasEntrenadorActionPerformed
-        
-    private void verClasificacionEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verClasificacionEquiposActionPerformed
-        
-        ocultarMensajesError();
-        new ClasificacionLiga(accesoBD).setVisible(true);
-    }//GEN-LAST:event_verClasificacionEquiposActionPerformed
-    
-    private void comboCategoriaPartidosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboCategoriaPartidosItemStateChanged
-        // TODO add your handling code here:
-        if (!noEntry) {
-            if (comboCategoriaPartidos.getSelectedItem() != "-Categoria-") {
-                try {
-                    idC = GestorCategorias.getIdCategoria(accesoBD, comboCategoriaPartidos.getSelectedItem().toString());
-                } catch (SQLException ex) {
-                    Logger.getLogger(NuevoPartido.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                List<String> equipos = new ArrayList<String>();
-                try {
-                    noEntry = true;
-                    equipos = getListaEquipos(idC, idT);
-                    actualizaComboEquipoPartidos(equipos, 1);
-                    actualizaComboEquipoPartidos(equipos, 2);
-                    noEntry = false;
-                } catch (SQLException ex) {
-                    Logger.getLogger(NuevoPartido.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                idC = 0;
-                List<String> equipos = new ArrayList<String>();
-                try {
-                    noEntry = true;
-                    equipos = getListaEquipos(idC, idT);
-                    actualizaComboEquipoPartidos(equipos, 1);
-                    actualizaComboEquipoPartidos(equipos, 2);
-                    noEntry = false;
-                } catch (SQLException ex) {
-                    Logger.getLogger(NuevoPartido.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            equipoAnterior1 = "";
-            equipoAnterior2 = "";
-        }
-    }//GEN-LAST:event_comboCategoriaPartidosItemStateChanged
-    
-    private void comboTemporadaPartidosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboTemporadaPartidosItemStateChanged
-        // TODO add your handling code here:
-        if (!noEntry) {
-            if (comboTemporadaPartidos.getSelectedItem() != "-Temporada-") {
-                try {
-                    idT = GestorTemporadas.getIdTemporada(accesoBD, comboTemporadaPartidos.getSelectedItem().toString());
-                } catch (SQLException ex) {
-                    Logger.getLogger(NuevoPartido.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-    }//GEN-LAST:event_comboTemporadaPartidosItemStateChanged
-    
-    private void comboEquipoLocalItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboEquipoLocalItemStateChanged
-        // TODO add your handling code here:
-        if (!noEntry) {
-            if (comboEquipoLocal.getSelectedItem() != "-Equipo Local-") {
-                if (equipoAnterior1 == "") {
-                    equipoAnterior1 = comboEquipoLocal.getSelectedItem();
-                    comboEquipoVisitante.removeItem(equipoAnterior1);
-                    
-                } else {
-                    comboEquipoVisitante.addItem(equipoAnterior1);
-                    equipoAnterior1 = comboEquipoLocal.getSelectedItem();
-                    comboEquipoVisitante.removeItem(equipoAnterior1);
-                }
-            } else {
-                if (equipoAnterior1 != "") {
-                    comboEquipoVisitante.addItem(equipoAnterior1);
-                    equipoAnterior1 = "";
-                }
-            }
-        }
-    }//GEN-LAST:event_comboEquipoLocalItemStateChanged
-    
-    private void comboEquipoVisitanteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboEquipoVisitanteItemStateChanged
-        // TODO add your handling code here:
-        if (!noEntry) {
-            if (comboEquipoVisitante.getSelectedItem() != "-Equipo Visitante-") {
-                if (equipoAnterior2 == "") {
-                    equipoAnterior2 = comboEquipoVisitante.getSelectedItem();
-                    comboEquipoLocal.removeItem(equipoAnterior2);
-                    
-                } else {
-                    comboEquipoLocal.addItem(equipoAnterior2);
-                    equipoAnterior2 = comboEquipoVisitante.getSelectedItem();
-                    comboEquipoLocal.removeItem(equipoAnterior2);
-                }
-            } else {
-                if (equipoAnterior2 != "") {
-                    comboEquipoLocal.addItem(equipoAnterior2);
-                    equipoAnterior2 = "";
-                }
-            }
-        }
-    }//GEN-LAST:event_comboEquipoVisitanteItemStateChanged
-    
+                            
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         new PrincipalCategorias(this, this.accesoBD).setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -2138,32 +1304,21 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
         new PrincipalPagos(this, this.accesoBD).setVisible(true);
     }//GEN-LAST:event_jButton12ActionPerformed
 
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        new PrincipalEquipos(this, this.accesoBD).setVisible(true);
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        new PrincipalPartidos(this, this.accesoBD).setVisible(true);
+    }//GEN-LAST:event_jButton13ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BotonJPartido;
-    private javax.swing.JButton BotonModificarPartido;
-    private javax.swing.JButton BotonNPartido;
-    private javax.swing.JPanel PanelPartidos;
-    private javax.swing.JLabel Partidos;
     private javax.swing.JMenuBar barraMenu;
-    private javax.swing.JButton botonBuscar;
-    private javax.swing.JButton botonEliminarEquipo;
     private javax.swing.JButton botonEliminarUsuario;
-    private javax.swing.JButton botonFiltrarPartido;
     private javax.swing.JButton botonGuardarCambiosUsuario;
-    private javax.swing.JButton botonInfoEquipo;
-    private javax.swing.JButton botonModificarEquipo;
-    private javax.swing.JButton botonMostrarEquipos;
-    private javax.swing.JButton botonMostrarPartidos;
-    private javax.swing.JButton botonNuevoEquipo;
     private javax.swing.JButton botonNuevoUsuario;
     private javax.swing.JButton boton_mostrar_Usuarios;
     private javax.swing.JButton cerrarSesion;
-    private javax.swing.JComboBox comboCatEquipo;
-    private javax.swing.JComboBox comboCategoriaPartidos;
-    private javax.swing.JComboBox comboEquipoLocal;
-    private javax.swing.JComboBox comboEquipoVisitante;
-    private javax.swing.JComboBox comboTempEquipo;
-    private javax.swing.JComboBox comboTemporadaPartidos;
     private javax.swing.JComboBox consultaCategoriaUsuario;
     private javax.swing.JComboBox consultaEntrenadorUsuario;
     private javax.swing.JComboBox consultaEquipoUsuario;
@@ -2173,29 +1328,19 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
     private javax.swing.JLabel errorEliminarUsuario;
     private javax.swing.JLabel errorModifFijoUsuario;
     private javax.swing.JLabel errorModifMovilUsuario;
-    private com.toedter.calendar.JDateChooser fechaPartido;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
@@ -2211,7 +1356,8 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -2231,43 +1377,33 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel26;
+    private javax.swing.JPanel jPanel27;
+    private javax.swing.JPanel jPanel28;
+    private javax.swing.JPanel jPanel29;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel30;
+    private javax.swing.JPanel jPanel31;
+    private javax.swing.JPanel jPanel32;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JLabel labelEquiposMostrados;
-    private javax.swing.JLabel labelNumeroEquipos;
-    private javax.swing.JMenu menuEquipos;
     private javax.swing.JMenu menuInicio;
-    private javax.swing.JMenu menuPartidos;
     private javax.swing.JMenu menuUsuarios;
-    private javax.swing.JPanel panelEquipos;
     private javax.swing.JPanel panelInicio;
     private javax.swing.JPanel panelUsuarios;
-    private javax.swing.JTable tablaEquipos;
-    private javax.swing.JTable tablaPartidos;
     private javax.swing.JTable tablaUsuarios;
-    private javax.swing.JTextField textEntEquipo;
-    private javax.swing.JTextField textNombreEquipo;
     private javax.swing.JTextField textfield_apellidoPrimeroUsuario;
     private javax.swing.JTextField textfield_apellidoSegundoUsuario;
     private javax.swing.JTextField textfield_nombreUsuario;
-    private javax.swing.JButton verClasificacionEquipos;
     private javax.swing.JButton verEstadisticasEntrenador;
     // End of variables declaration//GEN-END:variables
 
     private void ocultarPaneles() {
         panelInicio.setVisible(false);
         panelUsuarios.setVisible(false);
-        panelEquipos.setVisible(false);
-        PanelPartidos.setVisible(false);
     }
     
     ResultSet ejecutarConsulta(String query) {
@@ -2277,86 +1413,7 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
     void ejecutarActualizacion(String query) throws SQLException {
         accesoBD.ejecutaActualizacion(query);
     }
-    
-    private void actualizaComboTempEquipo() throws SQLException {
-        comboTempEquipo.removeAllItems();
-        comboTempEquipo.addItem("-Temporada-");
-        
-        String query = "SELECT curso FROM Temporada";
-        ResultSet res = accesoBD.ejecutaConsulta(query);
-        while (res.next()) {
-            comboTempEquipo.addItem(res.getString(1));
-        }
-    }
-    
-    private void actualizaComboTemporadaPartidos() throws SQLException {
-        comboTemporadaPartidos.removeAllItems();
-        comboTemporadaPartidos.addItem("-Temporada-");
-        
-        String query = "SELECT curso FROM Temporada";
-        ResultSet res = accesoBD.ejecutaConsulta(query);
-        while (res.next()) {
-            comboTemporadaPartidos.addItem(res.getString(1));
-        }
-    }
-    
-    private void actualizaComboCatEquipo() throws SQLException {
-        comboCatEquipo.removeAllItems();
-        comboCatEquipo.addItem("-Categoria-");
-        
-        String query = "SELECT tipo FROM Categoria";
-        ResultSet res = accesoBD.ejecutaConsulta(query);
-        while (res.next()) {
-            comboCatEquipo.addItem(res.getString(1));
-        }
-    }
-    
-    private void actualizaComboCategoriaPartidos() throws SQLException {
-        comboCategoriaPartidos.removeAllItems();
-        comboCategoriaPartidos.addItem("-Categoría-");
-        
-        String query = "SELECT tipo FROM Categoria";
-        ResultSet res = accesoBD.ejecutaConsulta(query);
-        while (res.next()) {
-            comboCategoriaPartidos.addItem(res.getString(1));
-        }
-    }
-    
-    void actualizaComboEquipoPartidos(List<String> equipos, int numEquipo) throws SQLException {
-        if (numEquipo == 1) {
-            comboEquipoLocal.removeAllItems();
-            comboEquipoLocal.addItem("-Equipo Local-");
-            for (String s : equipos) {
-                comboEquipoLocal.addItem(s);
-            }
-        } else {
-            comboEquipoVisitante.removeAllItems();
-            comboEquipoVisitante.addItem("-Equipo Visitante-");
-            for (String s : equipos) {
-                comboEquipoVisitante.addItem(s);
-            }
-        }
-    }
-    
-    List<List<String>> getListaCategorias() throws SQLException {
-        List<List<String>> cats = new ArrayList<List<String>>();
-        cats = GestorCategorias.getListaCategorias(accesoBD);
-        return cats;
-    }
 
-    /*
-     * Metodo provisional hasta que se implemente "CATEGORIA"
-     */
-    /*List<String> getListaCategorias() throws SQLException {
-     List<String> cats = new ArrayList<String>();
-     String query = "SELECT tipo FROM Categoria";
-     ResultSet res = accesoBD.ejecutaConsulta(query);
-     while (res.next()) {
-     cats.add(res.getString(1));
-     }
-
-     return cats;
-     }*/
     public List<String> getListaEntrenadores(String sEnt) {
         List<String> ents = new ArrayList<String>();
         try {
@@ -2366,100 +1423,5 @@ private void botonEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt)
         }
         
         return ents;
-    }
-    /*
-     * Futuro getListaEquipos (pa cuando esté)
-     */
-    /*List<String> getListaEquipos(String s) throws SQLException {
-     List<String> equipos = new ArrayList<String>();
-     equipos = GestorEquipo.getListaEquipos(accesoBD);
-     return equipos.
-     }*/
-
-    /*
-     * Método provisional para obtener equipos
-     */
-    List<String> getListaEquipos(int idCat, int idTemp) throws SQLException {
-        List<String> equipos = new ArrayList<String>();
-        String query;
-        if (idCat == 0 && idTemp != 0) {
-            query = "SELECT nombre FROM Equipo WHERE (temporada_idTemporada = " + idTemp + ");";
-        } else if (idCat != 0 && idTemp == 0) {
-            query = "SELECT nombre FROM Equipo WHERE (Categoria_IdCategoria = " + idCat + ");";
-        } else {
-            query = "SELECT nombre FROM Equipo WHERE (Categoria_IdCategoria = " + idCat + " AND temporada_idTemporada = " + idTemp + ");";
-        }
-        ResultSet res = accesoBD.ejecutaConsulta(query);
-        while (res.next()) {
-            equipos.add(res.getString(1));
-        }
-        return equipos;
-    }
-    
-    public void actualizaTablaEquiposFiltro(String nombre, String temporada, String categoria, String entrenador) throws SQLException {
-    }
-    
-    public void actualizaTablaEquipos() throws SQLException {
-        List<Equipo> equipos = new ArrayList<Equipo>();
-        equipos = GestorEquipos.getListaEquipos(accesoBD);
-        
-        DefaultTableModel dtm = new DefaultTableModel();
-        dtm.addColumn("Nombre");
-        dtm.addColumn("Categoria");
-        dtm.addColumn("Temporada");
-        dtm.addColumn("Primer Entrenador");
-        dtm.addColumn("Segundo Entrenador");
-        dtm.addColumn("Sexo");
-        
-        String aux;
-        Object[] fila = new Object[6];
-        for (Equipo it : equipos) {
-            aux = it.getCategoria();
-            fila[0] = aux.substring(0, aux.indexOf(","));
-            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            fila[1] = aux.substring(0, aux.indexOf(","));
-            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            fila[2] = getCategoria(aux.substring(0, aux.indexOf(",")));
-            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            fila[3] = getEntrenador(aux.substring(0, aux.indexOf(",")));
-            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            fila[4] = getTemporada(aux);
-            dtm.addRow(fila);
-        }
-        
-        tablaEquipos.setModel(dtm);
-        
-        
-        
-        
-    }
-    
-    private String getCategoria(String s) throws SQLException {
-        
-        String cat = GestorCategorias.getCategoria(accesoBD, Integer.parseInt(s));
-        
-        return cat;
-    }
-    
-    private String getEntrenador(String s) throws SQLException {
-        
-        return GestorUsuarios.getEntrenador(accesoBD, s);
-    }
-    
-    private String getTemporada(String s) throws SQLException {
-        
-        return GestorTemporadas.getTemporada(accesoBD, s);
-    }
-    
-    private String getEquipo(String s) throws SQLException {
-        return GestorEquipos.getEquipo(accesoBD, s);
-    }
-    
-    List<String> getListaTemps() throws SQLException {
-        return GestorTemporadas.getListaTemporadas(accesoBD);
-    }
-    
-    List<String> getListaInstalaciones(String s) throws SQLException {
-        return GestorInstalacion.getListaInstalaciones(accesoBD);
     }
 }
