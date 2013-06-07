@@ -327,7 +327,7 @@ public class PrincipalPartidos extends javax.swing.JFrame {
 
         ResultSet retsetMostrados;
 
-        int idPartido;
+        int idPartido = 0;
 
         int iTablaPartido = tablaPartidos.getSelectedRow();
 
@@ -350,6 +350,7 @@ public class PrincipalPartidos extends javax.swing.JFrame {
             try {
                 if (retsetMostrados.next()) {
                     idPartido = retsetMostrados.getInt("idPartido");
+                }                    
 
                     new ModificarPartido(accesoBD, 
                             tablaPartidos.getValueAt(iTablaPartido, 0).toString(),
@@ -358,15 +359,15 @@ public class PrincipalPartidos extends javax.swing.JFrame {
                             tablaPartidos.getValueAt(iTablaPartido, 3).toString(),
                             tablaPartidos.getValueAt(iTablaPartido, 4).toString(),
                             tablaPartidos.getValueAt(iTablaPartido, 5).toString(),
+                            tablaPartidos.getValueAt(iTablaPartido, 6).toString(),
                             Integer.parseInt(tablaPartidos.getValueAt(iTablaPartido, 6).toString()),
                             Integer.parseInt(tablaPartidos.getValueAt(iTablaPartido, 7).toString()),
                             idPartido, this).setVisible(true);
-                }
             } catch (SQLException ex) {
                 Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else if (iTablaPartido == -1) {
-            JOptionPane.showMessageDialog(this, "No se ha seleccionado ninguna actividad", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No se ha seleccionado ningún partido", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_BotonModificarPartidoActionPerformed
 
