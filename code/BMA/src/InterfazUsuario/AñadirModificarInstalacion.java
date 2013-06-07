@@ -221,8 +221,13 @@ public class AñadirModificarInstalacion extends javax.swing.JFrame {
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
         String campos = "";
 
-        if (!nombreTextField.getText().matches("[a-zA-Z0-9\\-/]{1,45}")) {
-            campos = campos + "'Nombre',";
+        if (!nombreTextField.getText().matches("[' 'a-zA-Z0-9\\-/]{1,45}")) {
+            
+            if (nombreTextField.getText().length() > 45) {
+                campos = campos + "El campo 'Nombre' supera 45 caracteres,";
+            } else {
+                campos = campos + "'Nombre'";
+            }
             nombreTextField.setBorder(bordeError);
         }
         if (direccionComboBox.getSelectedItem().equals("-")) {
@@ -271,8 +276,8 @@ public class AñadirModificarInstalacion extends javax.swing.JFrame {
 
         if (!nombreTextField.getText().equals(nombre) || !capacidadTextField.getText().equals(capacidad)
                 || !direccionTextField.getText().equals(localizacion)) {
-            if (nombreTextField.getText().isEmpty() || capacidadTextField.getText().isEmpty() || direccionTextField.getText().isEmpty()) {
-                campos = campos + "Ningun campo puede estar vacio\n";
+            if (!nombreTextField.getText().matches("[' 'a-zA-Z0-9\\-/]{1,45}") || capacidadTextField.getText().isEmpty() || direccionTextField.getText().isEmpty()) {
+                campos = campos + "Ningun campo puede estar vacio o el nombre superar 45 caracteres\n";
             } else if (!isNumber(capacidadTextField.getText())) {
                 campos = campos + "'Capacidad',";
                 capacidadTextField.setBorder(bordeError);

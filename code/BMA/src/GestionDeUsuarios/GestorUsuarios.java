@@ -44,7 +44,28 @@ import java.util.logging.Logger;
  ******************************************************************************
  */
 
+/**
+ * Clase Gestora de Usuarios que permite interactuar con diversos metodos de los usuarios.
+ * @author Francisco
+ * @version 1.0
+ */
 public class GestorUsuarios {
+    
+    /**
+     * Permite dar de alta a un nuevo usuario
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param nombre Nombre del usuario.
+     * @param primerApellido Primer apellido del usuario.
+     * @param segundoApellido Segundo apellido del usuario.
+     * @param dni Dni del usuario.
+     * @param clave Clave del usuario.
+     * @param entrenador Atributo para especificar si el usuario es entrenador.
+     * @param telMovil Telefono movil del usuario.
+     * @param telFijo Telefono fijo del usuario.
+     * @param email Email del usuario.
+     * @param numeroCuenta Numero de cuenta del usuario.
+     * @return Un booleano que indica si se ha realizado la operacion con exito
+     */
     public static boolean darAltaUsuario(BaseDatos accesoBD, String nombre, String primerApellido, String segundoApellido, String dni,
             String clave, boolean entrenador, int telMovil, int telFijo, String email, String numeroCuenta){
         boolean exito = true;
@@ -61,11 +82,26 @@ public class GestorUsuarios {
         }
         return exito;
     }
-
+    
+    
+    
+   /**
+    * Permite consultar los datos del usuario.
+    * @param accesoBD Usado para interactuar con la base de datos.
+    * @param consulta Parametro de tipo string usado para crear una cadena con la consulta.
+    * @return ResultSet con los datos de la consulta.
+    */
     public static ResultSet consultarUsuario(BaseDatos accesoBD, String consulta){
         return AccesoBDUsuario.consultaUsuarioBD(accesoBD, consulta);
     }
     
+    
+    /**
+     * Permite saber si el usuario tiene permimsos de administrador
+     * @param accesoBD Permite interactuar con la base de datos.
+     * @param usuario Parametro de tipo string con el nombre del usuario.
+     * @return Un booleano que indica si este usuario tiene permisos o no.
+     */
     public static boolean tengoPermisosAdministrador(BaseDatos accesoBD, String usuario) {
         boolean tengoPermisos = true;
         String consulta = "SELECT entrenador FROM usuario WHERE user='" + usuario + "'";
@@ -81,6 +117,12 @@ public class GestorUsuarios {
         return tengoPermisos;
     }
 
+    
+    /**
+     * Permite actualizar los datos del usuario especificado.
+     * @param accesoBD permite interactuar con la base de datos.
+     * @param actualizacion Parametro de tipo string que contiene la actualizacion.
+     */
     public static void actualizaUsuario(BaseDatos accesoBD, String actualizacion){
         AccesoBDUsuario Usuario=new AccesoBDUsuario();
         try {
@@ -88,7 +130,23 @@ public class GestorUsuarios {
         } catch (SQLException ex) {
             Logger.getLogger(GestorUsuarios.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }    
+    }  
+    
+    
+    /**
+     * Permite dar de baja a un usuario.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param nombre Nombre del usuario.
+     * @param primerApellido Primer apellido del usuario.
+     * @param segundoApellido Segundo apellido del usuario.
+     * @param dni Dni del usuario.
+     * @param clave Clave del usuario.
+     * @param entrenador Atributo para especificar si el usuario es entrenador.
+     * @param telMovil Telefono movil del usuario.
+     * @param telFijo Telefono fijo del usuario.
+     * @param email Email del usuario.
+     * @param numeroCuenta Numero de cuenta del usuario.
+     */
     public static void eliminaUsuario(BaseDatos accesoBD, String nombre, String primerApellido, String segundoApellido, 
             String dni, String clave, boolean entrenador, int telMovil, int telFijo,
             String email, String numeroCuenta ){
@@ -101,6 +159,14 @@ public class GestorUsuarios {
         usuarioBD.eliminaUsuarioBD(accesoBD, usuarioEliminado);
     }
     
+    
+    /**
+     * Permite obtener una lista de entrenadores.
+     * @param accesoBD Permite interactuar con la base de datos.
+     * @param s Parametro de tipo string usado para obtener la lista de entrenadores.
+     * @return Una lista de tipo string con los entrenadores.
+     * @throws SQLException Muestra los mensajes de error en las consultas.
+     */
     public static List<String> getEntrenadores(BaseDatos accesoBD, String s) throws SQLException{
         List<String> res = new ArrayList<String>();        
         res = AccesoBDUsuario.getListaEntrenadores(accesoBD, s);
@@ -108,16 +174,40 @@ public class GestorUsuarios {
         return res;
     }
 
+    
+    /**
+     * Permite obtener el id de un entrenador.
+     * @param accesoBD Permite interactuar con la base de datos.
+     * @param entrenador Parametro de tipo string usado para obtener el id del entrenador.
+     * @return Entero que identifica el id del entrenador.
+     * @throws SQLException Muestra los mensajes de error en las consultas.
+     */
     public static int getIdEnt(BaseDatos accesoBD, String entrenador) throws SQLException {
         int res = AccesoBDUsuario.getIdEnt(accesoBD, entrenador);
 
         return res;
     }
 
+    
+    /**
+     * Permite obtener un entrenador el cual es especificado por su nombre.
+     * @param accesoBD Permite interactuar con la base de datos.
+     * @param s Parametro de tipo string usado para obtener el entrenador.
+     * @return Un valor de tipo string con el entrenador obtenido.
+     * @throws SQLException Muestra los mensajes de error en las consultas.
+     */
     public static String getEntrenador(BaseDatos accesoBD, String s) throws SQLException {
         return AccesoBDUsuario.getEntrenador(accesoBD, s);
     }
 
+    
+    /**
+     * Permite obtener un entrenador el cual es especificado por su id.
+     * @param accesoBD Permite interactuar con la base de datos.
+     * @param idEnt Parametro de tipo entero usado para obtener el entrenador. 
+     * @return Un valor de tipo string con el entrenador obtenido.
+     * @throws SQLException Muestra los mensajes de error en las consultas.
+     */
     public static String getEntrenador(BaseDatos accesoBD, int idEnt) throws SQLException {
         String query = "SELECT nombre, primerApellido, segundoApellido FROM Usuario WHERE "
                 + "idUsuario='"+idEnt+"'";
@@ -131,6 +221,17 @@ public class GestorUsuarios {
     }
     
     
+    /**
+     * Permite consultar los datos de las estadisticas de un entrenador identificado por 
+     * su nombre, apellidos y DNI haciendo una llamada a generarEstadisticas de AccesoBDUsuario.
+     * @param accesoBD Permite interactuar con la base de datos.
+     * @param nombre Nombre del usuario.
+     * @param primerApellido Primer apellido del usuario.
+     * @param segundoApellido Segundo apellido del usuario.
+     * @param DNI Dni del usuario.
+     * @return ResultSet con los datos de la consulta realizada.
+     * @throws SQLException Muestra los mensajes de error en las consultas.
+     */
      public static ResultSet consultarEstadisticasEntrenador(BaseDatos accesoBD, String nombre, String apellido1, String apellido2, String DNI) throws SQLException {
          
         return AccesoBDUsuario.generarEstadisticas(accesoBD, nombre, apellido1, apellido2, DNI);  
