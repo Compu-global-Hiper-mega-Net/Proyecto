@@ -28,32 +28,31 @@ import javax.swing.DefaultListModel;
 
 /*
  ******************************************************************************
-                   (c) Copyright 2013 
-                   * 
-                   * Moisés Gautier Gómez
-                   * Julio Ros Martínez
-                   * Francisco Javier Gómez del Olmo
-                   * Francisco Santolalla Quiñonero
-                   * Carlos Jesús Fernández Basso
-                   * Alexander Moreno Borrego
-                   * Jesús Manuel Contreras Siles
-                   * Diego Muñoz Rio
+ (c) Copyright 2013 
+ * 
+ * Moisés Gautier Gómez
+ * Julio Ros Martínez
+ * Francisco Javier Gómez del Olmo
+ * Francisco Santolalla Quiñonero
+ * Carlos Jesús Fernández Basso
+ * Alexander Moreno Borrego
+ * Jesús Manuel Contreras Siles
+ * Diego Muñoz Rio
  
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************
  */
-
 public class ConsultarGrupo extends javax.swing.JFrame {
 
     private PrincipalGrupos pP;
@@ -70,10 +69,8 @@ public class ConsultarGrupo extends javax.swing.JFrame {
     private String inst;
     private String ent;
     private boolean avanzadas;
-    
     private List<String> alumnosCat;
     private List<String> listaAlumnosIntroducidos;
-    
 
     /**
      * Creates new form ConsultarGrupo
@@ -81,18 +78,18 @@ public class ConsultarGrupo extends javax.swing.JFrame {
     public ConsultarGrupo() {
         initComponents();
     }
-    
+
     public ConsultarGrupo(PrincipalGrupos v, String idG) throws SQLException {
         initComponents();
         setLocationRelativeTo(v);
         pP = v;
         this.idGrupo = idG;
-        
+
         this.bd = v.getBd();
-        
+
         //alumnosSel = new ArrayList<Alumno>();
         listaAlumnos = new ArrayList<>();
-        
+
         temp = GestorGrupos.getTemporada(this.bd, idGrupo);
         cat = GestorGrupos.getCategoria(this.bd, idGrupo);
         hora1 = GestorGrupos.getHora1(this.bd, idGrupo);
@@ -101,7 +98,7 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         dia2 = GestorGrupos.getDia2(this.bd, idGrupo);
         inst = GestorGrupos.getInstalacion(this.bd, idGrupo);
         ent = GestorGrupos.getEntrenador(this.bd, idGrupo);
-        
+
         labelTemp.setText(temp);
         labelCat.setText(cat);
         labelHora1.setText(hora1);
@@ -110,32 +107,32 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         labelDia2.setText(dia2);
         labelInstalacion.setText(inst);
         labelEntrenador.setText(ent);
-        
+
         List<String> aux = pP.getlistaAlumnosIntroducidos(idGrupo);
         labelFijados.setText(Integer.toString(aux.size()));
         actualizaListaAlumnosIntroducidos(aux);
-        
+
         listaAlumnosIntroducidos = aux;
-        
+
         aux = pP.getListaTemps();
         actualizaComboTemp(aux);
-        
+
         //aux = creador.getListaCategorias();
         aux = GestorCategorias.getTipoCategorias(this.bd);
         actualizaComboCat(aux);
-        
+
         //aux = creador.getListaAlumnos("");
         aux = pP.getListaAlumnosSinGrupo("");
         actualizaModeloLista(aux);
-        
+
         aux = pP.getListaEntrenadores("");
         actualizaComboEntrenadores(aux);
-        
+
         aux = pP.getListaInstalaciones("");
         actualizaComboInstalaciones(aux);
-        
+
         labelError.setVisible(false);
-        
+
         comboDia1.removeAllItems();
         comboDia1.addItem(DiasSemana.Lunes);
         comboDia1.addItem(DiasSemana.Martes);
@@ -144,7 +141,7 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         comboDia1.addItem(DiasSemana.Viernes);
         comboDia1.addItem(DiasSemana.Sabado);
         comboDia1.addItem(DiasSemana.Domingo);
-        
+
         comboDia2.removeAllItems();
         comboDia2.addItem(DiasSemana.Lunes);
         comboDia2.addItem(DiasSemana.Martes);
@@ -152,27 +149,27 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         comboDia2.addItem(DiasSemana.Jueves);
         comboDia2.addItem(DiasSemana.Viernes);
         comboDia2.addItem(DiasSemana.Sabado);
-        comboDia2.addItem(DiasSemana.Domingo); 
-        
+        comboDia2.addItem(DiasSemana.Domingo);
+
         comboEnt.setSelectedItem(ent);
         comboInst.setSelectedItem(inst);
-        
+
         String auxHora = hora1.substring(0, hora1.indexOf(":"));
         textHora.setText(auxHora);
         auxHora = hora1;
-        auxHora = auxHora.substring(auxHora.indexOf(":")+1, auxHora.indexOf(":")+3);
-        min = auxHora;   
+        auxHora = auxHora.substring(auxHora.indexOf(":") + 1, auxHora.indexOf(":") + 3);
+        min = auxHora;
         //fila[0] = aux.substring(0, aux.indexOf(","));
         //aux = aux.substring(aux.indexOf(",")+1, aux.length());
         textMin.setText(auxHora);
         comboDia1.setSelectedIndex(DiasSemana.getNumeroDia(dia1));
         comboDia2.setSelectedIndex(DiasSemana.getNumeroDia(dia2));
-        
+
         avanzadas = false;
         panelAvanzadas.setVisible(false);
-        
+
         actualizaListaPorCategoria();
-        
+
         //listaAlumnosIntroducidos = GestorGrupos.getListaAlumnosIntroducidos(bd, idGrupo);
     }
 
@@ -767,7 +764,13 @@ public class ConsultarGrupo extends javax.swing.JFrame {
     }//GEN-LAST:event_tfBuscarEntKeyTyped
 
     private void botonAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAnadirActionPerformed
-        listaAlumnos.addAll(jlAlumnos.getSelectedValuesList());
+        List<String> auxiliarAlumnosNuevos = new ArrayList();
+        auxiliarAlumnosNuevos.addAll(jlAlumnos.getSelectedValuesList());
+        for (int i = 0; i < auxiliarAlumnosNuevos.size(); i++) {
+            if (!listaAlumnos.contains(auxiliarAlumnosNuevos.get(i))) {
+                listaAlumnos.add(auxiliarAlumnosNuevos.get(i));
+            }
+        }
         labelAnadir.setText(Integer.toString(listaAlumnos.size()) + "/20");
         labelSelecc.setText("0/" + (20 - listaAlumnos.size()));
 
@@ -787,7 +790,7 @@ public class ConsultarGrupo extends javax.swing.JFrame {
     private void tfBuscarAlIntrKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscarAlIntrKeyTyped
         List<String> als = new ArrayList<>();
         String s = tfBuscarAlIntr.getText();
-        
+
         try {
             als = pP.getListaAlumnos(s);
         } catch (SQLException ex) {
@@ -809,7 +812,7 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(ConsultarGrupo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         List<String> aux1 = new ArrayList<String>();
         List<String> aux2 = new ArrayList<String>();
         try {
@@ -818,11 +821,11 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(ConsultarGrupo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         actualizaListaAlumnosIntroducidos(aux1);
         actualizaModeloLista(aux2);
         labelFijados.setText(Integer.toString(aux1.size()));
-        
+
         try {
             pP.actualizaTablaGrupos();
         } catch (SQLException ex) {
@@ -836,20 +839,20 @@ public class ConsultarGrupo extends javax.swing.JFrame {
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         /*String temp = GestorGrupos.getTemporada(creador.accesoBD, idGrupo);
-        String cat = GestorGrupos.getCategoria(creador.accesoBD, idGrupo);
-        String hora1 = GestorGrupos.getHora1(creador.accesoBD, idGrupo);
-        String hora2 = GestorGrupos.getHora2(creador.accesoBD, idGrupo);
-        String dia1 = GestorGrupos.getDia1(creador.accesoBD, idGrupo);
-        String dia2 = GestorGrupos.getDia2(creador.accesoBD, idGrupo);
-        String inst = GestorGrupos.getInstalacion(creador.accesoBD, idGrupo);
-        String ent = GestorGrupos.getEntrenador(creador.accesoBD, idGrupo);*/
-        
+         String cat = GestorGrupos.getCategoria(creador.accesoBD, idGrupo);
+         String hora1 = GestorGrupos.getHora1(creador.accesoBD, idGrupo);
+         String hora2 = GestorGrupos.getHora2(creador.accesoBD, idGrupo);
+         String dia1 = GestorGrupos.getDia1(creador.accesoBD, idGrupo);
+         String dia2 = GestorGrupos.getDia2(creador.accesoBD, idGrupo);
+         String inst = GestorGrupos.getInstalacion(creador.accesoBD, idGrupo);
+         String ent = GestorGrupos.getEntrenador(creador.accesoBD, idGrupo);*/
+
         Grupo gViejo = null;
         Grupo gNuevo = null;
         try {
-            gNuevo = new Grupo(comboTemp.getSelectedItem().toString(), 
-                    comboDia1.getSelectedItem().toString(), 
-                    comboDia2.getSelectedItem().toString(), 
+            gNuevo = new Grupo(comboTemp.getSelectedItem().toString(),
+                    comboDia1.getSelectedItem().toString(),
+                    comboDia2.getSelectedItem().toString(),
                     textHora.getText(), textMin.getText(),
                     comboEnt.getSelectedItem().toString(), comboCat.getSelectedItem().toString(), comboInst.getSelectedItem().toString());
             gViejo = new Grupo(temp, dia1, dia2, hora1, min, ent, cat, inst);
@@ -861,30 +864,32 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(ConsultarGrupo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
+
         try {
             pP.actualizaTablaGrupos();
         } catch (SQLException ex) {
             Logger.getLogger(ConsultarGrupo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
+
         this.setVisible(false);
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void textHoraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textHoraKeyTyped
-        if(textHora.getText().length() >= 2)
+        if (textHora.getText().length() >= 2) {
             evt.consume();
+        }
     }//GEN-LAST:event_textHoraKeyTyped
 
     private void textMinKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textMinKeyTyped
-        if(textMin.getText().length() >= 2)
+        if (textMin.getText().length() >= 2) {
             evt.consume();
+        }
     }//GEN-LAST:event_textMinKeyTyped
 
     private void botonAvanzadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAvanzadasActionPerformed
-        if(avanzadas == false){
+        if (avanzadas == false) {
             panelAvanzadas.setVisible(true);
             Dimension d = new Dimension(605, 680);
             this.setMaximumSize(d);
@@ -893,40 +898,38 @@ public class ConsultarGrupo extends javax.swing.JFrame {
             this.setSize(d);
             this.setLocationRelativeTo(pP);
             avanzadas = true;
-        }
-        else{
+        } else {
             panelAvanzadas.setVisible(false);
             Dimension d = new Dimension(605, 300);
             this.setMaximumSize(d);
             this.setPreferredSize(d);
             this.setMinimumSize(d);
             this.setSize(d);
-            
+
             this.setLocationRelativeTo(pP);
             avanzadas = false;
         }
     }//GEN-LAST:event_botonAvanzadasActionPerformed
 
     private void comboCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCatActionPerformed
-        
-        if(bd != null && comboCat.getItemAt(0) != null){
+
+        if (bd != null && comboCat.getItemAt(0) != null) {
             List<String> lista = new ArrayList<String>();
-        
+
             try {
                 int anio = GestorCategorias.getAnioCategoria(bd, comboCat.getSelectedItem().toString());
-            
+
                 //lista = GestorAlumnos.getAlumnosCategoria(bd, anio);
                 alumnosCat = GestorAlumnos.getAlumnosCategoria(bd, anio);
-            
+
                 //actualizaModeloLista(alumnosCat);
                 actualizaListaPorCategoria();
-            
+
             } catch (SQLException ex) {
                 Logger.getLogger(NuevoGrupo.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_comboCatActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAceptar;
     private javax.swing.JButton botonAnadir;
@@ -987,72 +990,79 @@ public class ConsultarGrupo extends javax.swing.JFrame {
 
     private void actualizaModeloLista(List<String> als) {
         DefaultListModel modelo = new DefaultListModel();
-        for(String s : als)
+        for (String s : als) {
             modelo.addElement(s);
-        
+        }
+
         jlAlumnos.removeAll();
         jlAlumnos.setModel(modelo);
     }
 
     private void actualizaComboEntrenadores(List<String> ents) {
         comboEnt.removeAllItems();
-        
-        for(String s : ents)
+
+        for (String s : ents) {
             comboEnt.addItem(s);
+        }
     }
 
     private void actualizaComboTemp(List<String> aux) {
         comboTemp.removeAllItems();
-        for(String s : aux)
+        for (String s : aux) {
             comboTemp.addItem(s);
+        }
     }
 
     private void actualizaComboCat(List<String> aux) {
         comboCat.removeAllItems();
-        for(String s : aux)
+        for (String s : aux) {
             comboCat.addItem(s);
+        }
     }
 
     private void actualizaComboInstalaciones(List<String> aux) {
         comboInst.removeAllItems();
-        
-        for(String s : aux)
+
+        for (String s : aux) {
             comboInst.addItem(s);
+        }
     }
 
     private void actualizaModeloListaAlumnosIntroducidos(List<String> als) {
         DefaultListModel modelo = new DefaultListModel();
-        for(String s : als)
+        for (String s : als) {
             modelo.addElement(s);
-        
+        }
+
         jlAlumIntr.removeAll();
         jlAlumIntr.setModel(modelo);
     }
 
     private void actualizaListaAlumnosIntroducidos(List<String> als) {
         DefaultListModel modelo = new DefaultListModel();
-        for(String s : als)
+        for (String s : als) {
             modelo.addElement(s);
-        
+        }
+
         jlAlumIntr.removeAll();
         jlAlumIntr.setModel(modelo);
     }
 
     private void actualizaListaPorCategoria() {
         List<String> auxList = new ArrayList<String>();
-        
-        if(bd != null && comboCat.getItemAt(0) != null){
-        
+
+        if (bd != null && comboCat.getItemAt(0) != null) {
+
             try {
                 int anio = GestorCategorias.getAnioCategoria(bd, comboCat.getSelectedItem().toString());
                 alumnosCat = GestorAlumnos.getAlumnosCategoria(bd, anio);
-                
+
                 auxList = alumnosCat;
-                
+
                 auxList.removeAll(listaAlumnosIntroducidos);
-                
+
                 actualizaModeloLista(alumnosCat);
-            
+
             } catch (SQLException ex) {
                 Logger.getLogger(NuevoGrupo.class.getName()).log(Level.SEVERE, null, ex);
             }

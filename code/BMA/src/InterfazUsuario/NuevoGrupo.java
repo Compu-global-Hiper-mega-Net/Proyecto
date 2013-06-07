@@ -513,13 +513,13 @@ public class NuevoGrupo extends javax.swing.JFrame {
 
     private void botonAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAnadirActionPerformed
         List<String> alsTotales = new ArrayList();
-        List<String> auxiliarAlumnosNuevos=new ArrayList();
+        List<String> auxiliarAlumnosNuevos = new ArrayList();
         auxiliarAlumnosNuevos.addAll(jlAlumnos.getSelectedValuesList());
-       for(int i=0;i<auxiliarAlumnosNuevos.size();i++){
-           if(!listaAlumnos.contains(auxiliarAlumnosNuevos.get(i))){
-           listaAlumnos.add(auxiliarAlumnosNuevos.get(i));
-           }
-       }
+        for (int i = 0; i < auxiliarAlumnosNuevos.size(); i++) {
+            if (!listaAlumnos.contains(auxiliarAlumnosNuevos.get(i))) {
+                listaAlumnos.add(auxiliarAlumnosNuevos.get(i));
+            }
+        }
       
         alsTotales = alumnosCat;
         alsTotales.removeAll(listaAlumnos);

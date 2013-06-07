@@ -239,7 +239,7 @@ public class GruposBD {
                     
                     
                     query5 = "INSERT INTO Cuota (fecha) VALUES "
-                            + "('"+curso+"-"+auxCont+"-1')";
+                            + "('"+curso+"-"+auxCont+"0')";
                     
                     res5 = accesoBD.ejecutaActualizacion(query5);
                     
