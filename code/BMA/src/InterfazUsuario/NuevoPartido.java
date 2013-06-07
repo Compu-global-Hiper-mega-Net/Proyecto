@@ -27,8 +27,37 @@ import javax.swing.border.Border;
 
 
 /**
- *
- * @author Julio
+ * Panel para la creación de nuevos partidos
+ * @author Julio Ros Martínez
+ * @version 1.0
+ */
+
+/*
+ ******************************************************************************
+                   (c) Copyright 2013 
+                   * 
+                   * Moisés Gautier Gómez
+                   * Julio Ros Martínez
+                   * Francisco Javier Gómez del Olmo
+                   * Francisco Santolalla Quiñonero
+                   * Carlos Jesús Fernández Basso
+                   * Alexander Moreno Borrego
+                   * Jesús Manuel Contreras Siles
+                   * Diego Muñoz Rio
+ 
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ******************************************************************************
  */
 public class NuevoPartido extends javax.swing.JFrame {
     BaseDatos accesoBD;
@@ -310,10 +339,7 @@ public class NuevoPartido extends javax.swing.JFrame {
          * Fin Comprobacion de Errores
          */
         
-        if(!error){            
-                /*Revisar esta insercion por:
-                 * idFundacion, idLiga, etc
-                 */
+        if(!error){
             java.sql.Date sqlDate = new java.sql.Date(fechaPartido.getDate().getTime());
             int idEquip1 = 0;
             int idEquip2 = 0;
@@ -327,10 +353,10 @@ public class NuevoPartido extends javax.swing.JFrame {
                 boolean exito = GestorPartidos.introducirPartido(accesoBD, idEquip1, 
                                 GestorEquipos.getIdFundacionEquipo(accesoBD, idEquip1),
                                 GestorCategorias.getIdCategoria(accesoBD, ComboCategoria.getSelectedItem().toString()), 
-                                GestorTemporadas.getIdTemporada(accesoBD, ComboTemporada.getSelectedItem().toString()), 1, 
+                                GestorTemporadas.getIdTemporada(accesoBD, ComboTemporada.getSelectedItem().toString()), GestorEquipos.getIdLigaEquipo(accesoBD, idEquip1), 
                                 idEquip2, GestorEquipos.getIdFundacionEquipo(accesoBD, idEquip2), 
                                 GestorCategorias.getIdCategoria(accesoBD, ComboCategoria.getSelectedItem().toString()), 
-                                GestorTemporadas.getIdTemporada(accesoBD, ComboTemporada.getSelectedItem().toString()), 1, 
+                                GestorTemporadas.getIdTemporada(accesoBD, ComboTemporada.getSelectedItem().toString()), GestorEquipos.getIdLigaEquipo(accesoBD, idEquip2), 
                                 sqlDate, convierteHoraTime(textHora.getText(), textMin.getText()), 0, 0);
                 if(exito){
                     JOptionPane.showMessageDialog(null, "Partido creado con exito", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
@@ -342,8 +368,7 @@ public class NuevoPartido extends javax.swing.JFrame {
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(NuevoPartido.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
+            }            
             this.setVisible(false);
         } else{
             JOptionPane.showMessageDialog(this, mensajeError, "Error", JOptionPane.ERROR_MESSAGE);
@@ -528,7 +553,7 @@ public class NuevoPartido extends javax.swing.JFrame {
         java.sql.Time horaDate = null;
         
         try{
-            SimpleDateFormat sdf = new java.text.SimpleDateFormat("hh:mm", new Locale("es","ES"));
+            SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH:mm", new Locale("es","ES"));
             horaDate = new java.sql.Time(sdf.parse(hora).getTime());
             
         } catch(Exception e){

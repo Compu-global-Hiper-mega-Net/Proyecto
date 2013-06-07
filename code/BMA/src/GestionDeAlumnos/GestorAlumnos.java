@@ -3,6 +3,7 @@ package GestionDeAlumnos;
 import ServiciosAlmacenamiento.BaseDatos;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -258,5 +259,19 @@ public class GestorAlumnos {
      */
     public static ResultSet consultarEstadisticasAlumno(BaseDatos accesoBD, String nombre, String apellido1, String apellido2, String numCuenta) throws SQLException {
         return AccesoBDAlumno.buscarEstadisticas(accesoBD, nombre, apellido1, apellido2, numCuenta);
+    }
+
+    public static List<String> getAlumnosCategoria(BaseDatos bd, int anio) throws SQLException {
+        String query = "SELECT primerApellido, segundoApellido, nombre FROM "
+                + "mydb.alumno WHERE "
+                + "fechaNacimiento >'"+anio+"-1-1'";
+        ResultSet res = bd.ejecutaConsulta(query);
+        
+        List<String> listaAls = new ArrayList<String>();
+        
+        while(res.next())
+            listaAls.add(res.getString(1)+" "+res.getString(2)+" "+res.getString(3));
+        
+        return listaAls;
     }
 }

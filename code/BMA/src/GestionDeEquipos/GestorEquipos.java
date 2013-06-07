@@ -116,6 +116,17 @@ public class GestorEquipos {
         return EquipoBD.getIdEq(accesoBD, equipo, cat);
     }
     
+		/* Metodo que devuelve el id de la liga a la que pertenece un equipo
+		 * @param accesoBD acceso a la base de datos.
+		 * @param idEquipo id del equipo.
+		 * @throws SQLExcepcion algun tipo de error en la base de datos.
+		 * @return int (entero) con el atributo interno del Id de un equipo.
+		 */
+    
+    public static int getIdLigaEquipo(BaseDatos accesoBD, int idEquipo) throws SQLException{
+        return EquipoBD.getIdLigaEq(accesoBD, idEquipo);
+    }
+    
 		/* Metodo que devuelve el nombre de un equipo
 		 * @param accesoBD acceso a la base de datos.
 		 * @param s id del equipo.

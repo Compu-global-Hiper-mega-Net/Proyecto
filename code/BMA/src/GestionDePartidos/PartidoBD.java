@@ -15,9 +15,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 /**
- *
- * @author Julio
+ * Clase que permite el paso de objetos de tipo java a objetos de tipo relacional
+ * en formato MySql.
+ * @author Julio Ros Martínez
+ * @version 1.0
  */
+
 /*
  ******************************************************************************
                    (c) Copyright 2013 
@@ -47,6 +50,12 @@ import javax.swing.JOptionPane;
  */
 public class PartidoBD {
     
+                /*
+		 * Procedimiento para insertar un partido en la base de datos
+		 * @param accesoBD, acceso a la base de datos.
+		 * @param partido, partido a insertar
+		 * @throws SQLExcepción, algun tipo de error en la base de datos.
+		 */     
     public static void insertarPartido(BaseDatos accesoBD, Partido nuevoPartido) throws SQLException {
         
         String insercion = "INSERT INTO partido (idEquipo, equipo_Fundacion_idFundacion, equipo_Categoria_idCategoria, "
@@ -72,6 +81,16 @@ public class PartidoBD {
         accesoBD.ejecutaActualizacion(insercion);
     }
     
+                /*
+		 * Funcion para obtener el id de un partido
+		 * @param accesoBD, acceso a la base de datos.
+                 * @param fch, fecha del partido
+                 * @param hr, hora del partido
+                 * @param eqL, id del equipo local
+                 * @param eqV, id del equipo Visitante
+		 * @throws SQLExcepción, algun tipo de error en la base de datos.
+                 * @return int (entero) con el atributo interno del id de un partido
+		 */    
     
     static int getIdPartido(BaseDatos accesoBD, String fch, String hr, int eqL, int eqV) throws SQLException {
         String query = "SELECT idPartido FROM Partido WHERE "
@@ -79,6 +98,8 @@ public class PartidoBD {
                 + " AND hora='"+ hr + "'"
                 + " AND idEquipo= '"+ eqL + "'"
                 + " AND idEquipoVisitante= '"+ eqV + "'";
+        
+        System.out.println(query);
         
         ResultSet res = accesoBD.ejecutaConsulta(query);
        
@@ -89,7 +110,12 @@ public class PartidoBD {
         
         return idPart;
     }
-    
+                /*
+		 * Funcion para obtener una lista de partidos
+                 * @param accesoBD, acceso a la base de datos
+		 * @throws SQLExcepción, algun tipo de error en la base de datos.
+                 * @return List<List<String>> (Lista de lista de cadenas) con los datos de los partidos almacenados en la base de datos
+		 */      
     
     static List<List<String>> getListaPartidos(BaseDatos accesoBD) throws SQLException { //DUDAS EVERYWHERE
         List<List<String>> partidos = new ArrayList<List<String>>();
@@ -108,6 +134,18 @@ public class PartidoBD {
 
         return partidos;
     }
+                /*
+		 * Funcion para obtener una lista de partidos a través de una serie de atributos dados
+                 * @param accesoBD, acceso a la base de datos.
+                 * @param fecha, la fecha del partido
+                 * @param temporada, temporada en la que se juega ese partido
+                 * @param categoria, categoría en la que se juega ese partido
+                 * @param equipoLoc, id del equipo local
+                 * @param equipoVis, id del equipo visitante
+		 * @throws SQLExcepción, algun tipo de error en la base de datos.
+                 * @return List<List<String>> (Lista de lista de cadenas) con los datos de los partidos almacenados en la base de datos que cumplen con los atributos
+		 */  
+    
     public static List<List<String>> getListaPartidosFiltro(BaseDatos accesoBD, String fecha, String temporada, String categoria, String equipoLoc, String equipoVis) throws SQLException{
         List<List<String>> partidos = new ArrayList<List<String>>();
         boolean and = false;
@@ -183,6 +221,13 @@ public class PartidoBD {
         }
         return partidos;
     }
+
+		/* Funcion para consultar un partido
+		 * @param accesoBD, acceso a la base de datos.
+		 * @param consulta, la consulta a realizar.
+		 * @throws SQLExcepción, algun tipo de error en la base de datos.
+		 * @return ResultSet (java.sql.ResultSet) con el atributo interno de la consulta del partido.
+		 */  
     
     public ResultSet consultaPartidoBD(BaseDatos accesoBD, String consulta) {
         ResultSet retset;
@@ -190,6 +235,25 @@ public class PartidoBD {
 
         return retset;
     }
+
+		/* Funcion para modificar los datos de un partido
+		 * @param accesoBD, acceso a la base de datos.
+		 * @param idEquipoLocal, id del equipo local.
+                 * @param idEquipoLocalFundacion, id de la fundación a la que pertenece el equipo local
+                 * @param idEquipoLocalCategoria, id de la categoría a la que pertenece el equipo local
+                 * @param idEquipoLocalTemporada, id de la temporada a la que pertenece el equipo local
+                 * @param idEquipoLocalLiga, id de la liga a la que pertenece el equipo local
+		 * @param idEquipoVisitante, id del equipo visitante.
+                 * @param idEquipoVisitanteFundacion, id de la fundación a la que pertenece el equipo Visitante
+                 * @param idEquipoVisitanteCategoria, id de la categoría a la que pertenece el equipo Visitante
+                 * @param idEquipoVisitanteTemporada, id de la temporada a la que pertenece el equipo Visitante
+                 * @param idEquipoVisitanteLiga, id de la liga a la que pertenece el equipo local
+                 * @param fecha, la fecha del partido
+                 * @param hora, la hora del partido
+                 * @param idPart, id del partido a modificar
+		 * @throws SQLExcepción, algun tipo de error en la base de datos.
+		 * @return boolean (valor lógico) que indica si la modificación se ha realizado correctamente o no.
+		 */  
        
     public static boolean modificarDatosPartidoBD(BaseDatos accesoBD, int idEquipoLocal, int idEquipoLocalFundacion,
            int idEquipoLocalCategoria, int idEquipoLocalTemporada, int idEquipoLocalLiga, int idEquipoVisitante,
@@ -224,33 +288,24 @@ public class PartidoBD {
         return exito;
     }
 
-    public static void eliminarPartidoBD(BaseDatos accesoBD, Partido nuevoPartido) {
-        String selId = new String();
+		/* Procedimiento para eliminar un partido
+		 * @param accesoBD, acceso a la base de datos.
+		 * @param nuevoPartido, el partido a eliminar.
+		 * @throws SQLExcepción, algun tipo de error en la base de datos.
+		 */  
 
-        selId = "SELECT i.idPartido FROM Partido i WHERE i.fecha= \""
-                + nuevoPartido.getFecha()
-                + "AND i.hora = '" + nuevoPartido.getHora() + "\");";
-
-        System.out.println("Consulta eliminar " + selId);
-        ResultSet retset;
-        try {
-            retset = accesoBD.ejecutaConsulta(selId);
-            if (retset.next()) {
-                nuevoPartido.setIdPartido(retset.getInt("idPartido"));
-            }
-        } catch (SQLException ex) {
-            System.out.print(ex.getMessage());
-        }
-
-        String delete = "DELETE FROM Instalacion WHERE idInstalacion = "
-                + nuevoPartido.getIdPartido();
+    public static void eliminarPartidoBD(BaseDatos accesoBD, Partido nuevoPartido) throws SQLException {
+        int idPartido = getIdPartido(accesoBD, nuevoPartido.getFecha().toString(), nuevoPartido.getHora().toString(),nuevoPartido.getIdEquipoLocal(), nuevoPartido.getIdEquipoVisitante());
+        
+        String delete = "DELETE FROM partido WHERE idPartido = "
+                + idPartido;
         
             boolean exito = accesoBD.eliminar(delete);
             if (!exito) {
                 JOptionPane.showMessageDialog(null, "Ha habido un error en la base de datos",
                         "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(null, "Instalacion Eliminada",
+                JOptionPane.showMessageDialog(null, "Partido Eliminado con éxito",
                         "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
             }
         

@@ -1,5 +1,6 @@
 package InterfazUsuario;
 
+import GestionDeAlumnos.GestorAlumnos;
 import GestionDeCategorias.GestorCategorias;
 import GestionDeGrupos.GestorGrupos;
 import ServiciosAlmacenamiento.BaseDatos;
@@ -52,6 +53,7 @@ public class NuevoGrupo extends javax.swing.JFrame {
     private PrincipalGrupos pP;
     private BaseDatos bd;
     private List<String> listaAlumnos;
+    private List<String> alumnosCat;
     
     /**
      * Creates new form NuevoGrupo
@@ -99,6 +101,8 @@ public class NuevoGrupo extends javax.swing.JFrame {
         comboDia2.addItem(DiasSemana.Sabado);
         comboDia2.addItem(DiasSemana.Domingo);
  
+        
+        actualizaListaPorCategoria();
     }
 
     /**
@@ -169,6 +173,11 @@ public class NuevoGrupo extends javax.swing.JFrame {
         comboEnt.setPreferredSize(new java.awt.Dimension(174, 20));
 
         comboCat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Categoria-", "Benjamin", "Alevin", "Infantil", "Cadete", "Junior" }));
+        comboCat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboCatActionPerformed(evt);
+            }
+        });
 
         textMin.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -503,18 +512,14 @@ public class NuevoGrupo extends javax.swing.JFrame {
     }//GEN-LAST:event_jlAlumnosMouseClicked
 
     private void botonAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAnadirActionPerformed
-        //List<String> alSeleccionados = new ArrayList<>();
-        //alSeleccionados.addAll(jlAlumnos.getSelectedValuesList());
+        List<String> alsTotales = new ArrayList<String>();
         
         listaAlumnos.addAll(jlAlumnos.getSelectedValuesList());
         
-        /*for(String s : alSeleccionados){
-            for(int i = 0; i < listaAlumnos.size(); i++)
-                if(listaAlumnos.get(i).equals(s)){
-                    listaAlumnos.set(i, listaAlumnos.get(i).concat("(*)"));
-                    System.out.println("ahora vale: "+listaAlumnos.get(i));
-                }
-        }*/
+        alsTotales = alumnosCat;
+        alsTotales.removeAll(listaAlumnos);
+        
+        actualizaModeloLista(alsTotales);
         
         labelAnadir.setText(Integer.toString(listaAlumnos.size())+"/20");
         labelSelecc.setText("0/"+(20-listaAlumnos.size()));
@@ -535,6 +540,26 @@ public class NuevoGrupo extends javax.swing.JFrame {
     private void comboInstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboInstActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboInstActionPerformed
+
+    private void comboCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCatActionPerformed
+        
+        if(bd!= null && comboCat.getItemAt(0) != null){
+            //List<String> lista = new ArrayList<String>();
+        
+        try {
+            System.out.println(comboCat.getSelectedItem().toString());
+            int anio = GestorCategorias.getAnioCategoria(bd, comboCat.getSelectedItem().toString());
+            
+            //lista = GestorAlumnos.getAlumnosCategoria(bd, anio);
+            alumnosCat = GestorAlumnos.getAlumnosCategoria(bd, anio);
+            
+            actualizaModeloLista(alumnosCat);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(NuevoGrupo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    }//GEN-LAST:event_comboCatActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAceptar;
@@ -604,5 +629,22 @@ public class NuevoGrupo extends javax.swing.JFrame {
         
         for(String s : inst)
             comboInst.addItem(s);
+    }
+    
+    private void actualizaListaPorCategoria() {
+        List<String> auxList = new ArrayList<String>();
+        
+        if(bd != null && comboCat.getItemAt(0) != null){
+        
+            try {
+                int anio = GestorCategorias.getAnioCategoria(bd, comboCat.getSelectedItem().toString());
+                auxList = GestorAlumnos.getAlumnosCategoria(bd, anio);
+                
+                actualizaModeloLista(auxList);
+            
+            } catch (SQLException ex) {
+                Logger.getLogger(NuevoGrupo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

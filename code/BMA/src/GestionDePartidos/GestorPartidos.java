@@ -10,8 +10,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *
- * @author Julio
+ * Clase encargada de la gestión de los partidos
+ * @author Julio Ros Martínez
+ * @version 1.0
  */
 /*
  ******************************************************************************
@@ -82,16 +83,15 @@ public class GestorPartidos {
     public static void eliminaPartido(BaseDatos accesoBD, int idEquipoLocal, int idEquipoLocalFundacion,
            int idEquipoLocalCategoria, int idEquipoLocalTemporada, int idEquipoLocalLiga, int idEquipoVisitante,
            int idEquipoVisitanteFundacion, int idEquipoVisitanteCategoria, int idEquipoVisitanteTemporada, 
-           int idEquipoVisitanteLiga, Date fecha, Time hora, int resultadoLocal, int resultadoVisitante){
+           int idEquipoVisitanteLiga, Date fecha, Time hora, int resultadoLocal, int resultadoVisitante) throws SQLException{
         
-        PartidoBD partBD = new PartidoBD();
         
-        Partido partidoEliminar = Partido.crearPartido(idEquipoLocal, idEquipoLocalFundacion,
+        Partido partidoEliminar = new Partido(idEquipoLocal, idEquipoLocalFundacion,
            idEquipoLocalCategoria, idEquipoLocalTemporada, idEquipoLocalLiga, idEquipoVisitante,
            idEquipoVisitanteFundacion, idEquipoVisitanteCategoria, idEquipoVisitanteTemporada, 
            idEquipoVisitanteLiga, fecha, hora, resultadoLocal, resultadoVisitante);
         
-        partBD.eliminarPartidoBD(accesoBD, partidoEliminar);
+        PartidoBD.eliminarPartidoBD(accesoBD, partidoEliminar);
         
     }
     
