@@ -43,9 +43,11 @@ import org.jfree.data.category.DefaultCategoryDataset;
  ******************************************************************************/
 
 /**
- * Clase para estadisticas de jugador del paquete InterfazUsuario. Ofrece una manera de interactuar 
- * con  los elementos de la interfaz de estadisticas y diversas funcionalidades para estos elementos.
+ * Clase para estadisticas de jugador del paquete InterfazUsuario. Ofrece una manera 
+ * de interactuar con  los elementos de la interfaz de estadisticas y diversas 
+ * funcionalidades para estos elementos.
  * @author Javier
+ * @version 1.0
  */
 
  public class EstadisticasJugador extends javax.swing.JFrame {  
@@ -59,6 +61,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
     DefaultTableModel dtm = new DefaultTableModel();
     List <String> partidosJug = new ArrayList <>();
     
+    
     /**
      * Constructor sin parametros de la clase
      */       
@@ -66,12 +69,15 @@ import org.jfree.data.category.DefaultCategoryDataset;
         initComponents();
     }
     
+    
     /**
-     * Constructor con parametros de la clase, usado para inicializar varios componentes y hacer una llamada al metodo actualizaTablaEstadisticas()
+     * Constructor con parametros de la clase, usado para inicializar varios componentes 
+     * y hacer una llamada al metodo actualizaTablaEstadisticas().
      * @param acceso parametro de tipo BaseDatos usado para acceder a la base de datos
-     * @param rst parametro de tipo ResultSet usado para obtener el resultado de las consultas al interactuar con la base de datos.
-     * @param jugadorElegido parametro de tipo String usado para obtener de la interfaz principal el nombre del jugador elegido para mostrarlo en 
-     * esta interfaz
+     * @param rst parametro de tipo ResultSet usado para obtener el resultado de las 
+     * consultas al interactuar con la base de datos.
+     * @param jugadorElegido parametro de tipo String usado para obtener de la interfaz
+     * principal el nombre del jugador elegido para mostrarlo en esta interfaz.
      */
     public EstadisticasJugador(BaseDatos acceso, ResultSet rst, String jugadorElegido) {
         
@@ -85,11 +91,14 @@ import org.jfree.data.category.DefaultCategoryDataset;
             Logger.getLogger(EstadisticasEntrenador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
    
     /**
-     * Metodo que actualiza la tabla que se va a mostrar en las estadisitcas del jugador, para ello obtiene los datos de retset en la consulta que se 
-     * realizo desde la interfaz principal y  para cada fila de la tabla hace dos consultas a las base de datos para obtener los nombres de los equipos 
-     * @throws SQLException 
+     * Metodo que actualiza la tabla que se va a mostrar en las estadisitcas del jugador, 
+     * para ello obtiene los datos de retset en la consulta que se realizo desde la interfaz
+     * principal y  para cada fila de la tabla hace dos consultas a las base de datos para obtener
+     * los nombres de los equipos. 
+     * @throws SQLException Excepción que se lanza cuando hay un problema con la BD.
      */
     private  void actualizaTablaEstadisticas() throws SQLException {   
        
@@ -131,11 +140,13 @@ import org.jfree.data.category.DefaultCategoryDataset;
         tablaJugadoresEstadisticas.setModel(dtm);
     }
     
+    
     /**
-     * Metodo que actualiza las graficas que se muestran con los datos de jugadores, para ello primero se comprueba que grupo de datos de ha elegido en 
-     * la interfaz (pudiendo elegir varios o uno solo) y seguidamente se añaden a Datos todos los datos obtenidos en cunsultas anteriores los cuales
-     * se mostraran en  la grafica
-     * @throws SQLException 
+     * Metodo que actualiza las graficas que se muestran con los datos de jugadores, 
+     * para ello primero se comprueba que grupo de datos de ha elegido en la interfaz 
+     * (pudiendo elegir varios o uno solo) y seguidamente se añaden a Datos todos los 
+     * datos obtenidos en cunsultas anteriores los cuales se mostraran en  la grafica.
+     * @throws SQLException Excepción que se lanza cuando hay un problema con la BD.
      */
      private  void actualizaGraficas() throws SQLException{ 
          
@@ -179,6 +190,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
         Grafica = ChartFactory.createBarChart3D(null, "Partidos jugados", null,
                                                Datos, PlotOrientation.HORIZONTAL, true, true, false);  
      }
+     
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -335,9 +347,11 @@ import org.jfree.data.category.DefaultCategoryDataset;
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     /**
-     * Metodo que al pulsar el boton para salir de la interfaz de estadistics de jugador , cierra esta ventana y ademas cierra
-     * la ventana que muestra las graficas, si es que se creo alguna.
+     * Metodo que al pulsar el boton para salir de la interfaz de estadistics de jugador 
+     * cierra esta ventana y ademas cierra la ventana que muestra las graficas, si es que
+     * se creo alguna.
      * @param evt parametro de tipo java.awt.event.ActionEvent
      */
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
@@ -346,10 +360,13 @@ import org.jfree.data.category.DefaultCategoryDataset;
         Ventana.setVisible(false);
     }//GEN-LAST:event_botonSalirActionPerformed
 
+    
     /**
-     * Metodo que al pulsar el boton para ver las graficas de las estadisticas del jugador comprueba que al menos se haya seleccionado un grupo de datos
-     * para mostrar la grafica, mientras no sea asi mostrara un mensaje indicando que se seleccione uno o varios grupos de datos. Seguidamente hace una 
-     * llamada a actualizaGraficas() donde se van a introducir los datos de la grafica en Datos y por ultimo se crea una nueva ventana que muestra la grafica.
+     * Metodo que al pulsar el boton para ver las graficas de las estadisticas del jugador
+     * comprueba que al menos se haya seleccionado un grupo de datos para mostrar la grafica, 
+     * mientras no sea asi mostrara un mensaje indicando que se seleccione uno o varios grupos 
+     * de datos. Seguidamente hace una llamada a actualizaGraficas() donde se van a introducir
+     * los datos de la grafica en Datos y por ultimo se crea una nueva ventana que muestra la grafica.
      * @param evt parametro de tipo java.awt.event.ActionEvent
      */
     private void verGraficasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verGraficasActionPerformed
