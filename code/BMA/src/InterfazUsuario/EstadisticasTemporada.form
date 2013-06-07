@@ -64,13 +64,6 @@
               </Group>
               <EmptySpace pref="31" max="32767" attributes="0"/>
           </Group>
-          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="401" max="-2" attributes="0"/>
-                  <Component id="estadisticasAsistencias" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="401" max="32767" attributes="0"/>
-              </Group>
-          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -98,13 +91,6 @@
                   <Component id="mostrarGraficasTemporada" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-          </Group>
-          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="242" max="-2" attributes="0"/>
-                  <Component id="estadisticasAsistencias" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="242" max="32767" attributes="0"/>
-              </Group>
           </Group>
       </Group>
     </DimensionLayout>
@@ -215,11 +201,6 @@
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="temporadaElegidaTexto">
-    </Component>
-    <Component class="javax.swing.JCheckBox" name="estadisticasAsistencias">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Datos Graficas"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="mostrarGraficasTemporada">
       <Properties>

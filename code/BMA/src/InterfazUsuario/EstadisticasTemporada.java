@@ -197,7 +197,6 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
         elegirCategoriaLista = new javax.swing.JComboBox();
         botonMostrarEstadisticasTemporada = new javax.swing.JButton();
         temporadaElegidaTexto = new javax.swing.JLabel();
-        estadisticasAsistencias = new javax.swing.JCheckBox();
         mostrarGraficasTemporada = new javax.swing.JButton();
         estadisticasPuntosLiga = new javax.swing.JCheckBox();
         estadisticasPartidosPerdidos = new javax.swing.JCheckBox();
@@ -272,8 +271,6 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
             }
         });
 
-        estadisticasAsistencias.setText("Datos Graficas");
-
         mostrarGraficasTemporada.setText("Ver Graficas");
         mostrarGraficasTemporada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -323,11 +320,6 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
                                         .addComponent(botonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(20, 20, 20)))))
                 .addContainerGap(31, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(401, 401, 401)
-                    .addComponent(estadisticasAsistencias)
-                    .addContainerGap(401, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -351,11 +343,6 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
                     .addComponent(botonSalir)
                     .addComponent(mostrarGraficasTemporada))
                 .addGap(32, 32, 32))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(242, 242, 242)
-                    .addComponent(estadisticasAsistencias)
-                    .addContainerGap(242, Short.MAX_VALUE)))
         );
 
         pack();
@@ -453,7 +440,6 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
     private javax.swing.JToggleButton botonSalir;
     private javax.swing.JLabel elegirCategoriaLab;
     private javax.swing.JComboBox elegirCategoriaLista;
-    private javax.swing.JCheckBox estadisticasAsistencias;
     private javax.swing.JCheckBox estadisticasPartidosGanados;
     private javax.swing.JCheckBox estadisticasPartidosPerdidos;
     private javax.swing.JCheckBox estadisticasPuntosLiga;
