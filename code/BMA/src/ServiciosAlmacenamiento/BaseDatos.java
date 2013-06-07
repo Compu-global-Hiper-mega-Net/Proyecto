@@ -136,7 +136,6 @@ public class BaseDatos {
 
         try {
             int i = comprobar();
-            //System.out.println(i);
             stmt = conexion.get(i).createStatement();
             retset = stmt.executeQuery(consulta);
             

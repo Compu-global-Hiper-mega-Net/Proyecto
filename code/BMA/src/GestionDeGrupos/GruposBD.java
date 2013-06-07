@@ -149,10 +149,10 @@ public class GruposBD {
         
         
         if(resta == 0){
-            JOptionPane.showMessageDialog(new PantallaPrincipal(), "La instalacion esta llena", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "La instalacion esta llena", "Error", JOptionPane.ERROR_MESSAGE);
         }
         else if(idCat != 1 && resta == 1)
-            JOptionPane.showMessageDialog(new PantallaPrincipal(), "No hay capacidad", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No hay capacidad", "Error", JOptionPane.ERROR_MESSAGE);
         else
             validar = true;
             

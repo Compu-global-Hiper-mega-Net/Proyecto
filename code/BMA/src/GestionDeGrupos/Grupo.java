@@ -164,7 +164,8 @@ public class Grupo {
      * @return Un <code>String</code> con la temporada en la que fue creado el grupo.
      */
     String getTemporada() {
-        return temporada.getTemporada();
+        //return temporada.getTemporada();
+        return temporada.getCurso();
     }
 
     /**

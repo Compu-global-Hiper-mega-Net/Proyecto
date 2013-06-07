@@ -21,10 +21,6 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 
 /**
- *
- * @author Javier
- */
-/**
  * ****************************************************************************
  * (c) Copyright 2013
  *
@@ -47,6 +43,12 @@ import org.jfree.data.category.DefaultCategoryDataset;
  *****************************************************************************
  */
 
+/**
+ * Clase para estadisticas de la clasificacion de equipos del paquete InterfazUsuario. Ofrece una manera de interactuar 
+ * con  los elementos de la interfaz de estadisticas y diversas funcionalidades para estos elementos.
+ * @author Javier
+ */
+
 public class ClasificacionLiga extends javax.swing.JFrame {
     
     BaseDatos accesoBD;
@@ -60,11 +62,19 @@ public class ClasificacionLiga extends javax.swing.JFrame {
     DefaultTableModel dtm = new DefaultTableModel();
     List<Integer> pGanados = new ArrayList<>();
     List<Integer> pPerdidos = new ArrayList<>();
-
+    
+   /**
+    * Constructor sin parametros de la clase
+    */ 
     public ClasificacionLiga() {
         initComponents();
     }
     
+    /**
+     * Constructor con parametros de la clase, usado para inicializar varios componentes y hacer una llamada al metodo actualizaComboCategoria() y
+     * actualizaComboTemporada()
+     * @param acceso parametro de tipo BaseDatos usado para acceder a la base de datos.
+     */
     public ClasificacionLiga(BaseDatos acceso) {
         
         accesoBD = acceso;
@@ -78,6 +88,15 @@ public class ClasificacionLiga extends javax.swing.JFrame {
         }
     }
     
+    
+    /**
+     * Metodo que actualiza la tabla que se va a mostrar en las estadisitcas de la clasificacion, para ello hace dos consultas a las base de datos para
+     * obtener el idTemporada y el  idCategoria respectivamente, seguidamente obtiene los datos de la consulta principal haciendo una llamada al
+     * metodo consultarClasificacion(accesoBD, idTemp, idCate) de GestorEquipos y por ultimo va actualizando los datos de la tabla
+     * con los resultados obtenidos en retset de la consulta principal y haciendo para cada fila dos consultas para obtener para cada equipo
+     * el numero de  partidos que ha ganadao y de partidos que ha perdido respectivamente.
+     * @throws SQLException 
+     */
     private void actualizaTablaClasificacion() throws SQLException {
 
         int idTemp = 0, idCate = 0, i=1;
@@ -147,6 +166,11 @@ public class ClasificacionLiga extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Metodo que actualiza el combo con la lista de temporadas existentes en la base de datos,
+     * para ello hace una consulta para obtener estos datos.
+     * @throws SQLException 
+     */
     private void actualizaComboTemporada() throws SQLException {
         elegirTemporadaLis.removeAllItems();
         elegirTemporadaLis.addItem(" ");
@@ -158,6 +182,11 @@ public class ClasificacionLiga extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Metodo que actualiza el combo con la lista de categorias existentes en la base de datos,
+     * para ello hace una consulta para obtener estos datos.
+     * @throws SQLException 
+     */
     private void actualizaComboCategoria() throws SQLException {
         elegirCategoriaLis.removeAllItems();
         elegirCategoriaLis.addItem(" ");
@@ -170,6 +199,12 @@ public class ClasificacionLiga extends javax.swing.JFrame {
     }
     
     
+    /**
+    * Metodo que actualiza las graficas que se muestran con los datos de la clasificacion, para ello primero se comprueba que grupo de datos de ha elegido en 
+    * la interfaz (pudiendo elegir varios o uno solo) y seguidamente se añaden a Datos todos los datos obtenidos en cunsultas anteriores los cuales
+    * se mostraran en  la grafica
+    * @throws SQLException 
+    */
     private void actualizaGraficas() throws SQLException {
         
         int i=0, j=0, k=0;
@@ -394,6 +429,11 @@ public class ClasificacionLiga extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    /**
+     * Metodo que al pulsar el boton para salir de la interfaz de estadistics de la clasificacion cierra esta ventana.
+     * @param evt parametro de tipo java.awt.event.ActionEvent
+     */
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
         
         this.setVisible(false);
@@ -403,6 +443,14 @@ public class ClasificacionLiga extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_elegirCategoriaLisActionPerformed
 
+    /**
+     * Metodo que actualiza la tabla que muestra los datos de las estadisticas cada vez que se pulsa el boton Mostrar
+     * de la interfaz, despues de borrar los datos anteriones de  la tabla comprueba que se haya elegido una categoria 
+     * y una temporada de cada respectivo  combo y si no es asi muestra un mensaje indicando que se elija una categoria
+     * y una temporada. Una vez elegida la categoria y la temporada se llama al metodo actualizaTablaEstadisticas() que
+     * actualiza la tabla con los nuevos datos.
+     * @param evt parametro de tipo java.awt.event.ActionEvent
+     */
     private void botonMostrarClasificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarClasificacionActionPerformed
         
         DefaultTableModel dtm = new DefaultTableModel();
@@ -426,6 +474,12 @@ public class ClasificacionLiga extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonMostrarClasificacionActionPerformed
 
+    /**
+     * Metodo que al pulsar el boton para ver las graficas de las estadisticas de la clasificacion comprueba que al menos se haya seleccionado un grupo de datos
+     * para mostrar la grafica, mientras no sea asi mostrara un mensaje indicando que se seleccione uno o varios grupos de datos. Seguidamente hace una 
+     * llamada a actualizaGraficas() donde se van a introducir los datos de la grafica en Datos y por ultimo se crea una nueva ventana que muestra la grafica.
+     * @param evt parametro de tipo java.awt.event.ActionEvent
+     */
     private void mostrarGraficasLigaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarGraficasLigaActionPerformed
        
         if(!estadisticasPartidosJugados.isSelected() && !estadisticasPartidosGanados.isSelected()&& !estadisticasPartidosPerdidos.isSelected()

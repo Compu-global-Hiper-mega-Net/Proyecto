@@ -1,3 +1,4 @@
+
 package InterfazUsuario;
 
 import GestionDeTemporadas.GestorTemporadas;
@@ -16,10 +17,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-/**
- *
- * @author Javier
- */
+
 /**
  * ****************************************************************************
  * (c) Copyright 2013
@@ -42,6 +40,13 @@ import org.jfree.data.category.DefaultCategoryDataset;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  *****************************************************************************
  */
+
+/**
+ * Clase para estadisticas de temporada del paquete InterfazUsuario. Ofrece una manera de interactuar 
+ * con  los elementos de la interfaz de estadisticas y diversas funcionalidades para estos elementos.
+ * @author Javier
+ */
+
 public class EstadisticasTemporada extends javax.swing.JFrame {
 
     BaseDatos accesoBD;
@@ -54,11 +59,21 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
     DefaultTableModel dtm = new DefaultTableModel();
     List<Integer> pGanados = new ArrayList<>();
     List<Integer> pPerdidos = new ArrayList<>();
-
+    
+    
+    /**
+     * Constructor sin parametros de la clase
+    */ 
     public EstadisticasTemporada() {
         initComponents();
     }
-
+    
+    /**
+     * Constructor con parametros de la clase, usado para inicializar varios componentes y hacer una llamada al metodo actualizaComboCategoria()
+     * @param acceso parametro de tipo BaseDatos usado para acceder a la base de datos.
+     * @param tempElegida parametro de tipo String usado para obtener de la interfaz principal la temporada elegida para mostrarla en 
+     * esta interfaz
+     */
     public EstadisticasTemporada(BaseDatos acceso, String tempElegida) {
 
         accesoBD = acceso;
@@ -72,6 +87,14 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Metodo que actualiza la tabla que se va a mostrar en las estadisitcas de la temporada, para ello hace dos consultas a las base de datos para
+     * obtener el idTemporada y el  idCategoria respectivamente, seguidamente obtiene los datos de la consulta principal haciendo una llamada al
+     * metodo consultarEstadisticasTemporada(accesoBD, idTemp, idCate) de GestorTemporadas y por ultimo va actualizando los datos de la tabla
+     * con los resultados obtenidos en retset de la consulta principal y haciendo para cada fila dos consultas para obtener para cada equipo
+     * el numero de  partidos que ha ganadao y de partidos que ha perdido respectivamente.
+     * @throws SQLException 
+     */
     private void actualizaTablaEstadisticas() throws SQLException {
 
         int idTemp = 0, idCate = 0;
@@ -136,6 +159,11 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Metodo que actualiza el combo con la lista de categorias existentes en la base de datos,
+     * para ello hace una consulta para obtener estos datos.
+     * @throws SQLException 
+     */
     private void actualizaComboCategoria() throws SQLException {
         elegirCategoriaLista.removeAllItems();
         elegirCategoriaLista.addItem(" ");
@@ -148,6 +176,12 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
     }
     
     
+    /**
+    * Metodo que actualiza las graficas que se muestran con los datos de temporadas, para ello primero se comprueba que grupo de datos de ha elegido en 
+    * la interfaz (pudiendo elegir varios o uno solo) y seguidamente se añaden a Datos todos los datos obtenidos en cunsultas anteriores los cuales
+    * se mostraran en  la grafica
+    * @throws SQLException 
+    */
     private void actualizaGraficas() throws SQLException {
         
         int i=0, j=0;
@@ -197,7 +231,6 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
         elegirCategoriaLista = new javax.swing.JComboBox();
         botonMostrarEstadisticasTemporada = new javax.swing.JButton();
         temporadaElegidaTexto = new javax.swing.JLabel();
-        estadisticasAsistencias = new javax.swing.JCheckBox();
         mostrarGraficasTemporada = new javax.swing.JButton();
         estadisticasPuntosLiga = new javax.swing.JCheckBox();
         estadisticasPartidosPerdidos = new javax.swing.JCheckBox();
@@ -272,8 +305,6 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
             }
         });
 
-        estadisticasAsistencias.setText("Datos Graficas");
-
         mostrarGraficasTemporada.setText("Ver Graficas");
         mostrarGraficasTemporada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -323,11 +354,6 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
                                         .addComponent(botonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(20, 20, 20)))))
                 .addContainerGap(31, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(401, 401, 401)
-                    .addComponent(estadisticasAsistencias)
-                    .addContainerGap(401, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -351,16 +377,15 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
                     .addComponent(botonSalir)
                     .addComponent(mostrarGraficasTemporada))
                 .addGap(32, 32, 32))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(242, 242, 242)
-                    .addComponent(estadisticasAsistencias)
-                    .addContainerGap(242, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Metodo que al pulsar el boton para salir de la interfaz de estadistics de la temporada cierra esta ventana.
+     * @param evt parametro de tipo java.awt.event.ActionEvent
+     */
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
 
         this.setVisible(false);
@@ -369,6 +394,13 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
     private void elegirCategoriaListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elegirCategoriaListaActionPerformed
     }//GEN-LAST:event_elegirCategoriaListaActionPerformed
 
+    /**
+     * Metodo que actualiza la tabla que muestra los datos de las estadisticas cada vez que se pulsa el boton Mostrar
+     * de la interfaz, despues de borrar los datos anteriones de  la tabla comprueba que se haya elegido una categoria del combo y si no 
+     * es asi muestra un mensaje indicando que se elija una categoria. Una vez elegida la categoria se llama al metodo
+     * actualizaTablaEstadisticas() que actualiza la tabla con los nuevos datos.
+     * @param evt parametro de tipo java.awt.event.ActionEvent
+     */
     private void botonMostrarEstadisticasTemporadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarEstadisticasTemporadaActionPerformed
         
         DefaultTableModel dtm = new DefaultTableModel();
@@ -393,6 +425,12 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
 
     }//GEN-LAST:event_botonMostrarEstadisticasTemporadaActionPerformed
 
+    /**
+     * Metodo que al pulsar el boton para ver las graficas de las estadisticas de la temporada comprueba que al menos se haya seleccionado un grupo de datos
+     * para mostrar la grafica, mientras no sea asi mostrara un mensaje indicando que se seleccione uno o varios grupos de datos. Seguidamente hace una 
+     * llamada a actualizaGraficas() donde se van a introducir los datos de la grafica en Datos y por ultimo se crea una nueva ventana que muestra la grafica.
+     * @param evt parametro de tipo java.awt.event.ActionEvent
+     */
     private void mostrarGraficasTemporadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarGraficasTemporadaActionPerformed
         
         if(!estadisticasPartidosGanados.isSelected()&& !estadisticasPartidosPerdidos.isSelected() && !estadisticasPuntosLiga.isSelected())
@@ -418,7 +456,6 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
     private javax.swing.JToggleButton botonSalir;
     private javax.swing.JLabel elegirCategoriaLab;
     private javax.swing.JComboBox elegirCategoriaLista;
-    private javax.swing.JCheckBox estadisticasAsistencias;
     private javax.swing.JCheckBox estadisticasPartidosGanados;
     private javax.swing.JCheckBox estadisticasPartidosPerdidos;
     private javax.swing.JCheckBox estadisticasPuntosLiga;

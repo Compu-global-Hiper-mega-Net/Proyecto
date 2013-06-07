@@ -6,12 +6,6 @@ import GestionDeEquipos.Equipo;
 import GestionDeGrupos.Grupo;
 import java.util.List;
 
-/**
- * Clase que representa la temporada.
- *
- * @author Alex Moreno
- * @version 1.0
- */
 
 /*
  ******************************************************************************
@@ -41,10 +35,13 @@ import java.util.List;
  ******************************************************************************
  */
 
+/**
+ * Clase que representa una temporada, que contendrá una fecha de inicio y de fin 
+ * de curso y un importe mensual.
+ *
+  */
 public class Temporada {
 
-    
-    
     private int idTemporada;
     private String curso;
     private String fechaInicio;
@@ -57,10 +54,22 @@ public class Temporada {
     
     private List<Alumno> alumnos;
     
+    /**
+     * Constructor de la clase Temporada.
+     * @param c Contiene el curso de la temporada.
+     */
     public Temporada(String c){
         curso = c;
     }
 
+    /**
+     * Contructor de la clase temporada que permite insertar todos los parametros 
+     * de temporada.
+     * @param curso Contiene el curso de la temporada.
+     * @param inicio Contiene la fecha de inicio del curso.
+     * @param fin Contiene la fecha de finalizacion del curso.
+     * @param importe Contiene la cantidad que se ha de pagar cada mensualidad.
+     */
     public Temporada(int curso, String inicio, String fin, double importe) {
         this.curso = Integer.toString(curso);
         this.fechaInicio = inicio;
@@ -68,30 +77,58 @@ public class Temporada {
         this.importeMensual = importe;
     }
 
+    /**
+     * Permite obtener el curso de una temporada.
+     * @return Un <code>String</code> con el curso de la temporada.
+     */
     public String getCurso() {
         return curso;
     }
 
-    public String getTemporada() {
-        return curso;
-    }
+    
+    //public String getTemporada() {
+      //  return curso;
+    //}
 
+    
+    /**
+     * Permite establecer el identificador de la temporada.
+     * @param idTemp Contiene el identificador de la temporada que queremos 
+     * establecer.
+     */
     public void setIdTemporada(int idTemp) {
         this.idTemporada = idTemp;
     }
 
+    /**
+     * Permite establecer el curso de una temporada especificado de manera 
+     * completa ("anio/anio+1")
+     * @param cursoComp Contiene la cadena con el curso expresado de manera completa.
+     */
     void setCursoCompleto(String cursoComp) {
         this.curso = cursoComp;
     }
 
+    /**
+     * Permite obtener la fecha de inicio de una temporada.
+     * @return Un <code>String</code> con la fecha de inicio de la temporada.
+     */
     String getInicio() {
         return this.fechaInicio;
     }
     
+    /**
+     * Permite obtener la fecha de fin de una temporada.
+     * @return Un <code>String</code> con la fecha de fin de la temporada.
+     */
     String getFin() {
         return this.fechaFin;
     }
 
+    /**
+     * Permite obtener el importe que se ha de pagar mensualmente como cuota.
+     * @return Un <code>double</code> con el importe mensual.
+     */
     double getImporte() {
         return this.importeMensual;
     }
