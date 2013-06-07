@@ -145,12 +145,12 @@ public class EquipoBD {
 		 * @return int (entero) con el atributo interno del Id de un usuario.
 		 */
     
-    static int getIdUsuario(BaseDatos accesoBD, String nombre, String tipo) throws SQLException {
+    static int getIdUsuario(BaseDatos accesoBD, String nombre) throws SQLException {
 
         int id = 0;
 
         String consulta = "SELECT idUsuario FROM Usuario, Rango WHERE Usuario.nombre='" + nombre + "'";
-        consulta += " AND Rango.tipo='" + tipo + "'";
+       // consulta += " AND Rango.tipo='" + tipo + "'";
 
         ResultSet res = accesoBD.ejecutaConsulta(consulta);
 
@@ -302,8 +302,8 @@ public class EquipoBD {
 
         int idTemporada = GestorTemporadas.getIdTemporada(accesoBD, equipo.getTemporada());
         int idCategoria = GestorCategorias.getIdCategoria(accesoBD, equipo.getCategoria());
-        int idEntrenador = getIdUsuario(accesoBD, equipo.getEntrenador(), "primero");
-        int idEntrenador2 = getIdUsuario(accesoBD, equipo.getEntrenador2(), "segundo");
+        int idEntrenador = getIdUsuario(accesoBD, equipo.getEntrenador());
+        int idEntrenador2 = getIdUsuario(accesoBD, equipo.getEntrenador2());
         int idFundacion = getIDFundacion(accesoBD);
         int idLiga = getIDLiga(accesoBD);
         char sexo = equipo.getSexo();
@@ -312,6 +312,10 @@ public class EquipoBD {
                 + "temporada_idTemporada, sexo) VALUES ("
                 + idFundacion + ", " + idCategoria + ", '" + equipo.getNombre() + "', " + equipo.getFundacion() + ", "
                 + idLiga + ", " + idTemporada + ", '" + sexo + "')";
+        String InsercionEntrenador ="INSERT INTO `mydb`.`rango`"
+                + " (`Usuario_idUsuario`, `Equipo_idEquipo`, `Equipo_Fundacion_idFundacion`, "
+                + "`Equipo_Categoria_idCategoria`, `Equipo_Temporada_idTemporada`, `tipo`) "
+                + "VALUES ('1', '1', '1', '1', '1', '1')";
         System.out.print("\n\nAcanderMore " + Consulta);
         
         accesoBD.ejecutaActualizacion(Consulta);
