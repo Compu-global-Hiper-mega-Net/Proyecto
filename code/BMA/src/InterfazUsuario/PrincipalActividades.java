@@ -122,6 +122,7 @@ public class PrincipalActividades extends javax.swing.JFrame {
             }
         });
 
+        actividadesTable.setAutoCreateRowSorter(true);
         actividadesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
