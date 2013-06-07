@@ -395,12 +395,12 @@ public class PrincipalPartidos extends javax.swing.JFrame {
                 idEquipoLocal = GestorEquipos.getIdEquipo(accesoBD, tablaPartidos.getValueAt(iTablaPartido, 4).toString(), tablaPartidos.getValueAt(iTablaPartido, 2).toString());
                 idEquipoLocalFundacion = GestorEquipos.getIdFundacionEquipo(accesoBD, idEquipoLocal);
                 idEquipoLocalTemporada = GestorTemporadas.getIdTemporada(accesoBD, tablaPartidos.getValueAt(iTablaPartido, 3).toString());
-                idEquipoLocalLiga = 1;
+                idEquipoLocalLiga = GestorEquipos.getIdLigaEquipo(accesoBD, idEquipoLocal);
                 idEquipoVisitante = GestorEquipos.getIdEquipo(accesoBD, tablaPartidos.getValueAt(iTablaPartido, 5).toString(), tablaPartidos.getValueAt(iTablaPartido, 2).toString());
                 idEquipoVisitanteFundacion = GestorEquipos.getIdFundacionEquipo(accesoBD, idEquipoVisitante);
                 idEquipoVisitanteCategoria = GestorCategorias.getIdCategoria(accesoBD, tablaPartidos.getValueAt(iTablaPartido, 2).toString());
                 idEquipoVisitanteTemporada = GestorTemporadas.getIdTemporada(accesoBD, tablaPartidos.getValueAt(iTablaPartido, 3).toString());
-                idEquipoVisitanteLiga = 1;
+                idEquipoVisitanteLiga = GestorEquipos.getIdLigaEquipo(accesoBD, idEquipoVisitante);
                 fecha = (Date) strToDate(tablaPartidos.getValueAt(iTablaPartido, 0).toString());
                 hora = strToTime(tablaPartidos.getValueAt(iTablaPartido, 1).toString());
 
@@ -804,7 +804,7 @@ public class PrincipalPartidos extends javax.swing.JFrame {
     private java.sql.Time strToTime(String str) throws ParseException{
         java.sql.Time tim = null;
         
-        SimpleDateFormat sdf = new java.text.SimpleDateFormat("hh:mm", new Locale("es","ES"));
+        SimpleDateFormat sdf = new java.text.SimpleDateFormat("HH:mm", new Locale("es","ES"));
         tim = new java.sql.Time(sdf.parse(str).getTime());
         
         return tim;

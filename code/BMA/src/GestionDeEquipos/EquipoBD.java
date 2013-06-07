@@ -137,6 +137,26 @@ public class EquipoBD {
         return idEquipo;
     }
 
+		/* Metodo para consultar el Id de una liga asociada a un equipo
+		 * @param accesoBD, acceso a la base de datos.
+		 * @param idEquipo, id del equipo del que se quiere buscar la liga.
+		 * @throws SQLExcepción, algun tipo de error en la base de datos.
+		 * @return int (entero) con el atributo interno del Id de la liga asociada con el equipo.
+		 */
+    
+    static int getIdLigaEq(BaseDatos accesoBD, int idEquipo) throws SQLException {        
+        int idLiga = 0;
+
+        String consulta = "SELECT liga_idLiga FROM Equipo WHERE Equipo.idEquipo='" + idEquipo + "'";
+
+        ResultSet res = accesoBD.ejecutaConsulta(consulta);
+
+        if (res.next()) {
+            idLiga = res.getInt(1);
+        }
+        return idLiga;
+    }
+
 		/* Metodo para consultar el Id de un usuario
 		 * @param accesoBD, acceso a la base de datos.
 		 * @param nombre, nombre del usuario a buscar su Id correspondiente.

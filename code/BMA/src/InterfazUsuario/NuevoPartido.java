@@ -310,10 +310,7 @@ public class NuevoPartido extends javax.swing.JFrame {
          * Fin Comprobacion de Errores
          */
         
-        if(!error){            
-                /*Revisar esta insercion por:
-                 * idFundacion, idLiga, etc
-                 */
+        if(!error){
             java.sql.Date sqlDate = new java.sql.Date(fechaPartido.getDate().getTime());
             int idEquip1 = 0;
             int idEquip2 = 0;
@@ -327,10 +324,10 @@ public class NuevoPartido extends javax.swing.JFrame {
                 boolean exito = GestorPartidos.introducirPartido(accesoBD, idEquip1, 
                                 GestorEquipos.getIdFundacionEquipo(accesoBD, idEquip1),
                                 GestorCategorias.getIdCategoria(accesoBD, ComboCategoria.getSelectedItem().toString()), 
-                                GestorTemporadas.getIdTemporada(accesoBD, ComboTemporada.getSelectedItem().toString()), 1, 
+                                GestorTemporadas.getIdTemporada(accesoBD, ComboTemporada.getSelectedItem().toString()), GestorEquipos.getIdLigaEquipo(accesoBD, idEquip1), 
                                 idEquip2, GestorEquipos.getIdFundacionEquipo(accesoBD, idEquip2), 
                                 GestorCategorias.getIdCategoria(accesoBD, ComboCategoria.getSelectedItem().toString()), 
-                                GestorTemporadas.getIdTemporada(accesoBD, ComboTemporada.getSelectedItem().toString()), 1, 
+                                GestorTemporadas.getIdTemporada(accesoBD, ComboTemporada.getSelectedItem().toString()), GestorEquipos.getIdLigaEquipo(accesoBD, idEquip2), 
                                 sqlDate, convierteHoraTime(textHora.getText(), textMin.getText()), 0, 0);
                 if(exito){
                     JOptionPane.showMessageDialog(null, "Partido creado con exito", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
@@ -342,8 +339,7 @@ public class NuevoPartido extends javax.swing.JFrame {
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(NuevoPartido.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
+            }            
             this.setVisible(false);
         } else{
             JOptionPane.showMessageDialog(this, mensajeError, "Error", JOptionPane.ERROR_MESSAGE);
