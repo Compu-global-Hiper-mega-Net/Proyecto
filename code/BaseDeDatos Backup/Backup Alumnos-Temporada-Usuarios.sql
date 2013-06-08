@@ -555,8 +555,8 @@ CREATE TABLE `pagotemporada` (
   PRIMARY KEY (`idPagoTemporada`,`Cuota_idCuota`,`AlumnoTemporada_Alumno_idAlumno`,`AlumnoTemporada_Temporada_idTemporada`),
   KEY `fk_PagoTemporada_Cuota1_idx` (`Cuota_idCuota`),
   KEY `fk_PagoTemporada_AlumnoTemporada1_idx` (`AlumnoTemporada_Alumno_idAlumno`,`AlumnoTemporada_Temporada_idTemporada`),
-  CONSTRAINT `fk_PagoTemporada_AlumnoTemporada1` FOREIGN KEY (`AlumnoTemporada_Alumno_idAlumno`, `AlumnoTemporada_Temporada_idTemporada`) REFERENCES `alumnotemporada` (`Alumno_idAlumno`, `Temporada_idTemporada`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_PagoTemporada_Cuota1` FOREIGN KEY (`Cuota_idCuota`) REFERENCES `cuota` (`idCuota`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_PagoTemporada_Cuota1` FOREIGN KEY (`Cuota_idCuota`) REFERENCES `cuota` (`idCuota`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_PagoTemporada_AlumnoTemporada1` FOREIGN KEY (`AlumnoTemporada_Alumno_idAlumno`, `AlumnoTemporada_Temporada_idTemporada`) REFERENCES `alumnotemporada` (`Alumno_idAlumno`, `Temporada_idTemporada`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -713,4 +713,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-06-08 12:30:36
+-- Dump completed on 2013-06-08 13:27:51
