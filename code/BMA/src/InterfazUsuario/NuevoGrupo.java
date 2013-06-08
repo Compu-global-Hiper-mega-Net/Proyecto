@@ -17,44 +17,43 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Diego
+ * @author Diego y carlos
  */
 
 /*
  ******************************************************************************
-                   (c) Copyright 2013 
-                   * 
-                   * Moisés Gautier Gómez
-                   * Julio Ros Martínez
-                   * Francisco Javier Gómez del Olmo
-                   * Francisco Santolalla Quiñonero
-                   * Carlos Jesús Fernández Basso
-                   * Alexander Moreno Borrego
-                   * Jesús Manuel Contreras Siles
-                   * Diego Muñoz Rio
+ (c) Copyright 2013 
+ * 
+ * Moisés Gautier Gómez
+ * Julio Ros Martínez
+ * Francisco Javier Gómez del Olmo
+ * Francisco Santolalla Quiñonero
+ * Carlos Jesús Fernández Basso
+ * Alexander Moreno Borrego
+ * Jesús Manuel Contreras Siles
+ * Diego Muñoz Rio
  
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************
  */
-
 public class NuevoGrupo extends javax.swing.JFrame {
 
     private PrincipalGrupos pP;
     private BaseDatos bd;
     private List<String> listaAlumnos;
     private List<String> alumnosCat;
-    
+
     /**
      * Creates new form NuevoGrupo
      */
@@ -64,25 +63,25 @@ public class NuevoGrupo extends javax.swing.JFrame {
         this.pP = v;
         this.bd = bd;
         this.listaAlumnos = new ArrayList<>();
- 
+
         List<String> aux = pP.getListaTemps();
         actualizaComboTemp(aux);
-        
+
         //aux = creador.getListaCategorias();
         aux = GestorCategorias.getTipoCategorias(this.bd);
         actualizaComboCat(aux);
-        
+
         aux = pP.getListaAlumnosSinGrupo("");
         actualizaModeloLista(aux);
-        
+
         aux = pP.getListaEntrenadores("");
         actualizaComboEntrenadores(aux);
-        
+
         aux = pP.getListaInstalaciones("");
         actualizaComboInstalaciones(aux);
-        
+
         labelError.setVisible(false);
-        
+
         comboDia1.removeAllItems();
         comboDia1.addItem(DiasSemana.Lunes);
         comboDia1.addItem(DiasSemana.Martes);
@@ -91,7 +90,7 @@ public class NuevoGrupo extends javax.swing.JFrame {
         comboDia1.addItem(DiasSemana.Viernes);
         comboDia1.addItem(DiasSemana.Sabado);
         comboDia1.addItem(DiasSemana.Domingo);
-        
+
         comboDia2.removeAllItems();
         comboDia2.addItem(DiasSemana.Lunes);
         comboDia2.addItem(DiasSemana.Martes);
@@ -100,8 +99,8 @@ public class NuevoGrupo extends javax.swing.JFrame {
         comboDia2.addItem(DiasSemana.Viernes);
         comboDia2.addItem(DiasSemana.Sabado);
         comboDia2.addItem(DiasSemana.Domingo);
- 
-        
+
+
         actualizaListaPorCategoria();
     }
 
@@ -424,37 +423,37 @@ public class NuevoGrupo extends javax.swing.JFrame {
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         boolean salir = false;
-       
-        if(textHora.getText().length() == 2 && textMin.getText().length() == 2){
-            if(textHora.getText() != null && !Character.isLetter(textHora.getText().charAt(0)) &&
-                    !Character.isLetter(textHora.getText().charAt(1)) &&
-                    textMin.getText() != null && !Character.isLetter(textMin.getText().charAt(0)) && 
-                    !Character.isLetter(textMin.getText().charAt(1)) ){
+
+        if (textHora.getText().length() == 2 && textMin.getText().length() == 2) {
+            if (textHora.getText() != null && !Character.isLetter(textHora.getText().charAt(0))
+                    && !Character.isLetter(textHora.getText().charAt(1))
+                    && textMin.getText() != null && !Character.isLetter(textMin.getText().charAt(0))
+                    && !Character.isLetter(textMin.getText().charAt(1))) {
                 try {
-                    GestorGrupos.insertarDatosGrupo(this.bd, listaAlumnos, 
-                        comboTemp.getSelectedItem().toString(), comboCat.getSelectedItem().toString(), 
-                        comboDia1.getSelectedItem().toString(), 
-                        comboDia2.getSelectedItem().toString(), textHora.getText(), textMin.getText(), 
-                        comboEnt.getSelectedItem().toString(), comboInst.getSelectedItem().toString());
-                
+                    GestorGrupos.insertarDatosGrupo(this.bd, listaAlumnos,
+                            comboTemp.getSelectedItem().toString(), comboCat.getSelectedItem().toString(),
+                            comboDia1.getSelectedItem().toString(),
+                            comboDia2.getSelectedItem().toString(), textHora.getText(), textMin.getText(),
+                            comboEnt.getSelectedItem().toString(), comboInst.getSelectedItem().toString());
+
                 } catch (ParseException | SQLException ex) {
                     Logger.getLogger(NuevoGrupo.class.getName()).log(Level.SEVERE, null, ex);
                 }
-        
+
                 /* Actualizar la tabla de grupos */
                 try {
                     pP.actualizaTablaGrupos();
                 } catch (SQLException ex) {
                     Logger.getLogger(NuevoGrupo.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            
+
                 salir = true;
                 this.setVisible(false);
             }
-        }
-        else
+        } else {
             JOptionPane.showMessageDialog(this, "Error en los campos de la hora", "Error", JOptionPane.ERROR_MESSAGE);
-        
+        }
+
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
@@ -469,21 +468,22 @@ public class NuevoGrupo extends javax.swing.JFrame {
     private void tfBuscarEntKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscarEntKeyTyped
         String sEnt = tfBuscarEnt.getText();
         List<String> ents = pP.getListaEntrenadores(sEnt);
-        
+
         actualizaComboEntrenadores(ents);
-        
+
     }//GEN-LAST:event_tfBuscarEntKeyTyped
 
     private void tfBuscarAlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfBuscarAlMouseClicked
-        if("Buscar...".equals(tfBuscarAl.getText()))
+        if ("Buscar...".equals(tfBuscarAl.getText())) {
             tfBuscarAl.setText("");
+        }
         tfBuscarAl.requestFocus();
     }//GEN-LAST:event_tfBuscarAlMouseClicked
 
     private void tfBuscarAlKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscarAlKeyTyped
         List<String> als = new ArrayList<>();
         String s = tfBuscarAl.getText();
-        
+
         try {
             als = pP.getListaAlumnos(s);
         } catch (SQLException ex) {
@@ -495,19 +495,18 @@ public class NuevoGrupo extends javax.swing.JFrame {
     private void jlAlumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlAlumnosMouseClicked
         int[] n = jlAlumnos.getSelectedIndices();
         String auxN = Integer.toString(n.length);
-        auxN = auxN.concat("/"+(Integer.toString(20-listaAlumnos.size())));
-        
-        if(n.length > (20-listaAlumnos.size())){
+        auxN = auxN.concat("/" + (Integer.toString(20 - listaAlumnos.size())));
+
+        if (n.length > (20 - listaAlumnos.size())) {
             labelSelecc.setForeground(Color.red);
             labelError.setVisible(true);
             botonAnadir.setEnabled(false);
-        }
-        else{
+        } else {
             labelSelecc.setForeground(Color.BLACK);
             labelError.setVisible(false);
             botonAnadir.setEnabled(true);
         }
-        
+
         labelSelecc.setText(auxN);
     }//GEN-LAST:event_jlAlumnosMouseClicked
 
@@ -520,26 +519,28 @@ public class NuevoGrupo extends javax.swing.JFrame {
                 listaAlumnos.add(auxiliarAlumnosNuevos.get(i));
             }
         }
-      
+
         alsTotales = alumnosCat;
         alsTotales.removeAll(listaAlumnos);
-        
+
         actualizaModeloLista(alsTotales);
-        
-        labelAnadir.setText(Integer.toString(listaAlumnos.size())+"/20");
-        labelSelecc.setText("0/"+(20-listaAlumnos.size()));
-        
+
+        labelAnadir.setText(Integer.toString(listaAlumnos.size()) + "/20");
+        labelSelecc.setText("0/" + (20 - listaAlumnos.size()));
+
         //actualizaModeloLista(listaAlumnos);
     }//GEN-LAST:event_botonAnadirActionPerformed
 
     private void textHoraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textHoraKeyTyped
-        if(textHora.getText().length() >= 2)
+        if (textHora.getText().length() >= 2) {
             evt.consume();
+        }
     }//GEN-LAST:event_textHoraKeyTyped
 
     private void textMinKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textMinKeyTyped
-       if(textMin.getText().length() >= 2)
+        if (textMin.getText().length() >= 2) {
             evt.consume();
+        }
     }//GEN-LAST:event_textMinKeyTyped
 
     private void comboInstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboInstActionPerformed
@@ -547,25 +548,24 @@ public class NuevoGrupo extends javax.swing.JFrame {
     }//GEN-LAST:event_comboInstActionPerformed
 
     private void comboCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCatActionPerformed
-        
-        if(bd!= null && comboCat.getItemAt(0) != null){
-            //List<String> lista = new ArrayList<String>();
-        
-        try {
-            int anio = GestorCategorias.getAnioCategoria(bd, comboCat.getSelectedItem().toString());
-            listaAlumnos=new ArrayList();
-            //lista = GestorAlumnos.getAlumnosCategoria(bd, anio);
-            alumnosCat = GestorAlumnos.getAlumnosCategoria(bd, anio);
-            labelAnadir.setText(Integer.toString(listaAlumnos.size())+"/20");
-            labelSelecc.setText("0/"+(20-listaAlumnos.size()));
-            actualizaModeloLista(alumnosCat);
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(NuevoGrupo.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    }//GEN-LAST:event_comboCatActionPerformed
 
+        if (bd != null && comboCat.getItemAt(0) != null) {
+            //List<String> lista = new ArrayList<String>();
+
+            try {
+                int anio = GestorCategorias.getAnioCategoria(bd, comboCat.getSelectedItem().toString());
+                listaAlumnos = new ArrayList();
+                //lista = GestorAlumnos.getAlumnosCategoria(bd, anio);
+                alumnosCat = GestorAlumnos.getAlumnosCategoria(bd, anio);
+                labelAnadir.setText(Integer.toString(listaAlumnos.size()) + "/20");
+                labelSelecc.setText("0/" + (20 - listaAlumnos.size()));
+                actualizaModeloLista(alumnosCat);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(NuevoGrupo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_comboCatActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAceptar;
     private javax.swing.JButton botonAnadir;
@@ -602,51 +602,56 @@ public class NuevoGrupo extends javax.swing.JFrame {
 
     private void actualizaComboTemp(List<String> temps) throws SQLException {
         comboTemp.removeAllItems();
-        for(String s : temps)
+        for (String s : temps) {
             comboTemp.addItem(s);
-        
+        }
+
     }
 
     private void actualizaComboCat(List<String> temps) throws SQLException {
         comboCat.removeAllItems();
-        for(String s : temps)
+        for (String s : temps) {
             comboCat.addItem(s);
+        }
     }
 
     private void actualizaModeloLista(List<String> temps) {
         DefaultListModel modelo = new DefaultListModel();
-        for(String s : temps)
+        for (String s : temps) {
             modelo.addElement(s);
-        
+        }
+
         jlAlumnos.removeAll();
         jlAlumnos.setModel(modelo);
     }
-    
-    private void actualizaComboEntrenadores(List<String> ents){
+
+    private void actualizaComboEntrenadores(List<String> ents) {
         comboEnt.removeAllItems();
-        
-        for(String s : ents)
+
+        for (String s : ents) {
             comboEnt.addItem(s);
+        }
     }
 
     private void actualizaComboInstalaciones(List<String> inst) {
         comboInst.removeAllItems();
-        
-        for(String s : inst)
+
+        for (String s : inst) {
             comboInst.addItem(s);
+        }
     }
-    
+
     private void actualizaListaPorCategoria() {
         List<String> auxList = new ArrayList<String>();
-        
-        if(bd != null && comboCat.getItemAt(0) != null){
-        
+
+        if (bd != null && comboCat.getItemAt(0) != null) {
+
             try {
                 int anio = GestorCategorias.getAnioCategoria(bd, comboCat.getSelectedItem().toString());
                 auxList = GestorAlumnos.getAlumnosCategoria(bd, anio);
-                
+
                 actualizaModeloLista(auxList);
-            
+
             } catch (SQLException ex) {
                 Logger.getLogger(NuevoGrupo.class.getName()).log(Level.SEVERE, null, ex);
             }

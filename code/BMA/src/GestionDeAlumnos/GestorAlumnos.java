@@ -268,8 +268,8 @@ public class GestorAlumnos {
         ResultSet sal = bd.ejecutaConsulta(ComprobacionMenores);
         sal.next();
         GregorianCalendar g = new GregorianCalendar();
-        int edad = g.get(GregorianCalendar.YEAR) -  sal.getInt(1);
-        if ( edad== anio) {
+        int edad = g.get(GregorianCalendar.YEAR) - sal.getInt(1);
+        if (edad == anio) {
             query = "SELECT primerApellido, segundoApellido, nombre FROM "
                     + "mydb.alumno WHERE "
                     + "fechaNacimiento >'" + anio + "-1-1' ";
@@ -278,7 +278,7 @@ public class GestorAlumnos {
                     + "mydb.alumno WHERE "
                     + "fechaNacimiento >'" + anio + "-1-1' And fechaNacimiento <'" + (anio + 1) + "-1-1'";
         }
-        
+
         ResultSet res = bd.ejecutaConsulta(query);
 
         List<String> listaAls = new ArrayList<String>();

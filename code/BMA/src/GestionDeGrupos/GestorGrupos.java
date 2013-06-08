@@ -47,7 +47,7 @@ import javax.swing.JOptionPane;
  * Clase gestora del paquete GestionDeGrupos. Ofrece una manera de interactuar
  * con la base de datos y con los objetos de la clase Grupo.
  *
- * @author Diego
+ * @author Diego y carlos
  */
 public class GestorGrupos {
 
@@ -334,7 +334,7 @@ public class GestorGrupos {
         if (validar == false) {
             JOptionPane.showMessageDialog(null, "El grupo ya existe", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            List<Integer> listaIDAl ;
+            List<Integer> listaIDAl;
             listaIDAl = GestorAlumnos.getIdAl(accesoBD, listaAlumnos);
 
             int idEnt = GestorUsuarios.getIdEnt(accesoBD, entrenador);

@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Diego
+ * @author Diego y carlos
  */
 
 /*
@@ -242,14 +242,14 @@ public class GruposBD {
                         + "Temporada_idTemporada) VALUES "
                         + "('" + it + "','" + idTemp + "')";
                 res5 = accesoBD.ejecutaActualizacion(query5);
-                auxcurso=curso;
-                auxCont=9;
+                auxcurso = curso;
+                auxCont = 9;
                 for (int i = 0; i < 9; i++) {
 
 
                     query5 = "INSERT INTO Cuota (fecha,pagado) VALUES "
                             + "('" + auxcurso + "-" + auxCont + "-1','0')";
-                    System.out.println("insercion pago grupo"+query5);
+                    System.out.println("insercion pago grupo" + query5);
                     res5 = accesoBD.ejecutaActualizacion(query5);
 
                     query5 = "SELECT DISTINCT LAST_INSERT_ID() FROM Cuota";
@@ -1010,18 +1010,18 @@ public class GruposBD {
             if (!AlumnosEnGrupos.next()) {
 
                 String Pagos = "No se han dado de bajo pagos";
-                System.out.println("PAgos no eliminados "+Pagos+AlumnosBorrados.getString(1));
+                System.out.println("PAgos no eliminados " + Pagos + AlumnosBorrados.getString(1));
             } else {
                 //borrar pagos
 
                 String BorradoPago = "delete From cuota where idCuota IN (select pt.Cuota_idCuota"
                         + " FROM alumnogrupo ag,pagotemporada pt"
-                        + " Where ag.Alumno_idAlumno = '"+ AlumnosBorrados.getString(1) +"'  "
+                        + " Where ag.Alumno_idAlumno = '" + AlumnosBorrados.getString(1) + "'  "
                         + " And pt.AlumnoTemporada_Alumno_idAlumno=ag.Alumno_idAlumno"
                         + " And pt.AlumnoTemporada_Temporada_idTemporada=ag.Grupo_Temporada_idTemporada)";
 
 
-                
+
                 // System.out.print(BorradoPago); ResultSet Borrado = 
                 System.out.println("Consultaaa:" + BorradoPago);
                 accesoBD.eliminar(BorradoPago);
