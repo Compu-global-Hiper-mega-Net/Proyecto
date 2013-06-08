@@ -1001,7 +1001,7 @@ public class GruposBD {
                 + " Alumno_idAlumno = '";
 
         while (AlumnosBorrados.next()) {
-            System.out.println("Consultaaa:" + queryGrupoPagos + AlumnosBorrados.getString(1) + "' ");
+
             ResultSet AlumnosEnGrupos = accesoBD.ejecutaConsulta(queryGrupoPagos + AlumnosBorrados.getString(1) + "' ");
             /*String queryPagos = "select * FROM alumnogrupo,pago Where"
              + " Alumno_idAlumno = '";*/
@@ -1010,16 +1010,21 @@ public class GruposBD {
                 String Pagos = "No se han dado de bajo pagos";
             } else {
                 //borrar pagos
-                String BorradoPago = "delete "
-                        + "FROM alumnogrupo ag, cuota c,pagotemporada pt Where ag.Alumno_idAlumno = '" + AlumnosBorrados.getString(1) + "' "
-                        + " And c.idCuota=pt.Cuota_idCuota "
+
+                String BorradoPago = "delete From cuota where idCuota IN (select pt.Cuota_idCuota"
+                        + " FROM alumnogrupo ag,pagotemporada pt"
+                        + " Where ag.Alumno_idAlumno = '8'  "
                         + " And pt.AlumnoTemporada_Alumno_idAlumno=ag.Alumno_idAlumno"
-                        + " And pt.AlumnoTemporada_Temporada_idTemporada=ag.Grupo_Temporada_idTemporada";
-                System.out.print(BorradoPago);
-                ResultSet Borrado = accesoBD.ejecutaConsulta(BorradoPago);
-                while (Borrado.next()) {
-                    System.out.println(Borrado.getString(1));
-                }
+                        + " And pt.AlumnoTemporada_Temporada_idTemporada=ag.Grupo_Temporada_idTemporada)";
+
+
+                
+                // System.out.print(BorradoPago); ResultSet Borrado = 
+                System.out.println("Consultaaa:" + BorradoPago);
+                accesoBD.eliminar(BorradoPago);
+                /*while (Borrado.next()) {
+                 System.out.println(Borrado.getString(1));
+                 }*/
                 String Pagos = "Se han dado de bajo pagos";
             }
 
