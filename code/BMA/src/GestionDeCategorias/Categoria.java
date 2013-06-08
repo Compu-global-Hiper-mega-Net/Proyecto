@@ -35,13 +35,15 @@ import java.sql.SQLException;
 
 /**
  * Clase que representa las categorías a las que puede pertenecer un alumno.
- *
+ * @author Diego, Moises
  */
+
 public class Categoria {
 
     private int idCategoria;
     private String tipo;
     private String descripcion;
+    private int EdadMinima;
     
     /**
      * Permite modificar una categoria almacenada en la base de datos.
@@ -53,14 +55,15 @@ public class Categoria {
      * @return 1 si la modificacion ha tenido exito, 0 en caso contrario.
      * @throws SQLException 
      */
-    static int Modificar(BaseDatos accesoBD, Categoria cNuevo, Categoria cViejo) throws SQLException {
-        return CategoriaBD.ModificarCategoria(accesoBD, cNuevo, cViejo);
+    static int Modificar(BaseDatos accesoBD, Categoria cNuevo, Categoria cViejo, int EdadMinima) throws SQLException {
+        return CategoriaBD.ModificarCategoria(accesoBD, cNuevo, cViejo, EdadMinima);
     }
     
     /**
      * Contructor de la clase Categoria.
      * @param categoria Nombre de la categoria.
      */
+    
     public Categoria(String categoria){
         this.tipo = categoria;
     }
@@ -70,6 +73,7 @@ public class Categoria {
      * @param t Contiene el nombre de la categoria.
      * @param desc Contiene la descripcion de la categoria.
      */
+    
     public Categoria(String t, String desc){
         this.tipo = t;
         this.descripcion = desc;
@@ -79,6 +83,7 @@ public class Categoria {
      * Permite obtener el nombre de una cateogira.
      * @return Un <code>String</code> con el nombre de la categoria.
      */
+    
     public String getNombreCategoria() {
         return this.tipo;
     }
@@ -87,6 +92,7 @@ public class Categoria {
      * Permite obtener la descripcion de una categoria.
      * @return Un <code>String</code> con la descripcion de la categoria.
      */
+    
     public String getDescripcion(){
         return this.descripcion;
     }
@@ -95,28 +101,56 @@ public class Categoria {
      * Permite establecer la descripcion de la categoria.
      * @param desc Contiene la descripcion de la categoria.
      */
+    
     public void setDescripcion(String desc) {
         this.descripcion = desc;
     }
 
     /**
      * Permite establecer el nombre de la categoria.
-     * @param desc Contiene el nombre de la categoria.
+     * @param t Contiene el nombre de la categoria.
      */
+    
     public void setTipo(String t) {
         this.tipo = t;
     }
    
     /**
      * Permite establecer el identificador de la categoria.
-     * @param desc Contiene el identificador de la categoria.
+     * @param idCat Contiene el identificador de la categoria.
      */
+    
     public void setIdCat(int idCat) {
         this.idCategoria = idCat;
     }
 
+    /**
+     * Permite obtener el identificador de la categoria.
+     * @return Un <code> String </code> que contiene el identificador de la categoria.
+     */
+    
     public String getIdCategoria() {
         return Integer.toString(this.idCategoria);
     }
 
+    /**
+     * Permite obtener la edad minima de la categoria.
+     * @return Un <code> int </code> que contiene la edad mínima de la categoría
+     */
+    
+    public int getEdadMinima() {
+        return EdadMinima;
+    }
+
+    /**
+     * Permite establecer la edad minima de la categoria.
+     * @param EdadMinima Contiene el valor numerico de la edad minima
+     * de la categoria.
+     */
+    
+    public void setEdadMinima(int EdadMinima) {
+        this.EdadMinima = EdadMinima;
+    }
+
+    
 }
