@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /*
@@ -34,7 +35,6 @@ import java.util.List;
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************
  */
-
 /**
  * Clase que maneja todas las operaciones con los alumnos.
  *
@@ -262,16 +262,31 @@ public class GestorAlumnos {
     }
 
     public static List<String> getAlumnosCategoria(BaseDatos bd, int anio) throws SQLException {
-        String query = "SELECT primerApellido, segundoApellido, nombre FROM "
-                + "mydb.alumno WHERE "
-                + "fechaNacimiento >'"+anio+"-1-1'";
+        String ComprobacionMenores = "Select edadmin from categoria where "
+                + "categoria.idcategoria=(select min(c.idcategoria) from categoria c)";
+        String query;
+        ResultSet sal = bd.ejecutaConsulta(ComprobacionMenores);
+        sal.next();
+        GregorianCalendar g = new GregorianCalendar();
+        int edad = g.get(GregorianCalendar.YEAR) -  sal.getInt(1);
+        if ( edad== anio) {
+            query = "SELECT primerApellido, segundoApellido, nombre FROM "
+                    + "mydb.alumno WHERE "
+                    + "fechaNacimiento >'" + anio + "-1-1' ";
+        } else {
+            query = "SELECT primerApellido, segundoApellido, nombre FROM "
+                    + "mydb.alumno WHERE "
+                    + "fechaNacimiento >'" + anio + "-1-1' And fechaNacimiento <'" + (anio + 1) + "-1-1'";
+        }
+        
         ResultSet res = bd.ejecutaConsulta(query);
-        
+
         List<String> listaAls = new ArrayList<String>();
-        
-        while(res.next())
-            listaAls.add(res.getString(1)+" "+res.getString(2)+" "+res.getString(3));
-        
+
+        while (res.next()) {
+            listaAls.add(res.getString(1) + " " + res.getString(2) + " " + res.getString(3));
+        }
+
         return listaAls;
     }
 }

@@ -552,7 +552,6 @@ public class NuevoGrupo extends javax.swing.JFrame {
             //List<String> lista = new ArrayList<String>();
         
         try {
-            System.out.println("cambio categoria interfaz:"+comboCat.getSelectedItem().toString());
             int anio = GestorCategorias.getAnioCategoria(bd, comboCat.getSelectedItem().toString());
             listaAlumnos=new ArrayList();
             //lista = GestorAlumnos.getAlumnosCategoria(bd, anio);
