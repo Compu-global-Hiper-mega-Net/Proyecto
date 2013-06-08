@@ -121,7 +121,7 @@ public class Grupo {
     public Grupo(String cat, String ent, String inst, String temp) {
         this.categoria = new Categoria(cat);
         this.entrenador = new Usuario(ent);
-        this.instalacion = new Instalacion(inst);
+        this.instalacion = new Instalacion(inst,0,"");
         this.temporada = new Temporada(temp);
     }
 

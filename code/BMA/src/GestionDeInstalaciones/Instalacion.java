@@ -51,7 +51,7 @@ public class Instalacion {
 		 * @param localizacion de la instalación.
 		 */
     
-    Instalacion(String nombre, int capacidadEquipos,
+    public Instalacion(String nombre, int capacidadEquipos,
             String localizacion){
         
 

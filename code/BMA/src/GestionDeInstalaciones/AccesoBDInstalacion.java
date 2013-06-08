@@ -190,7 +190,7 @@ public class AccesoBDInstalacion {
         try {
             retset = accesoBD.ejecutaConsulta(selId);
             if (retset.next()) {
-                nuevaInstalacion.setIdInstalacion(retset.getInt("idInstalacion"));
+                nuevaInstalacion.setIdInst(retset.getInt("idInstalacion"));
             }
         } catch (SQLException ex) {
             System.out.print(ex.getMessage());
