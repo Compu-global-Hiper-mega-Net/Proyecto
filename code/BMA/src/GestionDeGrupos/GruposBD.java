@@ -223,6 +223,7 @@ public class GruposBD {
         int res5 = 0;
         boolean existeAl = false;
         int curso = GestorTemporadas.getAnio(accesoBD, idTemp);
+        int auxcurso;
         int auxCont = 9;
         int idCuota = 0;
         for (Integer it : listaIDAl) {
@@ -241,12 +242,13 @@ public class GruposBD {
                         + "Temporada_idTemporada) VALUES "
                         + "('" + it + "','" + idTemp + "')";
                 res5 = accesoBD.ejecutaActualizacion(query5);
-
+                auxcurso=curso;
+                auxCont=9;
                 for (int i = 0; i < 9; i++) {
 
 
                     query5 = "INSERT INTO Cuota (fecha,pagado) VALUES "
-                            + "('" + curso + "-" + auxCont + "-1','0')";
+                            + "('" + auxcurso + "-" + auxCont + "-1','0')";
                     System.out.println("insercion pago grupo"+query5);
                     res5 = accesoBD.ejecutaActualizacion(query5);
 
@@ -265,7 +267,7 @@ public class GruposBD {
                     auxCont++;
                     if (auxCont > 12) {
                         auxCont = 1;
-                        curso = curso + 1;
+                        auxcurso = auxcurso + 1;
                     }
                 }
             }
