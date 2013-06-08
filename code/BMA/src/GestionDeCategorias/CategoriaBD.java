@@ -38,7 +38,7 @@ import java.util.*;
 /**
  * Clase que permite hacer el paso de los objetos de tipo Categoria a objetos 
  * relacionales de la Base de Datos.
- * @author Diego
+ * @author Diego, Moises
  */
 public class CategoriaBD {
     
@@ -153,12 +153,13 @@ public class CategoriaBD {
      * @return 1 si la modificacion fue correcta, 0 en caso contrario.
      * @throws SQLException 
      */
-    static int ModificarCategoria(BaseDatos accesoBD, Categoria cNuevo, Categoria cViejo) throws SQLException {
+    static int ModificarCategoria(BaseDatos accesoBD, Categoria cNuevo, Categoria cViejo, int EdadMinima) throws SQLException {
         int correcto = 0;
         
         String query = "SELECT idCategoria FROM Categoria WHERE "
                 + "tipo='"+cViejo.getNombreCategoria()+"' AND "
-                + "descripcion='"+cViejo.getDescripcion()+"'";
+                + "descripcion='"+cViejo.getDescripcion()+"'"
+                + "edadminima=" + EdadMinima;
         ResultSet res = accesoBD.ejecutaConsulta(query);
         
         int idCat = 0;
@@ -167,7 +168,8 @@ public class CategoriaBD {
         
         query = "UPDATE Categoria SET tipo='"+cNuevo.getNombreCategoria()+"', "
                 + "descripcion='"+cNuevo.getDescripcion()+"' WHERE "
-                + "idCategoria='"+idCat+"'";
+                + "idCategoria='"+idCat+"'"
+                + "edadminima=" + EdadMinima;
         
         correcto = accesoBD.ejecutaActualizacion(query);
         
@@ -186,7 +188,8 @@ public class CategoriaBD {
         boolean existe = false;
         String query = "SELECT * FROM Categoria WHERE "
                 + "tipo='"+c.getNombreCategoria()+"' AND "
-                + "descripcion='"+c.getDescripcion()+"'";
+                + "descripcion='"+c.getDescripcion()+"'"
+                + "edadminima="+c.getEdadMinima();
         
         ResultSet res = accesoBD.ejecutaConsulta(query);
         
@@ -225,6 +228,7 @@ public class CategoriaBD {
      * @return Una lista de <code>String</code> con los nombres de las categorias.
      * @throws SQLException 
      */
+    
     static List<String> getTipoCategorias(BaseDatos accesoBD) throws SQLException {
         List<String> listaCats = new ArrayList<String>();
         
@@ -238,6 +242,13 @@ public class CategoriaBD {
         return listaCats;
     }
 
+    /**
+     * Permite obtener los nombres de las cateogiras almacenadas en la BD.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @return Una lista de <code>String</code> con los nombres de las categorias.
+     * @throws SQLException 
+     */
+    
     static int getAnioCategoria(BaseDatos bd, String cat) throws SQLException {
         String query = "SELECT edadmin FROM Categoria WHERE "
                 + "tipo='"+cat+"'";
@@ -251,5 +262,21 @@ public class CategoriaBD {
         int edad = g.get(GregorianCalendar.YEAR) - edadMin;
         
         return edad;
+    }
+    
+    static int getEdadMinimaCategoria(BaseDatos bd, String cat) throws SQLException
+    {
+        String query = "SELECT edadmin FROM Categoria WHERE"
+                + "tipo='"+cat+"'";
+        
+        ResultSet res = bd.ejecutaConsulta(query);
+        int Edad = 0;
+        
+        if(res.next())
+            Edad = res.getInt(1);
+        
+        return Edad;
+        
+        
     }
 }

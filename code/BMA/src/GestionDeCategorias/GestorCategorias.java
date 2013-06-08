@@ -106,13 +106,13 @@ public class GestorCategorias {
      * modificados.
      * @throws SQLException 
      */
-    public static void ModificarCategoria(BaseDatos accesoBD, Categoria cNuevo, Categoria cViejo) throws SQLException {
+    public static void ModificarCategoria(BaseDatos accesoBD, Categoria cNuevo, Categoria cViejo, int EdadMinima) throws SQLException {
         boolean existe = existeCategoria(accesoBD, cNuevo);
         
         if (existe) {
             JOptionPane.showMessageDialog(null, "La categoria ya existe", "Error", JOptionPane.ERROR_MESSAGE);
         } else{
-            Categoria.Modificar(accesoBD, cNuevo, cViejo);
+            Categoria.Modificar(accesoBD, cNuevo, cViejo, EdadMinima);
             JOptionPane.showMessageDialog(null, "Categoria modificada", "Exito", JOptionPane.INFORMATION_MESSAGE);
         }
        

@@ -45,6 +45,8 @@ public class AñadirModificarCategoria extends javax.swing.JFrame {
     private PrincipalCategorias pP;
     private BaseDatos bd;
     private String tAnt, dAnt;
+    private int eAnt;
+    private int EdadMinima;
     
     /**
      * Creates new form NuevaCategoria
@@ -92,6 +94,8 @@ public class AñadirModificarCategoria extends javax.swing.JFrame {
         botonCancelar = new javax.swing.JButton();
         botoAceptar = new javax.swing.JButton();
         botoGuardar = new javax.swing.JButton();
+        labelEdadMinima = new javax.swing.JLabel();
+        fieldEdadMinima = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -133,28 +137,41 @@ public class AñadirModificarCategoria extends javax.swing.JFrame {
             }
         });
 
+        labelEdadMinima.setText("Edad Mínima:");
+
+        fieldEdadMinima.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldEdadMinimaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(11, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(botoAceptar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botonCancelar))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1)
+                            .addComponent(labelEdadMinima)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel3)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(textTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(fieldEdadMinima, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(99, 99, 99)))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -178,7 +195,11 @@ public class AñadirModificarCategoria extends javax.swing.JFrame {
                     .addComponent(textTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelEdadMinima)
+                    .addComponent(fieldEdadMinima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonCancelar)
                     .addComponent(botoAceptar))
@@ -186,10 +207,10 @@ public class AñadirModificarCategoria extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 95, Short.MAX_VALUE)))
+                    .addGap(0, 117, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(97, Short.MAX_VALUE)
+                    .addContainerGap(119, Short.MAX_VALUE)
                     .addComponent(botoGuardar)
                     .addContainerGap()))
         );
@@ -215,12 +236,19 @@ public class AñadirModificarCategoria extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCancelarActionPerformed
 
     private void botoGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botoGuardarActionPerformed
-        if(!textTipo.getText().isEmpty() && !textDesc.getText().isEmpty()){
-            if(!tAnt.equals(textTipo.getText()) || !dAnt.equals(textDesc.getText())) {
+        if(!textTipo.getText().isEmpty() && !textDesc.getText().isEmpty() && !fieldEdadMinima.getText().isEmpty()){
+            
+            if(fieldEdadMinima.getText().matches("[0-9]{1,45}"))
+                EdadMinima = Integer.parseInt(fieldEdadMinima.getText());
+            else
+                JOptionPane.showMessageDialog(this, "Debe modificar algun campo", "Error", JOptionPane.ERROR_MESSAGE);
+            
+            if(!tAnt.equals(textTipo.getText()) || !dAnt.equals(textDesc.getText()) || !(eAnt == EdadMinima)) {
                 Categoria cNuevo = new Categoria(textTipo.getText(), textDesc.getText());
                 Categoria cViejo = new Categoria(tAnt, dAnt);
+                
                 try {
-                    GestorCategorias.ModificarCategoria(this.bd, cNuevo, cViejo);
+                    GestorCategorias.ModificarCategoria(this.bd, cNuevo, cViejo,EdadMinima);
                     pP.actualizarTabla();
                     this.dispose();
                 } catch (SQLException ex) {
@@ -233,14 +261,21 @@ public class AñadirModificarCategoria extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Debe rellenar los campos", "Error", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_botoGuardarActionPerformed
 
+    private void fieldEdadMinimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldEdadMinimaActionPerformed
+        
+        
+    }//GEN-LAST:event_fieldEdadMinimaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botoAceptar;
     private javax.swing.JButton botoGuardar;
     private javax.swing.JButton botonCancelar;
+    private javax.swing.JTextField fieldEdadMinima;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel labelEdadMinima;
     private javax.swing.JTextField textDesc;
     private javax.swing.JTextField textTipo;
     // End of variables declaration//GEN-END:variables
