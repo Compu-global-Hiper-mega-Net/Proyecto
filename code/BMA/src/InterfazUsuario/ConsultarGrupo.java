@@ -68,6 +68,7 @@ public class ConsultarGrupo extends javax.swing.JFrame {
     private String dia2;
     private String inst;
     private String ent;
+    private int contador=0;
     private boolean avanzadas;
     private List<String> alumnosCat;
     private List<String> listaAlumnosIntroducidos;
@@ -173,6 +174,38 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         //listaAlumnosIntroducidos = GestorGrupos.getListaAlumnosIntroducidos(bd, idGrupo);
     }
 
+    private void EliminarAlumnoLista(String alumno){
+     int idAl = 0;
+        try {
+            idAl = GestorAlumnos.getIdAl(this.bd, alumno);
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultarGrupo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            GestorGrupos.eliminarAlumnoIntroducido(this.bd, Integer.parseInt(idGrupo), idAl);
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultarGrupo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        List<String> aux1 = new ArrayList<String>();
+        List<String> aux2 = new ArrayList<String>();
+        try {
+            aux1 = pP.getlistaAlumnosIntroducidos(idGrupo);
+            aux2 = pP.getListaAlumnosSinGrupo("");
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultarGrupo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        actualizaListaAlumnosIntroducidos(aux1);
+        actualizaModeloLista(aux2);
+        labelFijados.setText(Integer.toString(aux1.size()));
+
+        try {
+            pP.actualizaTablaGrupos();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultarGrupo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -801,36 +834,8 @@ public class ConsultarGrupo extends javax.swing.JFrame {
 
     private void botonQuitarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonQuitarAlumnoActionPerformed
         String alumno = (String) jlAlumIntr.getSelectedValue();
-        int idAl = 0;
-        try {
-            idAl = GestorAlumnos.getIdAl(this.bd, alumno);
-        } catch (SQLException ex) {
-            Logger.getLogger(ConsultarGrupo.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            GestorGrupos.eliminarAlumnoIntroducido(this.bd, Integer.parseInt(idGrupo), idAl);
-        } catch (SQLException ex) {
-            Logger.getLogger(ConsultarGrupo.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        List<String> aux1 = new ArrayList<String>();
-        List<String> aux2 = new ArrayList<String>();
-        try {
-            aux1 = pP.getlistaAlumnosIntroducidos(idGrupo);
-            aux2 = pP.getListaAlumnosSinGrupo("");
-        } catch (SQLException ex) {
-            Logger.getLogger(ConsultarGrupo.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        actualizaListaAlumnosIntroducidos(aux1);
-        actualizaModeloLista(aux2);
-        labelFijados.setText(Integer.toString(aux1.size()));
-
-        try {
-            pP.actualizaTablaGrupos();
-        } catch (SQLException ex) {
-            Logger.getLogger(ConsultarGrupo.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        EliminarAlumnoLista(alumno);
+       
     }//GEN-LAST:event_botonQuitarAlumnoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -912,7 +917,7 @@ public class ConsultarGrupo extends javax.swing.JFrame {
     }//GEN-LAST:event_botonAvanzadasActionPerformed
 
     private void comboCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCatActionPerformed
-
+        
         if (bd != null && comboCat.getItemAt(0) != null) {
             List<String> lista = new ArrayList<String>();
 
@@ -921,7 +926,17 @@ public class ConsultarGrupo extends javax.swing.JFrame {
 
                 //lista = GestorAlumnos.getAlumnosCategoria(bd, anio);
                 alumnosCat = GestorAlumnos.getAlumnosCategoria(bd, anio);
+                //jlAlumIntr= new javax.swing.JList();
+          //      jlAlumIntr.addSelectionInterval(0, jlAlumIntr.getSize());
+                if(contador>0){
+                    contador++;
+                }
+                jlAlumIntr.setSelectionInterval(0, 1);
+                System.out.println(jlAlumIntr.getSelectedValue());
 
+
+//listaAlumnosIntroducidos
+  //      listaAlumnos
                 //actualizaModeloLista(alumnosCat);
                 actualizaListaPorCategoria();
 
