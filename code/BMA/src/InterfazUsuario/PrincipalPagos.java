@@ -753,7 +753,7 @@ public class PrincipalPagos extends javax.swing.JFrame {
             tablasImplicadas += " , alumnotemporada altemp, pagotemporada pagotemp , temporada temp  ";
             condicionesConsulta = condicionesConsulta + " altemp.Alumno_idAlumno=a.idAlumno AND "
                     + "pagotemp.AlumnoTemporada_Alumno_idAlumno=altemp.Alumno_idAlumno AND pagotemp.AlumnoTemporada_Temporada_idTemporada=altemp.Temporada_idTemporada AND"
-                    + " pagotemp.cuota_idCuota=cuota.idCuota AND temp.idTemporada=altemp.Temporada_idTemporada AND cuota.pagado=false AND ";
+                    + " pagotemp.cuota_idCuota=cuota.idCuota AND temp.idTemporada=altemp.Temporada_idTemporada AND cuota.pagado=0 AND ";
             if (!pago_temporada.getSelectedItem().equals("")) {
                 condicionesConsulta = condicionesConsulta + " temp.curso='" + (String) pago_temporada.getSelectedItem() + "' AND ";
             }

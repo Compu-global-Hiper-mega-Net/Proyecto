@@ -512,10 +512,15 @@ public class NuevoGrupo extends javax.swing.JFrame {
     }//GEN-LAST:event_jlAlumnosMouseClicked
 
     private void botonAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAnadirActionPerformed
-        List<String> alsTotales = new ArrayList<String>();
-        
-        listaAlumnos.addAll(jlAlumnos.getSelectedValuesList());
-        
+        List<String> alsTotales = new ArrayList();
+        List<String> auxiliarAlumnosNuevos = new ArrayList();
+        auxiliarAlumnosNuevos.addAll(jlAlumnos.getSelectedValuesList());
+        for (int i = 0; i < auxiliarAlumnosNuevos.size(); i++) {
+            if (!listaAlumnos.contains(auxiliarAlumnosNuevos.get(i))) {
+                listaAlumnos.add(auxiliarAlumnosNuevos.get(i));
+            }
+        }
+      
         alsTotales = alumnosCat;
         alsTotales.removeAll(listaAlumnos);
         
@@ -547,12 +552,13 @@ public class NuevoGrupo extends javax.swing.JFrame {
             //List<String> lista = new ArrayList<String>();
         
         try {
-            System.out.println(comboCat.getSelectedItem().toString());
+            System.out.println("cambio categoria interfaz:"+comboCat.getSelectedItem().toString());
             int anio = GestorCategorias.getAnioCategoria(bd, comboCat.getSelectedItem().toString());
-            
+            listaAlumnos=new ArrayList();
             //lista = GestorAlumnos.getAlumnosCategoria(bd, anio);
             alumnosCat = GestorAlumnos.getAlumnosCategoria(bd, anio);
-            
+            labelAnadir.setText(Integer.toString(listaAlumnos.size())+"/20");
+            labelSelecc.setText("0/"+(20-listaAlumnos.size()));
             actualizaModeloLista(alumnosCat);
             
         } catch (SQLException ex) {

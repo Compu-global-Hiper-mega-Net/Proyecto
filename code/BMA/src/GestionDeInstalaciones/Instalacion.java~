@@ -51,7 +51,7 @@ public class Instalacion {
 		 * @param localizacion de la instalación.
 		 */
     
-    public Instalacion(String nombre, int capacidadEquipos,
+    Instalacion(String nombre, int capacidadEquipos,
             String localizacion){
         
 
@@ -140,7 +140,6 @@ public class Instalacion {
 		/*
 		 * Metodo constructor
 		 * @param direccion String (cadena) con la dirección de la instalación.
-		 */
 
     public void setLocalizacion(String direccion){
         this.localizacion = direccion;

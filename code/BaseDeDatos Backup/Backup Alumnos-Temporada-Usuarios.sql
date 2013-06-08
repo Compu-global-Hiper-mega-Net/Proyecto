@@ -108,7 +108,6 @@ CREATE TABLE `alumno` (
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-
 --
 -- Dumping data for table `alumno`
 --
@@ -118,8 +117,6 @@ LOCK TABLES `alumno` WRITE;
 INSERT INTO `alumno` VALUES (2,'M','carlos','Fernandez','Basso','Juan','Yolanda','12312213',667787267,977827606,'gran jugador','Granada','Granada',12345,'san idelfonso','C/ luis','carlos@gmail.com','2000-02-03','M'),(3,'L','Juan','Gomez','Gomez','Luis','Juana','23434553',666777888,968776655,NULL,'Granada','Maracena',18023,'Mulacen','C/ pedro','CDS@gmail.com','2001-02-06','M'),(4,'S','Luis','Hernandez','Sierra','Esteban','Luisa','54675545',657898734,958473277,NULL,'Granada','Granada',12098,'Francisco Ayala','C/ del Olmo','vvau@hotmail.com','2005-02-07','M'),(5,'XL','Manuel','Garcia','Fernandez','Manuel','Maria','23421451',677897654,958776898,NULL,'Granada','Granada',12089,'Generalife','C/ Galera','Maga@gmail.com','1998-02-03','M'),(6,'M','Marta','Garcia','Garrido','Luis','Julia','12342344',678398297,987325436,NULL,'Granada','Granada',12083,'Ave Maria','C/ olgoso','Mtarti@gmail.com','1999-02-09','F'),(7,'S','Luisa','Garcia','Ruano','Eladio','Carmen','23423141',678288289,958762839,NULL,'Granada','Granada',12345,'Monaita','C/ lupistre','olgora@gmail.com','2003-08-09','F'),(8,'M','Sebastian','Fernandez','Sierra','Sebastian','Isabel','43524532',653897654,968654346,NULL,'Granada','Maracena',12342,'Francisco Ayala','C/ leonor','Seba@gmail.com','2005-05-06','M'),(9,'L','Maria','Fernandez','Garcia','Luis','Maria','98984308',637824682,962747372,NULL,'Granada','Cajar',13456,'Luis Olmo','C/ Leopete','Marii@gmail.com','2007-06-04','F'),(10,'XL','Elena','Hernandez','Mesa','Juan','Eva','98676377',678265673,978525615,NULL,'Granada','Otura',14525,'Luis Crespo','C/ Gongora','Lssu@gmail.com','1997-07-08','F'),(11,'M','Eva','Fina','Segura','Esteban','Juana','97874847',693829838,978665544,NULL,'Granada','Granada',18097,'Monaita','C/ Herza','efs@gmail.com','1997-09-07','F'),(12,'L','Marcos','Mesa','Fernandez','Luis','Yolanda','98782738',675445454,987545345,'Problemas de rodilla','Granada','Alfacar',15712,'Elisuar','C/ Tensa','Marc@gmail.com','1997-09-14','M'),(13,'M','Pablo','Pozo','Mesa','Francisco','Rosa','12842988',672873872,972637267,NULL,'Granada','Otura',13122,'Generalife','C/ Sensa','Pab@hotmail.com','1998-08-17','M'),(14,'XL','Luis Manuel','Garcia','Pozo','Manuel','Francisca','43356454',687267783,987626661,NULL,'Granada','Granada',18092,'Generalife','C/ Gran capitan','ALsk@gmail.com','2003-09-25','M'),(15,'M','Alfonso','Ortega','Carrillo','Jose','Adela','56345345',678839291,938231827,NULL,'Granada','Granada',18047,'Virgen de gracia','C/ Barriada','alfo@gmail.com','2000-07-06','M'),(16,'XL','Adela','Fernandez','Gomez','Jose Maria ','Jessica','76765176',654323233,967262716,NULL,'Granada','Maracena',18290,'San Jose','C/ Consolacion','ade@hotmail.com','1999-08-12','F'),(17,'M','Carla','Fernandez','Gomez','Carlos Jesus','Jessica','59862445',662578963,952785412,NULL,'Granada','Albolote',18200,'Sagrado Corazon','C/Juan Miguel','carlafg@hotmail.com','2002-01-19','F'),(18,'L','Sergio','Rodriguez','Galvez','Juan','Aurora','87752465',668745230,985632577,NULL,'Granada','Armilla',18662,'Juan XXIII','C/Alhondiga','sergito@hotmail.com','1999-10-12','M'),(19,'S','Juan','Sanchez','Alonso','Carlos','Cristina','15788562',633258746,926548465,NULL,'Granada','Huetor',15825,'Sagrada Corazon','C/Justino','alonsofd@hotmail.com','1998-04-15','M'),(20,'M','Esther','Zamora','Lopez','Daniel','Esther','52335645',665874524,987545223,NULL,'Granada','Zagra',14788,'Emilio Carmona','C/San Sebastian','esther23@hotmail.com','1997-02-01','M');
 /*!40000 ALTER TABLE `alumno` ENABLE KEYS */;
 UNLOCK TABLES;
-
-
 
 --
 -- Table structure for table `alumnoequipo`
@@ -273,7 +270,7 @@ CREATE TABLE `cuota` (
   `fecha` date NOT NULL,
   `pagado` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`idCuota`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=110 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -416,7 +413,7 @@ CREATE TABLE `grupo` (
   CONSTRAINT `fk_grupo_Horario1` FOREIGN KEY (`Horario_idHorario`, `Horario_Instalacion_idInstalacion`) REFERENCES `horario` (`idHorario`, `Instalacion_idInstalacion`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_Grupo_Temporada1` FOREIGN KEY (`Temporada_idTemporada`) REFERENCES `temporada` (`idTemporada`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_Grupo_Usuario1` FOREIGN KEY (`Usuario_idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -445,7 +442,7 @@ CREATE TABLE `horario` (
   PRIMARY KEY (`idHorario`,`Instalacion_idInstalacion`),
   KEY `fk_Horario_Instalacion1_idx` (`Instalacion_idInstalacion`),
   CONSTRAINT `fk_Horario_Instalacion1` FOREIGN KEY (`Instalacion_idInstalacion`) REFERENCES `instalacion` (`idInstalacion`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -470,7 +467,7 @@ CREATE TABLE `instalacion` (
   `capacidadEquipos` int(11) NOT NULL,
   `localizacion` varchar(140) NOT NULL,
   PRIMARY KEY (`idInstalacion`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -479,6 +476,7 @@ CREATE TABLE `instalacion` (
 
 LOCK TABLES `instalacion` WRITE;
 /*!40000 ALTER TABLE `instalacion` DISABLE KEYS */;
+INSERT INTO `instalacion` VALUES (1,'Escolapios',6,'Calle Altomayor'),(2,'Polideportivo la chana',2,'Calle chana'),(3,'Soto Mayor',4,'Calle Angelical'),(4,'polideportivo Armilla',10,'Avenida Alameda Real'),(5,'Polideportivo Zaidin',12,'Plaza La Soledad'),(6,'Mulacen',6,'Carretera Cordoba');
 /*!40000 ALTER TABLE `instalacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -552,9 +550,9 @@ CREATE TABLE `pagotemporada` (
   PRIMARY KEY (`idPagoTemporada`,`Cuota_idCuota`,`AlumnoTemporada_Alumno_idAlumno`,`AlumnoTemporada_Temporada_idTemporada`),
   KEY `fk_PagoTemporada_Cuota1_idx` (`Cuota_idCuota`),
   KEY `fk_PagoTemporada_AlumnoTemporada1_idx` (`AlumnoTemporada_Alumno_idAlumno`,`AlumnoTemporada_Temporada_idTemporada`),
-  CONSTRAINT `fk_PagoTemporada_AlumnoTemporada1` FOREIGN KEY (`AlumnoTemporada_Alumno_idAlumno`, `AlumnoTemporada_Temporada_idTemporada`) REFERENCES `alumnotemporada` (`Alumno_idAlumno`, `Temporada_idTemporada`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_PagoTemporada_Cuota1` FOREIGN KEY (`Cuota_idCuota`) REFERENCES `cuota` (`idCuota`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_PagoTemporada_Cuota1` FOREIGN KEY (`Cuota_idCuota`) REFERENCES `cuota` (`idCuota`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_PagoTemporada_AlumnoTemporada1` FOREIGN KEY (`AlumnoTemporada_Alumno_idAlumno`, `AlumnoTemporada_Temporada_idTemporada`) REFERENCES `alumnotemporada` (`Alumno_idAlumno`, `Temporada_idTemporada`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -625,8 +623,8 @@ CREATE TABLE `rango` (
   PRIMARY KEY (`Usuario_idUsuario`,`Equipo_idEquipo`,`Equipo_Fundacion_idFundacion`,`Equipo_Categoria_idCategoria`,`Equipo_Temporada_idTemporada`),
   KEY `fk_Usuario_has_Equipo_Equipo1_idx` (`Equipo_idEquipo`,`Equipo_Fundacion_idFundacion`,`Equipo_Categoria_idCategoria`,`Equipo_Temporada_idTemporada`),
   KEY `fk_Usuario_has_Equipo_Usuario1_idx` (`Usuario_idUsuario`),
-  CONSTRAINT `fk_Usuario_has_Equipo_Equipo1` FOREIGN KEY (`Equipo_idEquipo`, `Equipo_Fundacion_idFundacion`, `Equipo_Categoria_idCategoria`) REFERENCES `equipo` (`idEquipo`, `Fundacion_idFundacion`, `Categoria_idCategoria`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_Usuario_has_Equipo_Usuario1` FOREIGN KEY (`Usuario_idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_Usuario_has_Equipo_Equipo1` FOREIGN KEY (`Equipo_idEquipo`, `Equipo_Fundacion_idFundacion`, `Equipo_Categoria_idCategoria`) REFERENCES `equipo` (`idEquipo`, `Fundacion_idFundacion`, `Categoria_idCategoria`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Usuario_has_Equipo_Usuario1` FOREIGN KEY (`Usuario_idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -653,7 +651,7 @@ CREATE TABLE `temporada` (
   `fin` date DEFAULT NULL,
   `importeMensual` float DEFAULT NULL,
   PRIMARY KEY (`idTemporada`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -662,7 +660,7 @@ CREATE TABLE `temporada` (
 
 LOCK TABLES `temporada` WRITE;
 /*!40000 ALTER TABLE `temporada` DISABLE KEYS */;
-INSERT INTO `temporada` VALUES (1,'2012/2013','2012-09-10','2013-05-13',90),(2,'2013/2014','2013-09-15','2014-05-17',95);
+INSERT INTO `temporada` VALUES (1,'2012/2013','2012-09-01','2012-05-31',91),(2,'2013/2014','2013-09-15','2014-05-17',95);
 /*!40000 ALTER TABLE `temporada` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -709,4 +707,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-06-07 17:36:05
+-- Dump completed on 2013-06-08 18:29:04

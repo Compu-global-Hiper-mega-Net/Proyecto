@@ -131,7 +131,7 @@ public class GestorInstalacion {
 		 * @param accesoBD BaseDatos (BaseDatos) con el acceso a la base de datos.
 		 * @throws SQLExcepción algun tipo de error en la base de datos.
 		 * @return List<String> (lista) atributo interno con el nombre de todas las instalaciones.
-	   */
+	  */
 
     public static List<String> getListaInstalaciones(BaseDatos accesoBD) throws SQLException {
         return AccesoBDInstalacion.getListaInstalaciones(accesoBD);
