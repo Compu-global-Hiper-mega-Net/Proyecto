@@ -245,9 +245,9 @@ public class GruposBD {
                 for (int i = 0; i < 9; i++) {
 
 
-                    query5 = "INSERT INTO Cuota (fecha) VALUES "
-                            + "('" + curso + "-" + auxCont + "0')";
-
+                    query5 = "INSERT INTO Cuota (fecha,pagado) VALUES "
+                            + "('" + curso + "-" + auxCont + "-1','0')";
+                    System.out.println("insercion pago grupo"+query5);
                     res5 = accesoBD.ejecutaActualizacion(query5);
 
                     query5 = "SELECT DISTINCT LAST_INSERT_ID() FROM Cuota";
@@ -997,7 +997,7 @@ public class GruposBD {
         System.out.println(query3);
         boolean eliminaAlumGrup = accesoBD.eliminar(query3);
 
-        String queryGrupoPagos = "select * FROM alumnogrupo Where"
+        String queryGrupoPagos = "select Alumno_idAlumno,count(Alumno_idAlumno) FROM alumnogrupo Where"
                 + " Alumno_idAlumno = '";
 
         while (AlumnosBorrados.next()) {
@@ -1008,12 +1008,13 @@ public class GruposBD {
             if (!AlumnosEnGrupos.next()) {
 
                 String Pagos = "No se han dado de bajo pagos";
+                System.out.println("PAgos no eliminados "+Pagos+AlumnosBorrados.getString(1));
             } else {
                 //borrar pagos
 
                 String BorradoPago = "delete From cuota where idCuota IN (select pt.Cuota_idCuota"
                         + " FROM alumnogrupo ag,pagotemporada pt"
-                        + " Where ag.Alumno_idAlumno = '8'  "
+                        + " Where ag.Alumno_idAlumno = '"+ AlumnosBorrados.getString(1) +"'  "
                         + " And pt.AlumnoTemporada_Alumno_idAlumno=ag.Alumno_idAlumno"
                         + " And pt.AlumnoTemporada_Temporada_idTemporada=ag.Grupo_Temporada_idTemporada)";
 
