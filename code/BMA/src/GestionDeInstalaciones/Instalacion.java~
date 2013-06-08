@@ -140,7 +140,6 @@ public class Instalacion {
 		/*
 		 * Metodo constructor
 		 * @param direccion String (cadena) con la dirección de la instalación.
-		 */
 
     public void setLocalizacion(String direccion){
         this.localizacion = direccion;
