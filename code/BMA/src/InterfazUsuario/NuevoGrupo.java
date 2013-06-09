@@ -92,7 +92,7 @@ public class NuevoGrupo extends javax.swing.JFrame {
         comboDia1.addItem(DiasSemana.Domingo);
 
         comboDia2.removeAllItems();
-        comboDia2.addItem(DiasSemana.Lunes);
+        //comboDia2.addItem(DiasSemana.Lunes);
         comboDia2.addItem(DiasSemana.Martes);
         comboDia2.addItem(DiasSemana.Miercoles);
         comboDia2.addItem(DiasSemana.Jueves);
@@ -260,6 +260,11 @@ public class NuevoGrupo extends javax.swing.JFrame {
         labelError.setText("Se ha superado el maximo por grupo");
 
         comboDia1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboDia1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboDia1ActionPerformed(evt);
+            }
+        });
 
         comboDia2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -566,6 +571,39 @@ public class NuevoGrupo extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_comboCatActionPerformed
+
+    private void comboDia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboDia1ActionPerformed
+
+        if (comboDia1.getSelectedItem() != null) {
+ 
+            String dia = comboDia1.getSelectedItem().toString();
+
+            comboDia2.removeAllItems();
+            if (!DiasSemana.Lunes.toString().equals(dia)) {
+                comboDia2.addItem(DiasSemana.Lunes);
+            }
+            if (!DiasSemana.Martes.toString().equals(dia)) {
+                comboDia2.addItem(DiasSemana.Martes);
+            }
+            if (!DiasSemana.Miercoles.toString().equals(dia)) {
+                comboDia2.addItem(DiasSemana.Miercoles);
+            }
+            if (!DiasSemana.Jueves.toString().equals(dia)) {
+                comboDia2.addItem(DiasSemana.Jueves);
+            }
+            if (!DiasSemana.Viernes.toString().equals(dia)) {
+                comboDia2.addItem(DiasSemana.Viernes);
+            }
+            if (!DiasSemana.Sabado.toString().equals(dia)) {
+                comboDia2.addItem(DiasSemana.Sabado);
+            }
+            if (!DiasSemana.Domingo.toString().equals(dia)) {
+                comboDia2.addItem(DiasSemana.Domingo);
+            }
+        }
+
+
+    }//GEN-LAST:event_comboDia1ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAceptar;
     private javax.swing.JButton botonAnadir;
