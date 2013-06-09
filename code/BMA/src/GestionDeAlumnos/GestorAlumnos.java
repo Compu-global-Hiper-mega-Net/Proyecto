@@ -236,7 +236,7 @@ public class GestorAlumnos {
         return AccesoBDAlumno.buscarEstadisticas(accesoBD, idAlumno);
     }
 
-    public static List<String> getAlumnosCategoria(BaseDatos bd, int anio) throws SQLException {
+    public static List<String> getAlumnosCategoria(BaseDatos bd, int anio,int temporada) throws SQLException {
         String ComprobacionMenores = "Select edadmin from categoria where "
                 + "categoria.idcategoria=(select min(c.idcategoria) from categoria c)";
         String query;

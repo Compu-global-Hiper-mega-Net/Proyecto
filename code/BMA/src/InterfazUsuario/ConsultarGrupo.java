@@ -855,51 +855,51 @@ public class ConsultarGrupo extends javax.swing.JFrame {
          String ent = GestorGrupos.getEntrenador(creador.accesoBD, idGrupo);*/
         Integer a = Integer.parseInt(textHora.getText().toString());
         Integer a1 = Integer.parseInt(textMin.getText().toString());
-        String cadena="";
+        String cadena = "";
         if (!(a > 0 && a < 23) || !(a1 > 0 && a1 < 59)) {
             if (!(a1 > 0 && a1 < 59)) {
-           
-                           cadena+= "Los minutos introducidos no son validos\n";
+
+                cadena += "Los minutos introducidos no son validos\n";
             }
-             if (!(a > 0 && a < 23)) {
-           
-                           cadena+= "La hora introducida no es valida";
+            if (!(a > 0 && a < 23)) {
+
+                cadena += "La hora introducida no es valida";
             }
-            
+
             JOptionPane.showMessageDialog(this,
-                            cadena, "Error",
-                            JOptionPane.ERROR_MESSAGE);
-        }else{
-          
-        
-        
-        Grupo gViejo = null;
-        Grupo gNuevo = null;
-        try {
-            gNuevo = new Grupo(comboTemp.getSelectedItem().toString(),
-                    comboDia1.getSelectedItem().toString(),
-                    comboDia2.getSelectedItem().toString(),
-                    textHora.getText(), textMin.getText(),
-                    comboEnt.getSelectedItem().toString(), comboCat.getSelectedItem().toString(), comboInst.getSelectedItem().toString());
-            gViejo = new Grupo(temp, dia1, dia2, hora1, min, ent, cat, inst);
-        } catch (ParseException ex) {
-            Logger.getLogger(ConsultarGrupo.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            GestorGrupos.modificarGrupo(this.bd, gNuevo, gViejo, idGrupo, listaAlumnos);
-        } catch (SQLException ex) {
-            Logger.getLogger(ConsultarGrupo.class.getName()).log(Level.SEVERE, null, ex);
-        }
+                    cadena, "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } else {
 
 
-        try {
-            pP.actualizaTablaGrupos();
-        } catch (SQLException ex) {
-            Logger.getLogger(ConsultarGrupo.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+            Grupo gViejo = null;
+            Grupo gNuevo = null;
+            try {
+                gNuevo = new Grupo(comboTemp.getSelectedItem().toString(),
+                        comboDia1.getSelectedItem().toString(),
+                        comboDia2.getSelectedItem().toString(),
+                        textHora.getText(), textMin.getText(),
+                        comboEnt.getSelectedItem().toString(), comboCat.getSelectedItem().toString(), comboInst.getSelectedItem().toString());
+                gViejo = new Grupo(temp, dia1, dia2, hora1, min, ent, cat, inst);
+            } catch (ParseException ex) {
+                Logger.getLogger(ConsultarGrupo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                GestorGrupos.modificarGrupo(this.bd, gNuevo, gViejo, idGrupo, listaAlumnos);
+            } catch (SQLException ex) {
+                Logger.getLogger(ConsultarGrupo.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
 
-        this.setVisible(false);
+            try {
+                pP.actualizaTablaGrupos();
+            } catch (SQLException ex) {
+                Logger.getLogger(ConsultarGrupo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+
+            this.setVisible(false);
         }
     }//GEN-LAST:event_botonAceptarActionPerformed
 
@@ -908,7 +908,7 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         if (textHora.getText().length() > 2) {
             evt.consume();
         }
-      
+
     }//GEN-LAST:event_textHoraKeyTyped
 
     private void textMinKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textMinKeyTyped
@@ -916,7 +916,7 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         if (textMin.getText().length() > 2) {
             evt.consume();
         }
-        
+
     }//GEN-LAST:event_textMinKeyTyped
 
     private void botonAvanzadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAvanzadasActionPerformed
@@ -950,21 +950,19 @@ public class ConsultarGrupo extends javax.swing.JFrame {
             try {
                 int anio = GestorCategorias.getAnioCategoria(bd, comboCat.getSelectedItem().toString());
 
-                //lista = GestorAlumnos.getAlumnosCategoria(bd, anio);
+
                 alumnosCat = GestorAlumnos.getAlumnosCategoria(bd, anio);
-                //jlAlumIntr= new javax.swing.JList();
-                //      jlAlumIntr.addSelectionInterval(0, jlAlumIntr.getSize());
+
                 if (contador == 0) {
                     contador++;
                 } else {
-                    //hacerlo con un for 
+
                     System.out.println("Ultimo: " + jlAlumIntr.getLastVisibleIndex());
                     for (int incre = 0; incre <= jlAlumIntr.getLastVisibleIndex();) {
-                        System.out.println("Incremento: " + incre);
+                        //  System.out.println("Incremento: " + incre);
                         jlAlumIntr.setSelectedIndex(incre);
                         String alumno = (String) jlAlumIntr.getSelectedValue();
-                        System.out.println("mando eliminar: " + alumno);
-                        //System.out.println(jlAlumIntr.getSelectedValue() + "elemento:" + jlAlumIntr.getLastVisibleIndex());
+                        // System.out.println("mando eliminar: " + alumno);
 
                         EliminarAlumnoLista(alumno);
                         if (jlAlumIntr.getLastVisibleIndex() < incre) {
