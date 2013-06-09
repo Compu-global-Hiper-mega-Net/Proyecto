@@ -428,37 +428,54 @@ public class NuevoGrupo extends javax.swing.JFrame {
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         boolean salir = false;
+        Integer a = Integer.parseInt(textHora.getText().toString());
+        Integer a1 = Integer.parseInt(textMin.getText().toString());
+        String cadena = "";
+        if (!(a > 0 && a < 23) || !(a1 > 0 && a1 < 59)) {
+            if (!(a1 > 0 && a1 < 59)) {
 
-        if (textHora.getText().length() == 2 && textMin.getText().length() == 2) {
-            if (textHora.getText() != null && !Character.isLetter(textHora.getText().charAt(0))
-                    && !Character.isLetter(textHora.getText().charAt(1))
-                    && textMin.getText() != null && !Character.isLetter(textMin.getText().charAt(0))
-                    && !Character.isLetter(textMin.getText().charAt(1))) {
-                try {
-                    GestorGrupos.insertarDatosGrupo(this.bd, listaAlumnos,
-                            comboTemp.getSelectedItem().toString(), comboCat.getSelectedItem().toString(),
-                            comboDia1.getSelectedItem().toString(),
-                            comboDia2.getSelectedItem().toString(), textHora.getText(), textMin.getText(),
-                            comboEnt.getSelectedItem().toString(), comboInst.getSelectedItem().toString());
-
-                } catch (ParseException | SQLException ex) {
-                    Logger.getLogger(NuevoGrupo.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                /* Actualizar la tabla de grupos */
-                try {
-                    pP.actualizaTablaGrupos();
-                } catch (SQLException ex) {
-                    Logger.getLogger(NuevoGrupo.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                salir = true;
-                this.setVisible(false);
+                cadena += "Los minutos introducidos no son validos\n";
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Error en los campos de la hora", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+            if (!(a > 0 && a < 23)) {
 
+                cadena += "La hora introducida no es valida";
+            }
+
+            JOptionPane.showMessageDialog(this,
+                    cadena, "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } else {
+
+            if (textHora.getText().length() == 2 && textMin.getText().length() == 2) {
+                if (textHora.getText() != null && !Character.isLetter(textHora.getText().charAt(0))
+                        && !Character.isLetter(textHora.getText().charAt(1))
+                        && textMin.getText() != null && !Character.isLetter(textMin.getText().charAt(0))
+                        && !Character.isLetter(textMin.getText().charAt(1))) {
+                    try {
+                        GestorGrupos.insertarDatosGrupo(this.bd, listaAlumnos,
+                                comboTemp.getSelectedItem().toString(), comboCat.getSelectedItem().toString(),
+                                comboDia1.getSelectedItem().toString(),
+                                comboDia2.getSelectedItem().toString(), textHora.getText(), textMin.getText(),
+                                comboEnt.getSelectedItem().toString(), comboInst.getSelectedItem().toString());
+
+                    } catch (ParseException | SQLException ex) {
+                        Logger.getLogger(NuevoGrupo.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    /* Actualizar la tabla de grupos */
+                    try {
+                        pP.actualizaTablaGrupos();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(NuevoGrupo.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    salir = true;
+                    this.setVisible(false);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Error en los campos de la hora", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
@@ -575,7 +592,7 @@ public class NuevoGrupo extends javax.swing.JFrame {
     private void comboDia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboDia1ActionPerformed
 
         if (comboDia1.getSelectedItem() != null) {
- 
+
             String dia = comboDia1.getSelectedItem().toString();
 
             comboDia2.removeAllItems();

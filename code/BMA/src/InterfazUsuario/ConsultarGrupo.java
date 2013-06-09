@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -852,7 +853,26 @@ public class ConsultarGrupo extends javax.swing.JFrame {
          String dia2 = GestorGrupos.getDia2(creador.accesoBD, idGrupo);
          String inst = GestorGrupos.getInstalacion(creador.accesoBD, idGrupo);
          String ent = GestorGrupos.getEntrenador(creador.accesoBD, idGrupo);*/
-
+        Integer a = Integer.parseInt(textHora.getText().toString());
+        Integer a1 = Integer.parseInt(textMin.getText().toString());
+        String cadena="";
+        if (!(a > 0 && a < 23) || !(a1 > 0 && a1 < 59)) {
+            if (!(a1 > 0 && a1 < 59)) {
+           
+                           cadena+= "Los minutos introducidos no son validos\n";
+            }
+             if (!(a > 0 && a < 23)) {
+           
+                           cadena+= "La hora introducida no es valida";
+            }
+            
+            JOptionPane.showMessageDialog(this,
+                            cadena, "Error",
+                            JOptionPane.ERROR_MESSAGE);
+        }else{
+          
+        
+        
         Grupo gViejo = null;
         Grupo gNuevo = null;
         try {
@@ -880,18 +900,23 @@ public class ConsultarGrupo extends javax.swing.JFrame {
 
 
         this.setVisible(false);
+        }
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void textHoraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textHoraKeyTyped
-        if (textHora.getText().length() >= 2) {
+        Integer a = Integer.parseInt(textHora.getText().toString());
+        if (textHora.getText().length() > 2) {
             evt.consume();
         }
+      
     }//GEN-LAST:event_textHoraKeyTyped
 
     private void textMinKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textMinKeyTyped
-        if (textMin.getText().length() >= 2) {
+        Integer a = Integer.parseInt(textMin.getText().toString());
+        if (textMin.getText().length() > 2) {
             evt.consume();
         }
+        
     }//GEN-LAST:event_textMinKeyTyped
 
     private void botonAvanzadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAvanzadasActionPerformed
@@ -933,20 +958,25 @@ public class ConsultarGrupo extends javax.swing.JFrame {
                     contador++;
                 } else {
                     //hacerlo con un for 
-                    System.out.println("Ultimo: "+jlAlumIntr.getLastVisibleIndex());
-                    for (int incre = 0; incre <= jlAlumIntr.getLastVisibleIndex(); incre++) {
-
+                    System.out.println("Ultimo: " + jlAlumIntr.getLastVisibleIndex());
+                    for (int incre = 0; incre <= jlAlumIntr.getLastVisibleIndex();) {
+                        System.out.println("Incremento: " + incre);
                         jlAlumIntr.setSelectedIndex(incre);
                         String alumno = (String) jlAlumIntr.getSelectedValue();
-                        System.out.println("mando eliminar: "+alumno);
+                        System.out.println("mando eliminar: " + alumno);
                         //System.out.println(jlAlumIntr.getSelectedValue() + "elemento:" + jlAlumIntr.getLastVisibleIndex());
 
                         EliminarAlumnoLista(alumno);
+                        if (jlAlumIntr.getLastVisibleIndex() < incre) {
+                            incre = 0;
+                        } else {
+                            incre++;
+                        }
                     }
-                   String queryactualizagrupo = "UPDATE Grupo SET n_alumnos='" + 0 + "' "
-                    + "WHERE idGrupo='" + idGrupo + "'";
-                   bd.ejecutaActualizacion(queryactualizagrupo);
-                   
+                    String queryactualizagrupo = "UPDATE Grupo SET n_alumnos='" + 0 + "' "
+                            + "WHERE idGrupo='" + idGrupo + "'";
+                    bd.ejecutaActualizacion(queryactualizagrupo);
+
                     //jlAlumIntr.set
                     //listaAlumnosIntroducidos
                     //listaAlumnos
