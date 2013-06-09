@@ -10,7 +10,6 @@ import bma.ComboBoxItem;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -485,7 +484,7 @@ public class PrincipalJugadores extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_consultarActionPerformed
 
-    public void alumnosFiltrado() throws SQLException {
+    protected final void alumnosFiltrado() throws SQLException {
         String consulta = "SELECT a.idAlumno, CONCAT(`a`.`nombre`,' ',`a`.`primerApellido`,' ',`a`.`segundoApellido`), "
                 + "a.localidad, a.sexo "
                 + "FROM alumno a";

@@ -4,7 +4,6 @@ import GestionDeGrupos.GruposBD;
 import ServiciosAlmacenamiento.BaseDatos;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -211,7 +210,7 @@ public class GestorTemporadas {
         if(validar == false)
             JOptionPane.showMessageDialog(null, "La temporada ya existe", "Error", JOptionPane.ERROR_MESSAGE);
         else {
-            String cursoNuevo = t.getCurso() +"/"+(Integer.parseInt(t.getCurso()+1));
+            String cursoNuevo = t.getCurso() +"/"+(Integer.parseInt(t.getCurso())+1);
             String cursoAnterior =  aAnt +"/"+(aAnt+1);
             
             t.setCursoCompleto(cursoNuevo);

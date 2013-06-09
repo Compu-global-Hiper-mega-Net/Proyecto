@@ -654,8 +654,11 @@ public class AñadirConsultarModificarJugador extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Alumno creado con exito",
                         "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-
-                pP.alumnosFiltrado();
+                try {
+                    pP.alumnosFiltrado();
+                } catch (SQLException ex) {
+                    Logger.getLogger(AñadirConsultarModificarJugador.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             this.dispose();
         } else {
@@ -712,7 +715,11 @@ public class AñadirConsultarModificarJugador extends javax.swing.JFrame {
                         ((String) sexoAlumno.getSelectedItem()).substring(0, 1));
                 JOptionPane.showMessageDialog(null, "Alumno modificado con exito",
                         "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-                pP.alumnosFiltrado();
+                try {
+                    pP.alumnosFiltrado();
+                } catch (SQLException ex) {
+                    Logger.getLogger(AñadirConsultarModificarJugador.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_botonModificarActionPerformed

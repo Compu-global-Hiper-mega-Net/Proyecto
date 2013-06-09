@@ -210,7 +210,7 @@ public class PrincipalTemporadas extends javax.swing.JFrame {
     private void botonElimCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonElimCatActionPerformed
         String curso = (String) comboTempo.getSelectedItem();
 
-        int conf = JOptionPane.showConfirmDialog(this, "¿Desea eliminar la temporada"+curso+"?", "Confirmar", JOptionPane.YES_NO_OPTION);
+        int conf = JOptionPane.showConfirmDialog(this, "¿Desea eliminar la temporada "+curso+"?", "Confirmar", JOptionPane.YES_NO_OPTION);
         if(conf == JOptionPane.YES_OPTION) {
             Temporada t = new Temporada(curso);
             boolean correcto = GestorTemporadas.eliminarTemporada(this.bd, t);
@@ -228,7 +228,7 @@ public class PrincipalTemporadas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonElimCatActionPerformed
 
-    void actualizaComboBoxTemporadas() throws SQLException {
+    protected final void actualizaComboBoxTemporadas() throws SQLException {
         List<String> temps = GestorTemporadas.getListaTemporadas(this.bd);
         
         comboTempo.removeAllItems();
