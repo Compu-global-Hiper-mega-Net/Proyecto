@@ -55,11 +55,11 @@ public class PrincipalJugadores extends javax.swing.JFrame {
                 consultaEntrenador.addItem(consulta.getString("nombre"));
             }
             consulta = bd.ejecutaConsulta("SELECT curso FROM temporada ORDER BY curso DESC");
-            consultaTemporada.setModel(new javax.swing.DefaultComboBoxModel());
+            consultaTemporada.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"No seleccionada"}));
             while (consulta.next()) {
                 consultaTemporada.addItem(consulta.getString("curso"));
             }
-
+            alumnosFiltrado();
         } catch (SQLException ex) {
             System.out.print(ex.getMessage());
         }
@@ -381,8 +381,8 @@ public class PrincipalJugadores extends javax.swing.JFrame {
         String consulta = "SELECT a.idAlumno, CONCAT(`a`.`nombre`,' ',`a`.`primerApellido`,' ',`a`.`segundoApellido`), "
                 + "a.localidad, a.sexo "
                 + "FROM alumno a";
-        String tablasImplicadas = ", alumnotemporada at, temporada t";
-        String where = " WHERE at.alumno_idalumno=a.idalumno and at.temporada_idtemporada=t.idTemporada and t.curso='" + consultaTemporada.getSelectedItem().toString() + "' AND";
+        String tablasImplicadas = "";
+        String where = " WHERE";
         if (!nombreAlumno.getText().isEmpty()) {
             where = where + " CONCAT(`a`.`nombre`,' ',`a`.`primerApellido`,' ',`a`.`segundoApellido`) LIKE '%" + nombreAlumno.getText() + "%' AND ";
         }
@@ -415,14 +415,21 @@ public class PrincipalJugadores extends javax.swing.JFrame {
             where = where + " ae.Alumno_idAlumno=a.idalumno AND ae.Equipo_idEquipo=" + consultaEquipo.getSelectedItem().toString() + " AND";
             tablasImplicadas = tablasImplicadas + ", alumnoequipo ae";
         }
-
+        if (!consultaTemporada.getSelectedItem().toString().equals("No seleccionada")) {
+            where = where + " at.alumno_idalumno=a.idalumno and at.temporada_idtemporada=t.idTemporada and t.curso='" + consultaTemporada.getSelectedItem().toString() + "' AND";
+            tablasImplicadas = tablasImplicadas + ", alumnotemporada at, temporada t";
+        }
+        
         if (!tablasImplicadas.isEmpty()) {
             consulta = consulta + tablasImplicadas;
         }
+        String con;
         if (!where.equals(" WHERE")) {
             consulta = consulta + where;
+            con = consulta.substring(0, consulta.length()-4);
+        } else {
+            con = consulta + " ORDER BY a.idAlumno DESC";
         }
-        String con = consulta.substring(0, consulta.length()-4);
         ResultSet retset = this.bd.ejecutaConsulta(con);
 
         try {
