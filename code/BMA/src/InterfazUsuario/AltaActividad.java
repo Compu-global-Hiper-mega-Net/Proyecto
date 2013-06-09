@@ -79,7 +79,6 @@ public class AltaActividad extends javax.swing.JFrame {
         retset = accesoBD.ejecutaConsulta(consulta);
         try {
             while (retset.next()) {
-                System.out.print("\n" + retset.getString(1));
                 instalacion.addItem(retset.getString(1).toString());
             }
         } catch (SQLException ex) {
@@ -307,13 +306,11 @@ public class AltaActividad extends javax.swing.JFrame {
             nombreTextField.setBorder(bordeError);
         }
         Date dateFromDateChooser = fechaInicioDateChooser.getDate();
-        String dateString = String.format("%1$tY-%1$tm-%1$td", dateFromDateChooser);
         if (fechaInicioDateChooser.getDate() == null) {
             error = error + "Debes rellenar el campo 'Fecha de inicio'\n";
             fechaInicioDateChooser.setBorder(bordeError);
         }
         Date dateFromDateChooser1 = fechaFinDateChooser.getDate();
-        String dateString1 = String.format("%1$tY-%1$tm-%1$td", dateFromDateChooser1);
         if (fechaFinDateChooser.getDate() == null) {
             error = error + "Debes rellenar el campo 'Fecha de fin'\n";
             fechaFinDateChooser.setBorder(bordeError);
@@ -337,19 +334,14 @@ public class AltaActividad extends javax.swing.JFrame {
                     + " WHERE ";
             consulta = consulta + "curso = " + "'" + temporadaComboBox.getSelectedItem().toString() + "'";
 
-            System.out.print("\n\n" + consulta);
-
             retset = accesoBD.ejecutaConsulta(consulta);
             try {
-                //System.out.print("\n\n" + retset);
                     if (retset.next()) {
                         idTemporada = retset.getInt("idTemporada");
                     }
             } catch (SQLException ex) {
                 Logger.getLogger(AltaActividad.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            System.out.print("\n\n cod temporada " + idTemporada);
 
             boolean errores = GestorActividad.darAltaActividad(accesoBD, jTextArea1.getText(), Integer.parseInt(plazasTextField.getText()),
                     precioSocio, precioNoSocio, idTemporada,
@@ -366,8 +358,6 @@ public class AltaActividad extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Actividad creada con exito",
                         "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-                this.setVisible(false);
-                this.setEnabled(false);
                 this.dispose();
             }
         } else {
@@ -380,7 +370,7 @@ public class AltaActividad extends javax.swing.JFrame {
     }//GEN-LAST:event_GuardarActionPerformed
 
     private void insertarInstalacion(int idInst, int idtem) throws SQLException {
-        ResultSet retset, rts;
+        ResultSet retset;
         String consulta = "SELECT MAX(idActividades) from actividades";
         retset = accesoBD.ejecutaConsulta(consulta);
 
@@ -392,6 +382,23 @@ public class AltaActividad extends javax.swing.JFrame {
         String insert = "INSERT INTO actividadesInstalacion (actividades_idActividades, actividades_Temporada_idTemporada"
                 + ", Instalacion_idInstalacion) VALUES (" + idActividad + ", " + idtem + ", " + idInst + ")";
         accesoBD.ejecutaActualizacion(insert);
+        
+        /*String pago = "INSERT INTO Cuota (fecha,pagado) VALUES "
+                            + "('" + auxcurso + "-" + auxCont + "-1','0')";
+                    System.out.println("insercion pago grupo" + query5);
+                    res5 = accesoBD.ejecutaActualizacion(query5);
+
+                    query5 = "SELECT DISTINCT LAST_INSERT_ID() FROM Cuota";
+                    res4 = accesoBD.ejecutaConsulta(query5);
+                    if (res4.next()) {
+                        idCuota = res4.getInt(1);
+                    }
+
+                    query5 = "INSERT INTO PagoTemporada "
+                            + "(Cuota_idCuota,AlumnoTemporada_Alumno_idAlumno,"
+                            + "AlumnoTemporada_Temporada_idTemporada) VALUES "
+                            + "('" + idCuota + "','" + it + "','" + idTemp + "')";
+                    res5 = accesoBD.ejecutaActualizacion(query5);*/
     }
     private void temporadaComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temporadaComboBoxActionPerformed
         // TODO add your handling code here:
