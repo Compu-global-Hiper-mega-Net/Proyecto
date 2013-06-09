@@ -6,6 +6,7 @@ package InterfazUsuario;
 
 import GestionDeAlumnos.GestorAlumnos;
 import ServiciosAlmacenamiento.BaseDatos;
+import bma.ComboBoxItem;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -33,31 +34,36 @@ public class PrincipalJugadores extends javax.swing.JFrame {
 
         // Se cargan los datos de "lookup"
         try {
-            ResultSet consulta = bd.ejecutaConsulta("SELECT * FROM grupo");
+            ResultSet consulta = bd.ejecutaConsulta("SELECT idGrupo FROM grupo");
+            ComboBoxItem cbi;
             consultaGrupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"No seleccionado"}));
             while (consulta.next()) {
-                consultaGrupo.addItem(consulta.getInt(1));
+                consultaGrupo.addItem(consulta.getInt("idGrupo"));
             }
-            consulta = bd.ejecutaConsulta("SELECT * FROM equipo");
-            consultaEquipo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"No seleccionado"}));
+            consulta = bd.ejecutaConsulta("SELECT idEquipo, nombre FROM equipo");
+            consultaEquipo.setModel(new javax.swing.DefaultComboBoxModel(new ComboBoxItem[]{new ComboBoxItem(0, "No seleccionado")}));
             while (consulta.next()) {
-                consultaEquipo.addItem(consulta.getInt(1));
+                cbi = new ComboBoxItem(consulta.getInt("idEquipo"), consulta.getString("nombre"));
+                consultaEquipo.addItem(cbi);
             }
-            consulta = bd.ejecutaConsulta("SELECT * FROM categoria");
-            consultaCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"No seleccionada"}));
+            consulta = bd.ejecutaConsulta("SELECT idCategoria, tipo FROM categoria");
+            consultaCategoria.setModel(new javax.swing.DefaultComboBoxModel(new ComboBoxItem[]{new ComboBoxItem(0, "No seleccionada")}));
             while (consulta.next()) {
-                consultaCategoria.addItem(consulta.getString("tipo"));
+                cbi = new ComboBoxItem(consulta.getInt("idCategoria"), consulta.getString("tipo"));
+                consultaCategoria.addItem(cbi);
             }
-            consulta = bd.ejecutaConsulta("SELECT CONCAT(`nombre`,' ',`primerApellido`,' ',`segundoApellido`) as nombre"
+            consulta = bd.ejecutaConsulta("SELECT idUsuario, CONCAT(`nombre`,' ',`primerApellido`,' ',`segundoApellido`) as nombre"
                     + " FROM usuario where usuario.entrenador=true");
-            consultaEntrenador.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"No seleccionado"}));
+            consultaEntrenador.setModel(new javax.swing.DefaultComboBoxModel(new ComboBoxItem[]{new ComboBoxItem(0, "No seleccionado")}));
             while (consulta.next()) {
-                consultaEntrenador.addItem(consulta.getString("nombre"));
+                cbi = new ComboBoxItem(consulta.getInt("idUsuario"), consulta.getString("nombre"));
+                consultaEntrenador.addItem(cbi);
             }
-            consulta = bd.ejecutaConsulta("SELECT curso FROM temporada ORDER BY curso DESC");
-            consultaTemporada.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"No seleccionada"}));
+            consulta = bd.ejecutaConsulta("SELECT idTemporada, curso FROM temporada ORDER BY curso DESC");
+            consultaTemporada.setModel(new javax.swing.DefaultComboBoxModel(new ComboBoxItem[]{new ComboBoxItem(0, "No seleccionada")}));
             while (consulta.next()) {
-                consultaTemporada.addItem(consulta.getString("curso"));
+                cbi = new ComboBoxItem(consulta.getInt("idTemporada"), consulta.getString("curso"));
+                consultaTemporada.addItem(cbi);
             }
             alumnosFiltrado();
         } catch (SQLException ex) {
@@ -306,7 +312,7 @@ public class PrincipalJugadores extends javax.swing.JFrame {
                 if (res.next()) {
                     jugadorElegido = res.getString(1);
                 }
-                
+
                 retset = GestorAlumnos.consultarEstadisticasAlumno(this.bd, idAlumno);
             } catch (SQLException ex) {
                 Logger.getLogger(PrincipalJugadores.class.getName()).log(Level.SEVERE, null, ex);
@@ -328,7 +334,7 @@ public class PrincipalJugadores extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Debes seleccionar un jugador", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             try {
-                new AñadirConsultarModificarJugador(this, this.bd, Integer.parseInt((String)tablaAlumnos.getValueAt(filaSel, 0)), false).setVisible(true);
+                new AñadirConsultarModificarJugador(this, this.bd, Integer.parseInt((String) tablaAlumnos.getValueAt(filaSel, 0)), false).setVisible(true);
             } catch (SQLException ex) {
                 Logger.getLogger(PrincipalJugadores.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -344,23 +350,138 @@ public class PrincipalJugadores extends javax.swing.JFrame {
     }//GEN-LAST:event_edadAlKeyReleased
 
     private void consultaTemporadaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_consultaTemporadaItemStateChanged
-        if (evt.getStateChange() == 1) alumnosFiltrado();
+        if (evt.getStateChange() == 1) {
+            ResultSet consulta;
+            if (((ComboBoxItem) consultaTemporada.getSelectedItem()).getId() != 0) {
+                try {
+                    consulta = bd.ejecutaConsulta("SELECT idGrupo FROM grupo "
+                            + "WHERE Temporada_idTemporada=" + ((ComboBoxItem) consultaTemporada.getSelectedItem()).getId());
+                    ComboBoxItem cbi;
+                    consultaGrupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"No seleccionado"}));
+                    while (consulta.next()) {
+                        consultaGrupo.addItem(consulta.getInt(1));
+                    }
+
+                    consulta = bd.ejecutaConsulta("SELECT idEquipo, nombre FROM equipo "
+                            + "WHERE temporada_idTemporada=" + ((ComboBoxItem) consultaTemporada.getSelectedItem()).getId());
+                    consultaEquipo.setModel(new javax.swing.DefaultComboBoxModel(new ComboBoxItem[]{new ComboBoxItem(0, "No seleccionado")}));
+                    while (consulta.next()) {
+                        cbi = new ComboBoxItem(consulta.getInt("idEquipo"), consulta.getString("nombre"));
+                        consultaEquipo.addItem(cbi);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(PrincipalJugadores.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                try {
+                    consulta = bd.ejecutaConsulta("SELECT idGrupo FROM grupo");
+                    ComboBoxItem cbi;
+                    consultaGrupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"No seleccionado"}));
+                    while (consulta.next()) {
+                        consultaGrupo.addItem(consulta.getInt("idGrupo"));
+                    }
+
+                    consulta = bd.ejecutaConsulta("SELECT idEquipo, nombre FROM equipo");
+                    consultaEquipo.setModel(new javax.swing.DefaultComboBoxModel(new ComboBoxItem[]{new ComboBoxItem(0, "No seleccionado")}));
+                    while (consulta.next()) {
+                        cbi = new ComboBoxItem(consulta.getInt("idEquipo"), consulta.getString("nombre"));
+                        consultaEquipo.addItem(cbi);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(PrincipalJugadores.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            alumnosFiltrado();
+        }
     }//GEN-LAST:event_consultaTemporadaItemStateChanged
 
     private void consultaCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_consultaCategoriaItemStateChanged
-        if (evt.getStateChange() == 1) alumnosFiltrado();
+        if (evt.getStateChange() == 1) {
+            alumnosFiltrado();
+        }
     }//GEN-LAST:event_consultaCategoriaItemStateChanged
 
     private void consultaEquipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_consultaEquipoItemStateChanged
-        if (evt.getStateChange() == 1) alumnosFiltrado();
+        if (evt.getStateChange() == 1) {
+            ComboBoxItem equipo = (ComboBoxItem) consultaEquipo.getSelectedItem();
+            if (equipo.getId() != 0) {
+                try {
+                    if (((ComboBoxItem) consultaTemporada.getSelectedItem()).getId() == 0) {
+                        ComboBoxItem cbi;
+                        ResultSet consulta = bd.ejecutaConsulta("SELECT idTemporada, curso FROM temporada t, equipo e"
+                                + " WHERE e.temporada_idTemporada=t.idTemporada AND e.idEquipo=" + equipo.getId() + " ORDER BY curso DESC");
+                        if (consulta.next()) {
+                            consultaTemporada.setSelectedItem(new ComboBoxItem(consulta.getInt("idTemporada"), consulta.getString("curso")));
+                        }
+
+                        consulta = bd.ejecutaConsulta("SELECT idGrupo FROM grupo "
+                                + "WHERE Temporada_idTemporada=" + ((ComboBoxItem) consultaTemporada.getSelectedItem()).getId());
+                        consultaGrupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"No seleccionado"}));
+                        while (consulta.next()) {
+                            consultaGrupo.addItem(consulta.getInt(1));
+                        }
+
+                        consulta = bd.ejecutaConsulta("SELECT idEquipo, nombre FROM equipo "
+                                + "WHERE temporada_idTemporada=" + ((ComboBoxItem) consultaTemporada.getSelectedItem()).getId());
+                        consultaEquipo.setModel(new javax.swing.DefaultComboBoxModel(new ComboBoxItem[]{new ComboBoxItem(0, "No seleccionado")}));
+                        while (consulta.next()) {
+                            cbi = new ComboBoxItem(consulta.getInt("idEquipo"), consulta.getString("nombre"));
+                            consultaEquipo.addItem(cbi);
+                        }
+                        consultaEquipo.setSelectedItem(equipo);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(PrincipalJugadores.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            alumnosFiltrado();
+        }
     }//GEN-LAST:event_consultaEquipoItemStateChanged
 
     private void consultaGrupoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_consultaGrupoItemStateChanged
-        if (evt.getStateChange() == 1) alumnosFiltrado();
+        if (evt.getStateChange() == 1) {
+            ComboBoxItem grupo = (ComboBoxItem) consultaGrupo.getSelectedItem();
+            if (grupo.getId() != 0) {
+                try {
+                    if (((ComboBoxItem) consultaTemporada.getSelectedItem()).getId() == 0) {
+                        ComboBoxItem cbi;
+                        ResultSet consulta = bd.ejecutaConsulta("SELECT idTemporada, curso FROM temporada t, grupo g"
+                                + " WHERE g.Temporada_idTemporada=t.idTemporada AND g.idGrupo=" + grupo.getId() + " ORDER BY curso DESC");
+                        if (consulta.next()) {
+                            consultaTemporada.setSelectedItem(new ComboBoxItem(consulta.getInt("idTemporada"), consulta.getString("curso")));
+                        }
+
+                        consulta = bd.ejecutaConsulta("SELECT idEquipo, nombre FROM equipo "
+                                + "WHERE temporada_idTemporada=" + ((ComboBoxItem) consultaTemporada.getSelectedItem()).getId());
+                        consultaEquipo.setModel(new javax.swing.DefaultComboBoxModel(new ComboBoxItem[]{new ComboBoxItem(0, "No seleccionado")}));
+                        while (consulta.next()) {
+                            cbi = new ComboBoxItem(consulta.getInt("idEquipo"), consulta.getString("nombre"));
+                            consultaEquipo.addItem(cbi);
+                        }
+
+                        consulta = bd.ejecutaConsulta("SELECT idGrupo FROM grupo "
+                                + "WHERE Temporada_idTemporada=" + ((ComboBoxItem) consultaTemporada.getSelectedItem()).getId());
+                        consultaGrupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"No seleccionado"}));
+                        while (consulta.next()) {
+                            consultaGrupo.addItem(consulta.getInt(1));
+                        }
+                        consultaGrupo.setSelectedItem(grupo);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(PrincipalJugadores.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            alumnosFiltrado();
+        }
     }//GEN-LAST:event_consultaGrupoItemStateChanged
 
     private void consultaEntrenadorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_consultaEntrenadorItemStateChanged
-        if (evt.getStateChange() == 1) alumnosFiltrado();
+        if (evt.getStateChange() == 1) {
+            alumnosFiltrado();
+        }
     }//GEN-LAST:event_consultaEntrenadorItemStateChanged
 
     private void consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarActionPerformed
@@ -370,7 +491,7 @@ public class PrincipalJugadores extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Debes seleccionar un jugador", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             try {
-                new AñadirConsultarModificarJugador(this, this.bd, Integer.parseInt((String)tablaAlumnos.getValueAt(filaSel, 0)), true).setVisible(true);
+                new AñadirConsultarModificarJugador(this, this.bd, Integer.parseInt((String) tablaAlumnos.getValueAt(filaSel, 0)), true).setVisible(true);
             } catch (SQLException ex) {
                 Logger.getLogger(PrincipalJugadores.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -402,31 +523,33 @@ public class PrincipalJugadores extends javax.swing.JFrame {
             tablasImplicadas = tablasImplicadas + ", alumnogrupo ag";
         }
         if (!consultaCategoria.getSelectedItem().toString().equals("No seleccionada")) {
-            where = where + " ag.Grupo_Categoria_idCategoria=c.idCategoria AND c.tipo='" + consultaCategoria.getSelectedItem().toString() + "' AND";
-            tablasImplicadas = tablasImplicadas + ", categoria c";
-            if (!tablasImplicadas.contains("alumnogrupo")) tablasImplicadas = tablasImplicadas + ", alumnogrupo ag";
+            where = where + " ag.Grupo_Categoria_idCategoria=" + ((ComboBoxItem) consultaCategoria.getSelectedItem()).getId() + " AND";
+            if (!tablasImplicadas.contains("alumnogrupo")) {
+                tablasImplicadas = tablasImplicadas + ", alumnogrupo ag";
+            }
         }
         if (!consultaEntrenador.getSelectedItem().toString().equals("No seleccionado")) {
-            where = where + " ag.Grupo_Usuario_idUsuario=u.idUsuario and CONCAT(`u`.`nombre`,' ',`u`.`primerApellido`,' ',`u`.`segundoApellido`)='" + consultaEntrenador.getSelectedItem().toString() + "' AND";
-            tablasImplicadas = tablasImplicadas + ", usuario u";
-            if (!tablasImplicadas.contains("alumnogrupo")) tablasImplicadas = tablasImplicadas + ", alumnogrupo ag";
+            where = where + " ag.Grupo_Usuario_idUsuario=" + ((ComboBoxItem) consultaEntrenador.getSelectedItem()).getId() + " AND";
+            if (!tablasImplicadas.contains("alumnogrupo")) {
+                tablasImplicadas = tablasImplicadas + ", alumnogrupo ag";
+            }
         }
         if (!consultaEquipo.getSelectedItem().toString().equals("No seleccionado")) {
-            where = where + " ae.Alumno_idAlumno=a.idalumno AND ae.Equipo_idEquipo=" + consultaEquipo.getSelectedItem().toString() + " AND";
+            where = where + " ae.Alumno_idAlumno=a.idalumno AND ae.Equipo_idEquipo=" + ((ComboBoxItem) consultaEquipo.getSelectedItem()).getId() + " AND";
             tablasImplicadas = tablasImplicadas + ", alumnoequipo ae";
         }
         if (!consultaTemporada.getSelectedItem().toString().equals("No seleccionada")) {
-            where = where + " at.alumno_idalumno=a.idalumno and at.temporada_idtemporada=t.idTemporada and t.curso='" + consultaTemporada.getSelectedItem().toString() + "' AND";
-            tablasImplicadas = tablasImplicadas + ", alumnotemporada at, temporada t";
+            where = where + " at.alumno_idalumno=a.idalumno and at.temporada_idtemporada=" + ((ComboBoxItem) consultaTemporada.getSelectedItem()).getId() + " AND";
+            tablasImplicadas = tablasImplicadas + ", alumnotemporada at";
         }
-        
+
         if (!tablasImplicadas.isEmpty()) {
             consulta = consulta + tablasImplicadas;
         }
         String con;
         if (!where.equals(" WHERE")) {
             consulta = consulta + where;
-            con = consulta.substring(0, consulta.length()-4);
+            con = consulta.substring(0, consulta.length() - 4);
         } else {
             con = consulta + " ORDER BY a.idAlumno DESC";
         }
@@ -441,8 +564,11 @@ public class PrincipalJugadores extends javax.swing.JFrame {
                 row.add(retset.getString("idAlumno"));
                 row.add(retset.getString(2));
                 row.add(retset.getString("localidad"));
-                if (retset.getString("sexo").equals("M")) row.add("Masculino");
-                else row.add("Femenino");
+                if (retset.getString("sexo").equals("M")) {
+                    row.add("Masculino");
+                } else {
+                    row.add("Femenino");
+                }
                 dataCollection.add(row);
             }
 
@@ -471,11 +597,11 @@ public class PrincipalJugadores extends javax.swing.JFrame {
             tablaAlumnos.getColumnModel().getColumn(0).setMaxWidth(0);
             tablaAlumnos.getColumnModel().getColumn(0).setMinWidth(0);
             tablaAlumnos.getColumnModel().getColumn(0).setPreferredWidth(0);
-            
+
             tablaAlumnos.getColumnModel().getColumn(2).setMaxWidth(150);
             tablaAlumnos.getColumnModel().getColumn(2).setMinWidth(150);
             tablaAlumnos.getColumnModel().getColumn(2).setPreferredWidth(150);
-            
+
             tablaAlumnos.getColumnModel().getColumn(3).setMaxWidth(100);
             tablaAlumnos.getColumnModel().getColumn(3).setMinWidth(100);
             tablaAlumnos.getColumnModel().getColumn(3).setPreferredWidth(100);
@@ -483,7 +609,6 @@ public class PrincipalJugadores extends javax.swing.JFrame {
             System.out.print(ex.getMessage());
         }
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonEliminarAlumno;
     private javax.swing.JButton botonModificar;
