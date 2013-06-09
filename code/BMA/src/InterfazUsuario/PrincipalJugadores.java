@@ -442,7 +442,7 @@ public class PrincipalJugadores extends javax.swing.JFrame {
 
     private void consultaGrupoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_consultaGrupoItemStateChanged
         if (evt.getStateChange() == 1) {
-            Integer grupo = (Integer) consultaGrupo.getSelectedItem();
+            Integer grupo = Integer.parseInt((String) consultaGrupo.getSelectedItem());
             if (grupo != 0) {
                 try {
                     if (((ComboBoxItem) consultaTemporada.getSelectedItem()).getId() == 0) {
