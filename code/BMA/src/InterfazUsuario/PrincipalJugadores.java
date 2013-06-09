@@ -442,13 +442,13 @@ public class PrincipalJugadores extends javax.swing.JFrame {
 
     private void consultaGrupoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_consultaGrupoItemStateChanged
         if (evt.getStateChange() == 1) {
-            ComboBoxItem grupo = (ComboBoxItem) consultaGrupo.getSelectedItem();
-            if (grupo.getId() != 0) {
+            Integer grupo = (Integer) consultaGrupo.getSelectedItem();
+            if (grupo != 0) {
                 try {
                     if (((ComboBoxItem) consultaTemporada.getSelectedItem()).getId() == 0) {
                         ComboBoxItem cbi;
                         ResultSet consulta = bd.ejecutaConsulta("SELECT idTemporada, curso FROM temporada t, grupo g"
-                                + " WHERE g.Temporada_idTemporada=t.idTemporada AND g.idGrupo=" + grupo.getId() + " ORDER BY curso DESC");
+                                + " WHERE g.Temporada_idTemporada=t.idTemporada AND g.idGrupo=" + grupo + " ORDER BY curso DESC");
                         if (consulta.next()) {
                             consultaTemporada.setSelectedItem(new ComboBoxItem(consulta.getInt("idTemporada"), consulta.getString("curso")));
                         }
