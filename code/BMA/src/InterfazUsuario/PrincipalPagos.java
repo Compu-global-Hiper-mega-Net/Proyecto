@@ -128,12 +128,7 @@ public class PrincipalPagos extends javax.swing.JFrame {
 
         pagos_etiqGrupo.setText("Grupos por temporada");
 
-        pago_grupo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        pago_grupo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pago_grupoActionPerformed(evt);
-            }
-        });
+        pago_grupo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Grupo" }));
 
         pagos_botonMostrar.setText("Mostrar");
         pagos_botonMostrar.addActionListener(new java.awt.event.ActionListener() {
@@ -359,10 +354,6 @@ public class PrincipalPagos extends javax.swing.JFrame {
     private void pago_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pago_nombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pago_nombreActionPerformed
-
-    private void pago_grupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pago_grupoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pago_grupoActionPerformed
 
     private void pagos_botonMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagos_botonMostrarActionPerformed
         try {
