@@ -578,7 +578,8 @@ public class NuevoGrupo extends javax.swing.JFrame {
                 int anio = GestorCategorias.getAnioCategoria(bd, comboCat.getSelectedItem().toString());
                 listaAlumnos = new ArrayList();
                 //lista = GestorAlumnos.getAlumnosCategoria(bd, anio);
-                //alumnosCat = GestorAlumnos.getAlumnosCategoria(bd, anio,Integer.parseInt(null)comboTemp.getSelectedItem().toString());
+                String[] tempo= comboTemp.getSelectedItem().toString().split("/");
+                alumnosCat = GestorAlumnos.getAlumnosCategoria(bd, anio,Integer.parseInt(tempo[0]));
                 labelAnadir.setText(Integer.toString(listaAlumnos.size()) + "/20");
                 labelSelecc.setText("0/" + (20 - listaAlumnos.size()));
                 actualizaModeloLista(alumnosCat);
@@ -703,7 +704,8 @@ public class NuevoGrupo extends javax.swing.JFrame {
 
             try {
                 int anio = GestorCategorias.getAnioCategoria(bd, comboCat.getSelectedItem().toString());
-//                auxList = GestorAlumnos.getAlumnosCategoria(bd, anio);
+                String[] tempo= comboTemp.getSelectedItem().toString().split("/");
+                auxList = GestorAlumnos.getAlumnosCategoria(bd, anio,Integer.parseInt(tempo[0]));
 
                 actualizaModeloLista(auxList);
 
