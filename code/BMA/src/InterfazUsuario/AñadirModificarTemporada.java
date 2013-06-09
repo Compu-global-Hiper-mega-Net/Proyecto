@@ -7,6 +7,7 @@ package InterfazUsuario;
 import GestionDeTemporadas.GestorTemporadas;
 import GestionDeTemporadas.Temporada;
 import ServiciosAlmacenamiento.BaseDatos;
+import com.toedter.calendar.JTextFieldDateEditor;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
@@ -67,6 +68,9 @@ public class AñadirModificarTemporada extends javax.swing.JFrame {
         this.botonMod.setVisible(false);
         setTitle("Nueva temporada");
         
+        ((JTextFieldDateEditor) selectorFechaInicio.getComponents()[1]).setEditable(false);
+        ((JTextFieldDateEditor) selectorFechaFin.getComponents()[1]).setEditable(false);
+        
         int ano = Calendar.getInstance().get(Calendar.YEAR);
         chooserCurso.setYear(ano);
         labelCurso.setText(ano+"/"+(ano+1));
@@ -87,6 +91,9 @@ public class AñadirModificarTemporada extends javax.swing.JFrame {
         this.nuevoTitulo.setVisible(false);
         this.botonAceptar.setVisible(false);
         setTitle("Nodificar temporada");
+        
+        ((JTextFieldDateEditor) selectorFechaInicio.getComponents()[1]).setEditable(false);
+        ((JTextFieldDateEditor) selectorFechaFin.getComponents()[1]).setEditable(false);
         
         chooserCurso.setYear(a);
         labelCurso.setText(a+"/"+(a+1));
@@ -181,39 +188,39 @@ public class AñadirModificarTemporada extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(10, 10, Short.MAX_VALUE)
+                .addGap(54, 54, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(modLabel)
+                    .addComponent(nuevoLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonCancelar)
+                    .addComponent(labelCurso))
+                .addGap(40, 40, 40))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(selectorFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(selectorFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(botonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chooserCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(campoImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(modLabel)
-                            .addComponent(nuevoLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(botonCancelar)
-                            .addComponent(labelCurso))))
-                .addGap(40, 40, 40))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(selectorFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(selectorFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(botonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                        .addComponent(campoImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap(107, Short.MAX_VALUE)
@@ -286,7 +293,7 @@ public class AñadirModificarTemporada extends javax.swing.JFrame {
         labelCurso.setText(auxCurso);
         
         GregorianCalendar inicio = new GregorianCalendar(chooserCurso.getYear(), 8, 1);
-        GregorianCalendar fin = new GregorianCalendar(chooserCurso.getYear(), 4, 31);
+        GregorianCalendar fin = new GregorianCalendar(chooserCurso.getYear()+1, 4, 31);
         
         selectorFechaInicio.setDate(inicio.getTime());
         selectorFechaFin.setDate(fin.getTime());
