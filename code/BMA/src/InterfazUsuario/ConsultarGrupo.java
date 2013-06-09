@@ -933,11 +933,12 @@ public class ConsultarGrupo extends javax.swing.JFrame {
                     contador++;
                 } else {
                     //hacerlo con un for 
-                    System.out.println(jlAlumIntr.getLastVisibleIndex());
+                    System.out.println("Ultimo: "+jlAlumIntr.getLastVisibleIndex());
                     for (int incre = 0; incre <= jlAlumIntr.getLastVisibleIndex(); incre++) {
 
                         jlAlumIntr.setSelectedIndex(incre);
                         String alumno = (String) jlAlumIntr.getSelectedValue();
+                        System.out.println("mando eliminar: "+alumno);
                         //System.out.println(jlAlumIntr.getSelectedValue() + "elemento:" + jlAlumIntr.getLastVisibleIndex());
 
                         EliminarAlumnoLista(alumno);
