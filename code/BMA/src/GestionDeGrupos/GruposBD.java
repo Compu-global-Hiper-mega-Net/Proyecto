@@ -246,7 +246,6 @@ public class GruposBD {
                 auxCont = 9;
                 for (int i = 0; i < 9; i++) {
 
-
                     query5 = "INSERT INTO Cuota (fecha,pagado) VALUES "
                             + "('" + auxcurso + "-" + auxCont + "-1','0')";
                     res5 = accesoBD.ejecutaActualizacion(query5);

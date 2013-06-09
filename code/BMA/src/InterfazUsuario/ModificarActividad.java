@@ -80,9 +80,7 @@ public class ModificarActividad extends javax.swing.JFrame {
         retset = accesoBD.ejecutaConsulta(consulta);
         try {
             while (retset.next()) {
-                System.out.print("\n" + retset.getString(1));
                 instalacion.addItem(retset.getString(1).toString());
-
             }
         } catch (SQLException ex) {
             Logger.getLogger(AltaActividad.class.getName()).log(Level.SEVERE, null, ex);
@@ -312,9 +310,9 @@ public class ModificarActividad extends javax.swing.JFrame {
         return temporada;
 
     }
+    
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
-        // TODO add your handling code here:
-        boolean exito = false;
+        boolean exito;
         String errores = "";
         int idTemporada = getIDTemporada();
         String FechaInicio = "";
@@ -325,8 +323,6 @@ public class ModificarActividad extends javax.swing.JFrame {
             FechaInicio = (Integer.toString(fechaInicioDateChooser.getCalendar().get(java.util.Calendar.YEAR)) + "-"
                     + Integer.toString(fechaInicioDateChooser.getCalendar().get(java.util.Calendar.MONTH+1)) + "-"
                     + Integer.toString(fechaInicioDateChooser.getCalendar().get(java.util.Calendar.DATE)));
-            System.out.print(FechaInicio);
-
         } catch (NullPointerException ex) {
             errores = errores + "Campo \"Fecha Inicio\" vacío\n";
             fechaInicioDateChooser.setBorder(bordeError);
@@ -341,9 +337,6 @@ public class ModificarActividad extends javax.swing.JFrame {
             errores = errores + "Campo \"Fecha Fin\" vacío\n";
             fechaFinDateChooser.setBorder(bordeError);
         }
-
-
-        System.out.println(fechaFinDateChooser.getDateFormatString());
 
         if (!fechaInicioDateChooser.getDateFormatString().equals("dd-MMM-yyyy")) {
             errores = errores + "Formato de Campo \"Fecha Inicio\" incorrecto\n";

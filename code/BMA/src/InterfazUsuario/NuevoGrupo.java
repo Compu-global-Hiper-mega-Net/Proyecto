@@ -427,7 +427,6 @@ public class NuevoGrupo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        boolean salir = false;
         Integer a = Integer.parseInt(textHora.getText().toString());
         Integer a1 = Integer.parseInt(textMin.getText().toString());
         String cadena = "";
@@ -469,8 +468,7 @@ public class NuevoGrupo extends javax.swing.JFrame {
                         Logger.getLogger(NuevoGrupo.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
-                    salir = true;
-                    this.setVisible(false);
+                    this.dispose();
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Error en los campos de la hora", "Error", JOptionPane.ERROR_MESSAGE);
@@ -533,7 +531,7 @@ public class NuevoGrupo extends javax.swing.JFrame {
     }//GEN-LAST:event_jlAlumnosMouseClicked
 
     private void botonAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAnadirActionPerformed
-        List<String> alsTotales = new ArrayList();
+        List<String> alsTotales;
         List<String> auxiliarAlumnosNuevos = new ArrayList();
         auxiliarAlumnosNuevos.addAll(jlAlumnos.getSelectedValuesList());
         for (int i = 0; i < auxiliarAlumnosNuevos.size(); i++) {
@@ -698,7 +696,7 @@ public class NuevoGrupo extends javax.swing.JFrame {
     }
 
     private void actualizaListaPorCategoria() {
-        List<String> auxList = new ArrayList<String>();
+        List<String> auxList;
 
         if (bd != null && comboCat.getItemAt(0) != null) {
 

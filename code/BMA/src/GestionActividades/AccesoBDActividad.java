@@ -185,13 +185,11 @@ public class AccesoBDActividad {
             try {
 
                 int idcuota = getIDCuota(accesoBD);
-                GregorianCalendar calendar =  new GregorianCalendar();
-                String fecha = calendar.get(GregorianCalendar.YEAR) + "-" + calendar.get(GregorianCalendar.MONTH) + "-" + calendar.get(GregorianCalendar.DATE);
+                Calendar calendar =  GregorianCalendar.getInstance();
+                String fecha = calendar.get(GregorianCalendar.YEAR) + "-" + (calendar.get(GregorianCalendar.MONTH)+1) + "-" + calendar.get(GregorianCalendar.DAY_OF_MONTH);
 
-                String consulta = "INSERT INTO CUOTA (fecha, pagado) VALUES ('" + fecha + "', " + "0)";
+                String consulta = "INSERT INTO CUOTA (fecha, pagado) VALUES ('" + fecha + "',1)";
                 
-                System.out.printf("\n\n MAMA "+ consulta);
-
                 accesoBD.ejecutaActualizacion(consulta);
 
 
