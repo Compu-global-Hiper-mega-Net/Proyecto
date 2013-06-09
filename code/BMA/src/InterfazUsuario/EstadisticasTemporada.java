@@ -246,6 +246,8 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
         estadisticasPuntosLiga = new javax.swing.JCheckBox();
         estadisticasPartidosPerdidos = new javax.swing.JCheckBox();
         estadisticasPartidosGanados = new javax.swing.JCheckBox();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -254,11 +256,6 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
         tablaTemporadaEstadisticas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tablaTemporadaEstadisticas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -329,13 +326,17 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
 
         estadisticasPartidosGanados.setText("Datos Graficas");
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setText("Estadísticas Temporada");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(temporadaLab)
                         .addGap(18, 18, 18)
@@ -364,19 +365,27 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
                                         .addGap(61, 61, 61)
                                         .addComponent(botonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(20, 20, 20)))))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addGap(31, 31, 31))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(399, 399, 399)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(49, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(temporadaLab)
                     .addComponent(elegirCategoriaLab)
                     .addComponent(elegirCategoriaLista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonMostrarEstadisticasTemporada)
                     .addComponent(temporadaElegidaTexto))
-                .addGap(40, 40, 40)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
                 .addComponent(panelTabEstTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -479,6 +488,8 @@ public class EstadisticasTemporada extends javax.swing.JFrame {
     private javax.swing.JCheckBox estadisticasPartidosGanados;
     private javax.swing.JCheckBox estadisticasPartidosPerdidos;
     private javax.swing.JCheckBox estadisticasPuntosLiga;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JButton mostrarGraficasTemporada;
     private javax.swing.JScrollPane panelTabEstTemp;
     private javax.swing.JTable tablaTemporadaEstadisticas;
