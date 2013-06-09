@@ -10,7 +10,7 @@ import bma.ComboBoxItem;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -52,13 +52,6 @@ public class PrincipalJugadores extends javax.swing.JFrame {
                 cbi = new ComboBoxItem(consulta.getInt("idCategoria"), consulta.getString("tipo"));
                 consultaCategoria.addItem(cbi);
             }
-            consulta = bd.ejecutaConsulta("SELECT idUsuario, CONCAT(`nombre`,' ',`primerApellido`,' ',`segundoApellido`) as nombre"
-                    + " FROM usuario where usuario.entrenador=true");
-            consultaEntrenador.setModel(new javax.swing.DefaultComboBoxModel(new ComboBoxItem[]{new ComboBoxItem(0, "No seleccionado")}));
-            while (consulta.next()) {
-                cbi = new ComboBoxItem(consulta.getInt("idUsuario"), consulta.getString("nombre"));
-                consultaEntrenador.addItem(cbi);
-            }
             consulta = bd.ejecutaConsulta("SELECT idTemporada, curso FROM temporada ORDER BY curso DESC");
             consultaTemporada.setModel(new javax.swing.DefaultComboBoxModel(new ComboBoxItem[]{new ComboBoxItem(0, "No seleccionada")}));
             while (consulta.next()) {
@@ -79,7 +72,6 @@ public class PrincipalJugadores extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel2 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
@@ -88,10 +80,7 @@ public class PrincipalJugadores extends javax.swing.JFrame {
         consultaCategoria = new javax.swing.JComboBox();
         consultaGrupo = new javax.swing.JComboBox();
         botonEliminarAlumno = new javax.swing.JButton();
-        edadAl = new javax.swing.JTextField();
         consultaTemporada = new javax.swing.JComboBox();
-        edadAlLabel = new javax.swing.JLabel();
-        consultaEntrenador = new javax.swing.JComboBox();
         nombreAlLabel = new javax.swing.JLabel();
         botonNuevoAlumno = new javax.swing.JButton();
         estadisticasJugador = new javax.swing.JButton();
@@ -99,7 +88,6 @@ public class PrincipalJugadores extends javax.swing.JFrame {
         nombreAlumno = new javax.swing.JTextField();
         consultaEquipo = new javax.swing.JComboBox();
         temporadaLabel = new javax.swing.JLabel();
-        entrenadorAlLabel = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         botonModificar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -150,33 +138,14 @@ public class PrincipalJugadores extends javax.swing.JFrame {
                 botonEliminarAlumnoActionPerformed(evt);
             }
         });
-        jPanel10.add(botonEliminarAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 210, -1, -1));
-
-        edadAl.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                edadAlKeyReleased(evt);
-            }
-        });
-        jPanel10.add(edadAl, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, 30, -1));
+        jPanel10.add(botonEliminarAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 180, -1, -1));
 
         consultaTemporada.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 consultaTemporadaItemStateChanged(evt);
             }
         });
-        jPanel10.add(consultaTemporada, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, 110, 22));
-
-        edadAlLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        edadAlLabel.setText("Edad:");
-        jPanel10.add(edadAlLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, 40, 20));
-
-        consultaEntrenador.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
-        consultaEntrenador.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                consultaEntrenadorItemStateChanged(evt);
-            }
-        });
-        jPanel10.add(consultaEntrenador, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 210, 22));
+        jPanel10.add(consultaTemporada, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 110, 22));
 
         nombreAlLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         nombreAlLabel.setText("Nombre/Apellidos:");
@@ -189,7 +158,7 @@ public class PrincipalJugadores extends javax.swing.JFrame {
                 botonNuevoAlumnoActionPerformed(evt);
             }
         });
-        jPanel10.add(botonNuevoAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 120, -1, -1));
+        jPanel10.add(botonNuevoAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 90, -1, -1));
 
         estadisticasJugador.setText("Estadisticas");
         estadisticasJugador.setMaximumSize(new java.awt.Dimension(63, 23));
@@ -200,7 +169,7 @@ public class PrincipalJugadores extends javax.swing.JFrame {
                 estadisticasJugadorActionPerformed(evt);
             }
         });
-        jPanel10.add(estadisticasJugador, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 320, -1, -1));
+        jPanel10.add(estadisticasJugador, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 290, -1, -1));
 
         grupoAlLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         grupoAlLabel.setText("Grupo:");
@@ -223,12 +192,8 @@ public class PrincipalJugadores extends javax.swing.JFrame {
 
         temporadaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         temporadaLabel.setText("Temporada:");
-        jPanel10.add(temporadaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, 70, 20));
-
-        entrenadorAlLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        entrenadorAlLabel.setText("Entrenador:");
-        jPanel10.add(entrenadorAlLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 70, 20));
-        jPanel10.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 600, -1));
+        jPanel10.add(temporadaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, 70, 20));
+        jPanel10.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 600, -1));
 
         botonModificar.setText("Modificar");
         botonModificar.setMaximumSize(new java.awt.Dimension(63, 23));
@@ -239,7 +204,7 @@ public class PrincipalJugadores extends javax.swing.JFrame {
                 botonModificarActionPerformed(evt);
             }
         });
-        jPanel10.add(botonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 180, -1, -1));
+        jPanel10.add(botonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 150, -1, -1));
 
         tablaAlumnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -253,7 +218,7 @@ public class PrincipalJugadores extends javax.swing.JFrame {
         tablaAlumnos.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tablaAlumnos);
 
-        jPanel10.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 460, 240));
+        jPanel10.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 460, 240));
 
         consultar.setText("Consultar");
         consultar.addActionListener(new java.awt.event.ActionListener() {
@@ -261,7 +226,7 @@ public class PrincipalJugadores extends javax.swing.JFrame {
                 consultarActionPerformed(evt);
             }
         });
-        jPanel10.add(consultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 150, 100, -1));
+        jPanel10.add(consultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 120, 100, -1));
 
         jPanel2.add(jPanel10, java.awt.BorderLayout.CENTER);
 
@@ -271,7 +236,7 @@ public class PrincipalJugadores extends javax.swing.JFrame {
 
         jPanel2.add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
-        getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_END);
+        getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -286,7 +251,11 @@ public class PrincipalJugadores extends javax.swing.JFrame {
             int selection = JOptionPane.showConfirmDialog(this, "Desea eliminar el jugador?", "Eliminar jugador", JOptionPane.YES_NO_OPTION);
             if (selection == JOptionPane.YES_OPTION) {
                 GestorAlumnos.eliminaAlumno(this.bd, Integer.parseInt((String) tablaAlumnos.getValueAt(fila, 0)));
-                alumnosFiltrado();
+                try {
+                    alumnosFiltrado();
+                } catch (SQLException ex) {
+                    Logger.getLogger(PrincipalJugadores.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_botonEliminarAlumnoActionPerformed
@@ -342,12 +311,12 @@ public class PrincipalJugadores extends javax.swing.JFrame {
     }//GEN-LAST:event_botonModificarActionPerformed
 
     private void nombreAlumnoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreAlumnoKeyReleased
-        alumnosFiltrado();
+        try {
+            alumnosFiltrado();
+        } catch (SQLException ex) {
+            Logger.getLogger(PrincipalJugadores.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_nombreAlumnoKeyReleased
-
-    private void edadAlKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edadAlKeyReleased
-        alumnosFiltrado();
-    }//GEN-LAST:event_edadAlKeyReleased
 
     private void consultaTemporadaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_consultaTemporadaItemStateChanged
         if (evt.getStateChange() == 1) {
@@ -391,14 +360,32 @@ public class PrincipalJugadores extends javax.swing.JFrame {
                     Logger.getLogger(PrincipalJugadores.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
-            alumnosFiltrado();
+            try {
+                alumnosFiltrado();
+            } catch (SQLException ex) {
+                Logger.getLogger(PrincipalJugadores.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_consultaTemporadaItemStateChanged
 
     private void consultaCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_consultaCategoriaItemStateChanged
         if (evt.getStateChange() == 1) {
-            alumnosFiltrado();
+            if (((ComboBoxItem) consultaTemporada.getSelectedItem()).getId() == 0) {
+                try {
+                    ResultSet consulta = bd.ejecutaConsulta("SELECT idTemporada, curso FROM temporada ORDER BY curso DESC");
+                    if (consulta.next()) {
+                        consultaTemporada.setSelectedItem(new ComboBoxItem(consulta.getInt("idTemporada"), consulta.getString("curso")));
+                    }
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(PrincipalJugadores.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            try {
+                alumnosFiltrado();
+            } catch (SQLException ex) {
+                Logger.getLogger(PrincipalJugadores.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_consultaCategoriaItemStateChanged
 
@@ -407,7 +394,7 @@ public class PrincipalJugadores extends javax.swing.JFrame {
             ComboBoxItem equipo = (ComboBoxItem) consultaEquipo.getSelectedItem();
             if (equipo.getId() != 0) {
                 try {
-                    if (((ComboBoxItem) consultaTemporada.getSelectedItem()).getId() == 0) {
+                    if (((ComboBoxItem) consultaTemporada.getSelectedItem()).getId() != 0) {
                         ComboBoxItem cbi;
                         ResultSet consulta = bd.ejecutaConsulta("SELECT idTemporada, curso FROM temporada t, equipo e"
                                 + " WHERE e.temporada_idTemporada=t.idTemporada AND e.idEquipo=" + equipo.getId() + " ORDER BY curso DESC");
@@ -435,15 +422,18 @@ public class PrincipalJugadores extends javax.swing.JFrame {
                     Logger.getLogger(PrincipalJugadores.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
-            alumnosFiltrado();
+            try {
+                alumnosFiltrado();
+            } catch (SQLException ex) {
+                Logger.getLogger(PrincipalJugadores.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_consultaEquipoItemStateChanged
 
     private void consultaGrupoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_consultaGrupoItemStateChanged
         if (evt.getStateChange() == 1) {
-            Integer grupo = Integer.parseInt( consultaGrupo.getSelectedItem().toString());
-            if (grupo != 0) {
+            String grupo = consultaGrupo.getSelectedItem().toString();
+            if (!grupo.equals("No seleccionado")) {
                 try {
                     if (((ComboBoxItem) consultaTemporada.getSelectedItem()).getId() == 0) {
                         ComboBoxItem cbi;
@@ -465,7 +455,7 @@ public class PrincipalJugadores extends javax.swing.JFrame {
                                 + "WHERE Temporada_idTemporada=" + ((ComboBoxItem) consultaTemporada.getSelectedItem()).getId());
                         consultaGrupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"No seleccionado"}));
                         while (consulta.next()) {
-                            consultaGrupo.addItem(consulta.getInt(1));
+                            consultaGrupo.addItem(consulta.getString(1));
                         }
                         consultaGrupo.setSelectedItem(grupo);
                     }
@@ -473,16 +463,13 @@ public class PrincipalJugadores extends javax.swing.JFrame {
                     Logger.getLogger(PrincipalJugadores.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
-            alumnosFiltrado();
+            try {
+                alumnosFiltrado();
+            } catch (SQLException ex) {
+                Logger.getLogger(PrincipalJugadores.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_consultaGrupoItemStateChanged
-
-    private void consultaEntrenadorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_consultaEntrenadorItemStateChanged
-        if (evt.getStateChange() == 1) {
-            alumnosFiltrado();
-        }
-    }//GEN-LAST:event_consultaEntrenadorItemStateChanged
 
     private void consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarActionPerformed
         // Se comprueba si se ha seleccionado a un alumno para modificarlo
@@ -498,7 +485,7 @@ public class PrincipalJugadores extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_consultarActionPerformed
 
-    public void alumnosFiltrado() {
+    public void alumnosFiltrado() throws SQLException {
         String consulta = "SELECT a.idAlumno, CONCAT(`a`.`nombre`,' ',`a`.`primerApellido`,' ',`a`.`segundoApellido`), "
                 + "a.localidad, a.sexo "
                 + "FROM alumno a";
@@ -507,31 +494,27 @@ public class PrincipalJugadores extends javax.swing.JFrame {
         if (!nombreAlumno.getText().isEmpty()) {
             where = where + " CONCAT(`a`.`nombre`,' ',`a`.`primerApellido`,' ',`a`.`segundoApellido`) LIKE '%" + nombreAlumno.getText() + "%' AND ";
         }
-        if (!edadAl.getText().isEmpty() && edadAl.getText().matches("[1-9][0-9]*")) {
-            Calendar cal1 = Calendar.getInstance();  //con la hora actual del sistema calculamos la edad del alumno
-            int diaAct, mesAct, anoAct;
-            String fechaAct, fechaNac;
-            diaAct = cal1.get(Calendar.DATE);
-            mesAct = cal1.get(Calendar.MONTH) + 1;
-            anoAct = cal1.get(Calendar.YEAR) - Integer.parseInt(edadAl.getText());
-            fechaAct = anoAct + "-" + mesAct + "-" + diaAct;
-            fechaNac = (anoAct - 1) + "-" + mesAct + "-" + diaAct;
-            where = where + " a.fechaNacimiento <= '" + fechaAct + "' AND " + " a.fechaNacimiento > '" + fechaNac + "' AND";
-        }
         if (!consultaGrupo.getSelectedItem().toString().equals("No seleccionado")) {
             where = where + " ag.alumno_idalumno=a.idalumno AND ag.Grupo_idGrupo=" + consultaGrupo.getSelectedItem().toString() + " AND";
             tablasImplicadas = tablasImplicadas + ", alumnogrupo ag";
         }
         if (!consultaCategoria.getSelectedItem().toString().equals("No seleccionada")) {
-            where = where + " ag.Grupo_Categoria_idCategoria=" + ((ComboBoxItem) consultaCategoria.getSelectedItem()).getId() + " AND";
-            if (!tablasImplicadas.contains("alumnogrupo")) {
-                tablasImplicadas = tablasImplicadas + ", alumnogrupo ag";
-            }
-        }
-        if (!consultaEntrenador.getSelectedItem().toString().equals("No seleccionado")) {
-            where = where + " ag.Grupo_Usuario_idUsuario=" + ((ComboBoxItem) consultaEntrenador.getSelectedItem()).getId() + " AND";
-            if (!tablasImplicadas.contains("alumnogrupo")) {
-                tablasImplicadas = tablasImplicadas + ", alumnogrupo ag";
+            String ComprobacionMenores = "Select edadmin from categoria where "
+                    + "categoria.idcategoria=(select min(c.idcategoria) from categoria c)";
+            ResultSet sal = bd.ejecutaConsulta(ComprobacionMenores);
+            sal.next();
+            int edad = Integer.parseInt(((ComboBoxItem) consultaTemporada.getSelectedItem()).getDescription().substring(0, 4)) - sal.getInt(1);
+
+            String edadMinimaCategoriaBuscada = "Select edadmin from categoria where "
+                    + "categoria.idcategoria=" + ((ComboBoxItem) consultaCategoria.getSelectedItem()).getId();
+            sal = bd.ejecutaConsulta(edadMinimaCategoriaBuscada);
+            sal.next();
+            int año = Integer.parseInt(((ComboBoxItem) consultaTemporada.getSelectedItem()).getDescription().substring(0, 4)) - sal.getInt(1);
+
+            if (edad == año) {
+                where = where + " fechaNacimiento >'" + año + "-1-1' AND";
+            } else {
+                where = where + " fechaNacimiento >'" + año + "-1-1' And fechaNacimiento <'" + (año + 1) + "-1-1' AND";
             }
         }
         if (!consultaEquipo.getSelectedItem().toString().equals("No seleccionado")) {
@@ -615,14 +598,10 @@ public class PrincipalJugadores extends javax.swing.JFrame {
     private javax.swing.JButton botonNuevoAlumno;
     private javax.swing.JLabel categoriaAlLabel;
     private javax.swing.JComboBox consultaCategoria;
-    private javax.swing.JComboBox consultaEntrenador;
     private javax.swing.JComboBox consultaEquipo;
     private javax.swing.JComboBox consultaGrupo;
     private javax.swing.JComboBox consultaTemporada;
     private javax.swing.JButton consultar;
-    private javax.swing.JTextField edadAl;
-    private javax.swing.JLabel edadAlLabel;
-    private javax.swing.JLabel entrenadorAlLabel;
     private javax.swing.JLabel equipoAlLabel;
     private javax.swing.JButton estadisticasJugador;
     private javax.swing.JLabel grupoAlLabel;
