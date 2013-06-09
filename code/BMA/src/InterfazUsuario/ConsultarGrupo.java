@@ -950,8 +950,8 @@ public class ConsultarGrupo extends javax.swing.JFrame {
             try {
                 int anio = GestorCategorias.getAnioCategoria(bd, comboCat.getSelectedItem().toString());
 
-
-                alumnosCat = GestorAlumnos.getAlumnosCategoria(bd, anio);
+                String[] tempo= comboTemp.getSelectedItem().toString().split("/");
+                alumnosCat = GestorAlumnos.getAlumnosCategoria(bd, anio,Integer.parseInt(tempo[0]));
 
                 if (contador == 0) {
                     contador++;
@@ -1112,8 +1112,9 @@ public class ConsultarGrupo extends javax.swing.JFrame {
 
             try {
                 int anio = GestorCategorias.getAnioCategoria(bd, comboCat.getSelectedItem().toString());
-                alumnosCat = GestorAlumnos.getAlumnosCategoria(bd, anio);
-
+              // alumnosCat = GestorAlumnos.getAlumnosCategoria(bd, anio);
+String[] tempo= comboTemp.getSelectedItem().toString().split("/");
+                alumnosCat = GestorAlumnos.getAlumnosCategoria(bd, anio,Integer.parseInt(tempo[0]));
                 auxList = alumnosCat;
 
                 auxList.removeAll(listaAlumnosIntroducidos);

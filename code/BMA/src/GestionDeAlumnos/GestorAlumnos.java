@@ -237,13 +237,14 @@ public class GestorAlumnos {
     }
 
     public static List<String> getAlumnosCategoria(BaseDatos bd, int anio,int temporada) throws SQLException {
+        System.out.print("tempo"+temporada);
         String ComprobacionMenores = "Select edadmin from categoria where "
                 + "categoria.idcategoria=(select min(c.idcategoria) from categoria c)";
         String query;
         ResultSet sal = bd.ejecutaConsulta(ComprobacionMenores);
         sal.next();
         GregorianCalendar g = new GregorianCalendar();
-        int edad = g.get(GregorianCalendar.YEAR) - sal.getInt(1);
+        int edad = temporada- sal.getInt(1);//g.get(GregorianCalendar.YEAR) - sal.getInt(1);
         if (edad == anio) {
             query = "SELECT primerApellido, segundoApellido, nombre FROM "
                     + "mydb.alumno WHERE "

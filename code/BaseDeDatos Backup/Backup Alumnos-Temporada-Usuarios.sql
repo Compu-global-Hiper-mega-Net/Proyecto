@@ -36,7 +36,7 @@ CREATE TABLE `actividades` (
   `temporada_idTemporada` int(11) NOT NULL,
   PRIMARY KEY (`idActividades`,`temporada_idTemporada`),
   KEY `fk_actividades_temporada1_idx` (`temporada_idTemporada`),
-  CONSTRAINT `fk_actividades_temporada1` FOREIGN KEY (`temporada_idTemporada`) REFERENCES `temporada` (`idTemporada`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_actividades_temporada1` FOREIGN KEY (`temporada_idTemporada`) REFERENCES `temporada` (`idTemporada`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -190,8 +190,8 @@ CREATE TABLE `alumnotemporada` (
   PRIMARY KEY (`Alumno_idAlumno`,`Temporada_idTemporada`),
   KEY `fk_Alumno_has_Temporada_Temporada1_idx` (`Temporada_idTemporada`),
   KEY `fk_Alumno_has_Temporada_Alumno1_idx` (`Alumno_idAlumno`),
-  CONSTRAINT `fk_Alumno_has_Temporada_Alumno1` FOREIGN KEY (`Alumno_idAlumno`) REFERENCES `alumno` (`idAlumno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Alumno_has_Temporada_Temporada1` FOREIGN KEY (`Temporada_idTemporada`) REFERENCES `temporada` (`idTemporada`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_Alumno_has_Temporada_Alumno1` FOREIGN KEY (`Alumno_idAlumno`) REFERENCES `alumno` (`idAlumno`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_Alumno_has_Temporada_Temporada1` FOREIGN KEY (`Temporada_idTemporada`) REFERENCES `temporada` (`idTemporada`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -226,36 +226,8 @@ CREATE TABLE `categoria` (
 
 LOCK TABLES `categoria` WRITE;
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
-INSERT INTO `categoria` VALUES (1,'benjamín','(9-10 años)',9),(2,'alevín','(11-12 años)',11),(3,'infantil','(13-14 años)',13),(4,'cadete','(15-16 años)',15),(5,'junior','(17-18 años)',17);
+INSERT INTO `categoria` VALUES (1,'benjamín','(9-10 años)',9),(2,'alevín','(10-12 años)',10),(3,'infantil','(12-14 años)',12),(4,'cadete','(14-16 años)',14),(5,'junior','(16-18 años)',16);
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `categoriaalumno`
---
-
-DROP TABLE IF EXISTS `categoriaalumno`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `categoriaalumno` (
-  `idcategoriaalumno` int(11) NOT NULL AUTO_INCREMENT,
-  `categoria_idCategoria` int(11) NOT NULL,
-  `alumno_idAlumno` int(11) NOT NULL,
-  PRIMARY KEY (`idcategoriaalumno`,`categoria_idCategoria`,`alumno_idAlumno`),
-  KEY `fk_categoriaalumno_categoria1_idx` (`categoria_idCategoria`),
-  KEY `fk_categoriaalumno_alumno1_idx` (`alumno_idAlumno`),
-  CONSTRAINT `fk_categoriaalumno_categoria1` FOREIGN KEY (`categoria_idCategoria`) REFERENCES `categoria` (`idCategoria`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_categoriaalumno_alumno1` FOREIGN KEY (`alumno_idAlumno`) REFERENCES `alumno` (`idAlumno`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `categoriaalumno`
---
-
-LOCK TABLES `categoriaalumno` WRITE;
-/*!40000 ALTER TABLE `categoriaalumno` DISABLE KEYS */;
-/*!40000 ALTER TABLE `categoriaalumno` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -303,10 +275,10 @@ CREATE TABLE `equipo` (
   KEY `fk_Equipo_Categoria1_idx` (`Categoria_idCategoria`),
   KEY `fk_equipo_liga1_idx` (`liga_idLiga`),
   KEY `fk_equipo_temporada1_idx` (`temporada_idTemporada`),
+  CONSTRAINT `fk_equipo_liga1` FOREIGN KEY (`liga_idLiga`) REFERENCES `liga` (`idLiga`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_Equipo_Categoria1` FOREIGN KEY (`Categoria_idCategoria`) REFERENCES `categoria` (`idCategoria`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_Equipo_Fundacion` FOREIGN KEY (`Fundacion_idFundacion`) REFERENCES `fundacion` (`idFundacion`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_equipo_liga1` FOREIGN KEY (`liga_idLiga`) REFERENCES `liga` (`idLiga`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_equipo_temporada1` FOREIGN KEY (`temporada_idTemporada`) REFERENCES `temporada` (`idTemporada`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_equipo_temporada1` FOREIGN KEY (`temporada_idTemporada`) REFERENCES `temporada` (`idTemporada`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -707,4 +679,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-06-08 18:29:04
+-- Dump completed on 2013-06-09 20:14:35
