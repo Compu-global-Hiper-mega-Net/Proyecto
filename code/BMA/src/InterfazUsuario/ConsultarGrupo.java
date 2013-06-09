@@ -957,12 +957,9 @@ public class ConsultarGrupo extends javax.swing.JFrame {
                     contador++;
                 } else {
 
-                    System.out.println("Ultimo: " + jlAlumIntr.getLastVisibleIndex());
                     for (int incre = 0; incre <= jlAlumIntr.getLastVisibleIndex();) {
-                        //  System.out.println("Incremento: " + incre);
                         jlAlumIntr.setSelectedIndex(incre);
                         String alumno = (String) jlAlumIntr.getSelectedValue();
-                        // System.out.println("mando eliminar: " + alumno);
 
                         EliminarAlumnoLista(alumno);
                         if (jlAlumIntr.getLastVisibleIndex() < incre) {

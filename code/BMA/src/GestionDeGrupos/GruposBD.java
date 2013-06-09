@@ -248,7 +248,6 @@ public class GruposBD {
 
                     query5 = "INSERT INTO Cuota (fecha,pagado) VALUES "
                             + "('" + auxcurso + "-" + auxCont + "-1','0')";
-                    System.out.println("insercion pago grupo" + query5);
                     res5 = accesoBD.ejecutaActualizacion(query5);
 
                     query5 = "SELECT DISTINCT LAST_INSERT_ID() FROM Cuota";
@@ -700,11 +699,11 @@ public class GruposBD {
         int nRes = accesoBD.ejecutaActualizacion(query);
 
 
-        if (res) {
+       /* if (res) {
             System.out.println("se ha eliminado");
         } else {
             System.out.println("no se ha eliminado");
-        }
+        }*/
     }
 
     /**
@@ -920,10 +919,10 @@ public class GruposBD {
                 nAls = auxR.getInt(1);
             }
 
-            System.out.println("nAls antes vale:" + nAls);
+           // System.out.println("nAls antes vale:" + nAls);
 
             nAls = nAls + listaAlumnos.size();
-            System.out.println("nAls despues vale:" + nAls);
+            //System.out.println("nAls despues vale:" + nAls);
 
             query = "UPDATE Grupo SET n_alumnos='" + nAls + "' "
                     + "WHERE idGrupo='" + idGrupo + "'";
@@ -995,7 +994,7 @@ public class GruposBD {
                 + " AND Grupo_Categoria_idCategoria= '" + g.getIdCategoria() + "' "
                 + " AND Grupo_Usuario_idUsuario = '" + g.getIdEntrenador() + "' AND "
                 + " Grupo_Temporada_idTemporada = '" + g.getIdTemporada() + "' ";
-        System.out.println(query3);
+       // System.out.println(query3);
         boolean eliminaAlumGrup = accesoBD.eliminar(query3);
 
         String queryGrupoPagos = "select Alumno_idAlumno,count(Alumno_idAlumno) FROM alumnogrupo Where"
@@ -1009,7 +1008,7 @@ public class GruposBD {
             if (!AlumnosEnGrupos.next()) {
 
                 String Pagos = "No se han dado de bajo pagos";
-                System.out.println("PAgos no eliminados " + Pagos + AlumnosBorrados.getString(1));
+               // System.out.println("PAgos no eliminados " + Pagos + AlumnosBorrados.getString(1));
             } else {
                 //borrar pagos
 
@@ -1022,7 +1021,7 @@ public class GruposBD {
 
 
                 // System.out.print(BorradoPago); ResultSet Borrado = 
-                System.out.println("Consultaaa:" + BorradoPago);
+                //System.out.println("Consultaaa:" + BorradoPago);
                 accesoBD.eliminar(BorradoPago);
                 /*while (Borrado.next()) {
                  System.out.println(Borrado.getString(1));
@@ -1036,13 +1035,13 @@ public class GruposBD {
         String query4 = "DELETE FROM Grupo WHERE "
                 + "idGrupo='" + g.getIdGrupo() + "'";
         boolean eliminaGrupo = accesoBD.eliminar(query4);
-        System.out.println(query4);
+        //System.out.println(query4);
 
         String query2 = "DELETE FROM Horario WHERE idHorario='" + idHor + "' AND "
                 + "Instalacion_idInstalacion='" + idInst + "'";
 
         boolean eliminaHor = accesoBD.eliminar(query2);
-        System.out.println(query2);
+       // System.out.println(query2);
 
         //Alumno_idAlumno='"+g.+"'
 
