@@ -933,6 +933,7 @@ public class ConsultarGrupo extends javax.swing.JFrame {
                     contador++;
                 } else {
                     //hacerlo con un for 
+                    System.out.println(jlAlumIntr.getLastVisibleIndex());
                     for (int incre = 0; incre <= jlAlumIntr.getLastVisibleIndex(); incre++) {
 
                         jlAlumIntr.setSelectedIndex(incre);
@@ -941,6 +942,10 @@ public class ConsultarGrupo extends javax.swing.JFrame {
 
                         EliminarAlumnoLista(alumno);
                     }
+                   String queryactualizagrupo = "UPDATE Grupo SET n_alumnos='" + 0 + "' "
+                    + "WHERE idGrupo='" + idGrupo + "'";
+                   bd.ejecutaActualizacion(queryactualizagrupo);
+                   
                     //jlAlumIntr.set
                     //listaAlumnosIntroducidos
                     //listaAlumnos
