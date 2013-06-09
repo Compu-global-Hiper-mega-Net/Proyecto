@@ -137,7 +137,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panelGestion.add(jugadores, gridBagConstraints);
 
-        jugadoresDescripcion.setText("Esta opción permite gestionar todos los jugadores, esto es: insertar, modificar o eliminar.");
+        jugadoresDescripcion.setText("Esta opción permite gestionar todos los jugadores, esto es: insertar, consultar, modificar o eliminar.");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
