@@ -1,94 +1,63 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package InterfazUsuario;
 
 import GestionDeAlumnos.GestorAlumnos;
 import ServiciosAlmacenamiento.BaseDatos;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/*
- ******************************************************************************
- (c) Copyright 2013 
- * 
- * Moisés Gautier Gómez
- * Julio Ros Martínez
- * Francisco Javier Gómez del Olmo
- * Francisco Santolalla Quiñonero
- * Carlos Jesús Fernández Basso
- * Alexander Moreno Borrego
- * Jesús Manuel Contreras Siles
- * Diego Muñoz Rio
- 
- This program is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
-
- You should have received a copy of the GNU General Public License
- along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ******************************************************************************
- */
 /**
- * Clase que muestra la gestión de alumnos/jugadores
  *
- * @author Compu-global-Hiper-mega-Net
+ * @author Dell
  */
 public class PrincipalJugadores extends javax.swing.JFrame {
 
     private BaseDatos bd;
 
     /**
-     * Constructor de la interfaz de gestión.
-     *
-     * @param pP Contexto de la aplicación.
-     * @param bd Conexión con la BD.
+     * Creates new form PruebaPrincipalJugadores
      */
-    public PrincipalJugadores(JFrame pP, BaseDatos bd) {
+    public PrincipalJugadores(PantallaPrincipal pP, BaseDatos bd) {
         initComponents();
         this.bd = bd;
         setLocationRelativeTo(pP);
 
-        ResultSet consulta;
-
         // Se cargan los datos de "lookup"
         try {
-            consulta = bd.ejecutaConsulta("SELECT * FROM grupo");
-            consultaGrupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
+            ResultSet consulta = bd.ejecutaConsulta("SELECT * FROM grupo");
+            consultaGrupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"No seleccionado"}));
             while (consulta.next()) {
                 consultaGrupo.addItem(consulta.getInt(1));
             }
             consulta = bd.ejecutaConsulta("SELECT * FROM equipo");
-            consultaEquipo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
+            consultaEquipo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"No seleccionado"}));
             while (consulta.next()) {
                 consultaEquipo.addItem(consulta.getInt(1));
             }
             consulta = bd.ejecutaConsulta("SELECT * FROM categoria");
-            consultaCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
+            consultaCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"No seleccionada"}));
             while (consulta.next()) {
                 consultaCategoria.addItem(consulta.getString("tipo"));
             }
-            consulta = bd.ejecutaConsulta("SELECT * FROM temporada");
-            consultaTemporada.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
+            consulta = bd.ejecutaConsulta("SELECT CONCAT(`nombre`,' ',`primerApellido`,' ',`segundoApellido`) as nombre"
+                    + " FROM usuario where usuario.entrenador=true");
+            consultaEntrenador.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"No seleccionado"}));
+            while (consulta.next()) {
+                consultaEntrenador.addItem(consulta.getString("nombre"));
+            }
+            consulta = bd.ejecutaConsulta("SELECT curso FROM temporada ORDER BY curso DESC");
+            consultaTemporada.setModel(new javax.swing.DefaultComboBoxModel());
             while (consulta.next()) {
                 consultaTemporada.addItem(consulta.getString("curso"));
-            }
-            consulta = bd.ejecutaConsulta("SELECT * FROM usuario where usuario.entrenador=true");
-            consultaEntrenador.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
-            while (consulta.next()) {
-                consultaEntrenador.addItem(consulta.getString("nombre") + " " + consulta.getString("primerApellido"));
             }
 
         } catch (SQLException ex) {
@@ -104,62 +73,168 @@ public class PrincipalJugadores extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
+        jPanel2 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
-        primerApellidoLabel = new javax.swing.JLabel();
         equipoAlLabel = new javax.swing.JLabel();
         categoriaAlLabel = new javax.swing.JLabel();
-        primerApellidoAl = new javax.swing.JTextField();
         consultaCategoria = new javax.swing.JComboBox();
         consultaGrupo = new javax.swing.JComboBox();
         botonEliminarAlumno = new javax.swing.JButton();
         edadAl = new javax.swing.JTextField();
         consultaTemporada = new javax.swing.JComboBox();
-        panelResulAl = new javax.swing.JScrollPane();
-        tablaAlumnos = new javax.swing.JTable();
         edadAlLabel = new javax.swing.JLabel();
         consultaEntrenador = new javax.swing.JComboBox();
         nombreAlLabel = new javax.swing.JLabel();
-        segundoApellidoLabel = new javax.swing.JLabel();
         botonNuevoAlumno = new javax.swing.JButton();
         estadisticasJugador = new javax.swing.JButton();
         grupoAlLabel = new javax.swing.JLabel();
-        nombreAl = new javax.swing.JTextField();
-        botonMostrarAlumnos = new javax.swing.JButton();
-        segundoApellidoAl = new javax.swing.JTextField();
+        nombreAlumno = new javax.swing.JTextField();
         consultaEquipo = new javax.swing.JComboBox();
         temporadaLabel = new javax.swing.JLabel();
         entrenadorAlLabel = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         botonModificar = new javax.swing.JButton();
-        jPanel11 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaAlumnos = new javax.swing.JTable();
+        consultar = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
-        primerApellidoLabel.setText("Apellido Primero:");
+        jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        jPanel2.setLayout(new java.awt.BorderLayout());
 
+        jPanel10.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        equipoAlLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         equipoAlLabel.setText("Equipo:");
+        jPanel10.add(equipoAlLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, 40, 20));
 
+        categoriaAlLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         categoriaAlLabel.setText("Categoria:");
+        jPanel10.add(categoriaAlLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 60, 20));
 
         consultaCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
+        consultaCategoria.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                consultaCategoriaItemStateChanged(evt);
+            }
+        });
+        jPanel10.add(consultaCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 110, 22));
 
         consultaGrupo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
+        consultaGrupo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                consultaGrupoItemStateChanged(evt);
+            }
+        });
+        jPanel10.add(consultaGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 40, 110, 22));
 
         botonEliminarAlumno.setText("Eliminar");
-        botonEliminarAlumno.setMaximumSize(new java.awt.Dimension(75, 23));
-        botonEliminarAlumno.setMinimumSize(new java.awt.Dimension(75, 23));
-        botonEliminarAlumno.setPreferredSize(new java.awt.Dimension(75, 23));
+        botonEliminarAlumno.setMaximumSize(new java.awt.Dimension(63, 23));
+        botonEliminarAlumno.setMinimumSize(new java.awt.Dimension(63, 23));
+        botonEliminarAlumno.setPreferredSize(new java.awt.Dimension(100, 23));
         botonEliminarAlumno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonEliminarAlumnoActionPerformed(evt);
             }
         });
+        jPanel10.add(botonEliminarAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 210, -1, -1));
 
-        panelResulAl.setAutoscrolls(true);
+        edadAl.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                edadAlKeyReleased(evt);
+            }
+        });
+        jPanel10.add(edadAl, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, 30, -1));
 
-        tablaAlumnos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        consultaTemporada.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                consultaTemporadaItemStateChanged(evt);
+            }
+        });
+        jPanel10.add(consultaTemporada, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, 110, 22));
+
+        edadAlLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        edadAlLabel.setText("Edad:");
+        jPanel10.add(edadAlLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, 40, 20));
+
+        consultaEntrenador.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
+        consultaEntrenador.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                consultaEntrenadorItemStateChanged(evt);
+            }
+        });
+        jPanel10.add(consultaEntrenador, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 210, 22));
+
+        nombreAlLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        nombreAlLabel.setText("Nombre/Apellidos:");
+        jPanel10.add(nombreAlLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 90, 20));
+
+        botonNuevoAlumno.setText("Nuevo");
+        botonNuevoAlumno.setPreferredSize(new java.awt.Dimension(100, 23));
+        botonNuevoAlumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonNuevoAlumnoActionPerformed(evt);
+            }
+        });
+        jPanel10.add(botonNuevoAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 120, -1, -1));
+
+        estadisticasJugador.setText("Estadisticas");
+        estadisticasJugador.setMaximumSize(new java.awt.Dimension(63, 23));
+        estadisticasJugador.setMinimumSize(new java.awt.Dimension(63, 23));
+        estadisticasJugador.setPreferredSize(new java.awt.Dimension(100, 23));
+        estadisticasJugador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                estadisticasJugadorActionPerformed(evt);
+            }
+        });
+        jPanel10.add(estadisticasJugador, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 320, -1, -1));
+
+        grupoAlLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        grupoAlLabel.setText("Grupo:");
+        jPanel10.add(grupoAlLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, 40, 20));
+
+        nombreAlumno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                nombreAlumnoKeyReleased(evt);
+            }
+        });
+        jPanel10.add(nombreAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 201, 20));
+
+        consultaEquipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
+        consultaEquipo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                consultaEquipoItemStateChanged(evt);
+            }
+        });
+        jPanel10.add(consultaEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, 110, 22));
+
+        temporadaLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        temporadaLabel.setText("Temporada:");
+        jPanel10.add(temporadaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, 70, 20));
+
+        entrenadorAlLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        entrenadorAlLabel.setText("Entrenador:");
+        jPanel10.add(entrenadorAlLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 70, 20));
+        jPanel10.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 600, -1));
+
+        botonModificar.setText("Modificar");
+        botonModificar.setMaximumSize(new java.awt.Dimension(63, 23));
+        botonModificar.setMinimumSize(new java.awt.Dimension(63, 23));
+        botonModificar.setPreferredSize(new java.awt.Dimension(100, 23));
+        botonModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonModificarActionPerformed(evt);
+            }
+        });
+        jPanel10.add(botonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 180, -1, -1));
+
         tablaAlumnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -170,166 +245,27 @@ public class PrincipalJugadores extends javax.swing.JFrame {
         ));
         tablaAlumnos.getTableHeader().setResizingAllowed(false);
         tablaAlumnos.getTableHeader().setReorderingAllowed(false);
-        panelResulAl.setViewportView(tablaAlumnos);
+        jScrollPane1.setViewportView(tablaAlumnos);
 
-        edadAlLabel.setText("Edad:");
+        jPanel10.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 460, 240));
 
-        consultaEntrenador.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
-
-        nombreAlLabel.setText("Nombre:");
-
-        segundoApellidoLabel.setText("Apellido Segundo:");
-
-        botonNuevoAlumno.setText("Nuevo");
-        botonNuevoAlumno.addActionListener(new java.awt.event.ActionListener() {
+        consultar.setText("Consultar");
+        consultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonNuevoAlumnoActionPerformed(evt);
+                consultarActionPerformed(evt);
             }
         });
+        jPanel10.add(consultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 150, 100, -1));
 
-        estadisticasJugador.setText("Estadisticas");
-        estadisticasJugador.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                estadisticasJugadorActionPerformed(evt);
-            }
-        });
-
-        grupoAlLabel.setText("Grupo:");
-
-        botonMostrarAlumnos.setText("Mostrar Alumnos");
-        botonMostrarAlumnos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonMostrarAlumnosActionPerformed(evt);
-            }
-        });
-
-        consultaEquipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
-
-        temporadaLabel.setText("Temporada:");
-
-        entrenadorAlLabel.setText("Entrenador:");
-
-        botonModificar.setText("Modificar");
-        botonModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonModificarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSeparator1)
-                .addContainerGap())
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(botonNuevoAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(botonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(botonEliminarAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(estadisticasJugador, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(105, 105, 105)
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addComponent(equipoAlLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(consultaEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(grupoAlLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(consultaGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(categoriaAlLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(consultaCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(temporadaLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(consultaTemporada, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(entrenadorAlLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(consultaEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addComponent(nombreAlLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nombreAl, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(primerApellidoLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(primerApellidoAl, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(segundoApellidoLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(segundoApellidoAl, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(edadAlLabel)
-                                .addGap(18, 18, 18)
-                                .addComponent(edadAl, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(192, 192, 192)
-                        .addComponent(botonMostrarAlumnos))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(panelResulAl, javax.swing.GroupLayout.PREFERRED_SIZE, 1260, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nombreAlLabel)
-                    .addComponent(nombreAl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(primerApellidoLabel)
-                    .addComponent(primerApellidoAl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(segundoApellidoLabel)
-                    .addComponent(segundoApellidoAl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edadAlLabel)
-                    .addComponent(edadAl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(equipoAlLabel)
-                    .addComponent(consultaEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(grupoAlLabel)
-                    .addComponent(consultaGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(categoriaAlLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(consultaCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(temporadaLabel)
-                    .addComponent(consultaTemporada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(entrenadorAlLabel)
-                    .addComponent(consultaEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(botonMostrarAlumnos)
-                .addGap(9, 9, 9)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonNuevoAlumno)
-                    .addComponent(botonModificar)
-                    .addComponent(botonEliminarAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(estadisticasJugador))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelResulAl, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(jPanel10, java.awt.BorderLayout.CENTER);
+        jPanel2.add(jPanel10, java.awt.BorderLayout.CENTER);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Jugadores");
-        jPanel11.add(jLabel4);
+        jPanel1.add(jLabel4);
 
-        getContentPane().add(jPanel11, java.awt.BorderLayout.PAGE_START);
+        jPanel2.add(jPanel1, java.awt.BorderLayout.PAGE_START);
+
+        getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_END);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -343,34 +279,18 @@ public class PrincipalJugadores extends javax.swing.JFrame {
             // Si se ha seleccionado y se está de acuerdo con borrarlo, se borra.
             int selection = JOptionPane.showConfirmDialog(this, "Desea eliminar el jugador?", "Eliminar jugador", JOptionPane.YES_NO_OPTION);
             if (selection == JOptionPane.YES_OPTION) {
-                char aux;
-                if (((String) tablaAlumnos.getValueAt(fila, 4)).equals("Masculino")) {
-                    aux = 'M';
-                } else {
-                    aux = 'F';
-                }
-                Date fechaNac = Date.valueOf((String) tablaAlumnos.getValueAt(fila, 3));
-                GestorAlumnos.eliminaAlumno(this.bd, (String) tablaAlumnos.getValueAt(fila, 0),
-                        (String) tablaAlumnos.getValueAt(fila, 1), (String) tablaAlumnos.getValueAt(fila, 2),
-                        new GregorianCalendar(Integer.parseInt(fechaNac.toString().split("-")[0]),
-                        Integer.parseInt(fechaNac.toString().split("-")[1]), Integer.parseInt(fechaNac.toString().split("-")[2])),
-                        (String) tablaAlumnos.getValueAt(fila, 16), (String) tablaAlumnos.getValueAt(fila, 6),
-                        (String) tablaAlumnos.getValueAt(fila, 7), Integer.parseInt((String) tablaAlumnos.getValueAt(fila, 8)),
-                        (String) tablaAlumnos.getValueAt(fila, 9), (String) tablaAlumnos.getValueAt(fila, 10),
-                        (String) tablaAlumnos.getValueAt(fila, 11), (String) tablaAlumnos.getValueAt(fila, 12),
-                        Integer.parseInt((String) tablaAlumnos.getValueAt(fila, 13)), Integer.parseInt((String) tablaAlumnos.getValueAt(fila, 14)),
-                        (String) tablaAlumnos.getValueAt(fila, 15), (String) tablaAlumnos.getValueAt(fila, 5), aux);
-                actualizarTabla();
+                GestorAlumnos.eliminaAlumno(this.bd, Integer.parseInt((String) tablaAlumnos.getValueAt(fila, 0)));
+                alumnosFiltrado();
             }
         }
     }//GEN-LAST:event_botonEliminarAlumnoActionPerformed
 
     private void botonNuevoAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoAlumnoActionPerformed
-        new AñadirModificarJugador(this, this.bd).setVisible(true);
+        new AñadirConsultarModificarJugador(null, this.bd).setVisible(true);
     }//GEN-LAST:event_botonNuevoAlumnoActionPerformed
 
     private void estadisticasJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estadisticasJugadorActionPerformed
-        String jugadorElegido;
+        String jugadorElegido = "";
         ResultSet retset = null;
 
         // Se comprueba si se ha seleccionado a un alumno.
@@ -378,18 +298,18 @@ public class PrincipalJugadores extends javax.swing.JFrame {
         if (i == -1) {
             JOptionPane.showMessageDialog(null, "Seleccione un jugador para ver estadisticas");
         } else {
-            String nombre = (String) tablaAlumnos.getValueAt(i, 0);
-            String primerApellido = (String) tablaAlumnos.getValueAt(i, 1);
-            String segundoApellido = (String) tablaAlumnos.getValueAt(i, 2);
-
-            String numCuenta = (String) tablaAlumnos.getValueAt(i, 16);
-
-            jugadorElegido = nombre + " " + primerApellido + " " + segundoApellido;
-
+            int idAlumno = Integer.parseInt((String) tablaAlumnos.getValueAt(i, 0));
+            String consulta = "SELECT CONCAT(`nombre`,' ',`primerApellido`,' ',`segundoApellido`)"
+                    + " FROM alumno WHERE idAlumno=" + idAlumno;
+            ResultSet res = bd.ejecutaConsulta(consulta);
             try {
-                retset = GestorAlumnos.consultarEstadisticasAlumno(this.bd, nombre, primerApellido, segundoApellido, numCuenta);
+                if (res.next()) {
+                    jugadorElegido = res.getString(1);
+                }
+                
+                retset = GestorAlumnos.consultarEstadisticasAlumno(this.bd, idAlumno);
             } catch (SQLException ex) {
-                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(PrincipalJugadores.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             // Si hay estadisticas se muestran, sino no
@@ -401,100 +321,121 @@ public class PrincipalJugadores extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_estadisticasJugadorActionPerformed
 
-    private void botonMostrarAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarAlumnosActionPerformed
-        actualizarTabla();
-    }//GEN-LAST:event_botonMostrarAlumnosActionPerformed
-
     private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarActionPerformed
         // Se comprueba si se ha seleccionado a un alumno para modificarlo
         int filaSel = tablaAlumnos.getSelectedRow();
         if (filaSel == -1) {
             JOptionPane.showMessageDialog(this, "Debes seleccionar un jugador", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            // Se extraen sus datos y se procede a la modificación en otro formulario
-            String n = (String) tablaAlumnos.getValueAt(filaSel, 0);
-            String pA = (String) tablaAlumnos.getValueAt(filaSel, 1);
-            String sA = (String) tablaAlumnos.getValueAt(filaSel, 2);
-            String f = (String) tablaAlumnos.getValueAt(filaSel, 3);
-            String c = (String) tablaAlumnos.getValueAt(filaSel, 16);
-            String d = (String) tablaAlumnos.getValueAt(filaSel, 6);
-            String l = (String) tablaAlumnos.getValueAt(filaSel, 7);
-            String cP = (String) tablaAlumnos.getValueAt(filaSel, 8);
-            String p = (String) tablaAlumnos.getValueAt(filaSel, 9);
-            String co = (String) tablaAlumnos.getValueAt(filaSel, 10);
-            String nP = (String) tablaAlumnos.getValueAt(filaSel, 11);
-            String nM = (String) tablaAlumnos.getValueAt(filaSel, 12);
-            String tF = (String) tablaAlumnos.getValueAt(filaSel, 13);
-            String tM = (String) tablaAlumnos.getValueAt(filaSel, 14);
-            String e = (String) tablaAlumnos.getValueAt(filaSel, 15);
-            String t = (String) tablaAlumnos.getValueAt(filaSel, 5);
-            String s = (String) tablaAlumnos.getValueAt(filaSel, 4);
-            new AñadirModificarJugador(this, this.bd, n, pA, sA, f, c, d, l, Integer.parseInt(cP), p, co, nP, nM,
-                    Integer.parseInt(tF), Integer.parseInt(tM), e, t, s).setVisible(true);
+            try {
+                new AñadirConsultarModificarJugador(this, this.bd, Integer.parseInt((String)tablaAlumnos.getValueAt(filaSel, 0)), false).setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(PrincipalJugadores.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_botonModificarActionPerformed
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonEliminarAlumno;
-    private javax.swing.JButton botonModificar;
-    private javax.swing.JButton botonMostrarAlumnos;
-    private javax.swing.JButton botonNuevoAlumno;
-    private javax.swing.JLabel categoriaAlLabel;
-    private javax.swing.JComboBox consultaCategoria;
-    private javax.swing.JComboBox consultaEntrenador;
-    private javax.swing.JComboBox consultaEquipo;
-    private javax.swing.JComboBox consultaGrupo;
-    private javax.swing.JComboBox consultaTemporada;
-    private javax.swing.JTextField edadAl;
-    private javax.swing.JLabel edadAlLabel;
-    private javax.swing.JLabel entrenadorAlLabel;
-    private javax.swing.JLabel equipoAlLabel;
-    private javax.swing.JButton estadisticasJugador;
-    private javax.swing.JLabel grupoAlLabel;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField nombreAl;
-    private javax.swing.JLabel nombreAlLabel;
-    private javax.swing.JScrollPane panelResulAl;
-    private javax.swing.JTextField primerApellidoAl;
-    private javax.swing.JLabel primerApellidoLabel;
-    private javax.swing.JTextField segundoApellidoAl;
-    private javax.swing.JLabel segundoApellidoLabel;
-    private javax.swing.JTable tablaAlumnos;
-    private javax.swing.JLabel temporadaLabel;
-    // End of variables declaration//GEN-END:variables
 
-    /**
-     * Actualiza la tabla donde se muestran los alumnos
-     */
-    public void actualizarTabla() {
+    private void nombreAlumnoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreAlumnoKeyReleased
+        alumnosFiltrado();
+    }//GEN-LAST:event_nombreAlumnoKeyReleased
+
+    private void edadAlKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edadAlKeyReleased
+        alumnosFiltrado();
+    }//GEN-LAST:event_edadAlKeyReleased
+
+    private void consultaTemporadaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_consultaTemporadaItemStateChanged
+        if (evt.getStateChange() == 1) alumnosFiltrado();
+    }//GEN-LAST:event_consultaTemporadaItemStateChanged
+
+    private void consultaCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_consultaCategoriaItemStateChanged
+        if (evt.getStateChange() == 1) alumnosFiltrado();
+    }//GEN-LAST:event_consultaCategoriaItemStateChanged
+
+    private void consultaEquipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_consultaEquipoItemStateChanged
+        if (evt.getStateChange() == 1) alumnosFiltrado();
+    }//GEN-LAST:event_consultaEquipoItemStateChanged
+
+    private void consultaGrupoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_consultaGrupoItemStateChanged
+        if (evt.getStateChange() == 1) alumnosFiltrado();
+    }//GEN-LAST:event_consultaGrupoItemStateChanged
+
+    private void consultaEntrenadorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_consultaEntrenadorItemStateChanged
+        if (evt.getStateChange() == 1) alumnosFiltrado();
+    }//GEN-LAST:event_consultaEntrenadorItemStateChanged
+
+    private void consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarActionPerformed
+        // Se comprueba si se ha seleccionado a un alumno para modificarlo
+        int filaSel = tablaAlumnos.getSelectedRow();
+        if (filaSel == -1) {
+            JOptionPane.showMessageDialog(this, "Debes seleccionar un jugador", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                new AñadirConsultarModificarJugador(this, this.bd, Integer.parseInt((String)tablaAlumnos.getValueAt(filaSel, 0)), true).setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(PrincipalJugadores.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_consultarActionPerformed
+
+    public void alumnosFiltrado() {
+        String consulta = "SELECT a.idAlumno, CONCAT(`a`.`nombre`,' ',`a`.`primerApellido`,' ',`a`.`segundoApellido`), "
+                + "a.localidad, a.sexo "
+                + "FROM alumno a";
+        String tablasImplicadas = ", alumnotemporada at, temporada t";
+        String where = " WHERE at.alumno_idalumno=a.idalumno and at.temporada_idtemporada=t.idTemporada and t.curso='" + consultaTemporada.getSelectedItem().toString() + "' AND";
+        if (!nombreAlumno.getText().isEmpty()) {
+            where = where + " CONCAT(`a`.`nombre`,' ',`a`.`primerApellido`,' ',`a`.`segundoApellido`) LIKE '%" + nombreAlumno.getText() + "%' AND ";
+        }
+        if (!edadAl.getText().isEmpty() && edadAl.getText().matches("[1-9][0-9]*")) {
+            Calendar cal1 = Calendar.getInstance();  //con la hora actual del sistema calculamos la edad del alumno
+            int diaAct, mesAct, anoAct;
+            String fechaAct, fechaNac;
+            diaAct = cal1.get(Calendar.DATE);
+            mesAct = cal1.get(Calendar.MONTH) + 1;
+            anoAct = cal1.get(Calendar.YEAR) - Integer.parseInt(edadAl.getText());
+            fechaAct = anoAct + "-" + mesAct + "-" + diaAct;
+            fechaNac = (anoAct - 1) + "-" + mesAct + "-" + diaAct;
+            where = where + " a.fechaNacimiento <= '" + fechaAct + "' AND " + " a.fechaNacimiento > '" + fechaNac + "' AND";
+        }
+        if (!consultaGrupo.getSelectedItem().toString().equals("No seleccionado")) {
+            where = where + " ag.alumno_idalumno=a.idalumno AND ag.Grupo_idGrupo=" + consultaGrupo.getSelectedItem().toString() + " AND";
+            tablasImplicadas = tablasImplicadas + ", alumnogrupo ag";
+        }
+        if (!consultaCategoria.getSelectedItem().toString().equals("No seleccionada")) {
+            where = where + " ag.Grupo_Categoria_idCategoria=c.idCategoria AND c.tipo='" + consultaCategoria.getSelectedItem().toString() + "' AND";
+            tablasImplicadas = tablasImplicadas + ", categoria c";
+            if (!tablasImplicadas.contains("alumnogrupo")) tablasImplicadas = tablasImplicadas + ", alumnogrupo ag";
+        }
+        if (!consultaEntrenador.getSelectedItem().toString().equals("No seleccionado")) {
+            where = where + " ag.Grupo_Usuario_idUsuario=u.idUsuario and CONCAT(`u`.`nombre`,' ',`u`.`primerApellido`,' ',`u`.`segundoApellido`)='" + consultaEntrenador.getSelectedItem().toString() + "' AND";
+            tablasImplicadas = tablasImplicadas + ", usuario u";
+            if (!tablasImplicadas.contains("alumnogrupo")) tablasImplicadas = tablasImplicadas + ", alumnogrupo ag";
+        }
+        if (!consultaEquipo.getSelectedItem().toString().equals("No seleccionado")) {
+            where = where + " ae.Alumno_idAlumno=a.idalumno AND ae.Equipo_idEquipo=" + consultaEquipo.getSelectedItem().toString() + " AND";
+            tablasImplicadas = tablasImplicadas + ", alumnoequipo ae";
+        }
+
+        if (!tablasImplicadas.isEmpty()) {
+            consulta = consulta + tablasImplicadas;
+        }
+        if (!where.equals(" WHERE")) {
+            consulta = consulta + where;
+        }
+        String con = consulta.substring(0, consulta.length()-4);
+        ResultSet retset = this.bd.ejecutaConsulta(con);
+
         try {
-            String consulta_alumnos = leeConsultaAlumnosInterfaz();
-            ResultSet retset = GestorAlumnos.consultarAlumno(this.bd, consulta_alumnos);
-
             // Se extraen los datos de la BD segun los filtros que haya puesto el usuario
             ArrayList<ArrayList<Object>> dataCollection = new ArrayList<>();
             ArrayList<Object> row;
             while (retset.next()) {
                 row = new ArrayList<>();
-                row.add(retset.getString("a.nombre"));
-                row.add(retset.getString("a.primerApellido"));
-                row.add(retset.getString("a.segundoApellido"));
-                row.add(retset.getString("a.fechaNacimiento"));
-                row.add(retset.getString("a.sexo"));
-                row.add(retset.getString("a.talla"));
-                row.add(retset.getString("a.domicilio"));
-                row.add(retset.getString("a.localidad"));
-                row.add(retset.getString("a.codigopostal"));
-                row.add(retset.getString("a.provincia"));
-                row.add(retset.getString("a.colegio"));
-                row.add(retset.getString("a.nombrepadre"));
-                row.add(retset.getString("a.nombremadre"));
-                row.add(retset.getString("a.telfijo"));
-                row.add(retset.getString("a.telmovil"));
-                row.add(retset.getString("a.email"));
-                row.add(retset.getString("a.numerocuenta"));
+                row.add(retset.getString("idAlumno"));
+                row.add(retset.getString(2));
+                row.add(retset.getString("localidad"));
+                if (retset.getString("sexo").equals("M")) row.add("Masculino");
+                else row.add("Femenino");
                 dataCollection.add(row);
             }
 
@@ -503,18 +444,10 @@ public class PrincipalJugadores extends javax.swing.JFrame {
                 data[i] = dataCollection.get(i).toArray(new Object[17]);
             }
 
-            // Se introducen los datos en la tabla
-            DefaultTableModel dtm = new DefaultTableModel(data, new String[]{"Nombre", "Primer Apellido", "Segundo Apellido",
-                "Fecha Nacimiento", "Sexo", "Talla", "Domicilio", "Localidad", "CP", "Provincia", "Colegio", "Nombre Padre",
-                "Nombre Madre", "Tel. Fijo", "Tel. Movil", "Email", "Numero Cuenta"
-            }) {
-                Class[] types = new Class[]{java.lang.String.class, java.lang.String.class, java.lang.String.class,
-                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class,
-                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class,
-                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class,
-                    java.lang.String.class, java.lang.String.class};
-                boolean[] canEdit = new boolean[]{false, false, false, false, false, false, false, false, false,
-                    false, false, false, false, false, false, false, false};
+            // Se introducen los datos enpaco la tabla
+            DefaultTableModel dtm = new DefaultTableModel(data, new String[]{"ID alumno", "Nombre completo", "Localidad", "Sexo"}) {
+                Class[] types = new Class[]{String.class, String.class, String.class, String.class};
+                boolean[] canEdit = new boolean[]{false, false, false, false};
 
                 @Override
                 public Class getColumnClass(int columnIndex) {
@@ -528,91 +461,48 @@ public class PrincipalJugadores extends javax.swing.JFrame {
             };
 
             tablaAlumnos.setModel(dtm);
+            tablaAlumnos.getColumnModel().getColumn(0).setMaxWidth(0);
+            tablaAlumnos.getColumnModel().getColumn(0).setMinWidth(0);
+            tablaAlumnos.getColumnModel().getColumn(0).setPreferredWidth(0);
+            
+            tablaAlumnos.getColumnModel().getColumn(2).setMaxWidth(150);
+            tablaAlumnos.getColumnModel().getColumn(2).setMinWidth(150);
+            tablaAlumnos.getColumnModel().getColumn(2).setPreferredWidth(150);
+            
+            tablaAlumnos.getColumnModel().getColumn(3).setMaxWidth(100);
+            tablaAlumnos.getColumnModel().getColumn(3).setMinWidth(100);
+            tablaAlumnos.getColumnModel().getColumn(3).setPreferredWidth(100);
         } catch (SQLException ex) {
             System.out.print(ex.getMessage());
         }
     }
 
-    /**
-     * Devuelve una consulta segun los filtros que haya puesto el usuario
-     *
-     * @return Un String.
-     */
-    private String leeConsultaAlumnosInterfaz() {
-        String consulta_alumnos = "SELECT a.idAlumno, a.talla, a.nombre, a.primerApellido, a.segundoApellido, a.nombrePadre, a.nombreMadre, a.numeroCuenta,"
-                + "a.telMovil, a.telFijo, a.observaciones, a.provincia, a.localidad, a.codigoPostal, a.colegio, a.domicilio, a.email, a.fechaNacimiento, "
-                + "a.sexo FROM ";
-        String tablasImplicadas = " alumno a ";
-        String condicionesConsulta = " WHERE ";
-
-        // Se van comprobando los filtros uno por uno, y en caso de que esten
-        // activados se filtra la consutla
-        if (!nombreAl.getText().equals("") || !primerApellidoAl.getText().equals("") || !segundoApellidoAl.getText().equals("")
-                || !edadAl.getText().equals("") || !consultaEquipo.getSelectedItem().equals("") || !consultaGrupo.getSelectedItem().equals("")
-                || !consultaCategoria.getSelectedItem().equals("") || !consultaTemporada.getSelectedItem().equals("") || !consultaEntrenador.getSelectedItem().equals("")) {
-            if (!nombreAl.getText().equals("")) {
-                condicionesConsulta = condicionesConsulta + " a.nombre='" + nombreAl.getText() + "' AND ";
-            }
-            if (!primerApellidoAl.getText().equals("")) {
-                condicionesConsulta = condicionesConsulta + " a.primerapellido='" + primerApellidoAl.getText() + "' AND ";
-            }
-            if (!segundoApellidoAl.getText().equals("")) {
-                condicionesConsulta = condicionesConsulta + " a.segundoapellido='" + segundoApellidoAl.getText() + "' AND ";
-            }
-            if (!edadAl.getText().equals("") && isInteger(edadAl.getText())) {
-                Calendar cal1 = Calendar.getInstance();  //con la hora actual del sistema calculamos la edad del alumno
-                int diaAct, mesAct, anoAct;
-                String fechaAnt, fechaPost;
-                diaAct = cal1.get(Calendar.DATE);
-                mesAct = cal1.get(Calendar.MONTH) + 1;
-                anoAct = cal1.get(Calendar.YEAR) - Integer.parseInt(edadAl.getText());
-                fechaAnt = anoAct + "-" + mesAct + "-" + diaAct;
-                fechaPost = (anoAct - 1) + "-" + mesAct + "-" + diaAct;
-                condicionesConsulta = condicionesConsulta + " a.fechaNacimiento <= '" + fechaAnt + "' AND " + " a.fechaNacimiento > '" + fechaPost + "' AND ";
-            }
-            if (!consultaGrupo.getSelectedItem().equals("") || !consultaCategoria.getSelectedItem().equals("") || !consultaTemporada.getSelectedItem().equals("") || !consultaEntrenador.getSelectedItem().equals("")) {
-                tablasImplicadas = tablasImplicadas + " , alumnogrupo ";
-                condicionesConsulta = condicionesConsulta + " alumnogrupo.alumno_idalumno=a.idalumno AND ";
-                if (!consultaGrupo.getSelectedItem().equals("")) {
-                    condicionesConsulta = condicionesConsulta + " alumnogrupo.Grupo_idGrupo=" + consultaGrupo.getSelectedItem() + " AND ";
-                }
-                if (!consultaCategoria.getSelectedItem().equals("")) {
-                    tablasImplicadas = tablasImplicadas + " , categoria ";
-                    condicionesConsulta = condicionesConsulta + " alumnogrupo.Grupo_Categoria_idCategoria=categoria.idCategoria AND categoria.tipo='" + consultaCategoria.getSelectedItem() + "' AND ";
-                }
-                if (!consultaEntrenador.getSelectedItem().equals("")) {
-                    tablasImplicadas = tablasImplicadas + " , usuario ";
-                    condicionesConsulta = condicionesConsulta + " alumnogrupo.Grupo_Usuario_idUsuario=usuario.idUsuario and concat(usuario.nombre, ' ', usuario.primerApellido)='" + consultaEntrenador.getSelectedItem() + "' AND ";
-                }
-            }
-            if (!consultaEquipo.getSelectedItem().equals("")) {
-                tablasImplicadas = tablasImplicadas + " , alumnoequipo ";
-                condicionesConsulta = condicionesConsulta + " alumnoequipo.Alumno_idAlumno=a.idalumno AND alumnoequipo.Equipo_idEquipo=" + consultaEquipo.getSelectedItem() + " AND ";
-            }
-            if (!consultaTemporada.getSelectedItem().equals("")) {
-                tablasImplicadas = tablasImplicadas + " , alumnotemporada, temporada ";
-                condicionesConsulta = condicionesConsulta + " alumnotemporada.alumno_idalumno=a.idalumno and alumnotemporada.temporada_idtemporada=temporada.idTemporada and temporada.curso='" + consultaTemporada.getSelectedItem() + "' AND ";
-            }
-
-            condicionesConsulta = condicionesConsulta.substring(0, condicionesConsulta.length() - 4);
-            tablasImplicadas = tablasImplicadas + condicionesConsulta;
-        }
-        consulta_alumnos = consulta_alumnos + tablasImplicadas;
-
-        return consulta_alumnos;
-    }
-
-    /**
-     * Método que comprueba si una variable de tipo String es entera.
-     * @param cadena Cadena a comprobar.
-     * @return un Booleano
-     */
-    private boolean isInteger(String cadena) {
-        try {
-            Integer.parseInt(cadena);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonEliminarAlumno;
+    private javax.swing.JButton botonModificar;
+    private javax.swing.JButton botonNuevoAlumno;
+    private javax.swing.JLabel categoriaAlLabel;
+    private javax.swing.JComboBox consultaCategoria;
+    private javax.swing.JComboBox consultaEntrenador;
+    private javax.swing.JComboBox consultaEquipo;
+    private javax.swing.JComboBox consultaGrupo;
+    private javax.swing.JComboBox consultaTemporada;
+    private javax.swing.JButton consultar;
+    private javax.swing.JTextField edadAl;
+    private javax.swing.JLabel edadAlLabel;
+    private javax.swing.JLabel entrenadorAlLabel;
+    private javax.swing.JLabel equipoAlLabel;
+    private javax.swing.JButton estadisticasJugador;
+    private javax.swing.JLabel grupoAlLabel;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel nombreAlLabel;
+    private javax.swing.JTextField nombreAlumno;
+    private javax.swing.JTable tablaAlumnos;
+    private javax.swing.JLabel temporadaLabel;
+    // End of variables declaration//GEN-END:variables
 }

@@ -7,9 +7,6 @@ package InterfazUsuario;
 
 import GestionDeUsuarios.GestorUsuarios;
 import ServiciosAlmacenamiento.BaseDatos;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import javax.swing.border.Border;
 
 /*
  ******************************************************************************

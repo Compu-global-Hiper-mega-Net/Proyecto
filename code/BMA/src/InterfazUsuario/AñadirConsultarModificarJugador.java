@@ -47,7 +47,7 @@ import javax.swing.border.Border;
  *
  * @author Compu-global-Hiper-mega-Net
  */
-public class AñadirModificarJugador extends javax.swing.JFrame {
+public class AñadirConsultarModificarJugador extends javax.swing.JFrame {
 
     private PrincipalJugadores pP;
     private BaseDatos bd;
@@ -63,7 +63,7 @@ public class AñadirModificarJugador extends javax.swing.JFrame {
      * @param pP Contexto de la aplicación.
      * @param bd Conexión con la BD.
      */
-    public AñadirModificarJugador(PrincipalJugadores pP, BaseDatos bd) {
+    public AñadirConsultarModificarJugador(PrincipalJugadores pP, BaseDatos bd) {
         initComponents();
         this.pP = pP;
         this.bd = bd;
@@ -72,7 +72,7 @@ public class AñadirModificarJugador extends javax.swing.JFrame {
         bordeDatePicker = fechaNac.getBorder();
         bordeError = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.red);
         ((JTextFieldDateEditor) fechaNac.getComponents()[1]).setEditable(false);
-        jLabel4.setVisible(false);
+        jLabel2.setText("Añadir jugador");
         botonModificar.setVisible(false);
         setTitle("Añadir jugador");
     }
@@ -100,9 +100,7 @@ public class AñadirModificarJugador extends javax.swing.JFrame {
      * @param tallaAlumno Talla de ropa.
      * @param sexo Sexo.
      */
-    public AñadirModificarJugador(PrincipalJugadores pP, BaseDatos bd, String nombre, String primerApellido, String segundoApellido, String fechaNac,
-            String cuentaCorriente, String domicilio, String localidad, int codPostal, String provincia, String colegio,
-            String nombrePadre, String nombreMadre, int telFijo, int telMovil, String email, String tallaAlumno, String sexo) {
+    public AñadirConsultarModificarJugador(PrincipalJugadores pP, BaseDatos bd, int idAlumno, boolean consulta) throws SQLException {
         initComponents();
         this.pP = pP;
         this.bd = bd;
@@ -111,48 +109,76 @@ public class AñadirModificarJugador extends javax.swing.JFrame {
         bordeDatePicker = this.fechaNac.getBorder();
         bordeError = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.red);
         ((JTextFieldDateEditor) this.fechaNac.getComponents()[1]).setEditable(false);
-        jLabel2.setVisible(false);
         botonAnadir.setVisible(false);
-        setTitle("Modificar jugador");
-        nombreAnt = nombre;
-        this.nombre.setText(nombre);
-        primerApellidoAnt = primerApellido;
-        this.primerApellido.setText(primerApellido);
-        segundoApellidoAnt = segundoApellido;
-        this.segundoApellido.setText(segundoApellido);
-        String[] fecha = fechaNac.split("-");
-        Calendar date = new GregorianCalendar(Integer.parseInt(fecha[0]), Integer.parseInt(fecha[1]) - 1, Integer.parseInt(fecha[2]));
-        fechaNacAnt = date;
-        this.fechaNac.setDate(date.getTime());
-        cuentaCorrienteAnt = cuentaCorriente;
-        this.numCuenta.setText(cuentaCorriente);
-        domicilioAnt = domicilio;
-        this.domicilio.setText(domicilioAnt);
-        localidadAnt = localidad;
-        this.localidad.setText(localidad);
-        codPostalAnt = codPostal;
-        this.codPostal.setText(String.valueOf(codPostal));
-        provinciaAnt = provincia;
-        this.provincia.setText(provincia);
-        colegioAnt = colegio;
-        this.colegio.setText(colegio);
-        nombrePadreAnt = nombrePadre;
-        this.nombrePadre.setText(nombrePadre);
-        nombreMadreAnt = nombreMadre;
-        this.nombreMadre.setText(nombreMadre);
-        telFijoAnt = telFijo;
-        this.telFijo.setText(String.valueOf(telFijo));
-        telMovilAnt = telMovil;
-        this.telMovil.setText(String.valueOf(telMovil));
-        emailAnt = email;
-        this.email.setText(email);
-        tallaAlumnoAnt = tallaAlumno;
-        this.talla.setSelectedItem(tallaAlumno);
-        sexoAnt = sexo;
-        if (sexo.equals("M")) {
-            this.sexoAlumno.setSelectedItem("Masculino");
+        
+        ResultSet resSet = bd.ejecutaConsulta("SELECT * FROM alumno WHERE idAlumno=" + idAlumno);
+        
+        if (resSet.next()) {
+            talla.setSelectedItem(resSet.getString("talla"));
+            nombre.setText(resSet.getString("nombre"));
+            primerApellido.setText(resSet.getString("primerApellido"));
+            segundoApellido.setText(resSet.getString("segundoApellido"));
+            String[] fecha = resSet.getString("fechaNacimiento").split("-");
+            Calendar date = new GregorianCalendar(Integer.parseInt(fecha[0]), Integer.parseInt(fecha[1]), Integer.parseInt(fecha[2]));
+            fechaNac.setDate(date.getTime());
+            numCuenta.setText(resSet.getString("numeroCuenta"));
+            localidad.setText(resSet.getString("localidad"));
+            domicilio.setText(resSet.getString("domicilio"));
+            codPostal.setText(resSet.getString("codigoPostal"));
+            provincia.setText(resSet.getString("provincia"));
+            colegio.setText(resSet.getString("colegio"));
+            nombrePadre.setText(resSet.getString("nombrePadre"));
+            nombreMadre.setText(resSet.getString("nombreMadre"));
+            telFijo.setText(resSet.getString("telFijo"));
+            telMovil.setText(resSet.getString("telMovil"));
+            email.setText(resSet.getString("email"));
+            if (resSet.getString("sexo").equals("M")) sexoAlumno.setSelectedItem("Masculino");
+            else sexoAlumno.setSelectedItem("Femenino");
+        }
+
+        if (consulta) {
+            this.nombre.setEditable(false);
+            this.primerApellido.setEditable(false);
+            this.segundoApellido.setEditable(false);
+            this.fechaNac.setEnabled(false);
+            this.numCuenta.setEditable(false);
+            this.domicilio.setEditable(false);
+            this.localidad.setEditable(false);
+            this.codPostal.setEditable(false);
+            this.provincia.setEditable(false);
+            this.colegio.setEditable(false);
+            this.nombrePadre.setEditable(false);
+            this.nombreMadre.setEditable(false);
+            this.telFijo.setEditable(false);
+            this.telMovil.setEditable(false);
+            this.email.setEditable(false);
+            this.talla.setEnabled(false);
+            this.sexoAlumno.setEnabled(false);
+            setTitle("Consultar jugador");
+            jLabel2.setText("Consultar jugador");
+            botonModificar.setVisible(false);
         } else {
-            this.sexoAlumno.setSelectedItem("Femenino");
+            tallaAlumnoAnt = resSet.getString("talla");
+            nombreAnt = resSet.getString("nombre");
+            primerApellidoAnt = resSet.getString("primerApellido");
+            segundoApellidoAnt = resSet.getString("segundoApellido");
+            String[] fecha = resSet.getString("fechaNacimiento").split("-");
+            Calendar date = new GregorianCalendar(Integer.parseInt(fecha[0]), Integer.parseInt(fecha[1]), Integer.parseInt(fecha[2]));
+            fechaNacAnt = date;
+            cuentaCorrienteAnt = resSet.getString("numeroCuenta");
+            domicilioAnt = resSet.getString("domicilio");
+            localidadAnt = resSet.getString("localidad");
+            codPostalAnt = resSet.getInt("codigoPostal");
+            provinciaAnt = resSet.getString("provincia");
+            colegioAnt = resSet.getString("colegio");
+            nombrePadreAnt = resSet.getString("nombrePadre");
+            nombreMadreAnt = resSet.getString("nombreMadre");
+            telFijoAnt = resSet.getInt("telFijo");
+            telMovilAnt = resSet.getInt("telMovil");
+            emailAnt = resSet.getString("email");
+            sexoAnt = resSet.getString("sexo");
+            setTitle("Modificar jugador");
+            jLabel2.setText("Modificar jugador");
         }
     }
 
@@ -167,7 +193,6 @@ public class AñadirModificarJugador extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel2 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         participante = new javax.swing.JLabel();
         nombreLabel = new javax.swing.JLabel();
@@ -214,15 +239,6 @@ public class AñadirModificarJugador extends javax.swing.JFrame {
         setResizable(false);
 
         jPanel2.setLayout(new java.awt.GridBagLayout());
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel4.setText("Modificar Jugador");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        jPanel2.add(jLabel4, gridBagConstraints);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText("Nuevo Jugador");
@@ -639,7 +655,7 @@ public class AñadirModificarJugador extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Alumno creado con exito",
                         "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
 
-                pP.actualizarTabla();
+                pP.alumnosFiltrado();
             }
             this.dispose();
         } else {
@@ -684,7 +700,7 @@ public class AñadirModificarJugador extends javax.swing.JFrame {
                         observaciones = al.getString("a.observaciones");
                     }
                 } catch (SQLException ex) {
-                    Logger.getLogger(AñadirModificarJugador.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(AñadirConsultarModificarJugador.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
                 Date dateFromDateChooser = fechaNac.getDate();
@@ -696,10 +712,11 @@ public class AñadirModificarJugador extends javax.swing.JFrame {
                         ((String) sexoAlumno.getSelectedItem()).substring(0, 1));
                 JOptionPane.showMessageDialog(null, "Alumno modificado con exito",
                         "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-                pP.actualizarTabla();
+                pP.alumnosFiltrado();
             }
         }
     }//GEN-LAST:event_botonModificarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAnadir;
     private javax.swing.JButton botonModificar;
@@ -716,7 +733,6 @@ public class AñadirModificarJugador extends javax.swing.JFrame {
     private javax.swing.JLabel fechaNacLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField localidad;
     private javax.swing.JLabel localidadLabel;

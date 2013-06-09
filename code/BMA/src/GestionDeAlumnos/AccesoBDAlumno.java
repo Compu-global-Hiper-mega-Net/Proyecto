@@ -389,42 +389,15 @@ class AccesoBDAlumno {
      * Método que elimina un alumno de la BD.
      *
      * @param accesoBD Conexión con la BD.
-     * @param alumnoNuevo Alumno a eliminar.
+     * @param idAlimno Id del alumno a eliminar.
      */
-    public static void eliminaAlumnoBD(BaseDatos accesoBD, Alumno alumnoNuevo) {
-
-        String selId = "SELECT a.idAlumno FROM alumno a WHERE a.nombre='" + alumnoNuevo.getNombre() + "' AND a.primerApellido='"
-                + alumnoNuevo.getPrimerApellido() + "' AND a.segundoApellido='" + alumnoNuevo.getSegundoApellido() + "' AND a.nombrePadre='"
-                + alumnoNuevo.getNombrePadre() + "' AND a.nombreMadre='" + alumnoNuevo.getNombreMadre() + "' ";
-        if (alumnoNuevo.getCuentaCorriente() != null) {
-            selId = selId + " AND a.numeroCuenta='" + alumnoNuevo.getCuentaCorriente() + "' ";
-        }
-        if (alumnoNuevo.getTelMovil() != 0) {
-            selId = selId + " AND a.telMovil=" + alumnoNuevo.getTelMovil() + " ";
-        }
-        if (alumnoNuevo.getTelFijo() != 0) {
-            selId = selId + " AND a.telFijo=" + alumnoNuevo.getTelFijo() + " ";
-        }
-        if (alumnoNuevo.getEmail() != null) {
-            selId = selId + " AND a.email='" + alumnoNuevo.getEmail() + "' ";
-        }
-
-        ResultSet retset;
-        try {
-            retset = accesoBD.ejecutaConsulta(selId);
-            if (retset.next()) {
-                alumnoNuevo.setIdAlumno(retset.getInt("idAlumno"));
-            }
-        } catch (SQLException ex) {
-            System.out.print(ex.getMessage());
-        }
-
+    public static void eliminaAlumnoBD(BaseDatos accesoBD, int idAlumno) {
         // Se elimina toda información relacionada con el alumno.
-        String delete1 = "delete from alumnoGrupo where alumnoGrupo.alumno_idalumno= " + alumnoNuevo.getIdAlumno();
-        String delete2 = "delete from alumnoEquipo where alumnoEquipo.alumno_idalumno= " + alumnoNuevo.getIdAlumno();
-        String delete3 = "delete from alumnoTemporada where alumnoTemporada.alumno_idalumno= " + alumnoNuevo.getIdAlumno();
-        String delete4 = "delete from pagoActividades where pagoActividades.alumno_idalumno= " + alumnoNuevo.getIdAlumno();
-        String delete5 = "DELETE FROM alumno WHERE alumno.idAlumno = " + alumnoNuevo.getIdAlumno();
+        String delete1 = "delete from alumnoGrupo where alumnoGrupo.alumno_idalumno= " + idAlumno;
+        String delete2 = "delete from alumnoEquipo where alumnoEquipo.alumno_idalumno= " + idAlumno;
+        String delete3 = "delete from alumnoTemporada where alumnoTemporada.alumno_idalumno= " + idAlumno;
+        String delete4 = "delete from pagoActividades where pagoActividades.alumno_idalumno= " + idAlumno;
+        String delete5 = "DELETE FROM alumno WHERE alumno.idAlumno = " + idAlumno;
 
         try {
             accesoBD.ejecutaActualizacion(delete1);
@@ -441,30 +414,18 @@ class AccesoBDAlumno {
     /**
      * Método que devuelve las estadísticas de un alumno.
      * @param accesoBD Conexión con la BD.
-     * @param nombre Nombre.
-     * @param apellido1 Primer apellido.
-     * @param apellido2 Segundo apellido.
-     * @param numCuenta Número de cuenta.
+     * @param idAlumno Id del alumno.
      * @return Conjunto de datos.
      * @throws SQLException Excepción que se lanza cuando hay un problema con la
      * BD.
      */
-    public static ResultSet buscarEstadisticas(BaseDatos accesoBD, String nombre, String apellido1, String apellido2, String numCuenta) throws SQLException {
-        // Se busca el identificador del alumno
-        String consulta = "SELECT idAlumno FROM Alumno "
-                + "WHERE nombre='" + nombre + "' AND primerApellido='" + apellido1 + "' AND segundoApellido='" + apellido2 + "'"
-                + " AND numeroCuenta='" + numCuenta + "'";
-        ResultSet rst = accesoBD.ejecutaConsulta(consulta);
-
-        if (!rst.next()) {
-            return null;
-        } else {
+    public static ResultSet buscarEstadisticas(BaseDatos accesoBD, int idAlumno) throws SQLException {
+        
             // Se buscan con el sus estadísticas.
-            int idAlumno = rst.getInt(1);
-            consulta = "SELECT p.idEquipo, p.idEquipoVisitante, e.asistencias, e.rebotesOfensivos, e.rebotesDefensivos, e.robos, e.perdidas, e.puntos FROM "
+            String consulta = "SELECT p.idEquipo, p.idEquipoVisitante, e.asistencias, e.rebotesOfensivos, e.rebotesDefensivos, e.robos, e.perdidas, e.puntos FROM "
                     + "EstadisticaAlumno e, partido p "
                     + "WHERE e.alumno_idAlumno='" + idAlumno + "' AND e.partido_idPartido=p.idPartido";
-            rst = accesoBD.ejecutaConsulta(consulta);
+            ResultSet rst = accesoBD.ejecutaConsulta(consulta);
 
             if (!rst.next()) {
                 return null;
@@ -472,6 +433,5 @@ class AccesoBDAlumno {
                 rst.beforeFirst();
                 return rst;
             }
-        }
     }
 }

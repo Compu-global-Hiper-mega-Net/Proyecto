@@ -146,32 +146,10 @@ public class GestorAlumnos {
      * Método que se utiliza para eliminar un alumno del sistema.
      *
      * @param accesoBD Conexión con la BD.
-     * @param nombre Nombre de pila.
-     * @param primerApellido Primer apellido.
-     * @param segundoApellido Segundo apellido.
-     * @param fechaNac Fecha de nacimiento.
-     * @param cuentaCorriente Cuenta correite.
-     * @param domicilio Residencia habitual.
-     * @param localidad Localidad.
-     * @param codPostal Código postal.
-     * @param provincia Provincia.
-     * @param colegio Colegio donde está escolarizado.
-     * @param nombrePadre Nombre del padre.
-     * @param nombreMadre Nombre de la madre.
-     * @param telFijo Teléfono fijo.
-     * @param telMovil Teléfono móvil.
-     * @param email Correo electrónico.
-     * @param tallaAlumno Talla de vestir.
-     * @param sexo Sexo.
+     * @param idAlumno Id del alumno a eliminar.
      */
-    public static void eliminaAlumno(BaseDatos accesoBD, String nombre, String primerApellido, String segundoApellido, Calendar fechaNac,
-            String cuentaCorriente, String domicilio, String localidad, int codPostal, String provincia, String colegio,
-            String nombrePadre, String nombreMadre, int telFijo, int telMovil, String email, String tallaAlumno, char sexo) {
-
-        Alumno alumnoEliminado = Alumno.crearAlumno(nombre, primerApellido, segundoApellido, fechaNac,
-                cuentaCorriente, domicilio, localidad, codPostal, provincia, colegio,
-                nombrePadre, nombreMadre, telFijo, telMovil, email, null, tallaAlumno, sexo);
-        AccesoBDAlumno.eliminaAlumnoBD(accesoBD, alumnoEliminado);
+    public static void eliminaAlumno(BaseDatos accesoBD, int idAlumno) {
+        AccesoBDAlumno.eliminaAlumnoBD(accesoBD, idAlumno);
     }
 
     /**
@@ -249,16 +227,13 @@ public class GestorAlumnos {
      * Método con el que obtener las estadisticas de un alumno.
      *
      * @param accesoBD Conexión con la BD.
-     * @param nombre Nombre del alumno,
-     * @param apellido1 Primer apellido.
-     * @param apellido2 Segundo apellido.
-     * @param numCuenta Número de cuenta donde se realizaran los cobros.
+     * @param idAlumno Id del alumno.
      * @return Devuelve las estadísticas del alumno especificado.
      * @throws SQLException Excepción que se lanza cuando hay un problema con la
      * BD.
      */
-    public static ResultSet consultarEstadisticasAlumno(BaseDatos accesoBD, String nombre, String apellido1, String apellido2, String numCuenta) throws SQLException {
-        return AccesoBDAlumno.buscarEstadisticas(accesoBD, nombre, apellido1, apellido2, numCuenta);
+    public static ResultSet consultarEstadisticasAlumno(BaseDatos accesoBD, int idAlumno) throws SQLException {
+        return AccesoBDAlumno.buscarEstadisticas(accesoBD, idAlumno);
     }
 
     public static List<String> getAlumnosCategoria(BaseDatos bd, int anio) throws SQLException {
