@@ -242,56 +242,58 @@ public class GruposBD {
         boolean salir = false;
         for (Integer it : listaIDAl) {
             
-            alumnoTresGrupos = GestorGrupos.AlumnoTresGrupos(accesoBD, it, idTemp);
+            if(!salir){
+                alumnoTresGrupos = GestorGrupos.AlumnoTresGrupos(accesoBD, it, idTemp);
             
-            if(alumnoTresGrupos){
-                //String nomAlumno = GestorAlumnos.get
-                //JOptionPane.showMessageDialog(null, "El alumno", dia2, messageType, null);
-            }
+                if(alumnoTresGrupos){
+                    String nomAlumno = GestorAlumnos.getNombreAlumno(accesoBD, it);
+                    JOptionPane.showMessageDialog(null, "El alumno "+nomAlumno+" ya esta en dos grupos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    salir = true;
+                }
             
-            query5 = "INSERT INTO Alumnogrupo (Alumno_idAlumno, Grupo_idGrupo, "
+                query5 = "INSERT INTO Alumnogrupo (Alumno_idAlumno, Grupo_idGrupo, "
                     + "Grupo_Categoria_idCategoria, Grupo_Usuario_idUsuario, "
                     + "Grupo_Temporada_idTemporada) VALUES "
                     + "('" + it + "','" + idGrupo + "','" + idCat + "','" + idEnt + "','" + idTemp + "')";
-            res5 = accesoBD.ejecutaActualizacion(query5);
+                res5 = accesoBD.ejecutaActualizacion(query5);
 
 
-            existeAl = GestorGrupos.existeAlumnoTemporada(accesoBD, it, idTemp);
-            if (!existeAl) {
+                existeAl = GestorGrupos.existeAlumnoTemporada(accesoBD, it, idTemp);
+                if (!existeAl) {
 
-                query5 = "INSERT INTO AlumnoTemporada (Alumno_idAlumno,"
+                    query5 = "INSERT INTO AlumnoTemporada (Alumno_idAlumno,"
                         + "Temporada_idTemporada) VALUES "
                         + "('" + it + "','" + idTemp + "')";
-                res5 = accesoBD.ejecutaActualizacion(query5);
-                auxcurso = curso;
-                auxCont = 9;
-                for (int i = 0; i < 9; i++) {
-
-                    query5 = "INSERT INTO Cuota (fecha,pagado) VALUES "
-                            + "('" + auxcurso + "-" + auxCont + "-1','0')";
                     res5 = accesoBD.ejecutaActualizacion(query5);
+                    auxcurso = curso;
+                    auxCont = 9;
+                    for (int i = 0; i < 9; i++) {
 
-                    query5 = "SELECT DISTINCT LAST_INSERT_ID() FROM Cuota";
-                    res4 = accesoBD.ejecutaConsulta(query5);
-                    if (res4.next()) {
+                        query5 = "INSERT INTO Cuota (fecha,pagado) VALUES "
+                            + "('" + auxcurso + "-" + auxCont + "-1','0')";
+                        res5 = accesoBD.ejecutaActualizacion(query5);
+
+                        query5 = "SELECT DISTINCT LAST_INSERT_ID() FROM Cuota";
+                        res4 = accesoBD.ejecutaConsulta(query5);
+                        if (res4.next()) {
                         idCuota = res4.getInt(1);
-                    }
+                        }
 
-                    query5 = "INSERT INTO PagoTemporada "
+                        query5 = "INSERT INTO PagoTemporada "
                             + "(Cuota_idCuota,AlumnoTemporada_Alumno_idAlumno,"
                             + "AlumnoTemporada_Temporada_idTemporada) VALUES "
                             + "('" + idCuota + "','" + it + "','" + idTemp + "')";
-                    res5 = accesoBD.ejecutaActualizacion(query5);
+                        res5 = accesoBD.ejecutaActualizacion(query5);
 
-                    auxCont++;
-                    if (auxCont > 12) {
-                        auxCont = 1;
-                        auxcurso = auxcurso + 1;
+                        auxCont++;
+                        if (auxCont > 12) {
+                            auxCont = 1;
+                            auxcurso = auxcurso + 1;
+                        }
                     }
                 }
             }
         }
-
     }
 
     /**

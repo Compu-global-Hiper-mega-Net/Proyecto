@@ -276,4 +276,8 @@ public class GestorAlumnos {
 
         return listaAls;
     }
+
+    public static String getNombreAlumno(BaseDatos accesoBD, int idAl) throws SQLException {
+        return AccesoBDAlumno.getNombreAlumno(accesoBD, idAl);
+    }
 }

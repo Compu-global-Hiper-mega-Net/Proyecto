@@ -429,22 +429,23 @@ public class NuevoGrupo extends javax.swing.JFrame {
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         Integer a = Integer.parseInt(textHora.getText().toString());
         Integer a1 = Integer.parseInt(textMin.getText().toString());
+
+        
         String cadena = "";
-        if (!(a > 0 && a < 23) || !(a1 >= 0 && a1 < 59)) {
-            if (!(a1 >= 0 && a1 < 59)) {
+        if(true){
+            if (!(a > 0 && a < 23) || !(a1 >= 0 && a1 < 59)) {
+                if (!(a1 >= 0 && a1 < 59)) {
+                    cadena += "Los minutos introducidos no son validos\n";
+                }
+                if (!(a > 0 && a < 23)) {
+                    cadena += "La hora introducida no es valida";
+                }
 
-                cadena += "Los minutos introducidos no son validos\n";
-            }
-            if (!(a > 0 && a < 23)) {
-
-                cadena += "La hora introducida no es valida";
-            }
-
-            JOptionPane.showMessageDialog(this,
+                JOptionPane.showMessageDialog(this,
                     cadena, "Error",
                     JOptionPane.ERROR_MESSAGE);
-        } 
-        
+            } 
+        }
         else {
 
             if (textHora.getText().length() == 2 && textMin.getText().length() == 2) {
