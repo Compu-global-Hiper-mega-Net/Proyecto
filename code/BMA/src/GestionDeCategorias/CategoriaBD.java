@@ -42,6 +42,10 @@ import java.util.*;
  */
 public class CategoriaBD {
     
+    /* Usamos esta cláusula para distinguir entre mayúsculas
+     * y minúsculas en la consulta en SQL.
+     */
+    
     private static String may_min = "COLLATE utf8_bin";
     
     /**
@@ -128,7 +132,7 @@ public class CategoriaBD {
      * @throws SQLException 
      */
     static List<List<String>> getListaCategorias(BaseDatos accesoBD) throws SQLException {
-        List<List<String>> listaCats = new ArrayList<List<String>>();
+        List<List<String>> listaCats = new ArrayList<>();
         
         String query = "SELECT tipo,descripcion, edadmin FROM Categoria";
         ResultSet res = accesoBD.ejecutaConsulta(query);
@@ -136,7 +140,7 @@ public class CategoriaBD {
         List<String> aux;
         
         while(res.next()){
-            aux = new ArrayList<String>();
+            aux = new ArrayList<>();
             aux.add(res.getString(1));
             aux.add(res.getString(2));
             aux.add(String.valueOf(res.getInt(3)));
@@ -153,6 +157,8 @@ public class CategoriaBD {
      * modificar.
      * @param cViejo Objeto de la clase Categoria con los antiguos datos que van a ser 
      * modificados.
+     * @param EdadMinima parametro formal de tipo int (entero) que representa
+     * la edad mínima del alumno.
      * @return 1 si la modificacion fue correcta, 0 en caso contrario.
      * @throws SQLException 
      */
@@ -234,7 +240,7 @@ public class CategoriaBD {
      */
     
     static List<String> getTipoCategorias(BaseDatos accesoBD) throws SQLException {
-        List<String> listaCats = new ArrayList<String>();
+        List<String> listaCats = new ArrayList<>();
         
         String query = "SELECT tipo FROM Categoria";
         ResultSet res = accesoBD.ejecutaConsulta(query);
@@ -267,6 +273,15 @@ public class CategoriaBD {
         
         return edad;
     }
+    
+    /**
+     * Permite obtener la edad mínima de las categorias almacenadas en la BD.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param cat Parametro formal de tipo String (Cadena) que contiene el dato
+     * de la categoria correspondiente.
+     * @return Una lista de <code>String</code> con los nombres de las categorias.
+     * @throws SQLException 
+     */
     
     static int getEdadMinimaCategoria(BaseDatos bd, String cat) throws SQLException
     {
