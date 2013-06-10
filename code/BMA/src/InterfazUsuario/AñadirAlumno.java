@@ -164,6 +164,7 @@ public class AñadirAlumno extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(ListaAlumnos);
 
+        AlumnosMostrados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(AlumnosMostrados);
 
         jLabel2.setText("Alumnos Apuntados:");

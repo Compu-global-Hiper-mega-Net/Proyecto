@@ -218,12 +218,15 @@ public class AccesoBDActividad {
         boolean exito = false;
 
         if (listaAlumnos.indexOf(idAlumno) != -1) {
+            int idCuota = getIDCuotaEliminar(accesoBD,idAlumno,actividad);
+            String deleteCuota = "DELETE FROM cuota WHERE idCuota = " + idCuota;
             String delete = "DELETE FROM pagoactividades WHERE Alumno_idAlumno = " + idAlumno + " AND Actividades_idActividades"
             + "= " + actividad;
             System.out.print("\n\nEliminar alumno " + delete);
             exito = accesoBD.eliminar(delete);
-        }
-        System.out.print("\n\nNo ha entrado en eliminar");
+            exito = accesoBD.eliminar(deleteCuota);
+        }else
+            System.out.print("\n\nNo ha entrado en eliminar");
 
         return exito;
     }
@@ -249,6 +252,21 @@ public class AccesoBDActividad {
         if (retset.next()) {
             id = retset.getInt(1);
         }
+        return id;
+    }
+    
+    public static int getIDCuotaEliminar(BaseDatos accesoBD, int alumno, int actividad) throws SQLException{
+        int id = 0;
+        String consulta = "SELECT Cuota_idCuota FROM pagoactividades WHERE "
+                + "Actividades_idActividades = " + actividad + " AND Alumno_idAlumno =" + alumno;
+        ResultSet retset = accesoBD.ejecutaConsulta(consulta);
+        
+        System.out.print("\nConsulta de la cuota " + consulta);
+        
+        if(retset.next()){
+            id = retset.getInt(1);
+        }
+        
         return id;
     }
 }
