@@ -42,6 +42,12 @@ import java.util.*;
  */
 public class CategoriaBD {
     
+    /* Usamos esta cláusula para distinguir entre mayúsculas
+     * y minúsculas en la consulta en SQL.
+     */
+    
+    private static String may_min = "COLLATE utf8_bin";
+    
     /**
      * Permite obtener una categoria a partir del identificador de la categoria.
      * @param accesoBD Usado para interactuar con la base de datos.
@@ -112,8 +118,8 @@ public class CategoriaBD {
      * @throws SQLException 
      */
     static int crearCategoria(BaseDatos accesoBD, Categoria c) throws SQLException {
-        String query = "INSERT INTO Categoria (tipo, descripcion) VALUES ('"+c.getNombreCategoria()+"',"
-                + "'"+c.getDescripcion()+"')";
+        String query = "INSERT INTO Categoria (tipo, descripcion, edadmin) VALUES ('"+c.getNombreCategoria()+"',"
+                + "'"+c.getDescripcion()+"',"+c.getEdadMinima()+")";
         int correcto = accesoBD.ejecutaActualizacion(query);
         return correcto;
     }
@@ -126,17 +132,18 @@ public class CategoriaBD {
      * @throws SQLException 
      */
     static List<List<String>> getListaCategorias(BaseDatos accesoBD) throws SQLException {
-        List<List<String>> listaCats = new ArrayList<List<String>>();
+        List<List<String>> listaCats = new ArrayList<>();
         
-        String query = "SELECT tipo,descripcion FROM Categoria";
+        String query = "SELECT tipo,descripcion, edadmin FROM Categoria";
         ResultSet res = accesoBD.ejecutaConsulta(query);
         
         List<String> aux;
         
         while(res.next()){
-            aux = new ArrayList<String>();
+            aux = new ArrayList<>();
             aux.add(res.getString(1));
             aux.add(res.getString(2));
+            aux.add(String.valueOf(res.getInt(3)));
             listaCats.add(aux);
         }
         
@@ -150,16 +157,18 @@ public class CategoriaBD {
      * modificar.
      * @param cViejo Objeto de la clase Categoria con los antiguos datos que van a ser 
      * modificados.
+     * @param EdadMinima parametro formal de tipo int (entero) que representa
+     * la edad mínima del alumno.
      * @return 1 si la modificacion fue correcta, 0 en caso contrario.
      * @throws SQLException 
      */
     static int ModificarCategoria(BaseDatos accesoBD, Categoria cNuevo, Categoria cViejo, int EdadMinima) throws SQLException {
-        int correcto = 0;
+        int correcto;
         
         String query = "SELECT idCategoria FROM Categoria WHERE "
-                + "tipo='"+cViejo.getNombreCategoria()+"' AND "
-                + "descripcion='"+cViejo.getDescripcion()+"'"
-                + "edadminima=" + EdadMinima;
+                + "tipo='"+cViejo.getNombreCategoria()+"' "+may_min+" AND "
+                + "descripcion='"+cViejo.getDescripcion()+"' "+may_min+" AND "
+                + "edadmin=" + EdadMinima;
         ResultSet res = accesoBD.ejecutaConsulta(query);
         
         int idCat = 0;
@@ -167,9 +176,8 @@ public class CategoriaBD {
             idCat = res.getInt(1);
         
         query = "UPDATE Categoria SET tipo='"+cNuevo.getNombreCategoria()+"', "
-                + "descripcion='"+cNuevo.getDescripcion()+"' WHERE "
-                + "idCategoria='"+idCat+"'"
-                + "edadminima=" + EdadMinima;
+                + "descripcion='"+cNuevo.getDescripcion()+"', edadmin="+EdadMinima+" WHERE "
+                + "idCategoria='"+idCat+"' ";
         
         correcto = accesoBD.ejecutaActualizacion(query);
         
@@ -185,11 +193,12 @@ public class CategoriaBD {
      * @throws SQLException 
      */
     static boolean existeCategoria(BaseDatos accesoBD, Categoria c) throws SQLException {
-        boolean existe = false;
+        boolean existe;
+        
         String query = "SELECT * FROM Categoria WHERE "
-                + "tipo='"+c.getNombreCategoria()+"' AND "
-                + "descripcion='"+c.getDescripcion()+"'"
-                + "edadminima="+c.getEdadMinima();
+                + "tipo='"+c.getNombreCategoria()+"' "+may_min+" AND "
+                + "descripcion='"+c.getDescripcion()+"' "+may_min+" AND "
+                + "edadmin="+c.getEdadMinima();
         
         ResultSet res = accesoBD.ejecutaConsulta(query);
         
@@ -198,8 +207,6 @@ public class CategoriaBD {
         else
             existe = false;
         
-        System.out.println();
-        System.out.println("existe vale:"+existe);
         
         return existe;
     }
@@ -214,8 +221,10 @@ public class CategoriaBD {
     static boolean EliminarCategoria(BaseDatos accesoBD, Categoria c) {
         String query = "DELETE FROM Categoria WHERE "
                 + "tipo='"+c.getNombreCategoria()+"' AND "
-                + "descripcion='"+c.getDescripcion()+"'";
+                + "descripcion='"+c.getDescripcion()+"' AND "
+                + "edadmin="+c.getEdadMinima()+"";
         System.out.println(query);
+
         boolean res = accesoBD.eliminar(query);
         
         
@@ -230,7 +239,7 @@ public class CategoriaBD {
      */
     
     static List<String> getTipoCategorias(BaseDatos accesoBD) throws SQLException {
-        List<String> listaCats = new ArrayList<String>();
+        List<String> listaCats = new ArrayList<>();
         
         String query = "SELECT tipo FROM Categoria";
         ResultSet res = accesoBD.ejecutaConsulta(query);
@@ -263,6 +272,15 @@ public class CategoriaBD {
         
         return edad;
     }
+    
+    /**
+     * Permite obtener la edad mínima de las categorias almacenadas en la BD.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param cat Parametro formal de tipo String (Cadena) que contiene el dato
+     * de la categoria correspondiente.
+     * @return Una lista de <code>String</code> con los nombres de las categorias.
+     * @throws SQLException 
+     */
     
     static int getEdadMinimaCategoria(BaseDatos bd, String cat) throws SQLException
     {

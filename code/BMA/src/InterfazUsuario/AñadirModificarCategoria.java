@@ -57,19 +57,21 @@ public class AñadirModificarCategoria extends javax.swing.JFrame {
         this.pP = pP;
         this.bd = bd;
         this.jLabel4.setVisible(false);
-        this.botoGuardar.setVisible(false);
+        this.botonGuardar.setVisible(false);
         setTitle("Añadir categoría");
     }
     
-    public AñadirModificarCategoria(PrincipalCategorias pP, BaseDatos bd, String t, String d) {
+    public AñadirModificarCategoria(PrincipalCategorias pP, BaseDatos bd, String t, String d, int e) {
         initComponents();
         this.setLocationRelativeTo(pP);
         this.bd = bd;
         this.pP = pP;
         this.textTipo.setText(t);
         this.textDesc.setText(d);
+        this.fieldEdadMinima.setText(String.valueOf(e));
         this.tAnt = t;
         this.dAnt = d;
+        this.eAnt = e;
         this.jLabel1.setVisible(false);
         this.botoAceptar.setVisible(false);
         setTitle("Modificar categoría");
@@ -93,7 +95,7 @@ public class AñadirModificarCategoria extends javax.swing.JFrame {
         textDesc = new javax.swing.JTextField();
         botonCancelar = new javax.swing.JButton();
         botoAceptar = new javax.swing.JButton();
-        botoGuardar = new javax.swing.JButton();
+        botonGuardar = new javax.swing.JButton();
         labelEdadMinima = new javax.swing.JLabel();
         fieldEdadMinima = new javax.swing.JTextField();
 
@@ -130,20 +132,14 @@ public class AñadirModificarCategoria extends javax.swing.JFrame {
             }
         });
 
-        botoGuardar.setText("Aceptar");
-        botoGuardar.addActionListener(new java.awt.event.ActionListener() {
+        botonGuardar.setText("Aceptar");
+        botonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botoGuardarActionPerformed(evt);
+                botonGuardarActionPerformed(evt);
             }
         });
 
         labelEdadMinima.setText("Edad Mínima:");
-
-        fieldEdadMinima.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldEdadMinimaActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -181,7 +177,7 @@ public class AñadirModificarCategoria extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap(167, Short.MAX_VALUE)
-                    .addComponent(botoGuardar)
+                    .addComponent(botonGuardar)
                     .addGap(90, 90, 90)))
         );
         layout.setVerticalGroup(
@@ -211,7 +207,7 @@ public class AñadirModificarCategoria extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap(119, Short.MAX_VALUE)
-                    .addComponent(botoGuardar)
+                    .addComponent(botonGuardar)
                     .addContainerGap()))
         );
 
@@ -219,9 +215,14 @@ public class AñadirModificarCategoria extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botoAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botoAceptarActionPerformed
-        if(!textTipo.getText().isEmpty() && !textDesc.getText().isEmpty()){
+        if(!textTipo.getText().isEmpty() && !textDesc.getText().isEmpty() && !fieldEdadMinima.getText().isEmpty()){
             try {
-                GestorCategorias.InsertarDatosCategorias(this.bd, textTipo.getText(), textDesc.getText());
+                if(fieldEdadMinima.getText().matches("[0-9]{1,45}"))
+                    EdadMinima = Integer.parseInt(fieldEdadMinima.getText());
+                else
+                    JOptionPane.showMessageDialog(this, "Debe modificar algun campo", "Error", JOptionPane.ERROR_MESSAGE);
+                
+                GestorCategorias.InsertarDatosCategorias(this.bd, textTipo.getText(), textDesc.getText(), Integer.parseInt(fieldEdadMinima.getText()));
                 pP.actualizarTabla();
                 this.dispose();
             } catch (SQLException ex) {
@@ -235,17 +236,17 @@ public class AñadirModificarCategoria extends javax.swing.JFrame {
        this.dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
-    private void botoGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botoGuardarActionPerformed
+    private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
         if(!textTipo.getText().isEmpty() && !textDesc.getText().isEmpty() && !fieldEdadMinima.getText().isEmpty()){
             
-            if(fieldEdadMinima.getText().matches("[0-9]{1,45}"))
+            if(fieldEdadMinima.getText().matches("[0-9]{1,2}"))
                 EdadMinima = Integer.parseInt(fieldEdadMinima.getText());
             else
                 JOptionPane.showMessageDialog(this, "Debe modificar algun campo", "Error", JOptionPane.ERROR_MESSAGE);
             
             if(!tAnt.equals(textTipo.getText()) || !dAnt.equals(textDesc.getText()) || !(eAnt == EdadMinima)) {
-                Categoria cNuevo = new Categoria(textTipo.getText(), textDesc.getText());
-                Categoria cViejo = new Categoria(tAnt, dAnt);
+                Categoria cNuevo = new Categoria(textTipo.getText(), textDesc.getText(), Integer.parseInt(fieldEdadMinima.getText()));
+                Categoria cViejo = new Categoria(tAnt, dAnt, eAnt);
                 
                 try {
                     GestorCategorias.ModificarCategoria(this.bd, cNuevo, cViejo,EdadMinima);
@@ -259,17 +260,12 @@ public class AñadirModificarCategoria extends javax.swing.JFrame {
             }
         } else
             JOptionPane.showMessageDialog(this, "Debe rellenar los campos", "Error", JOptionPane.ERROR_MESSAGE);
-    }//GEN-LAST:event_botoGuardarActionPerformed
-
-    private void fieldEdadMinimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldEdadMinimaActionPerformed
-        
-        
-    }//GEN-LAST:event_fieldEdadMinimaActionPerformed
+    }//GEN-LAST:event_botonGuardarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botoAceptar;
-    private javax.swing.JButton botoGuardar;
     private javax.swing.JButton botonCancelar;
+    private javax.swing.JButton botonGuardar;
     private javax.swing.JTextField fieldEdadMinima;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

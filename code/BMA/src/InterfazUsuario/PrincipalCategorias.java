@@ -156,8 +156,9 @@ public class PrincipalCategorias extends javax.swing.JFrame {
         } else {
             String tipoCat = (String) tablaCategorias.getValueAt(fileSeleccionada, 0);
             String descCat = (String) tablaCategorias.getValueAt(fileSeleccionada, 1);
-
-            new AñadirModificarCategoria(this, this.bd, tipoCat, descCat).setVisible(true);
+            int edadCat = Integer.parseInt(tablaCategorias.getValueAt(fileSeleccionada, 2).toString());
+                    
+            new AñadirModificarCategoria(this, this.bd, tipoCat, descCat, edadCat).setVisible(true);
         }
     }//GEN-LAST:event_botonModCatActionPerformed
 
@@ -168,8 +169,9 @@ public class PrincipalCategorias extends javax.swing.JFrame {
         } else {
             String tipoCat = (String) tablaCategorias.getValueAt(fileSeleccionada, 0);
             String descCat = (String) tablaCategorias.getValueAt(fileSeleccionada, 1);
+            int edadCat = Integer.parseInt(tablaCategorias.getValueAt(fileSeleccionada, 2).toString());
 
-            Categoria c = new Categoria(tipoCat, descCat);
+            Categoria c = new Categoria(tipoCat, descCat, edadCat);
             int continuar = JOptionPane.showConfirmDialog(this, "¿Desea eliminar la categoria?", "Confirmar", JOptionPane.YES_NO_OPTION);
             if (continuar == JOptionPane.YES_OPTION) {
                 GestorCategorias.EliminarCategorias(this.bd, c);
@@ -184,15 +186,16 @@ public class PrincipalCategorias extends javax.swing.JFrame {
 
     protected void actualizarTabla() throws SQLException {
         List<List<String>> listaCats = GestorCategorias.getListaCategorias(this.bd);
-        Object[][] data = new Object[listaCats.size()][2];
+        Object[][] data = new Object[listaCats.size()][3];
         for (int i = 0; i < listaCats.size(); i++) {
             data[i][0] = listaCats.get(i).get(0);
             data[i][1] = listaCats.get(i).get(1).substring(0, listaCats.get(i).get(1).length());
+            data[i][2] = listaCats.get(i).get(2);
         }
 
-        DefaultTableModel dtm = new DefaultTableModel(data, new String[] { "Tipo", "Descripcion"}) {
-            Class[] types = new Class[] { java.lang.String.class, java.lang.String.class};
-            boolean[] canEdit = new boolean[] { false, false };
+        DefaultTableModel dtm = new DefaultTableModel(data, new String[] { "Tipo", "Descripcion", "Edad Mínima"}) {
+            Class[] types = new Class[] { java.lang.String.class, java.lang.String.class, java.lang.String.class};
+            boolean[] canEdit = new boolean[] { false, false, false };
 
             @Override
             public Class getColumnClass(int columnIndex) {

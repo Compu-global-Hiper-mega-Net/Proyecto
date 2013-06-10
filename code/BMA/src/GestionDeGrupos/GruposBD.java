@@ -14,10 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Diego y carlos
- */
+
 
 /*
  ******************************************************************************
@@ -45,6 +42,11 @@ import javax.swing.JOptionPane;
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************
+ */
+
+/**
+ *
+ * @author Diego y Carlos
  */
 public class GruposBD {
 
@@ -190,14 +192,24 @@ public class GruposBD {
         int res1 = accesoBD.ejecutaActualizacion(query1);
 
 
-        String query2 = "SELECT idHorario FROM Horario WHERE "
+        //Comentado para intentar solucionar la eliminacion de grupos
+        /*String query2 = "SELECT idHorario FROM Horario WHERE "
                 + "Instalacion_idInstalacion='" + idInst + "'"
                 + " AND dia1='" + dia1 + "' AND dia2='" + dia2 + "' AND hora1='" + hora + "'";
         ResultSet res2 = accesoBD.ejecutaConsulta(query2);
         int idHorario = 0;
         if (res2.next()) {
             idHorario = res2.getInt(1);
-        }
+        }*/
+        
+        
+        //Intento de solucion para eliminar grupo
+        query1 = "SELECT DISTINCT LAST_INSERT_ID() FROM Horario";
+        ResultSet res2 = accesoBD.ejecutaConsulta(query1);
+        int idHorario = 0;
+        if(res2.next())
+            idHorario = res2.getInt(1);
+        
 
         String query3 = "INSERT INTO Grupo (n_alumnos, Categoria_idCategoria, "
                 + "Usuario_idUsuario, Temporada_idTemporada, Horario_idHorario, "
@@ -221,56 +233,69 @@ public class GruposBD {
 
         String query5 = "";
         int res5 = 0;
-        boolean existeAl = false;
+        boolean existeAl ;
         int curso = GestorTemporadas.getAnio(accesoBD, idTemp);
         int auxcurso;
         int auxCont = 9;
         int idCuota = 0;
+        boolean alumnoTresGrupos = false;
+        boolean salir = false;
+        
         for (Integer it : listaIDAl) {
-
-            query5 = "INSERT INTO Alumnogrupo (Alumno_idAlumno, Grupo_idGrupo, "
+            
+            if(!salir){
+                alumnoTresGrupos = GestorGrupos.AlumnoTresGrupos(accesoBD, it, idTemp);
+                System.getProperties();
+                System.out.println(alumnoTresGrupos);
+                if(alumnoTresGrupos){
+                    String nomAlumno = GestorAlumnos.getNombreAlumno(accesoBD, it);
+                    JOptionPane.showMessageDialog(null, "El alumno "+nomAlumno+" ya esta en dos grupos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    salir = true;
+                }
+                
+                query5 = "INSERT INTO Alumnogrupo (Alumno_idAlumno, Grupo_idGrupo, "
                     + "Grupo_Categoria_idCategoria, Grupo_Usuario_idUsuario, "
                     + "Grupo_Temporada_idTemporada) VALUES "
                     + "('" + it + "','" + idGrupo + "','" + idCat + "','" + idEnt + "','" + idTemp + "')";
-            res5 = accesoBD.ejecutaActualizacion(query5);
+                res5 = accesoBD.ejecutaActualizacion(query5);
 
 
-            existeAl = GestorGrupos.existeAlumnoTemporada(accesoBD, it, idTemp);
-            if (!existeAl) {
+                existeAl = GestorGrupos.existeAlumnoTemporada(accesoBD, it, idTemp);
+                if (!existeAl) {
 
-                query5 = "INSERT INTO AlumnoTemporada (Alumno_idAlumno,"
+                    query5 = "INSERT INTO AlumnoTemporada (Alumno_idAlumno,"
                         + "Temporada_idTemporada) VALUES "
                         + "('" + it + "','" + idTemp + "')";
-                res5 = accesoBD.ejecutaActualizacion(query5);
-                auxcurso = curso;
-                auxCont = 9;
-                for (int i = 0; i < 9; i++) {
-
-                    query5 = "INSERT INTO Cuota (fecha,pagado) VALUES "
-                            + "('" + auxcurso + "-" + auxCont + "-1','0')";
                     res5 = accesoBD.ejecutaActualizacion(query5);
+                    auxcurso = curso;
+                    auxCont = 9;
+                    for (int i = 0; i < 9; i++) {
 
-                    query5 = "SELECT DISTINCT LAST_INSERT_ID() FROM Cuota";
-                    res4 = accesoBD.ejecutaConsulta(query5);
-                    if (res4.next()) {
+                        query5 = "INSERT INTO Cuota (fecha,pagado) VALUES "
+                            + "('" + auxcurso + "-" + auxCont + "-1','0')";
+                        res5 = accesoBD.ejecutaActualizacion(query5);
+
+                        query5 = "SELECT DISTINCT LAST_INSERT_ID() FROM Cuota";
+                        res4 = accesoBD.ejecutaConsulta(query5);
+                        if (res4.next()) {
                         idCuota = res4.getInt(1);
-                    }
+                        }
 
-                    query5 = "INSERT INTO PagoTemporada "
+                        query5 = "INSERT INTO PagoTemporada "
                             + "(Cuota_idCuota,AlumnoTemporada_Alumno_idAlumno,"
                             + "AlumnoTemporada_Temporada_idTemporada) VALUES "
                             + "('" + idCuota + "','" + it + "','" + idTemp + "')";
-                    res5 = accesoBD.ejecutaActualizacion(query5);
+                        res5 = accesoBD.ejecutaActualizacion(query5);
 
-                    auxCont++;
-                    if (auxCont > 12) {
-                        auxCont = 1;
-                        auxcurso = auxcurso + 1;
+                        auxCont++;
+                        if (auxCont > 12) {
+                            auxCont = 1;
+                            auxcurso = auxcurso + 1;
+                        }
                     }
                 }
             }
         }
-
     }
 
     /**
@@ -982,7 +1007,7 @@ public class GruposBD {
         /*
          * Primeramente Eliminamos los alumnos del grupos en cuestion
          */
-        String queryAlumnos = "select Alumno_idAlumno FROM alumnogrupo Where"
+        String queryAlumnos = "SELECT Alumno_idAlumno FROM alumnogrupo Where"
                 + " Grupo_idGrupo = '" + g.getIdGrupo() + "' "
                 + " AND Grupo_Categoria_idCategoria= '" + g.getIdCategoria() + "' "
                 + " AND Grupo_Usuario_idUsuario = '" + g.getIdEntrenador() + "' AND "
@@ -995,7 +1020,8 @@ public class GruposBD {
                 + " AND Grupo_Usuario_idUsuario = '" + g.getIdEntrenador() + "' AND "
                 + " Grupo_Temporada_idTemporada = '" + g.getIdTemporada() + "' ";
        // System.out.println(query3);
-        boolean eliminaAlumGrup = accesoBD.eliminar(query3);
+        boolean eliminaAlumGrup = false;
+        eliminaAlumGrup = accesoBD.eliminar(query3);
 
         String queryGrupoPagos = "select Alumno_idAlumno,count(Alumno_idAlumno) FROM alumnogrupo Where"
                 + " Alumno_idAlumno = '";
@@ -1012,20 +1038,15 @@ public class GruposBD {
             } else {
                 //borrar pagos
 
-                String BorradoPago = "delete From cuota where idCuota IN (select pt.Cuota_idCuota"
+                String BorradoPago = "DELETE FROM cuota WHERE idCuota IN (select pt.Cuota_idCuota"
                         + " FROM alumnogrupo ag,pagotemporada pt"
                         + " Where ag.Alumno_idAlumno = '" + AlumnosBorrados.getString(1) + "'  "
-                        + " And pt.AlumnoTemporada_Alumno_idAlumno=ag.Alumno_idAlumno"
-                        + " And pt.AlumnoTemporada_Temporada_idTemporada=ag.Grupo_Temporada_idTemporada)";
+                        + " AND pt.AlumnoTemporada_Alumno_idAlumno=ag.Alumno_idAlumno"
+                        + " AND pt.AlumnoTemporada_Temporada_idTemporada=ag.Grupo_Temporada_idTemporada)";
 
 
 
-                // System.out.print(BorradoPago); ResultSet Borrado = 
-                //System.out.println("Consultaaa:" + BorradoPago);
                 accesoBD.eliminar(BorradoPago);
-                /*while (Borrado.next()) {
-                 System.out.println(Borrado.getString(1));
-                 }*/
                 String Pagos = "Se han dado de bajo pagos";
             }
 
@@ -1034,17 +1055,18 @@ public class GruposBD {
 
         String query4 = "DELETE FROM Grupo WHERE "
                 + "idGrupo='" + g.getIdGrupo() + "'";
-        boolean eliminaGrupo = accesoBD.eliminar(query4);
+        boolean eliminaGrupo = false;
+        eliminaGrupo = accesoBD.eliminar(query4);
         //System.out.println(query4);
 
         String query2 = "DELETE FROM Horario WHERE idHorario='" + idHor + "' AND "
                 + "Instalacion_idInstalacion='" + idInst + "'";
-
-        boolean eliminaHor = accesoBD.eliminar(query2);
-       // System.out.println(query2);
-
+        
+        boolean eliminaHor = false;
+        eliminaHor = accesoBD.eliminar(query2);
+       
         //Alumno_idAlumno='"+g.+"'
-
+        
 
         if (eliminaHor == true && eliminaGrupo == true && eliminaAlumGrup == true) {
             GrupoEliminado = true;
@@ -1071,7 +1093,7 @@ public class GruposBD {
                 + "WHERE Alumno_idAlumno='" + idAl + "' "
                 + "AND Temporada_idTemporada='" + idTemp + "'";
         ResultSet res = bd.ejecutaConsulta(query);
-
+        System.out.println("consulta:"+query);
         boolean existe = false;
 
         if (res.next()) {
@@ -1132,5 +1154,24 @@ public class GruposBD {
         } else {
             return false;
         }
+    }
+
+    static boolean AlumnoTresGrupos(BaseDatos accesoBD, Integer it, int idTemp) throws SQLException {
+        String query = "SELECT COUNT(*) from AlumnoGrupo WHERE "
+                + "Alumno_idAlumno='"+it+"' AND "
+                + "Grupo_Temporada_idTemporada='"+idTemp+"'";
+        ResultSet res = accesoBD.ejecutaConsulta(query);
+        
+        boolean existe = false;
+        int n = 0;
+        
+        
+        if(res.next());
+            n = res.getInt(1);
+            
+        if(n >= 2)
+            existe = true;
+        
+        return existe;
     }
 }

@@ -7,6 +7,9 @@ package InterfazUsuario;
 
 import GestionDeUsuarios.GestorUsuarios;
 import ServiciosAlmacenamiento.BaseDatos;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  ******************************************************************************
@@ -404,7 +407,11 @@ private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     }//GEN-LAST:event_instalacionesActionPerformed
 
     private void actividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actividadesActionPerformed
-        new PrincipalActividades(this, this.accesoBD).setVisible(true);
+        try {
+            new PrincipalActividades(this, this.accesoBD).setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_actividadesActionPerformed
 
     private void pagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagosActionPerformed

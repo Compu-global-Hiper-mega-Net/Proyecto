@@ -34,12 +34,13 @@ public class PrincipalPagos extends javax.swing.JFrame {
         ResultSet consulta;
 
         try {
-            consulta = accesoBD.ejecutaConsulta("SELECT * FROM grupo");
+            /*consulta = accesoBD.ejecutaConsulta("SELECT * FROM grupo");
             pago_grupo = new javax.swing.JComboBox();
             pago_grupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
             while (consulta.next()) {
+                
                 pago_grupo.addItem(consulta.getInt(1));
-            }
+            }*/
             consulta = accesoBD.ejecutaConsulta("SELECT * FROM temporada");
             pago_temporada.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
             while (consulta.next()) {
@@ -86,7 +87,7 @@ public class PrincipalPagos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel15.setText("Pagos");
 
         jLabel9.setText("Buscar Pagos por:");
@@ -103,6 +104,14 @@ public class PrincipalPagos extends javax.swing.JFrame {
         jLabel21.setText("Grupos/Actividad");
 
         pago_temporadaActividad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        pago_temporadaActividad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pago_temporadaActividadMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                pago_temporadaActividadMousePressed(evt);
+            }
+        });
         pago_temporadaActividad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pago_temporadaActividadActionPerformed(evt);
@@ -116,19 +125,13 @@ public class PrincipalPagos extends javax.swing.JFrame {
 
         jLabel23.setText("Nombre");
 
-        pago_nombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pago_nombreActionPerformed(evt);
-            }
-        });
-
         jLabel24.setText("Primer Apellido");
 
         jLabel25.setText("Segundo Apellido");
 
         pagos_etiqGrupo.setText("Grupos por temporada");
 
-        pago_grupo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Grupo" }));
+        pago_grupo.setToolTipText("");
 
         pagos_botonMostrar.setText("Mostrar");
         pagos_botonMostrar.addActionListener(new java.awt.event.ActionListener() {
@@ -314,12 +317,17 @@ public class PrincipalPagos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pago_temporadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pago_temporadaActionPerformed
-
         ResultSet consulta;
         try {
             if (!pago_temporada.getSelectedItem().equals("")) {
                 consulta = accesoBD.ejecutaConsulta("SELECT * FROM grupo, temporada WHERE grupo.Temporada_idTemporada=temporada.idTemporada AND temporada.curso='" + (String) pago_temporada.getSelectedItem() + "'");
-                pago_grupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
+                //pago_grupo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "fran", "Carlos" }));
+                //pago_grupo.setToolTipText("");
+                //pago_grupo.addItem("I");
+                System.out.println("\ncomponentes" + pago_grupo.getSelectedItem());
+                
+                //pago_grupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
+                pago_grupo.removeAll();
                 while (consulta.next()) {
                     System.out.println("\nconsulta.next()" + consulta.getInt(1));
                     pago_grupo.addItem(consulta.getInt(1));
@@ -343,17 +351,16 @@ public class PrincipalPagos extends javax.swing.JFrame {
             pagos_actividad.setVisible(false);
             pagos_etiqGrupo.setVisible(true);
             pago_grupo.setVisible(true);
+           // pago_temporadaActionPerformed(null); 
         } else {
+            pago_grupo.setEnabled(false);
+            pago_grupo.setSize(0, 0);
+            pago_grupo.setVisible(false);
             pagos_etiqActividad.setVisible(true);
             pagos_actividad.setVisible(true);
             pagos_etiqGrupo.setVisible(false);
-            pago_grupo.setVisible(false);
         }
     }//GEN-LAST:event_pago_temporadaActividadActionPerformed
-
-    private void pago_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pago_nombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pago_nombreActionPerformed
 
     private void pagos_botonMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagos_botonMostrarActionPerformed
         try {
@@ -666,8 +673,31 @@ public class PrincipalPagos extends javax.swing.JFrame {
     }//GEN-LAST:event_pagos_botonModificarActionPerformed
 
     private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagos_actividadActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_pagos_actividadActionPerformed
+
+private void pago_temporadaActividadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pago_temporadaActividadMouseClicked
+/*        if (pago_temporadaActividad.getSelectedItem().equals("Temporada")) {
+                     System.out.print("\nsaleeeeeeeeeeeeeeeeeee");
+            pagos_etiqActividad.setVisible(false);
+            pagos_actividad.setVisible(false);
+            pagos_etiqGrupo.setVisible(true);
+            pago_grupo.setVisible(true);
+        } else {
+               System.out.print("\nenttrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrra");
+            pago_grupo.setVisible(false);
+            pago_grupo.setVisible(false);
+            pago_grupo.setEnabled(false);
+            pagos_etiqActividad.setVisible(true);
+            pagos_actividad.setVisible(true);
+            pagos_etiqGrupo.setVisible(false);
+
+        }*/
+}//GEN-LAST:event_pago_temporadaActividadMouseClicked
+
+private void pago_temporadaActividadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pago_temporadaActividadMousePressed
+// TODO add your handling code here:
+}//GEN-LAST:event_pago_temporadaActividadMousePressed
 
     private String leeConsultaPagosInterfaz() {
 
