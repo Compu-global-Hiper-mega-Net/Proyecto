@@ -240,17 +240,19 @@ public class GruposBD {
         int idCuota = 0;
         boolean alumnoTresGrupos = false;
         boolean salir = false;
+        
         for (Integer it : listaIDAl) {
             
             if(!salir){
                 alumnoTresGrupos = GestorGrupos.AlumnoTresGrupos(accesoBD, it, idTemp);
-            
+                System.getProperties();
+                System.out.println(alumnoTresGrupos);
                 if(alumnoTresGrupos){
                     String nomAlumno = GestorAlumnos.getNombreAlumno(accesoBD, it);
                     JOptionPane.showMessageDialog(null, "El alumno "+nomAlumno+" ya esta en dos grupos.", "Error", JOptionPane.ERROR_MESSAGE);
                     salir = true;
                 }
-            
+                
                 query5 = "INSERT INTO Alumnogrupo (Alumno_idAlumno, Grupo_idGrupo, "
                     + "Grupo_Categoria_idCategoria, Grupo_Usuario_idUsuario, "
                     + "Grupo_Temporada_idTemporada) VALUES "
@@ -1044,12 +1046,7 @@ public class GruposBD {
 
 
 
-                // System.out.print(BorradoPago); ResultSet Borrado = 
-                //System.out.println("Consultaaa:" + BorradoPago);
                 accesoBD.eliminar(BorradoPago);
-                /*while (Borrado.next()) {
-                 System.out.println(Borrado.getString(1));
-                 }*/
                 String Pagos = "Se han dado de bajo pagos";
             }
 
@@ -1067,8 +1064,7 @@ public class GruposBD {
         
         boolean eliminaHor = false;
         eliminaHor = accesoBD.eliminar(query2);
-       // System.out.println(query2);
-
+       
         //Alumno_idAlumno='"+g.+"'
         
 
