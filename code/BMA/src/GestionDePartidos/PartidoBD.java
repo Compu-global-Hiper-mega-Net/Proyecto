@@ -77,6 +77,8 @@ public class PartidoBD {
                 + nuevoPartido.getResultadoLocal() + ", "
                 + nuevoPartido.getResultadoVisitante() + ");";
         
+        System.out.println(insercion);
+        
         System.out.print("\n inser " + insercion);
         accesoBD.ejecutaActualizacion(insercion);
     }

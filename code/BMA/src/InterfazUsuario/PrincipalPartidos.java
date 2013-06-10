@@ -85,7 +85,7 @@ public class PrincipalPartidos extends javax.swing.JFrame {
             actualizaComboTemporadaPartidos();
             actualizaComboCategoriaPartidos();
             List<String> equipos = new ArrayList<>();
-            equipos = getListaEquipos(idC, idT);
+            equipos = getListaEquipos(idC, idT,0);
             actualizaComboEquipoPartidos(equipos, 1);
             actualizaComboEquipoPartidos(equipos, 2);
         } catch (SQLException e) {
@@ -494,7 +494,7 @@ public class PrincipalPartidos extends javax.swing.JFrame {
                 List<String> equipos = new ArrayList<>();
                 try {
                     noEntry = true;
-                    equipos = getListaEquipos(idC, idT);
+                    equipos = getListaEquipos(idC, idT, 0);
                     actualizaComboEquipoPartidos(equipos, 1);
                     actualizaComboEquipoPartidos(equipos, 2);
                     noEntry = false;
@@ -506,7 +506,7 @@ public class PrincipalPartidos extends javax.swing.JFrame {
                 List<String> equipos = new ArrayList<>();
                 try {
                     noEntry = true;
-                    equipos = getListaEquipos(idC, idT);
+                    equipos = getListaEquipos(idC, idT, 0);
                     actualizaComboEquipoPartidos(equipos, 1);
                     actualizaComboEquipoPartidos(equipos, 2);
                     noEntry = false;
@@ -725,22 +725,92 @@ public class PrincipalPartidos extends javax.swing.JFrame {
         }
     }
     
-    public List<String> getListaEquipos(int idCat, int idTemp) throws SQLException {
+    public List<String> getListaEquipos(int idCat, int idTemp, int idLig) throws SQLException {
         List<String> equipos = new ArrayList<String>();
+        boolean entrado = false;
         String query;
-        if (idCat == 0 && idTemp != 0) {
-            query = "SELECT nombre FROM Equipo WHERE (temporada_idTemporada = " + idTemp + ");";
-        } else if (idCat != 0 && idTemp == 0) {
-            query = "SELECT nombre FROM Equipo WHERE (Categoria_IdCategoria = " + idCat + ");";
-        } else {
-            query = "SELECT nombre FROM Equipo WHERE (Categoria_IdCategoria = " + idCat + " AND temporada_idTemporada = " + idTemp + ");";
+        query = "SELECT nombre FROM equipo WHERE (";
+        if(idCat != 0){
+            entrado = true;
+            query += "Categoria_IdCategoria = " + idCat;
         }
+        if(idTemp != 0){
+            if(entrado){
+                query += " AND ";
+            }else{
+                entrado = true;
+            }
+            query += "temporada_idTemporada = " + idTemp;
+        }
+        if(idLig != 0){
+            if(entrado){
+                query += " AND ";
+            }else{
+                entrado = true;
+            }
+            query += "Liga_idLiga = " + idLig;
+        }
+        
+        if(!entrado){
+            query += "Categoria_IdCategoria = " + idCat + " AND temporada_idTemporada = " + idTemp + " AND Liga_idLiga = " + idLig + ");";
+        }
+        else
+            query += ");";
         ResultSet res = accesoBD.ejecutaConsulta(query);
         while (res.next()) {
             equipos.add(res.getString(1));
         }
         return equipos;
     }
+    
+    public List<String> getListaLigas(int idCat, int idTemp) throws SQLException {
+        List<String> ligas = new ArrayList<String>();
+        boolean entrado = false;
+        String query;
+        query = "SELECT nombre FROM Liga WHERE (";
+        if(idCat != 0){
+            entrado = true;
+            query += "Categoria_IdCategoria = " + idCat;
+        }
+        if(idTemp != 0){
+            if(entrado){
+                query += " AND ";
+            }else{
+                entrado = true;
+            }
+            query += "temporada_idTemporada = " + idTemp;
+        }
+        
+        if(!entrado){
+            query += "Categoria_IdCategoria = " + idCat + " AND temporada_idTemporada = " + idTemp + ");";
+        }
+        else
+            query += ");";
+        ResultSet res = accesoBD.ejecutaConsulta(query);
+        while (res.next()) {
+            ligas.add(res.getString(1));
+        }
+        return ligas;
+    }
+    
+    /*
+     * Método provisional
+     */
+    
+    public int getIdLiga(BaseDatos accesoBD, String nombreLiga, int idCat, int idTemp) throws SQLException {
+        int idLiga = 0;
+        String query;
+        query = "SELECT idLiga FROM Liga WHERE nombre = '" + nombreLiga + "' AND categoria_idCategoria = " + idCat 
+                + " AND temporada_idTemporada = " + idTemp + ";";
+       
+        ResultSet res = accesoBD.ejecutaConsulta(query);
+        if(res.next()){
+            idLiga = res.getInt(1);
+        }
+        return idLiga;
+    }
+    
+    
     
     private void actualizaTablaPartidosFiltro(String fecha, String temporada, String categoria, String equipoLoc, String equipoVis) throws SQLException {
         List<List<String>> lpar = new ArrayList<List<String>>();

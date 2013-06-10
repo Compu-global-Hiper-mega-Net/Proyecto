@@ -67,7 +67,7 @@ public class ModificarPartido extends javax.swing.JFrame {
     String fch, hr, cat, temp, eL, eV, inst;
     int rL, rV, idP;
     boolean noEntry,meter;
-    int idCat, idTemp;
+    int idCat, idTemp, idLig;
     Object equipoAnterior1, equipoAnterior2;
 
     /**
@@ -107,8 +107,9 @@ public class ModificarPartido extends javax.swing.JFrame {
         
         idCat =  GestorCategorias.getIdCategoria(accesoBD, cat);
         idTemp = GestorTemporadas.getIdTemporada(accesoBD, temp);
+        idLig = 0;
         List<String> equipos = new ArrayList<>();
-        equipos = principal.getListaEquipos(idCat,idTemp);
+        equipos = principal.getListaEquipos(idCat,idTemp,idLig);
         actualizaComboEquipo(equipos, 1);
         actualizaComboEquipo(equipos, 2);
         equipoAnterior1 = eL;
@@ -446,7 +447,7 @@ public class ModificarPartido extends javax.swing.JFrame {
                 List<String> equipos = new ArrayList<String>();
                 try {
                     noEntry = true;
-                    equipos = principal.getListaEquipos(idCat,idTemp);
+                    equipos = principal.getListaEquipos(idCat,idTemp,idLig);
                     actualizaComboEquipo(equipos, 1);
                     actualizaComboEquipo(equipos, 2);
                     noEntry = false;
@@ -458,7 +459,7 @@ public class ModificarPartido extends javax.swing.JFrame {
                 List<String> equipos = new ArrayList<String>();
                 try {
                     noEntry = true;
-                    equipos = principal.getListaEquipos(idCat,idTemp);
+                    equipos = principal.getListaEquipos(idCat,idTemp,idLig);
                     actualizaComboEquipo(equipos, 1);
                     actualizaComboEquipo(equipos, 2);
                     noEntry = false;
@@ -484,7 +485,7 @@ public class ModificarPartido extends javax.swing.JFrame {
                 List<String> equipos = new ArrayList<String>();
                 try {
                     noEntry = true;
-                    equipos = principal.getListaEquipos(idCat,idTemp);
+                    equipos = principal.getListaEquipos(idCat,idTemp,idLig);
                     actualizaComboEquipo(equipos, 1);
                     actualizaComboEquipo(equipos, 2);
                     noEntry = false;
@@ -496,7 +497,7 @@ public class ModificarPartido extends javax.swing.JFrame {
                 List<String> equipos = new ArrayList<String>();
                 try {
                     noEntry = true;
-                    equipos = principal.getListaEquipos(idCat,idTemp);
+                    equipos = principal.getListaEquipos(idCat,idTemp,idLig);
                     actualizaComboEquipo(equipos, 1);
                     actualizaComboEquipo(equipos, 2);
                     noEntry = false;
