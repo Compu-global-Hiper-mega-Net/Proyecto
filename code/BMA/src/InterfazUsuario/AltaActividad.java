@@ -365,8 +365,11 @@ public class AltaActividad extends javax.swing.JFrame {
                     error.substring(0, error.length() - 1),
                     "Errores en el formulario", JOptionPane.ERROR_MESSAGE);
         }
-
-        pantallaPrincipal.mostrarActividades();
+        try {
+            pantallaPrincipal.mostrarActividades();
+        } catch (SQLException ex) {
+            Logger.getLogger(AltaActividad.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_GuardarActionPerformed
 
     private void insertarInstalacion(int idInst, int idtem) throws SQLException {
