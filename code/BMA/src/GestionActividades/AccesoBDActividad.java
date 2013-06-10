@@ -180,7 +180,7 @@ public class AccesoBDActividad {
         List<Integer> listaAlumnos = new ArrayList<>();
         listaAlumnos = getAlumnosActividad(accesoBD, idActividad);
 
-        if (!listaAlumnos.contains(idAlumno)) {
+        if (listaAlumnos.indexOf(idAlumno) == -1) {
 
             try {
 
@@ -189,6 +189,7 @@ public class AccesoBDActividad {
                 String fecha = calendar.get(GregorianCalendar.YEAR) + "-" + (calendar.get(GregorianCalendar.MONTH)+1) + "-" + calendar.get(GregorianCalendar.DAY_OF_MONTH);
 
                 String consulta = "INSERT INTO CUOTA (fecha, pagado) VALUES ('" + fecha + "',1)";
+                System.out.print("\n\nNo existe el alumno y por lo tanto se inserta");
                 
                 accesoBD.ejecutaActualizacion(consulta);
 
@@ -204,7 +205,8 @@ public class AccesoBDActividad {
                 Logger.getLogger(AccesoBDActividad.class.getName()).log(Level.SEVERE, null, ex);
                 exito = false;
             }
-        }
+        }else
+             System.out.print("\n\nexiste el alumno y por lo tanto no se inserta");
 
         return exito;
     }
@@ -215,10 +217,13 @@ public class AccesoBDActividad {
         listaAlumnos = getAlumnosActividad(accesoBD, actividad);
         boolean exito = false;
 
-        if (listaAlumnos.contains(idAlumno)) {
-            String delete = "DELETE FROM pagoactividades WHERE Alumno_idAlumno = " + idAlumno;
+        if (listaAlumnos.indexOf(idAlumno) != -1) {
+            String delete = "DELETE FROM pagoactividades WHERE Alumno_idAlumno = " + idAlumno + " AND Actividades_idActividades"
+            + "= " + actividad;
+            System.out.print("\n\nEliminar alumno " + delete);
             exito = accesoBD.eliminar(delete);
         }
+        System.out.print("\n\nNo ha entrado en eliminar");
 
         return exito;
     }
