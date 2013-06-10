@@ -198,8 +198,6 @@ public class CategoriaBD {
         else
             existe = false;
         
-        System.out.println();
-        System.out.println("existe vale:"+existe);
         
         return existe;
     }
@@ -215,7 +213,6 @@ public class CategoriaBD {
         String query = "DELETE FROM Categoria WHERE "
                 + "tipo='"+c.getNombreCategoria()+"' AND "
                 + "descripcion='"+c.getDescripcion()+"'";
-        System.out.println(query);
         boolean res = accesoBD.eliminar(query);
         
         
