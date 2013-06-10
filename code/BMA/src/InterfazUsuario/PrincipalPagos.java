@@ -34,12 +34,13 @@ public class PrincipalPagos extends javax.swing.JFrame {
         ResultSet consulta;
 
         try {
-            consulta = accesoBD.ejecutaConsulta("SELECT * FROM grupo");
+            /*consulta = accesoBD.ejecutaConsulta("SELECT * FROM grupo");
             pago_grupo = new javax.swing.JComboBox();
             pago_grupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
             while (consulta.next()) {
+                
                 pago_grupo.addItem(consulta.getInt(1));
-            }
+            }*/
             consulta = accesoBD.ejecutaConsulta("SELECT * FROM temporada");
             pago_temporada.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
             while (consulta.next()) {
@@ -116,19 +117,13 @@ public class PrincipalPagos extends javax.swing.JFrame {
 
         jLabel23.setText("Nombre");
 
-        pago_nombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pago_nombreActionPerformed(evt);
-            }
-        });
-
         jLabel24.setText("Primer Apellido");
 
         jLabel25.setText("Segundo Apellido");
 
         pagos_etiqGrupo.setText("Grupos por temporada");
 
-        pago_grupo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Grupo" }));
+        pago_grupo.setToolTipText("");
 
         pagos_botonMostrar.setText("Mostrar");
         pagos_botonMostrar.addActionListener(new java.awt.event.ActionListener() {
@@ -319,7 +314,13 @@ public class PrincipalPagos extends javax.swing.JFrame {
         try {
             if (!pago_temporada.getSelectedItem().equals("")) {
                 consulta = accesoBD.ejecutaConsulta("SELECT * FROM grupo, temporada WHERE grupo.Temporada_idTemporada=temporada.idTemporada AND temporada.curso='" + (String) pago_temporada.getSelectedItem() + "'");
-                pago_grupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
+                //pago_grupo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "fran", "Carlos" }));
+                //pago_grupo.setToolTipText("");
+                //pago_grupo.addItem("I");
+                System.out.println("\ncomponentes" + pago_grupo.getSelectedItem());
+                
+                //pago_grupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
+                pago_grupo.removeAll();
                 while (consulta.next()) {
                     System.out.println("\nconsulta.next()" + consulta.getInt(1));
                     pago_grupo.addItem(consulta.getInt(1));
@@ -343,6 +344,7 @@ public class PrincipalPagos extends javax.swing.JFrame {
             pagos_actividad.setVisible(false);
             pagos_etiqGrupo.setVisible(true);
             pago_grupo.setVisible(true);
+           // pago_temporadaActionPerformed(null); 
         } else {
             pagos_etiqActividad.setVisible(true);
             pagos_actividad.setVisible(true);
@@ -350,10 +352,6 @@ public class PrincipalPagos extends javax.swing.JFrame {
             pago_grupo.setVisible(false);
         }
     }//GEN-LAST:event_pago_temporadaActividadActionPerformed
-
-    private void pago_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pago_nombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pago_nombreActionPerformed
 
     private void pagos_botonMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagos_botonMostrarActionPerformed
         try {
