@@ -4,16 +4,6 @@
  */
 package GestionDeEquipos;
 
-import GestionDeTemporadas.Temporada;
-import GestionDeUsuarios.Usuario;
-import GestionDeCategorias.Categoria;
-
-/**
- * Clase Equipo que se encargará de crear un equipo
- * @author Jesús Manuel Contreras Siles
- * @version 1.0
- */
-
 /*
  ******************************************************************************
  (c) Copyright 2013 
@@ -41,6 +31,12 @@ import GestionDeCategorias.Categoria;
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************
  */
+/**
+ * Clase Equipo que se encargará de crear un equipo
+ *
+ * @author Jesús Manuel Contreras Siles
+ * @version 1.0
+ */
 public class Equipo {
 
     private int idEquipo;
@@ -52,17 +48,17 @@ public class Equipo {
     private String entrenador2;
     private String sexo;
 
-		/*
-		* Metodo constructor
-		* @param Nombre, nombre del equipo. 
-		* @param temporada, temporada en la que se inscribe el equipo.
-		* @param categoria, categoria a la que pertenece.
-		* @param entrandor, el cual se corresponde con el nombre del primer entrenador. 
-		* @param entrenador2, se corresponde con el nombre del segundo entrenador. 
-		* fundación, este parámetro determina si pertenece a la fundación.
-		* @param sexo, determina el sexo de los componentes del equipo.
-		*/ 
-
+    /**
+     * Metodo constructor
+     * @param Nombre, nombre del equipo. 
+     * @param temporada, temporada en la que se inscribe el equipo.
+     * @param categoria, categoria a la que pertenece.
+     * @param entrandor, el cual se corresponde con el nombre del primer entrenador. 
+     * @param entrenador2, se corresponde con el nombre del segundo entrenador. 
+     * fundación, este parámetro determina si pertenece a la fundación.
+     * @param sexo, determina el sexo de los componentes del equipo.
+     */
+    
     public Equipo(String nombre, String temporada, String categoria, String entrenador, String entrenador2, boolean fundacion, String sexo) {
         this.nombre = nombre;
         this.temporada = temporada;
@@ -73,74 +69,66 @@ public class Equipo {
         this.sexo = sexo;
     }
 
-    /*
-		 * Metodo consultor
+    /**
+     * Metodo consultor
      * @return int (entero) con el atributo interno del Id del equipo
      */
-
     public int getIdEquipo() {
         return idEquipo;
     }
 
-    /*
-		 * Metodo consultor
+    /**
+     * Metodo consultor
      * @return String (cadena) con el atributo interno del nombre del equipo.
      */
-
     public String getNombre() {
         return nombre;
     }
 
-    /*
-		 * Metodo consultor
+    /**
+     * Metodo consultor
      * @return String (cadena) con el atributo interno del temporada del equipo
      */
-
     public String getTemporada() {
         return temporada;
     }
 
-    /*
-		 * Metodo consultor
+    /**
+     * Metodo consultor
      * @return String (cadena) con el atributo interno del categoria del equipo.
      */
-
     public String getCategoria() {
         return categoria;
     }
 
-    /*
-		 * Metodo consultor
+    /**
+     * Metodo consultor
      * @return String (cadena) con el atributo interno del nombre del entrenador que dirige el equipo.
      */
-
     public String getEntrenador() {
         return entrenador;
     }
 
-    /*
-		 * Metodo consultor
+    /**
+     * Metodo consultor
      * @return String (cadena) con el atributo interno del nombre del segundo entrenador.
      */
-
     public String getEntrenador2() {
         return entrenador2;
     }
 
-    /*
-		 * Metodo consultor
+    /**
+     * Metodo consultor
      * @return boolean (lógico) con el atributo interno de la comprobación de si pertenece o no a la fundación.
      */
-
     public boolean getFundacion() {
         return Fundacion;
     }
 
-    /*
-		 * Metodo consultor
+    /**
+     * Metodo consultor
      * @return char (caracter) con el atributo interno del sexo del equipo.
      */
-
     public String getSexo() {
         return sexo;
     }
