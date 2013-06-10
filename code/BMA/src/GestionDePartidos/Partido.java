@@ -56,19 +56,6 @@ public class Partido {
     private int idEquipoVisitanteTemporada; 
     private int idEquipoVisitanteLiga;
 
-        
-    /*public static Partido crearPartido (int idEqLocal, int idEqLocalFundacion,
-           int idEqLocalCategoria, int idEqLocalTemporada, int idEqLocalLiga, int idEqVisitante,
-           int idEqVisitanteFundacion, int idEqVisitanteCategoria, int idEqVisitanteTemporada, 
-           int idEqVisitanteLiga, Date fch, Time hr, int resLocal, int resVisitante){
-        
-        return new Partido(idEqLocal, idEqLocalFundacion,
-           idEqLocalCategoria, idEqLocalTemporada, idEqLocalLiga, idEqVisitante,
-           idEqVisitanteFundacion, idEqVisitanteCategoria,idEqVisitanteTemporada, 
-           idEqVisitanteLiga, fch, hr, resLocal, resVisitante);
-    }
-   */
-
                 /*
 		* Metodo constructor
 		* @param idEqLocal, id del equipo local

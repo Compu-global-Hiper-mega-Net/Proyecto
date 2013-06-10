@@ -157,8 +157,14 @@ public class AñadirAlumno extends javax.swing.JFrame {
 
         AlumnosSelecionados.setText("0");
 
+        ListaAlumnos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ListaAlumnosMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(ListaAlumnos);
 
+        AlumnosMostrados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(AlumnosMostrados);
 
         jLabel2.setText("Alumnos Apuntados:");
@@ -394,7 +400,7 @@ public class AñadirAlumno extends javax.swing.JFrame {
         if (listaIDAlumnos.size() > 0) {
             ResultSet retset, rts;
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-            
+
             for (int i = 0; i < listaIDAlumnos.size(); i++) {
                 try {
                     GestionActividades.GestorActividad.InsertarAlumnoActividad(accesoBD, listaIDAlumnos.get(i), idTemporada, idActividad);
@@ -402,7 +408,7 @@ public class AñadirAlumno extends javax.swing.JFrame {
                     Logger.getLogger(AñadirAlumno.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            JOptionPane.showMessageDialog(null, "Alumnos insertados",
+            JOptionPane.showMessageDialog(null, "Datos guardados",
                     "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
             this.setVisible(false);
 
@@ -411,7 +417,7 @@ public class AñadirAlumno extends javax.swing.JFrame {
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-        
+
 
     }//GEN-LAST:event_GuardarActionPerformed
 
@@ -425,13 +431,16 @@ public class AñadirAlumno extends javax.swing.JFrame {
 
         modeloAlumnos = (DefaultListModel) ListaAlumnos.getModel();
         modelo = (DefaultListModel) AlumnosMostrados.getModel();
-
         try {
             listaIDAlumnosQuitados = GestorAlumnos.getIdAl(accesoBD, listaAlumnosQuitados);
-            GestionActividades.GestorActividad.eliminaraAlumnos(accesoBD, listaIDAlumnos, idActividad);
+            System.out.printf("\nID alumnos actividades", listaIDAlumnosQuitados);
+            GestionActividades.GestorActividad.eliminaraAlumnos(accesoBD, listaIDAlumnosQuitados, idActividad);
         } catch (SQLException ex) {
             Logger.getLogger(AñadirAlumno.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+
+
 
         for (int i = 0; i < indices.length; i++) {
             modeloAlumnos.addElement(modelo.get(indices[i]));
@@ -458,6 +467,12 @@ public class AñadirAlumno extends javax.swing.JFrame {
         // TODO add your handling code here:
         BuscarAlumnos();
     }//GEN-LAST:event_SegundoApellidoTextFieldKeyReleased
+
+    private void ListaAlumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaAlumnosMouseClicked
+
+        AlumnosSelecionados.setText(Integer.toString(ListaAlumnos.getSelectedIndices().length));
+    }//GEN-LAST:event_ListaAlumnosMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList AlumnosMostrados;
     private javax.swing.JLabel AlumnosMostradosLabel;

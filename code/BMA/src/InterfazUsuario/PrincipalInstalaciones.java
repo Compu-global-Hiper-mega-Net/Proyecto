@@ -473,7 +473,7 @@ public class PrincipalInstalaciones extends javax.swing.JFrame {
     public void actualizarTablaInstalaciones() {
         tablaInstalacion.removeAll();
         try {
-						//Genera la consulta con respeto a los campos de la interfaz
+                //Genera la consulta con respeto a los campos de la interfaz
             String consulta_instalaciones = leeConsultaInstalacionInterfaz();
             consultaInstalacionesMostradas = consulta_instalaciones;
             retset = GestorInstalacion.consultaInstalacion(this.bd, consulta_instalaciones);

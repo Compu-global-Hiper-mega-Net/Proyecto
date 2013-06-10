@@ -651,7 +651,6 @@ public class NuevoEquipo extends javax.swing.JFrame {
     private void comSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comSexoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comSexoActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Error;
     private javax.swing.JCheckBox PerteneceFundacion;
@@ -722,10 +721,7 @@ public class NuevoEquipo extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(NuevoEquipo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        for (int i = 0;
-                i
-                < listaNombreAlumnos.size();
-                i++) {
+        for (int i = 0; i< listaNombreAlumnos.size();i++) {
             modelo.addElement(listaNombreAlumnos.get(i));
         }
 

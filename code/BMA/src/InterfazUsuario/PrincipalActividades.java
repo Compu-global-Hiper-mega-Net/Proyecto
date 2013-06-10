@@ -11,11 +11,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -30,7 +32,7 @@ public class PrincipalActividades extends javax.swing.JFrame {
     /**
      * Creates new form PrincipalActividades
      */
-    public PrincipalActividades(JFrame pP, BaseDatos bd) {
+    public PrincipalActividades(JFrame pP, BaseDatos bd) throws SQLException {
         initComponents();
         setLocationRelativeTo(pP);
         this.bd = bd;
@@ -82,14 +84,9 @@ public class PrincipalActividades extends javax.swing.JFrame {
 
         nombreLabel.setText("Nombre");
 
-        nombreTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreTextFieldActionPerformed(evt);
-            }
-        });
         nombreTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                nombreTextFieldKeyTyped(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                nombreTextFieldKeyReleased(evt);
             }
         });
 
@@ -146,12 +143,9 @@ public class PrincipalActividades extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-
+        actividadesTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         actividadesTable.getTableHeader().setResizingAllowed(false);
         actividadesTable.getTableHeader().setReorderingAllowed(false);
-
-        actividadesTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
         jScrollPane4.setViewportView(actividadesTable);
 
         Informacion.setText("Info");
@@ -279,72 +273,6 @@ public class PrincipalActividades extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nombreTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreTextFieldKeyTyped
-        if (!nombreTextField.getText().isEmpty()) {
-            String nombre = nombreTextField.getText();
-            String consulta = "SELECT nombre, fechaInicio, fechaFin FROM actividades"
-                    + " WHERE nombre LIKE '%" + nombre + "%'";
-            ResultSet retSet = bd.ejecutaConsulta(consulta);
-
-            actividadesTable.setModel(new javax.swing.table.DefaultTableModel(
-                    new Object[][]{
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-                    new String[]{
-                "Nombre", "Fecha Inicio", "Fecha Fin"
-            }));
-            javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
-            modelo_tabla = actividadesTable.getModel();
-            int i = 0;
-            try {
-                while (retSet.next()) {
-
-                    if (i < 25) {
-                        actividadesTable.setValueAt(retSet.getString("nombre"), i, 0);
-                        actividadesTable.setValueAt(retSet.getString("fechaInicio"), i, 1);
-                        actividadesTable.setValueAt(retSet.getString("fechaFin"), i, 2);
-                    } else {
-                        javax.swing.table.DefaultTableModel temp = new javax.swing.table.DefaultTableModel();
-                        Object nuevo[] = {"", "", ""};
-                        temp.addRow(nuevo);
-                        actividadesTable.setValueAt(retSet.getString("nombre"), i, 0);
-                        actividadesTable.setValueAt(retSet.getString("fechaInicio"), i, 1);
-                        actividadesTable.setValueAt(retSet.getString("fechaFin"), i, 2);
-                    }
-                    i++;
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            mostrarActividades();
-        }
-    }//GEN-LAST:event_nombreTextFieldKeyTyped
-
     private void fechaInicioDateChooserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fechaInicioDateChooserKeyTyped
         Date nombre = (java.sql.Date) fechaInicioDateChooser.getDate();
         String consulta = "SELECT nombre, fechaInicio, fechaFin FROM actividades"
@@ -456,7 +384,11 @@ public class PrincipalActividades extends javax.swing.JFrame {
         } else if (nTabla == -1) {
             JOptionPane.showMessageDialog(this, "No se ha seleccionado ninguna instalacion", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        mostrarActividades();
+        try {
+            mostrarActividades();
+        } catch (SQLException ex) {
+            Logger.getLogger(PrincipalActividades.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
@@ -525,132 +457,144 @@ public class PrincipalActividades extends javax.swing.JFrame {
             Date dateFromDateChooser1 = fechaFinDateChooser.getDate();
             String dateString1 = String.format("%1$tY-%1$tm-%1$td", dateFromDateChooser1);
 
-            String consulta = "SELECT nombre, fechaInicio, fechaFin, FROM actividades"
+            String consulta = "SELECT nombre, fechaInicio, fechaFin FROM actividades"
                     + " WHERE fechaInicio>='" + dateString + "' AND fechaFin<='" + dateString1 + "'";
+            System.out.print("\nConsulta Fechas"+consulta);
             ResultSet retSet = bd.ejecutaConsulta(consulta);
 
-
-            actividadesTable.setModel(new javax.swing.table.DefaultTableModel(
-                    new Object[][]{
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-                    new String[]{
-                "Nombre", "Fecha Inicio", "Fecha Fin", "Instalacion",}));
-            javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
-            modelo_tabla = actividadesTable.getModel();
-            int i = 0;
+            ArrayList<ArrayList<Object>> dataCollection = new ArrayList<>();
+            ArrayList<Object> row;
             try {
                 while (retSet.next()) {
-
-                    if (i < 25) {
-                        actividadesTable.setValueAt(retSet.getString("nombre"), i, 0);
-                        actividadesTable.setValueAt(retSet.getString("fechaInicio"), i, 1);
-                        actividadesTable.setValueAt(retSet.getString("fechaFin"), i, 2);
-                    } else {
-                        javax.swing.table.DefaultTableModel temp = new javax.swing.table.DefaultTableModel();
-                        Object nuevo[] = {"", "", ""};
-                        temp.addRow(nuevo);
-                        actividadesTable.setValueAt(retSet.getString("nombre"), i, 0);
-                        actividadesTable.setValueAt(retSet.getString("fechaInicio"), i, 1);
-                        actividadesTable.setValueAt(retSet.getString("fechaFin"), i, 2);
-                    }
-                    i++;
+                    row = new ArrayList<>();
+                    row.add(retSet.getString(1));
+                    row.add(retSet.getString(2));
+                    row.add(retSet.getString(3));
+                    dataCollection.add(row);
                 }
             } catch (SQLException ex) {
-                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(PrincipalActividades.class.getName()).log(Level.SEVERE, null, ex);
             }
+            Object[][] data = new Object[dataCollection.size()][17];
+            for (int i = 0; i < dataCollection.size(); i++) {
+                data[i] = dataCollection.get(i).toArray(new Object[17]);
+            }
+
+            DefaultTableModel dtm = new DefaultTableModel(data, new String[]{"Nombre", "Fecha Inicio", "Fecha Fin"}) {
+                Class[] types = new Class[]{java.lang.String.class, java.lang.String.class, java.lang.String.class};
+                boolean[] canEdit = new boolean[]{false, false, false};
+
+                @Override
+                public Class getColumnClass(int columnIndex) {
+                    return types[columnIndex];
+                }
+
+                @Override
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit[columnIndex];
+                }
+            };
+
+            actividadesTable.setModel(dtm);
+
         } else {
-            mostrarActividades();
+            try {
+                mostrarActividades();
+            } catch (SQLException ex) {
+                Logger.getLogger(PrincipalActividades.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+
+
     }//GEN-LAST:event_buscarActividadActionPerformed
 
-    private void nombreTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreTextFieldActionPerformed
+    private void nombreTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreTextFieldKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_nombreTextFieldActionPerformed
+        if (!nombreTextField.getText().isEmpty()) {
+            String nombre = nombreTextField.getText();
+            String consulta = "SELECT nombre, fechaInicio, fechaFin FROM actividades"
+                    + " WHERE nombre LIKE '%" + nombre + "%'";
+            ResultSet retSet = bd.ejecutaConsulta(consulta);
+            ArrayList<ArrayList<Object>> dataCollection = new ArrayList<>();
+            ArrayList<Object> row;
+            try {
+                while (retSet.next()) {
+                    row = new ArrayList<>();
+                    row.add(retSet.getString(1));
+                    row.add(retSet.getString(2));
+                    row.add(retSet.getString(3));
+                    dataCollection.add(row);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PrincipalActividades.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            Object[][] data = new Object[dataCollection.size()][17];
+            for (int i = 0; i < dataCollection.size(); i++) {
+                data[i] = dataCollection.get(i).toArray(new Object[17]);
+            }
 
-    public final void mostrarActividades() {
+            DefaultTableModel dtm = new DefaultTableModel(data, new String[]{"Nombre", "Fecha Inicio", "Fecha Fin"}) {
+                Class[] types = new Class[]{java.lang.String.class, java.lang.String.class, java.lang.String.class};
+                boolean[] canEdit = new boolean[]{false, false, false};
+
+                @Override
+                public Class getColumnClass(int columnIndex) {
+                    return types[columnIndex];
+                }
+
+                @Override
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit[columnIndex];
+                }
+            };
+
+            actividadesTable.setModel(dtm);
+
+        } else {
+            try {
+                mostrarActividades();
+            } catch (SQLException ex) {
+                Logger.getLogger(PrincipalActividades.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_nombreTextFieldKeyReleased
+
+    public final void mostrarActividades() throws SQLException {
 
         actividadesTable.removeAll();
-        try {
-            String consulta_actividades = leeConsultaActividad();
-            retset = GestorActividad.consultaActividad(bd, consulta_actividades);
-            actividadesTable.setModel(new javax.swing.table.DefaultTableModel(
-                    new Object[][]{
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-                    new String[]{
-                "Nombre", "Fecha Inicio", "Fecha Fin"
-            }));
-            javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
-            modelo_tabla = actividadesTable.getModel();
-            int i = 0;
-            while (retset.next()) {
+        String consulta_actividades = leeConsultaActividad();
+        retset = GestorActividad.consultaActividad(bd, consulta_actividades);
 
-                if (i < 25) {
-                    actividadesTable.setValueAt(retset.getString("a.nombre"), i, 0);
-                    actividadesTable.setValueAt(retset.getString("a.fechaInicio"), i, 1);
-                    actividadesTable.setValueAt(retset.getString("a.fechaFin"), i, 2);
-                } else {
-                    javax.swing.table.DefaultTableModel temp = new javax.swing.table.DefaultTableModel();
-                    Object nuevo[] = {"", "", ""};
-                    temp.addRow(nuevo);
-                    actividadesTable.setValueAt(retset.getString("a.nombre"), i, 0);
-                    actividadesTable.setValueAt(retset.getString("a.fechaInicio"), i, 1);
-                    actividadesTable.setValueAt(retset.getString("a.fechaFin"), i, 2);
-                }
-                i++;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        ArrayList<ArrayList<Object>> dataCollection = new ArrayList<>();
+        ArrayList<Object> row;
+        while (retset.next()) {
+            row = new ArrayList<>();
+            row.add(retset.getString(9));
+            row.add(retset.getString(7));
+            row.add(retset.getString(8));
+            dataCollection.add(row);
         }
+        Object[][] data = new Object[dataCollection.size()][17];
+        for (int i = 0; i < dataCollection.size(); i++) {
+            data[i] = dataCollection.get(i).toArray(new Object[17]);
+        }
+
+        DefaultTableModel dtm = new DefaultTableModel(data, new String[]{"Nombre", "Fecha Inicio", "Fecha Fin"}) {
+            Class[] types = new Class[]{java.lang.String.class, java.lang.String.class, java.lang.String.class};
+            boolean[] canEdit = new boolean[]{false, false, false};
+
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                return types[columnIndex];
+            }
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        };
+
+        actividadesTable.setModel(dtm);
 
     }
 
@@ -671,9 +615,14 @@ public class PrincipalActividades extends javax.swing.JFrame {
         try {
             if (rts.next()) {
                 idActividad = rts.getInt("idActividades");
+
+
+
+
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PantallaPrincipal.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         return idActividad;
     }
@@ -693,9 +642,14 @@ public class PrincipalActividades extends javax.swing.JFrame {
         try {
             if (rts.next()) {
                 idTemporada = rts.getInt("Temporada_idTemporada");
+
+
+
+
             }
         } catch (SQLException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PantallaPrincipal.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         return idTemporada;
     }
