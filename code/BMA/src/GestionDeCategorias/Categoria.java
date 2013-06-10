@@ -74,9 +74,10 @@ public class Categoria {
      * @param desc Contiene la descripcion de la categoria.
      */
     
-    public Categoria(String t, String desc){
+    public Categoria(String t, String desc, int EdadMinima){
         this.tipo = t;
         this.descripcion = desc;
+        this.EdadMinima = EdadMinima;
     }
 
     /**

@@ -74,13 +74,13 @@ public class GestorCategorias {
      * @param desc Contiene la descripcion de la categoria que queremos insertar.
      * @throws SQLException 
      */
-    public static void InsertarDatosCategorias(BaseDatos accesoBD, String t, String desc) throws SQLException {
+    public static void InsertarDatosCategorias(BaseDatos accesoBD, String t, String desc, int EdadMinima) throws SQLException {
         boolean validar = CategoriaBD.ConsultarCategoria(accesoBD, t);
         
         if(!validar){
             JOptionPane.showMessageDialog(null, "La categoria ya existe", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            Categoria c = new Categoria(t, desc);
+            Categoria c = new Categoria(t, desc, EdadMinima);
             CategoriaBD.crearCategoria(accesoBD, c);
             JOptionPane.showMessageDialog(null, "Categoria creada", "Exito", JOptionPane.INFORMATION_MESSAGE);
         }
