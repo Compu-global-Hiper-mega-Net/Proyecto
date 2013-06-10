@@ -237,7 +237,6 @@ public class GestorAlumnos {
     }
 
     public static List<String> getAlumnosCategoria(BaseDatos bd, int anio,int temporada) throws SQLException {
-        System.out.print("tempo"+temporada);
         String ComprobacionMenores = "Select edadmin from categoria where "
                 + "categoria.idcategoria=(select min(c.idcategoria) from categoria c)";
         String query;

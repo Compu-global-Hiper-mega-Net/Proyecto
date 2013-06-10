@@ -92,7 +92,7 @@ public class NuevoGrupo extends javax.swing.JFrame {
         comboDia1.addItem(DiasSemana.Domingo);
 
         comboDia2.removeAllItems();
-        //comboDia2.addItem(DiasSemana.Lunes);
+        comboDia2.addItem(DiasSemana.Lunes);
         comboDia2.addItem(DiasSemana.Martes);
         comboDia2.addItem(DiasSemana.Miercoles);
         comboDia2.addItem(DiasSemana.Jueves);
@@ -577,6 +577,8 @@ public class NuevoGrupo extends javax.swing.JFrame {
                 listaAlumnos = new ArrayList();
                 //lista = GestorAlumnos.getAlumnosCategoria(bd, anio);
                 String[] tempo= comboTemp.getSelectedItem().toString().split("/");
+                System.out.println();
+                System.out.println(tempo[0]);
                 alumnosCat = GestorAlumnos.getAlumnosCategoria(bd, anio,Integer.parseInt(tempo[0]));
                 labelAnadir.setText(Integer.toString(listaAlumnos.size()) + "/20");
                 labelSelecc.setText("0/" + (20 - listaAlumnos.size()));
