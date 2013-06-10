@@ -207,8 +207,6 @@ public class CategoriaBD {
         else
             existe = false;
         
-        System.out.println();
-        System.out.println("existe vale:"+existe);
         
         return existe;
     }
@@ -226,6 +224,7 @@ public class CategoriaBD {
                 + "descripcion='"+c.getDescripcion()+"' AND "
                 + "edadmin="+c.getEdadMinima()+"";
         System.out.println(query);
+
         boolean res = accesoBD.eliminar(query);
         
         

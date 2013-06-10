@@ -430,8 +430,8 @@ public class NuevoGrupo extends javax.swing.JFrame {
         Integer a = Integer.parseInt(textHora.getText().toString());
         Integer a1 = Integer.parseInt(textMin.getText().toString());
         String cadena = "";
-        if (!(a > 0 && a < 23) || !(a1 > 0 && a1 < 59)) {
-            if (!(a1 > 0 && a1 < 59)) {
+        if (!(a > 0 && a < 23) || !(a1 >= 0 && a1 < 59)) {
+            if (!(a1 >= 0 && a1 < 59)) {
 
                 cadena += "Los minutos introducidos no son validos\n";
             }
@@ -443,7 +443,9 @@ public class NuevoGrupo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,
                     cadena, "Error",
                     JOptionPane.ERROR_MESSAGE);
-        } else {
+        } 
+        
+        else {
 
             if (textHora.getText().length() == 2 && textMin.getText().length() == 2) {
                 if (textHora.getText() != null && !Character.isLetter(textHora.getText().charAt(0))
@@ -577,8 +579,7 @@ public class NuevoGrupo extends javax.swing.JFrame {
                 listaAlumnos = new ArrayList();
                 //lista = GestorAlumnos.getAlumnosCategoria(bd, anio);
                 String[] tempo= comboTemp.getSelectedItem().toString().split("/");
-                System.out.println();
-                System.out.println(tempo[0]);
+                
                 alumnosCat = GestorAlumnos.getAlumnosCategoria(bd, anio,Integer.parseInt(tempo[0]));
                 labelAnadir.setText(Integer.toString(listaAlumnos.size()) + "/20");
                 labelSelecc.setText("0/" + (20 - listaAlumnos.size()));

@@ -51,6 +51,10 @@ import javax.swing.JOptionPane;
  */
 public class GestorGrupos {
 
+    static boolean AlumnoTresGrupos(BaseDatos accesoBD, Integer it, int idTemp) throws SQLException {
+        return GruposBD.AlumnoTresGrupos(accesoBD, it, idTemp);
+    }
+
     private List<Grupo> grupos;
 
     /**
@@ -327,13 +331,15 @@ public class GestorGrupos {
      * @throws SQLException
      */
     public static void insertarDatosGrupo(BaseDatos accesoBD, List<String> listaAlumnos,
-            String temporada, String categoria, String dia1,
-            String dia2, String hora, String min, String entrenador, String instalacion) throws ParseException, SQLException {
+        String temporada, String categoria, String dia1,
+        String dia2, String hora, String min, String entrenador, String instalacion) throws ParseException, SQLException {
 
         boolean validar = GruposBD.ConsultarGrupos(accesoBD, dia1, dia2, hora, min, categoria, instalacion);
         if (validar == false) {
             JOptionPane.showMessageDialog(null, "El grupo ya existe", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
+        } 
+        
+        else {
             List<Integer> listaIDAl;
             listaIDAl = GestorAlumnos.getIdAl(accesoBD, listaAlumnos);
 
