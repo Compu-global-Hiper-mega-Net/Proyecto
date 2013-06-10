@@ -321,7 +321,7 @@ public class ModificarActividad extends javax.swing.JFrame {
 
         try {
             FechaInicio = (Integer.toString(fechaInicioDateChooser.getCalendar().get(java.util.Calendar.YEAR)) + "-"
-                    + Integer.toString(fechaInicioDateChooser.getCalendar().get(java.util.Calendar.MONTH+1)) + "-"
+                    + Integer.toString(fechaInicioDateChooser.getCalendar().get(java.util.Calendar.MONTH)+1) + "-"
                     + Integer.toString(fechaInicioDateChooser.getCalendar().get(java.util.Calendar.DATE)));
         } catch (NullPointerException ex) {
             errores = errores + "Campo \"Fecha Inicio\" vacío\n";
@@ -331,7 +331,7 @@ public class ModificarActividad extends javax.swing.JFrame {
 
         try {
             FechaFin = (Integer.toString(fechaFinDateChooser.getCalendar().get(java.util.Calendar.YEAR)) + "-"
-                    + Integer.toString(fechaFinDateChooser.getCalendar().get(java.util.Calendar.MONTH+1)) + "-"
+                    + Integer.toString(fechaFinDateChooser.getCalendar().get(java.util.Calendar.MONTH)+1) + "-"
                     + Integer.toString(fechaFinDateChooser.getCalendar().get(java.util.Calendar.DATE)));
         } catch (NullPointerException ex) {
             errores = errores + "Campo \"Fecha Fin\" vacío\n";
@@ -398,7 +398,11 @@ public class ModificarActividad extends javax.swing.JFrame {
                     errores.substring(0, errores.length() - 1),
                     "Errores en el formulario", JOptionPane.ERROR_MESSAGE);
         }
-        Pprincipal.mostrarActividades();
+        try {
+            Pprincipal.mostrarActividades();
+        } catch (SQLException ex) {
+            Logger.getLogger(ModificarActividad.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_GuardarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

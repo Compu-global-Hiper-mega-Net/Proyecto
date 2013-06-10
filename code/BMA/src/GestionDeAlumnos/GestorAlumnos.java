@@ -236,6 +236,18 @@ public class GestorAlumnos {
         return AccesoBDAlumno.buscarEstadisticas(accesoBD, idAlumno);
     }
 
+    /**
+     * Método con el que obtener los alumnos de una categoria
+     * @param bd Conexión con la BD.
+     * @param anio Parametro formal de tipo int (entero) que contiene el dato
+     * del año del alumno.
+     * @param temporada Parametro formal de tipo int (entero) que contiene el
+     * dato de la temporada.
+     * @return devuelve una lista de tipo String que contiene el listado
+     * de alumnos de la categoria.
+     * @throws SQLException Excepción que se lanza cuando hay un problema con la
+     * BD.
+     */
     public static List<String> getAlumnosCategoria(BaseDatos bd, int anio,int temporada) throws SQLException {
         String ComprobacionMenores = "Select edadmin from categoria where "
                 + "categoria.idcategoria=(select min(c.idcategoria) from categoria c)";

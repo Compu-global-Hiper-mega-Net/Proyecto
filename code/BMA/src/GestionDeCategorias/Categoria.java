@@ -52,6 +52,8 @@ public class Categoria {
      * queremos modificar.
      * @param cViejo Objeto de la clase Categoria con los antiguos datos que van 
      * a ser modificados.
+     * @param EdadMinima parametro formal de tipo int (entero) que representa
+     * la edad mínima del alumno
      * @return 1 si la modificacion ha tenido exito, 0 en caso contrario.
      * @throws SQLException 
      */
@@ -72,11 +74,14 @@ public class Categoria {
      * Constructor de la clase Categoria.
      * @param t Contiene el nombre de la categoria.
      * @param desc Contiene la descripcion de la categoria.
+     * @param EdadMinima parametro formal de tipo int (entero) que representa
+     * la edad mínima del alumno
      */
     
-    public Categoria(String t, String desc){
+    public Categoria(String t, String desc, int EdadMinima){
         this.tipo = t;
         this.descripcion = desc;
+        this.EdadMinima = EdadMinima;
     }
 
     /**

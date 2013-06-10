@@ -461,10 +461,17 @@ DROP TABLE IF EXISTS `liga`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `liga` (
   `idLiga` int(11) NOT NULL AUTO_INCREMENT,
+  `Categoria_idCategoria` int (11) NOT NULL,
+  `Temporada_idTemporada` int (11) NOT NULL,
   `nombre` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idLiga`)
+  PRIMARY KEY (`idLiga`,`Categoria_idCategoria`, `Temporada_idTemporada`),
+  KEY `fk_Liga_Categoria1_idx` (`Categoria_idCategoria`),
+  KEY `fk_Liga_Temporada1_idx` (`Temporada_idTemporada`),
+  CONSTRAINT `fk_Liga_Categoria1` FOREIGN KEY (`Categoria_idCategoria`) REFERENCES `categoria` (`idCategoria`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Liga_Temporada1` FOREIGN KEY (`Temporada_idTemporada`) REFERENCES `temporada` (`idTemporada`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Dumping data for table `liga`
@@ -472,9 +479,10 @@ CREATE TABLE `liga` (
 
 LOCK TABLES `liga` WRITE;
 /*!40000 ALTER TABLE `liga` DISABLE KEYS */;
-INSERT INTO `liga` VALUES (1,'PMD 2012-2013 alevin'),(2,'PMD 2011-2012 alevin');
+INSERT INTO `liga` VALUES (1,2,1,'PMD 2012-2013 alevin L1'),(2,2,1,'PMD 2012-2013 alevin L2');
 /*!40000 ALTER TABLE `liga` ENABLE KEYS */;
 UNLOCK TABLES;
+
 
 --
 -- Table structure for table `pagoactividades`

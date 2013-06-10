@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
@@ -180,7 +179,7 @@ public class AccesoBDActividad {
         List<Integer> listaAlumnos = new ArrayList<>();
         listaAlumnos = getAlumnosActividad(accesoBD, idActividad);
 
-        if (!listaAlumnos.contains(idAlumno)) {
+        if (listaAlumnos.indexOf(idAlumno) == -1) {
 
             try {
 
@@ -189,6 +188,7 @@ public class AccesoBDActividad {
                 String fecha = calendar.get(GregorianCalendar.YEAR) + "-" + (calendar.get(GregorianCalendar.MONTH)+1) + "-" + calendar.get(GregorianCalendar.DAY_OF_MONTH);
 
                 String consulta = "INSERT INTO CUOTA (fecha, pagado) VALUES ('" + fecha + "',1)";
+                System.out.print("\n\nNo existe el alumno y por lo tanto se inserta");
                 
                 accesoBD.ejecutaActualizacion(consulta);
 
@@ -204,21 +204,28 @@ public class AccesoBDActividad {
                 Logger.getLogger(AccesoBDActividad.class.getName()).log(Level.SEVERE, null, ex);
                 exito = false;
             }
-        }
+        }else
+             System.out.print("\n\nexiste el alumno y por lo tanto no se inserta");
 
         return exito;
     }
 
     public static boolean EliminarAlumnoBD(BaseDatos accesoBD, int idAlumno, int actividad) throws SQLException {
 
-        List<Integer> listaAlumnos = new ArrayList<Integer>();
+        List<Integer> listaAlumnos = new ArrayList<>();
         listaAlumnos = getAlumnosActividad(accesoBD, actividad);
         boolean exito = false;
 
-        if (listaAlumnos.contains(idAlumno)) {
-            String delete = "DELETE FROM pagoactividades WHERE Alumno_idAlumno = " + idAlumno;
+        if (listaAlumnos.indexOf(idAlumno) != -1) {
+            int idCuota = getIDCuotaEliminar(accesoBD,idAlumno,actividad);
+            String deleteCuota = "DELETE FROM cuota WHERE idCuota = " + idCuota;
+            String delete = "DELETE FROM pagoactividades WHERE Alumno_idAlumno = " + idAlumno + " AND Actividades_idActividades"
+            + "= " + actividad;
+            System.out.print("\n\nEliminar alumno " + delete);
             exito = accesoBD.eliminar(delete);
-        }
+            exito = accesoBD.eliminar(deleteCuota);
+        }else
+            System.out.print("\n\nNo ha entrado en eliminar");
 
         return exito;
     }
@@ -244,6 +251,21 @@ public class AccesoBDActividad {
         if (retset.next()) {
             id = retset.getInt(1);
         }
+        return id;
+    }
+    
+    public static int getIDCuotaEliminar(BaseDatos accesoBD, int alumno, int actividad) throws SQLException{
+        int id = 0;
+        String consulta = "SELECT Cuota_idCuota FROM pagoactividades WHERE "
+                + "Actividades_idActividades = " + actividad + " AND Alumno_idAlumno =" + alumno;
+        ResultSet retset = accesoBD.ejecutaConsulta(consulta);
+        
+        System.out.print("\nConsulta de la cuota " + consulta);
+        
+        if(retset.next()){
+            id = retset.getInt(1);
+        }
+        
         return id;
     }
 }
