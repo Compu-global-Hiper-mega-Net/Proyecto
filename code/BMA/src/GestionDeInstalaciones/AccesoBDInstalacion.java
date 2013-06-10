@@ -86,7 +86,7 @@ public class AccesoBDInstalacion {
     static int getIdInstalacion(BaseDatos accesoBD, String inst) throws SQLException {
         String query = "SELECT idInstalacion FROM Instalacion WHERE "
                 + "nombre='" + inst + "'";
-        System.out.println("instalacion:"+inst);
+        
         ResultSet res2 = accesoBD.ejecutaConsulta(query);
        
         int idInst = 0;

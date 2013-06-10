@@ -457,8 +457,12 @@ public class PrincipalGrupos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         };
-
+        
         tablaGrupos.setModel(dtm);
+        
+        tablaGrupos.getColumnModel().getColumn(0).setMaxWidth(0);
+        tablaGrupos.getColumnModel().getColumn(0).setMinWidth(0);
+        tablaGrupos.getColumnModel().getColumn(0).setPreferredWidth(0);
         
     }
     private String getCategoria(String s) throws SQLException {
@@ -525,8 +529,12 @@ public class PrincipalGrupos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         };
-
+        
         tablaGrupos.setModel(dtm);
+        
+        tablaGrupos.getColumnModel().getColumn(0).setMaxWidth(0);
+        tablaGrupos.getColumnModel().getColumn(0).setMinWidth(0);
+        tablaGrupos.getColumnModel().getColumn(0).setPreferredWidth(0);
     }
 
     public BaseDatos getBd() {

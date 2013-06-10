@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
@@ -213,7 +212,7 @@ public class AccesoBDActividad {
 
     public static boolean EliminarAlumnoBD(BaseDatos accesoBD, int idAlumno, int actividad) throws SQLException {
 
-        List<Integer> listaAlumnos = new ArrayList<Integer>();
+        List<Integer> listaAlumnos = new ArrayList<>();
         listaAlumnos = getAlumnosActividad(accesoBD, actividad);
         boolean exito = false;
 
