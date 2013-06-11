@@ -105,7 +105,7 @@ public class Temporada {
      * completa ("anio/anio+1")
      * @param cursoComp Contiene la cadena con el curso expresado de manera completa.
      */
-    void setCursoCompleto(String cursoComp) {
+    public void setCursoCompleto(String cursoComp) {
         this.curso = cursoComp;
     }
 
@@ -113,7 +113,7 @@ public class Temporada {
      * Permite obtener la fecha de inicio de una temporada.
      * @return Un <code>String</code> con la fecha de inicio de la temporada.
      */
-    String getInicio() {
+    public String getInicio() {
         return this.fechaInicio;
     }
     
@@ -121,7 +121,7 @@ public class Temporada {
      * Permite obtener la fecha de fin de una temporada.
      * @return Un <code>String</code> con la fecha de fin de la temporada.
      */
-    String getFin() {
+    public String getFin() {
         return this.fechaFin;
     }
 
@@ -129,9 +129,15 @@ public class Temporada {
      * Permite obtener el importe que se ha de pagar mensualmente como cuota.
      * @return Un <code>double</code> con el importe mensual.
      */
-    double getImporte() {
+    public double getImporte() {
         return this.importeMensual;
     }
+    
+    /**
+     * Permite obtener el identificador de la temporada actual
+     * @return int devuelve un tipo int (entero) que contiene el identificador
+     * de la temporada actual.
+     */
 
     public int getIdTemporada() {
         return this.idTemporada;

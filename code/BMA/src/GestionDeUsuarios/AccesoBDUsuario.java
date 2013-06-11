@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package GestionDeUsuarios;
 
 import ServiciosAlmacenamiento.BaseDatos;
@@ -11,11 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-/**
- *
- * @author Francisco
- */
 
 /*
  ******************************************************************************
@@ -94,9 +86,10 @@ class AccesoBDUsuario {
     
 
     /**
-     * 
+     * Permite consultar los datos de un usuario de la base de datos
      * @param accesoBD Usado para interactuar con la base de datos.
-     * @param consulta
+     * @param consulta Parametro formal de tipo String (cadena) que contiene
+     * la query a realizar sobre nuestra base de datos.
      * @return ResultSet con los datos de la consulta realizada.
      */
     public static ResultSet consultaUsuarioBD(BaseDatos accesoBD, String consulta) {
@@ -148,10 +141,12 @@ class AccesoBDUsuario {
     
 
     /**
-     * 
+     * Permite obtener un listado de usuarios (en este caso entrenadores)
+     * de nuestra base de datos
      * @param accesoBD Usado para interactuar con la base de datos.
      * @param s Parametro de tipo string usado para obtener el entrenador.
-     * @return
+     * @return List<String> devuelve un tipo abstracto List de tips String (cadena)
+     * que contiene un listado de usuarios (en este caso entrenadores).
      * @throws SQLException Muestra los mensajes de error en las consultas.
      */
     static List<String> getListaEntrenadores(BaseDatos accesoBD, String s) throws SQLException {
@@ -176,10 +171,12 @@ class AccesoBDUsuario {
 
     
     /**
-     * 
+     * Permite obtener el nombre completo del usuario (en este caso
+     * el entrenador)
      * @param accesoBD Usado para interactuar con la base de datos.
      * @param s Parametro de tipo string usado para obtener el entrenador.
-     * @return
+     * @return String devuelve un tipo String (cadena) con el nombre
+     * concatenado del usuario (en este caso del entrenador).
      * @throws SQLException Muestra los mensajes de error en las consultas.
      */
     static String getEntrenador(BaseDatos accesoBD, String s) throws SQLException {

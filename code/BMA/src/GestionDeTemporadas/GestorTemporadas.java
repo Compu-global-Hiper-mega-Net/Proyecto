@@ -56,7 +56,7 @@ public class GestorTemporadas {
         return TemporadaBD.getListaTemporadas(accesoBD);
     }
 
-    /**
+    /*/**
      * Premite modificar el curso de una temporada.
      * @param accesoBD Usado para interactuar con la base de datos.
      * @param curso Contiene el nuevo curso que queremos almacenar.

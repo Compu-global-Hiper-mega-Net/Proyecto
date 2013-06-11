@@ -110,7 +110,7 @@ public class TemporadaBD {
      * @throws SQLException 
      */
     static int modificarTemporada(BaseDatos accesoBD, String cursoAnterior, String cursoNuevo) throws SQLException {
-        int correcto = 0;
+        int correcto;
         String query = "UPDATE Temporada SET curso='"+cursoNuevo+"' WHERE curso='"+cursoAnterior+"'";
         correcto = accesoBD.ejecutaActualizacion(query);
         
@@ -125,7 +125,7 @@ public class TemporadaBD {
      * @return TRUE si la eliminacion ha sido correcta, FALSE en caso contrario.
      */
     static boolean eliminarTemporadaBD(BaseDatos accesoBD, Temporada t) {
-        boolean correcto = false;
+        boolean correcto;
         String query = "DELETE FROM Temporada WHERE curso='"+t.getCurso()+"'";
         correcto = accesoBD.eliminar(query);
         
@@ -227,7 +227,7 @@ public class TemporadaBD {
      * @throws SQLException 
      */
     static int modificarTemporada(BaseDatos accesoBD, String cursoAnterior, Temporada t) throws SQLException {
-        int correcto = 0;
+        int correcto;
         String query = "UPDATE Temporada SET curso='"+t.getCurso()+"',"
                 + "inicio='"+t.getInicio()+"',fin='"+t.getFin()+"',importeMensual='"+t.getImporte()+"'"
                 + " WHERE curso='"+cursoAnterior+"'";
