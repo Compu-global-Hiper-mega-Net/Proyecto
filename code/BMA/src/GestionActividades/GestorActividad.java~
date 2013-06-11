@@ -158,9 +158,9 @@ public class GestorActividad {
 
 		/**
 		 * Metodo para eliminar alumnos de una actividad
-		 * @param accesoBD BaseDatos (BaseDatos) con el acceso a la base de datos.
-		 * @param ListaAlumnos List<Integer> (lista) con los identificadores de los alumnos a eliminar.
-		 * @param idActividad int (entero) con el identificador de la actividad.
+		 * @param accesoBD
+		 * @param ListaAlumnos
+		 * @param idActividad
      * @throws SQLException algun tipo de error en la base de datos.
 		 */
 

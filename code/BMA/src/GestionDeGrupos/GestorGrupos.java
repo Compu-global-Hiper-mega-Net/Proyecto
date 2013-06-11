@@ -329,7 +329,7 @@ public class GestorGrupos {
 
         boolean validar = GruposBD.ConsultarGrupos(accesoBD, dia1, dia2, hora, min, categoria, instalacion);
         if (validar == false) {
-            JOptionPane.showMessageDialog(null, "El grupo ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+        //    JOptionPane.showMessageDialog(null, "El grupo ya existe", "Error", JOptionPane.ERROR_MESSAGE);
         } 
         
         else {
