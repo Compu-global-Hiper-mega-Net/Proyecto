@@ -77,7 +77,6 @@ public class PartidoBD {
                 + nuevoPartido.getResultadoLocal() + ", "
                 + nuevoPartido.getResultadoVisitante() + ");";
         
-        System.out.print("\n inser " + insercion);
         accesoBD.ejecutaActualizacion(insercion);
     }
     
@@ -120,7 +119,7 @@ public class PartidoBD {
     static List<List<String>> getListaPartidos(BaseDatos accesoBD) throws SQLException { //DUDAS EVERYWHERE
         List<List<String>> partidos = new ArrayList<List<String>>();
         String query = "SELECT fecha, hora, equipo_Categoria_idCategoria, equipo_Temporada_idTemporada, "
-                + "idEquipo, idEquipoVisitante, resultadoLocal, resultadoVisitante FROM Partido";
+                + "equipo_liga_idLiga, idEquipo, idEquipoVisitante, resultadoLocal, resultadoVisitante FROM Partido";
         ResultSet res = accesoBD.ejecutaConsulta(query);
         
         List<String> aux;
@@ -128,7 +127,7 @@ public class PartidoBD {
         while (res.next()) {
             aux = new ArrayList<String>();
             aux.add(res.getString(1)+","+res.getString(2)+","+res.getString(3)+","+res.getString(4)+
-                    ","+res.getString(5)+","+res.getString(6)+","+res.getString(7)+","+res.getString(8));
+                    ","+res.getString(5)+","+res.getString(6)+","+res.getString(7)+","+res.getString(8)+","+res.getString(9));
             partidos.add(aux);
         }
 

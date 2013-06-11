@@ -427,54 +427,71 @@ public class NuevoGrupo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        Integer a = Integer.parseInt(textHora.getText().toString());
-        Integer a1 = Integer.parseInt(textMin.getText().toString());
+        //Integer a = Integer.parseInt(textHora.getText().toString());
+        //Integer a1 = Integer.parseInt(textMin.getText().toString());
+        Integer a = 0;
+        Integer a1 = 0;
+        
+        
+        String aS = textHora.getText().toString();
+        String a1S = textMin.getText().toString();
+        
         String cadena = "";
-        if (!(a > 0 && a < 23) || !(a1 >= 0 && a1 < 59)) {
-            if (!(a1 >= 0 && a1 < 59)) {
-
+        
+        if(!textHora.getText().isEmpty() && !textMin.getText().isEmpty()){
+            a = Integer.parseInt(textHora.getText().toString());
+            a1 = Integer.parseInt(textMin.getText().toString());
+        
+            if (!(a > 0 && a < 23) || !(a1 >= 0 && a1 < 59)) {
+                if (!(a1 >= 0 && a1 < 59)) {
                 cadena += "Los minutos introducidos no son validos\n";
-            }
-            if (!(a > 0 && a < 23)) {
+                }
+                if (!(a > 0 && a < 23)) {
+                    cadena += "La hora introducida no es valida";
+                }
 
-                cadena += "La hora introducida no es valida";
-            }
-
-            JOptionPane.showMessageDialog(this,
+                JOptionPane.showMessageDialog(this,
                     cadena, "Error",
                     JOptionPane.ERROR_MESSAGE);
-        } 
-        
-        else {
-
-            if (textHora.getText().length() == 2 && textMin.getText().length() == 2) {
-                if (textHora.getText() != null && !Character.isLetter(textHora.getText().charAt(0))
+            }
+            
+            else {
+                if (textHora.getText().length() == 2 && textMin.getText().length() == 2) {
+                    if (textHora.getText() != null && !Character.isLetter(textHora.getText().charAt(0))
                         && !Character.isLetter(textHora.getText().charAt(1))
                         && textMin.getText() != null && !Character.isLetter(textMin.getText().charAt(0))
                         && !Character.isLetter(textMin.getText().charAt(1))) {
-                    try {
-                        GestorGrupos.insertarDatosGrupo(this.bd, listaAlumnos,
+                        try {
+                            GestorGrupos.insertarDatosGrupo(this.bd, listaAlumnos,
                                 comboTemp.getSelectedItem().toString(), comboCat.getSelectedItem().toString(),
                                 comboDia1.getSelectedItem().toString(),
                                 comboDia2.getSelectedItem().toString(), textHora.getText(), textMin.getText(),
                                 comboEnt.getSelectedItem().toString(), comboInst.getSelectedItem().toString());
 
-                    } catch (ParseException | SQLException ex) {
+                        } catch (ParseException | SQLException ex) {
                         Logger.getLogger(NuevoGrupo.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                        }
 
-                    /* Actualizar la tabla de grupos */
-                    try {
-                        pP.actualizaTablaGrupos();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(NuevoGrupo.class.getName()).log(Level.SEVERE, null, ex);
+                        /* Actualizar la tabla de grupos */
+                        try {
+                            pP.actualizaTablaGrupos();
+                        } catch (SQLException ex) {
+                            Logger.getLogger(NuevoGrupo.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        this.dispose(); 
                     }
-
-                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error en los campos de la hora", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            } else {
-                JOptionPane.showMessageDialog(this, "Error en los campos de la hora", "Error", JOptionPane.ERROR_MESSAGE);
             }
+        }
+        
+        else{
+            if(textHora.getText().isEmpty())
+                JOptionPane.showMessageDialog(this, "Campo de la hora vacio", "Error", JOptionPane.ERROR_MESSAGE);
+            
+            if(textMin.getText().isEmpty())
+                JOptionPane.showMessageDialog(this, "Campo de los minutos vacio", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_botonAceptarActionPerformed
 

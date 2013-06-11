@@ -380,4 +380,17 @@ class AccesoBDAlumno {
                 return rst;
             }
     }
+
+    static String getNombreAlumno(BaseDatos accesoBD, int idAl) throws SQLException {
+        String query = "SELECT nombre, primerApellido, segundoApellido FROM Alumno "
+                + "WHERE idAlumno='"+idAl+"'";
+        ResultSet res = accesoBD.ejecutaConsulta(query);
+        
+        String salida = null;
+        
+        if(res.next())
+            salida = (res.getString(1)+" "+res.getString(2)+" "+res.getString(3));
+        
+        return salida;
+    }
 }
