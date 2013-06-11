@@ -19,13 +19,13 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  * Clase encargada de proporcionar la interfaz para gestionar todo lo 
- * referente a Temporadas.
+ * referente a los Grupos de Entrenamiento.
  */
 public class PrincipalGrupos extends javax.swing.JFrame {
     private BaseDatos bd;
     
     /**
-     * Crea una nueva ventana para gestionar Temporadas.
+     * Crea una nueva ventana para gestionar Grupos de Entrenamiento.
      */
     public PrincipalGrupos(JFrame pP, BaseDatos bd) {
         initComponents();
@@ -578,26 +578,68 @@ public class PrincipalGrupos extends javax.swing.JFrame {
     }
 
     /**
-     * 
-     * @return
+     * Metodo que permite obtener el curso de todas las temporadas almacenadas 
+     * en la base de datos. 
+     * @return Una lista de <code>String</code> con el curso de todas las 
+     * temporadas.
      * @throws SQLException 
      */
     List<String> getListaTemps() throws SQLException {
         return GestorTemporadas.getListaTemporadas(this.bd);
     }
 
+    /**
+     * Metodo que permite obtener el nombre y apellidos de los alumnos almacenados 
+     * en la base de datos, permitiendo buscar ademas con una cadena introducida.
+     * @param s Cadena para realizar la busqueda del alumno.
+     * @return Una lista de <code>String</code> con los alumnos obtenidos en 
+     * la busqueda.
+     * @throws SQLException 
+     */
     List<String> getListaAlumnosSinGrupo(String s) throws SQLException {
         return GestorAlumnos.getAlumnosSinGrupo(this.bd, s);
     }
 
-    List<String> getListaInstalaciones(String s) throws SQLException {
+    /**
+     * Metodo que permite obtener una lista con el nombre y la localizacion 
+     * de las instalaciones almacenadas.
+     * @return Una lista de <code>String</code> con los nombres y ubicaciones de 
+     * las instalaciones.
+     * @throws SQLException 
+     */
+    List<String> getListaInstalaciones(/*String s*/) throws SQLException {
         return GestorInstalacion.getListaInstalaciones(this.bd);
     }
 
+    /**
+     * Metodo que permite obtener una lista de los alumnos buscando una cadena 
+     * en el nombre o en los apellidos.
+     * @param s Cadena por la que queremos buscar.
+     * @return Una lista de <code>String</code> cos los nombres y apellidos 
+     * de los alumnos buscados.
+     * @throws SQLException 
+     */
     List<String> getListaAlumnos(String s) throws SQLException {
         return GestorAlumnos.getAlumnos(this.bd, s);
     }
     
+    
+    /**
+     * Metodo encargado de rellenar la tabla que muestra los grupos sin ningun 
+     * tipo de filtro. Concretamente muestra los campos "Numero de alumnos", 
+     * "Categoria", "Entrenador" y "Temporada".
+     * @throws SQLException 
+     */
+    
+    /**
+     * Metodo encargado de rellenar la tabla que muestra los grupos aplicando un 
+     * filtro para las temporadas, las categorias o los entrenadores. Concretamente 
+     * muestra los campos "Numero de alumnos", "Categoria", "Entrenador" y "Temporada".
+     * @param temporada Cadena con la temporada por la que queremos filtrar.
+     * @param categoria Cadena con la categoria por la que queremos filtrar.
+     * @param entrenador Cadena con el entrenador por el que queremos filtrar.
+     * @throws SQLException 
+     */
     private void actualizaTablaGruposFiltro(String temporada, String categoria, String entrenador) throws SQLException {
         List<List<String>> grupos = GestorGrupos.getListaGruposFiltro(this.bd, temporada, categoria, entrenador);
 
@@ -638,6 +680,10 @@ public class PrincipalGrupos extends javax.swing.JFrame {
         tablaGrupos.getColumnModel().getColumn(0).setPreferredWidth(0);
     }
 
+    /**
+     * Permite obtener el objeto con la conexion de acceso a la base de datos.
+     * @return 
+     */
     public BaseDatos getBd() {
         return bd;
     }

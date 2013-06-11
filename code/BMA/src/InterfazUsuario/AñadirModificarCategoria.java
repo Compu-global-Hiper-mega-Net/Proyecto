@@ -8,10 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Diego
- */
+
 
 /*
  ******************************************************************************
@@ -41,6 +38,12 @@ import javax.swing.JOptionPane;
  ******************************************************************************
  */
 
+
+/**
+ * Clase encargada de proporcionar la interfaz para gestionar todo lo 
+ * referente a las Categorias.
+ * @author Diego
+ */
 public class AñadirModificarCategoria extends javax.swing.JFrame {
     private PrincipalCategorias pP;
     private BaseDatos bd;
@@ -49,7 +52,7 @@ public class AñadirModificarCategoria extends javax.swing.JFrame {
     private int EdadMinima;
     
     /**
-     * Creates new form NuevaCategoria
+     * Crea una nueva ventana para añadir una categoria.
      */
     public AñadirModificarCategoria(PrincipalCategorias pP, BaseDatos bd) {
         initComponents();
@@ -61,6 +64,9 @@ public class AñadirModificarCategoria extends javax.swing.JFrame {
         setTitle("Añadir categoría");
     }
     
+    /**
+     * Crea una nueva ventana para modificar una categoria.
+     */
     public AñadirModificarCategoria(PrincipalCategorias pP, BaseDatos bd, String t, String d, int e) {
         initComponents();
         this.setLocationRelativeTo(pP);
@@ -214,6 +220,12 @@ public class AñadirModificarCategoria extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Permite añadir una nueva caegoria en la base de datos. Si falta algun dato,
+     * lo notifica mediante un mensaje de error.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void botoAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botoAceptarActionPerformed
         if(!textTipo.getText().isEmpty() && !textDesc.getText().isEmpty() && !fieldEdadMinima.getText().isEmpty()){
             try {
@@ -232,10 +244,21 @@ public class AñadirModificarCategoria extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Debe rellenar los campos", "Error", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_botoAceptarActionPerformed
 
+    /**
+     * Cierra la ventana de manipulacion de categorias sin realizar ningun cambio.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
        this.dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
+    /**
+     * Permite modificar una categoria insertando los datos que se desean modificar. 
+     * Si falta algun dato por insertar, lo notifica mediante un mensaje de error.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
         if(!textTipo.getText().isEmpty() && !textDesc.getText().isEmpty() && !fieldEdadMinima.getText().isEmpty()){
             
