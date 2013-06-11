@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package InterfazUsuario;
 
 import GestionDeAlumnos.GestorAlumnos;
@@ -22,14 +18,14 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author Dell
+ * Clase encargada de proporcionar la interfaz para gestionar todo lo 
+ * referente a Temporadas.
  */
 public class PrincipalGrupos extends javax.swing.JFrame {
     private BaseDatos bd;
     
     /**
-     * Creates new form PrincipalGrupos
+     * Crea una nueva ventana para gestionar Temporadas.
      */
     public PrincipalGrupos(JFrame pP, BaseDatos bd) {
         initComponents();
@@ -81,8 +77,8 @@ public class PrincipalGrupos extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         tfGrupEnt = new javax.swing.JTextField();
         jPanel10 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        botonFiltrarGrupos = new javax.swing.JButton();
+        botonMostrarTodos = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jSeparator2 = new javax.swing.JSeparator();
         jPanel11 = new javax.swing.JPanel();
@@ -91,7 +87,7 @@ public class PrincipalGrupos extends javax.swing.JFrame {
         tablaGrupos = new javax.swing.JTable();
         jPanel13 = new javax.swing.JPanel();
         botonConsGrupo = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        botonEliminarGrupo = new javax.swing.JButton();
         botonNuevoGrupEnt = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -169,21 +165,21 @@ public class PrincipalGrupos extends javax.swing.JFrame {
 
         jPanel10.setPreferredSize(new java.awt.Dimension(508, 40));
 
-        jButton1.setText("Filtrar Grupos");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        botonFiltrarGrupos.setText("Filtrar Grupos");
+        botonFiltrarGrupos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                botonFiltrarGruposActionPerformed(evt);
             }
         });
-        jPanel10.add(jButton1);
+        jPanel10.add(botonFiltrarGrupos);
 
-        jButton2.setText("Mostrar todos");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        botonMostrarTodos.setText("Mostrar todos");
+        botonMostrarTodos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                botonMostrarTodosActionPerformed(evt);
             }
         });
-        jPanel10.add(jButton2);
+        jPanel10.add(botonMostrarTodos);
 
         jPanel4.add(jPanel10);
 
@@ -235,10 +231,10 @@ public class PrincipalGrupos extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setText("Eliminar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        botonEliminarGrupo.setText("Eliminar");
+        botonEliminarGrupo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                botonEliminarGrupoActionPerformed(evt);
             }
         });
 
@@ -258,7 +254,7 @@ public class PrincipalGrupos extends javax.swing.JFrame {
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botonNuevoGrupEnt, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonConsGrupo)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(botonEliminarGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(62, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
@@ -269,7 +265,7 @@ public class PrincipalGrupos extends javax.swing.JFrame {
                 .addGap(9, 9, 9)
                 .addComponent(botonConsGrupo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton5)
+                .addComponent(botonEliminarGrupo)
                 .addContainerGap(93, Short.MAX_VALUE))
         );
 
@@ -282,6 +278,13 @@ public class PrincipalGrupos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Evento encargado de mostrar la ventana de consulta de un grupo, mostrando 
+     * todos sus datos y dando la posibilidad de modificarlos. Si no se ha seleccionado 
+     * previamente un grupo muestra un mensaje de error.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void botonConsGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsGrupoActionPerformed
         int filaSel = tablaGrupos.getSelectedRow();
         if (filaSel == -1) {
@@ -296,7 +299,14 @@ public class PrincipalGrupos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonConsGrupoActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    /**
+     * Evento encargado de eliminar un grupo cuando dicho evento es generado.
+     * Si no se ha seleccionado un grupo previamente muestra un mensaje de error.
+     * Ademas, solicita confirmacion para eliminar el grupo.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
+    private void botonEliminarGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarGrupoActionPerformed
         int filaSel = tablaGrupos.getSelectedRow();
         if (filaSel == -1) {
             JOptionPane.showMessageDialog(this, "Debes seleccionar un grupo", "Error", JOptionPane.ERROR_MESSAGE);
@@ -349,8 +359,13 @@ public class PrincipalGrupos extends javax.swing.JFrame {
                 }
             }
         }
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_botonEliminarGrupoActionPerformed
 
+    /**
+     * Se encarga de lanzar el formulario correspondiente para crear un nuevo grupo.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void botonNuevoGrupEntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoGrupEntActionPerformed
         try {
             new NuevoGrupo(this, this.bd).setVisible(true);
@@ -359,11 +374,22 @@ public class PrincipalGrupos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonNuevoGrupEntActionPerformed
 
+    /**
+     * Este evento limpia el campo de texto cuando se hace clic en el.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void tfGrupEntMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfGrupEntMouseClicked
         tfGrupEnt.setText("");
         tfGrupEnt.requestFocus();
     }//GEN-LAST:event_tfGrupEntMouseClicked
 
+    /**
+     * Este evento captura cada nueva letra que se introduce en el campo de texto 
+     * y busca los entrenadores que coinciden con el texto introducido.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void tfGrupEntKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfGrupEntKeyTyped
         String sEnt = tfGrupEnt.getText();
         List<String> ents = getListaEntrenadores(sEnt);
@@ -371,16 +397,28 @@ public class PrincipalGrupos extends javax.swing.JFrame {
         actualizaComboEntGrup(ents);
     }//GEN-LAST:event_tfGrupEntKeyTyped
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    /**
+     * Evento encargado de realizar una busqueda en la base de datos para 
+     * filtrar los grupos que será mostrados.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
+    private void botonFiltrarGruposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFiltrarGruposActionPerformed
         try {
             actualizaTablaGruposFiltro(comboTempEntr.getSelectedItem().toString(),
                 comboCatGrup.getSelectedItem().toString(), comboEntGrup.getSelectedItem().toString());
         } catch (SQLException ex) {
             Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_botonFiltrarGruposActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    /**
+     * Evento encargado de realizar una busqueda en la base de datos de todos 
+     * los grupos almacenados.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
+    private void botonMostrarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarTodosActionPerformed
         try {
             actualizaTablaGrupos();
             comboCatGrup.setSelectedIndex(0);
@@ -389,8 +427,13 @@ public class PrincipalGrupos extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_botonMostrarTodosActionPerformed
 
+    /**
+     * Metodo encargado de rellenar la lista desplegable con las temporadas 
+     * disponibles en la base de datos.
+     * @param temps Las temporadas previamente extraidas de la base de datos.
+     */
     private void actualizaComboTempEnt(List<String> temps) {
         comboTempEntr.addItem("-Ninguno-");
         for (String s : temps) {
@@ -398,12 +441,22 @@ public class PrincipalGrupos extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Metodo encargado de rellenar la lista deplegable con los entrenadores 
+     * disponibles en la base de datos.
+     * @param ents Los entrenadores previamente extraidos de la base de datos.
+     */
     private void actualizaComboEntGrup(List<String> ents) {
         for (String s : ents) {
             comboEntGrup.addItem(s);
         }
     }
 
+    /**
+     * Metodo encargado de rellenar la lista deplegable con las categorias 
+     * disponibles en la base de datos.
+     * @throws SQLException 
+     */
     private void actualizaComboCatGrup() throws SQLException {
         comboCatGrup.removeAllItems();
         comboCatGrup.addItem("-Ninguno-");
@@ -414,6 +467,13 @@ public class PrincipalGrupos extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Metodo encargado de devolver una lista con los entrenadores a partir de 
+     * una cadena de texto usada para realizar la busqueda.
+     * @param sEnt <code>String</code> usado para realizar la busqueda del entrenador.
+     * @return Una lista de <code>String</code> con los entrenadores obtenidos 
+     * en la busqueda.
+     */
     public List<String> getListaEntrenadores(String sEnt) {
         List<String> ents = new ArrayList<>();
         try {
@@ -425,6 +485,12 @@ public class PrincipalGrupos extends javax.swing.JFrame {
         return ents;
     }
     
+    /**
+     * Metodo encargado de rellenar la tabla que muestra los grupos sin ningun 
+     * tipo de filtro. Concretamente muestra los campos "Numero de alumnos", 
+     * "Categoria", "Entrenador" y "Temporada".
+     * @throws SQLException 
+     */
     public void actualizaTablaGrupos() throws SQLException {
         List<List<String>> grupos = GestorGrupos.getListaGrupos(this.bd);
 
@@ -465,22 +531,57 @@ public class PrincipalGrupos extends javax.swing.JFrame {
         tablaGrupos.getColumnModel().getColumn(0).setPreferredWidth(0);
         
     }
+    
+    /**
+     * Metodo encargado de devolver el nombre de una categoria a partir de su 
+     * identificador de categoria.
+     * @param s <code>String</code> con el identificador de la categoria.
+     * @return Un <code>String</code> con el nombre de la cateogira.
+     * @throws SQLException 
+     */
     private String getCategoria(String s) throws SQLException {
         return GestorCategorias.getCategoria(this.bd, Integer.parseInt(s));
     }
 
+    /**
+     * Metodo encargado de devolver el nombre de un entrenador a partir de su 
+     * identificador de entrenador.
+     * @param s <code>String</code> con el identificador del entrenador.
+     * @return Un <code>String</code> con el nombre del entrenador.
+     * @throws SQLException 
+     */
     private String getEntrenador(String s) throws SQLException {
         return GestorUsuarios.getEntrenador(this.bd, s);
     }
 
+    /**
+     * Metodo encargado de devolver el curso de una temporada a partir de su 
+     * identificador de temporada.
+     * @param s <code>String</code> con el identificador de la temporada.
+     * @return Un <code>String</code> con el curso de la temporada.
+     * @throws SQLException 
+     */
     private String getTemporada(String s) throws SQLException {
         return GestorTemporadas.getTemporada(this.bd, s);
     }
 
+    /**
+     * Permite obtener una lista con los alumnos introducidos en un grupo.
+     * @param idGrupo Un <code>String</code> con el identificador del grupo 
+     * del que queremos saber la lista de alumnos.
+     * @return Una lista de <code>String</code> con los alumnos introducidos en 
+     * dicho grupo.
+     * @throws SQLException 
+     */
     List<String> getlistaAlumnosIntroducidos(String idGrupo) throws SQLException {
         return GestorGrupos.getListaAlumnosIntroducidos(this.bd, idGrupo);
     }
 
+    /**
+     * 
+     * @return
+     * @throws SQLException 
+     */
     List<String> getListaTemps() throws SQLException {
         return GestorTemporadas.getListaTemporadas(this.bd);
     }
@@ -545,13 +646,13 @@ public class PrincipalGrupos extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonConsGrupo;
+    private javax.swing.JButton botonEliminarGrupo;
+    private javax.swing.JButton botonFiltrarGrupos;
+    private javax.swing.JButton botonMostrarTodos;
     private javax.swing.JButton botonNuevoGrupEnt;
     private javax.swing.JComboBox comboCatGrup;
     private javax.swing.JComboBox comboEntGrup;
     private javax.swing.JComboBox comboTempEntr;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;

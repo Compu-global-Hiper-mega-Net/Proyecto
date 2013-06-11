@@ -167,20 +167,20 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="botonFiltrarGrupos">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Filtrar Grupos"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonFiltrarGruposActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton2">
+            <Component class="javax.swing.JButton" name="botonMostrarTodos">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Mostrar todos"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonMostrarTodosActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -261,7 +261,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="botonNuevoGrupEnt" min="-2" pref="79" max="-2" attributes="0"/>
                               <Component id="botonConsGrupo" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton5" alignment="0" min="-2" pref="79" max="-2" attributes="0"/>
+                              <Component id="botonEliminarGrupo" alignment="0" min="-2" pref="79" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="62" max="32767" attributes="0"/>
                       </Group>
@@ -275,7 +275,7 @@
                           <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                           <Component id="botonConsGrupo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jButton5" min="-2" max="-2" attributes="0"/>
+                          <Component id="botonEliminarGrupo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace pref="93" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -290,12 +290,12 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonConsGrupoActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton5">
+                <Component class="javax.swing.JButton" name="botonEliminarGrupo">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Eliminar"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonEliminarGrupoActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="botonNuevoGrupEnt">

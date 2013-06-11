@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package InterfazUsuario;
 
 import GestionDeTemporadas.GestorTemporadas;
@@ -15,14 +11,15 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Dell
+ * Clase encargada de proporcionar la interfaz para gestionar todo lo 
+ * referente a Temporadas.
+ * 
  */
 public class PrincipalTemporadas extends javax.swing.JFrame {
     private BaseDatos bd;
     
     /**
-     * Creates new form PrincipalTemporadas
+     * Crea una nueva ventana para gestionar Temporadas.
      */
     public PrincipalTemporadas(JFrame pP, BaseDatos bd) {
         initComponents();
@@ -180,6 +177,12 @@ public class PrincipalTemporadas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Evento encargado de mostrar las estadisticas de una temporada solo si 
+     * previamente se ha seleccionado una temporada.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void estadisticasTemporadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estadisticasTemporadaActionPerformed
         if(comboTempo.getSelectedItem().equals(" "))
             JOptionPane.showMessageDialog(null,"Seleccione una temporada para ver estadisticas ");
@@ -189,10 +192,20 @@ public class PrincipalTemporadas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_estadisticasTemporadaActionPerformed
 
+    /**
+     * Evento encargado de lanzar el formulario para crear una temporada.
+     * @param evt evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void botonNuevaCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevaCatActionPerformed
         new AñadirModificarTemporada(this, this.bd).setVisible(true);
     }//GEN-LAST:event_botonNuevaCatActionPerformed
 
+    /**
+     * Evento encargado de lanzar el formulario para modificar una temporada.
+     * @param evt evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void botonModCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModCatActionPerformed
         String curso = (String) comboTempo.getSelectedItem();
         double importe = 0;
@@ -207,6 +220,12 @@ public class PrincipalTemporadas extends javax.swing.JFrame {
         new AñadirModificarTemporada(this, this.bd, Integer.parseInt(curso.substring(0, 4)), importe, fInicio, fFin).setVisible(true);
     }//GEN-LAST:event_botonModCatActionPerformed
 
+    /**
+     * Evento encargado de lanzar un cuadro de dialogo y, en caso de confirmacion,
+     * borrar la temporada.
+     * @param evt evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void botonElimCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonElimCatActionPerformed
         String curso = (String) comboTempo.getSelectedItem();
 
@@ -228,6 +247,11 @@ public class PrincipalTemporadas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonElimCatActionPerformed
 
+    /**
+     * Rellena el elemento desplegable que contiene las temporadas almacenadas en
+     * la base de datos.
+     * @throws SQLException
+     */
     protected final void actualizaComboBoxTemporadas() throws SQLException {
         List<String> temps = GestorTemporadas.getListaTemporadas(this.bd);
         
