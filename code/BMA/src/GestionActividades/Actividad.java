@@ -96,6 +96,10 @@ public class Actividad {
         return new Actividad(descripcion, nAlumnos, precioSocio, precioNoSocio, idTemporada, fechaInicio, fechaFin, nombre);
     }
 
+    public Actividad(String actividad) {
+        nombre=actividad;
+    }
+
 		/**
 		 * Metodo consultor
 		 * @return int (entero) con el atributo interno del id de la actividad.

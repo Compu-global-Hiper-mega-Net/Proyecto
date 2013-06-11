@@ -35,12 +35,12 @@ public class PrincipalPagos extends javax.swing.JFrame {
 
         try {
             /*consulta = accesoBD.ejecutaConsulta("SELECT * FROM grupo");
-            pago_grupo = new javax.swing.JComboBox();
-            pago_grupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
-            while (consulta.next()) {
+             pago_grupo = new javax.swing.JComboBox();
+             pago_grupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
+             while (consulta.next()) {
                 
-                pago_grupo.addItem(consulta.getInt(1));
-            }*/
+             pago_grupo.addItem(consulta.getInt(1));
+             }*/
             consulta = accesoBD.ejecutaConsulta("SELECT * FROM temporada");
             pago_temporada.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
             while (consulta.next()) {
@@ -321,15 +321,10 @@ public class PrincipalPagos extends javax.swing.JFrame {
         try {
             if (!pago_temporada.getSelectedItem().equals("")) {
                 consulta = accesoBD.ejecutaConsulta("SELECT * FROM grupo, temporada WHERE grupo.Temporada_idTemporada=temporada.idTemporada AND temporada.curso='" + (String) pago_temporada.getSelectedItem() + "'");
-                //pago_grupo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "fran", "Carlos" }));
-                //pago_grupo.setToolTipText("");
-                //pago_grupo.addItem("I");
-                System.out.println("\ncomponentes" + pago_grupo.getSelectedItem());
-                
-                //pago_grupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
-                pago_grupo.removeAll();
+                pago_grupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
+
+
                 while (consulta.next()) {
-                    System.out.println("\nconsulta.next()" + consulta.getInt(1));
                     pago_grupo.addItem(consulta.getInt(1));
                 }
             } else {
@@ -351,7 +346,7 @@ public class PrincipalPagos extends javax.swing.JFrame {
             pagos_actividad.setVisible(false);
             pagos_etiqGrupo.setVisible(true);
             pago_grupo.setVisible(true);
-           // pago_temporadaActionPerformed(null); 
+            // pago_temporadaActionPerformed(null); 
         } else {
             pago_grupo.setEnabled(false);
             pago_grupo.setSize(0, 0);
@@ -371,59 +366,59 @@ public class PrincipalPagos extends javax.swing.JFrame {
             if (consulta_pagos.indexOf("alumnotemporada") != -1) {
                 tablaPagos.setModel(new javax.swing.table.DefaultTableModel(
                         new Object[][]{
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null}
-                },
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null}
+                        },
                         new String[]{
-                    "Nombre", "Primer Apellido", "Segundo Apellido", "Importe", "Fecha", "Pagado/Debido", "Email", "Tel. Fijo", "Tel. Movil", "Temporada"
-                }));
+                            "Nombre", "Primer Apellido", "Segundo Apellido", "Importe", "Fecha", "Pagado/Debido", "Email", "Tel. Fijo", "Tel. Movil", "Temporada"
+                        }));
                 javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
                 modelo_tabla = tablaPagos.getModel();
             } else {
                 tablaPagos.setModel(new javax.swing.table.DefaultTableModel(
                         new Object[][]{
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null}
-                },
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null}
+                        },
                         new String[]{
-                    "Nombre", "Primer Apellido", "Segundo Apellido", "Importe", "Fecha", "Pagado/Debido", "Email", "Tel. Fijo", "Tel. Movil", "Temporada", "Actividad"
-                }));
+                            "Nombre", "Primer Apellido", "Segundo Apellido", "Importe", "Fecha", "Pagado/Debido", "Email", "Tel. Fijo", "Tel. Movil", "Temporada", "Actividad"
+                        }));
                 javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
                 modelo_tabla = tablaPagos.getModel();
             }
@@ -502,59 +497,59 @@ public class PrincipalPagos extends javax.swing.JFrame {
             if (consulta_pagos.indexOf("alumnotemporada") != -1) {
                 tablaPagos.setModel(new javax.swing.table.DefaultTableModel(
                         new Object[][]{
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null}
-                },
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null}
+                        },
                         new String[]{
-                    "Nombre", "Primer Apellido", "Segundo Apellido", "Importe", "Fecha", "Pagado/Debido", "Email", "Tel. Fijo", "Tel. Movil", "Temporada"
-                }));
+                            "Nombre", "Primer Apellido", "Segundo Apellido", "Importe", "Fecha", "Pagado/Debido", "Email", "Tel. Fijo", "Tel. Movil", "Temporada"
+                        }));
                 javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
                 modelo_tabla = tablaPagos.getModel();
             } else {
                 tablaPagos.setModel(new javax.swing.table.DefaultTableModel(
                         new Object[][]{
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null},
-                    {null, null, null, null, null, null, null, null, null, null, null}
-                },
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null},
+                            {null, null, null, null, null, null, null, null, null, null, null}
+                        },
                         new String[]{
-                    "Nombre", "Primer Apellido", "Segundo Apellido", "Importe", "Fecha", "Pagado/Debido", "Email", "Tel. Fijo", "Tel. Movil", "Temporada", "Actividad"
-                }));
+                            "Nombre", "Primer Apellido", "Segundo Apellido", "Importe", "Fecha", "Pagado/Debido", "Email", "Tel. Fijo", "Tel. Movil", "Temporada", "Actividad"
+                        }));
                 javax.swing.table.TableModel modelo_tabla = new javax.swing.table.DefaultTableModel();
                 modelo_tabla = tablaPagos.getModel();
             }
@@ -673,26 +668,25 @@ public class PrincipalPagos extends javax.swing.JFrame {
     }//GEN-LAST:event_pagos_botonModificarActionPerformed
 
     private void pagos_actividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pagos_actividadActionPerformed
-
     }//GEN-LAST:event_pagos_actividadActionPerformed
 
 private void pago_temporadaActividadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pago_temporadaActividadMouseClicked
-/*        if (pago_temporadaActividad.getSelectedItem().equals("Temporada")) {
-                     System.out.print("\nsaleeeeeeeeeeeeeeeeeee");
-            pagos_etiqActividad.setVisible(false);
-            pagos_actividad.setVisible(false);
-            pagos_etiqGrupo.setVisible(true);
-            pago_grupo.setVisible(true);
-        } else {
-               System.out.print("\nenttrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrra");
-            pago_grupo.setVisible(false);
-            pago_grupo.setVisible(false);
-            pago_grupo.setEnabled(false);
-            pagos_etiqActividad.setVisible(true);
-            pagos_actividad.setVisible(true);
-            pagos_etiqGrupo.setVisible(false);
+    /*        if (pago_temporadaActividad.getSelectedItem().equals("Temporada")) {
+     System.out.print("\nsaleeeeeeeeeeeeeeeeeee");
+     pagos_etiqActividad.setVisible(false);
+     pagos_actividad.setVisible(false);
+     pagos_etiqGrupo.setVisible(true);
+     pago_grupo.setVisible(true);
+     } else {
+     System.out.print("\nenttrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrra");
+     pago_grupo.setVisible(false);
+     pago_grupo.setVisible(false);
+     pago_grupo.setEnabled(false);
+     pagos_etiqActividad.setVisible(true);
+     pagos_actividad.setVisible(true);
+     pagos_etiqGrupo.setVisible(false);
 
-        }*/
+     }*/
 }//GEN-LAST:event_pago_temporadaActividadMouseClicked
 
 private void pago_temporadaActividadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pago_temporadaActividadMousePressed
@@ -729,6 +723,7 @@ private void pago_temporadaActividadMousePressed(java.awt.event.MouseEvent evt) 
                 tablasImplicadas = tablasImplicadas + " , alumnogrupo, grupo ";
                 condicionesConsulta = condicionesConsulta + " alumnogrupo.alumno_idalumno=a.idalumno AND alumnogrupo.grupo_idGrupo=grupo.idGrupo AND grupo.idGrupo=" + (Integer) pago_grupo.getSelectedItem() + " AND ";
             }
+
             condicionesConsulta = condicionesConsulta.substring(0, condicionesConsulta.length() - 4);
             tablasImplicadas = tablasImplicadas + condicionesConsulta;
         } else {
