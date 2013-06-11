@@ -227,8 +227,8 @@ public class GruposBD {
         for (Integer it : listaIDAl) {            
             if(!salir){
                 alumnoTresGrupos = GestorGrupos.AlumnoTresGrupos(accesoBD, it, idTemp);
-                System.getProperties();
-                System.out.println(alumnoTresGrupos);
+                //System.getProperties();
+                //System.out.println(alumnoTresGrupos);
                 if(alumnoTresGrupos){
                     String nomAlumno = GestorAlumnos.getNombreAlumno(accesoBD, it);
                     JOptionPane.showMessageDialog(null, "El alumno "+nomAlumno+" ya esta en dos grupos.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -1085,7 +1085,7 @@ public class GruposBD {
                 + "WHERE Alumno_idAlumno='" + idAl + "' "
                 + "AND Temporada_idTemporada='" + idTemp + "'";
         ResultSet res = bd.ejecutaConsulta(query);
-        System.out.println("consulta:" + query);
+        //System.out.println("consulta:" + query);
         boolean existe = false;
 
         if (res.next()) {
