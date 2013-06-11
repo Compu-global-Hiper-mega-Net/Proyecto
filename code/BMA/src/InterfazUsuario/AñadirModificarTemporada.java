@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package InterfazUsuario;
 
 import GestionDeTemporadas.GestorTemporadas;
@@ -14,10 +10,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-/**
- *
- * @author Diego
- */
 
 /*
  ******************************************************************************
@@ -47,6 +39,12 @@ import java.util.logging.Logger;
  ******************************************************************************
  */
 
+
+/**
+ * Clase encargada de proporcionar la interfaz para gestionar todo lo 
+ * referente a las Temporadas.
+ * @author Diego
+ */
 public class AñadirModificarTemporada extends javax.swing.JFrame {
     private PrincipalTemporadas pP;
     private BaseDatos bd;
@@ -56,7 +54,7 @@ public class AñadirModificarTemporada extends javax.swing.JFrame {
     private String finAnt;
 
     /**
-     * Creates new form NuevaTemporada
+     * Crea una nueva ventana para añadir una temporada.
      */
     public AñadirModificarTemporada(PrincipalTemporadas pP, BaseDatos bd) {
         initComponents();
@@ -76,6 +74,9 @@ public class AñadirModificarTemporada extends javax.swing.JFrame {
         labelCurso.setText(ano+"/"+(ano+1));
     }
     
+    /**
+     * Crea una nueva ventana para modificar una temporada.
+     */
     public AñadirModificarTemporada(PrincipalTemporadas pP, BaseDatos bd, int a, double importe, String inicio, String fin){
         initComponents();
         setLocationRelativeTo(pP);
@@ -285,6 +286,13 @@ public class AñadirModificarTemporada extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Este evento establece un texto indicando que curso se creará con el año que 
+     * se ha seleccionado. Ademas, establace fechas de inicio y de fin del curso a 
+     * modo de facilitar la insercion de datos.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void chooserCursoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_chooserCursoPropertyChange
         int aux1 = chooserCurso.getYear();
         int aux2 = chooserCurso.getYear()+1;
@@ -299,6 +307,11 @@ public class AñadirModificarTemporada extends javax.swing.JFrame {
         selectorFechaFin.setDate(fin.getTime());
     }//GEN-LAST:event_chooserCursoPropertyChange
 
+    /**
+     * Permite crear una nueva temporada estableciendo todos los datos necesarios.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         int curso = chooserCurso.getYear();
         try {
@@ -317,10 +330,20 @@ public class AñadirModificarTemporada extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonAceptarActionPerformed
 
+    /**
+     * Cierra la ventana de manipulacion de temporadas sin realizar ningun cambio.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
+    /**
+     * Permite modificar una temporada previamente almacenada en la base de datos.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void botonModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModActionPerformed
         int curso = chooserCurso.getYear();
         if (curso != aAnt || impAnt != Double.parseDouble(campoImporte.getText())) {

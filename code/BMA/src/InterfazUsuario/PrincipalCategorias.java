@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package InterfazUsuario;
 
 import GestionDeCategorias.Categoria;
@@ -16,13 +12,14 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author Dell
+ * Clase encargada de proporcionar la interfaz para gestionar todo lo 
+ * referente a las Categorias.
  */
 public class PrincipalCategorias extends javax.swing.JFrame {
     private BaseDatos bd;
+    
     /**
-     * Creates new form GestionCategorias
+     * Crea una nueva ventana para gestionar las Categorias.
      */
     public PrincipalCategorias(JFrame pP, BaseDatos bd) {
         initComponents();
@@ -145,10 +142,22 @@ public class PrincipalCategorias extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Evento que muestra el formulario para crear una nueva categoria.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void botonNuevaCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevaCatActionPerformed
         new AñadirModificarCategoria(this, this.bd).setVisible(true);
     }//GEN-LAST:event_botonNuevaCatActionPerformed
 
+    /**
+     * Evento que muestra el formulario para modificar una categoria existente. 
+     * Lanza un mensaje de error si no se ha seleccionado una Categoria para 
+     * modificarla.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void botonModCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModCatActionPerformed
         int fileSeleccionada = tablaCategorias.getSelectedRow();
         if (fileSeleccionada == -1) {
@@ -162,6 +171,12 @@ public class PrincipalCategorias extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonModCatActionPerformed
 
+    /**
+     * Evento que permite eliminar una categoria al pulsar el componente adecuado. 
+     * Si no se ha seleccionado una categoria lanza un mensaje de error.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void botonElimCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonElimCatActionPerformed
         int fileSeleccionada = tablaCategorias.getSelectedRow();
         if (fileSeleccionada == -1) {
@@ -184,6 +199,11 @@ public class PrincipalCategorias extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonElimCatActionPerformed
 
+    /**
+     * Metodo que rellena la tabla con las categorias almacenadas en la base de 
+     * datoss.
+     * @throws SQLException 
+     */
     protected void actualizarTabla() throws SQLException {
         List<List<String>> listaCats = GestorCategorias.getListaCategorias(this.bd);
         Object[][] data = new Object[listaCats.size()][3];
