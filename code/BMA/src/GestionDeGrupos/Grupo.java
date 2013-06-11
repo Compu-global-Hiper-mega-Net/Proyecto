@@ -6,20 +6,13 @@ import GestionDeTemporadas.Temporada;
 import GestionDeUsuarios.Usuario;
 import ServiciosAlmacenamiento.BaseDatos;
 import GestionDeCategorias.Categoria;
-import bma.Entrenador;
 import bma.Horario;
-import bma.Sexo;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.text.ParseException;
 import java.util.List;
 
-/**
- * Clase que nos agrupa a los alumnos en un grupo de entrenamiento.
- *
- * @author Alex Moreno y carlos
- * @version 1.0
- */
+
 
 /*
  ******************************************************************************
@@ -48,22 +41,25 @@ import java.util.List;
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************
  */
+
+/**
+ * Clase que nos agrupa a los alumnos en un grupo de entrenamiento.
+ *
+ * @author Alex Moreno y carlos
+ * @version 1.0
+ */
+
 public class Grupo {
 
     private int idGrupo;
-    //private Calendar[] horarios;
     private String sexo;
     private Categoria categoria;
-    //private Categoria categoria;
     private Temporada temporada;
     private List<Alumno> alumnos;
     private Horario horario;
     private Usuario entrenador = new Usuario();
     private Instalacion instalacion;
 
-    //static void Modificar(Grupo g) {
-    //  GruposBD.ModificarGruposBD(g);
-    //}
     /**
      * Permite modificar un grupo previamente almacenado en la BD.
      *
@@ -264,18 +260,34 @@ public class Grupo {
         return Integer.toString(this.idGrupo);
     }
 
+    /**
+     * Permite obtener el identificador de la instalacion.
+     * @return Un <code>int</code> con el identificador de la instalacion.
+     */
     int getIdInstalacion() {
         return this.instalacion.getIdInstalacion();
     }
 
+    /**
+     * Permite obtener el identificador de la categoria.
+     * @return Un <code>String</code> con el identificador de la categoria.
+     */
     String getIdCategoria() {
         return this.categoria.getIdCategoria();
     }
 
+    /**
+     * Permite obtener el identificador del entrenador.
+     * @return Un <code>int</code> con el identificador del entrenador.
+     */
     int getIdEntrenador() {
         return this.entrenador.getIdEntrenador();
     }
 
+    /**
+     * Permite obtener el identificador de la temporada.
+     * @return Un <code>int</code> con el identificador de la temporada.
+     */
     int getIdTemporada() {
         return this.temporada.getIdTemporada();
     }

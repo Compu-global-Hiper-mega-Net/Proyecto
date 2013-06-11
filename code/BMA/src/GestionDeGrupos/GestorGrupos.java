@@ -1,12 +1,8 @@
 package GestionDeGrupos;
 
-import GestionDeAlumnos.Alumno;
+
 import GestionDeAlumnos.GestorAlumnos;
-import GestionDeInstalaciones.Instalacion;
 import GestionDeTemporadas.GestorTemporadas;
-import GestionDeUsuarios.Usuario;
-import GestionDeCategorias.Categoria;
-import GestionDeTemporadas.Temporada;
 import GestionDeUsuarios.GestorUsuarios;
 import ServiciosAlmacenamiento.BaseDatos;
 import java.sql.ResultSet;
@@ -228,9 +224,6 @@ public class GestorGrupos {
         return GruposBD.getEntrenador(accesoBD, idGrupo);
     }
 
-    //public static void modificarGrupo(BaseDatos accesoBD, Grupo g, String idGrupo) {
-    //Grupo.Modificar(g);
-    //}
     /**
      * Permite modificar un grupo con nuevos datos.
      *

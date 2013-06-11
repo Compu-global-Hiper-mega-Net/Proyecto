@@ -14,8 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-
-
 /*
  ******************************************************************************
  (c) Copyright 2013 
@@ -43,30 +41,14 @@ import javax.swing.JOptionPane;
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************
  */
-
 /**
+ * Clase gestora de la BD que hace de mediadora entre la base de datos y nuestro
+ * sistema.
  *
  * @author Diego y Carlos
  */
 public class GruposBD {
 
-    /*static boolean ConsultarGrupos(BaseDatos accesoBD, Temporada t, Categoria cat, Horario hor, Instalacion inst) throws SQLException {
-     //String categoria = cat.getTipo();
-     String temp = t.getCurso();
-     String dia1 = hor.getDia1();
-     String dia2 = hor.getDia2();
-     String hora1 = hor.getHora1().toString();
-     String horaT2 = hor.getHora2().toString();
-        
-     String consulta = "SELECT * FROM ";
-     ResultSet res = accesoBD.ejecutaConsulta(consulta);
-        
-     if(res.next())
-     return false;
-     else
-     return true;
-        
-     }*/
     /**
      * Permite saber si un grupo ya ha sido almacenado.
      *
@@ -194,22 +176,23 @@ public class GruposBD {
 
         //Comentado para intentar solucionar la eliminacion de grupos
         /*String query2 = "SELECT idHorario FROM Horario WHERE "
-                + "Instalacion_idInstalacion='" + idInst + "'"
-                + " AND dia1='" + dia1 + "' AND dia2='" + dia2 + "' AND hora1='" + hora + "'";
-        ResultSet res2 = accesoBD.ejecutaConsulta(query2);
-        int idHorario = 0;
-        if (res2.next()) {
-            idHorario = res2.getInt(1);
-        }*/
-        
-        
+         + "Instalacion_idInstalacion='" + idInst + "'"
+         + " AND dia1='" + dia1 + "' AND dia2='" + dia2 + "' AND hora1='" + hora + "'";
+         ResultSet res2 = accesoBD.ejecutaConsulta(query2);
+         int idHorario = 0;
+         if (res2.next()) {
+         idHorario = res2.getInt(1);
+         }*/
+
+
         //Intento de solucion para eliminar grupo
         query1 = "SELECT DISTINCT LAST_INSERT_ID() FROM Horario";
         ResultSet res2 = accesoBD.ejecutaConsulta(query1);
         int idHorario = 0;
-        if(res2.next())
+        if (res2.next()) {
             idHorario = res2.getInt(1);
-        
+        }
+
 
         String query3 = "INSERT INTO Grupo (n_alumnos, Categoria_idCategoria, "
                 + "Usuario_idUsuario, Temporada_idTemporada, Horario_idHorario, "
@@ -233,7 +216,7 @@ public class GruposBD {
 
         String query5 = "";
         int res5 = 0;
-        boolean existeAl ;
+        boolean existeAl;
         int curso = GestorTemporadas.getAnio(accesoBD, idTemp);
         int auxcurso;
         int auxCont = 9;
@@ -241,14 +224,14 @@ public class GruposBD {
         boolean alumnoTresGrupos = false;
         boolean salir = false;
         for (Integer it : listaIDAl) {
-            
+
             alumnoTresGrupos = GestorGrupos.AlumnoTresGrupos(accesoBD, it, idTemp);
-            
-            if(alumnoTresGrupos){
+
+            if (alumnoTresGrupos) {
                 //String nomAlumno = GestorAlumnos.get
                 //JOptionPane.showMessageDialog(null, "El alumno", dia2, messageType, null);
             }
-            
+
             query5 = "INSERT INTO Alumnogrupo (Alumno_idAlumno, Grupo_idGrupo, "
                     + "Grupo_Categoria_idCategoria, Grupo_Usuario_idUsuario, "
                     + "Grupo_Temporada_idTemporada) VALUES "
@@ -305,7 +288,7 @@ public class GruposBD {
      * @throws SQLException
      */
     static List<List<String>> getListaGrupos(BaseDatos accesoBD) throws SQLException {
-        List<List<String>> grupos = new ArrayList<List<String>>();
+        List<List<String>> grupos = new ArrayList<>();
 
         String query = "SELECT idGrupo, n_alumnos, Categoria_idCategoria, "
                 + "Usuario_idUsuario, Temporada_idTemporada "
@@ -315,7 +298,7 @@ public class GruposBD {
         List<String> aux;
 
         while (res.next()) {
-            aux = new ArrayList<String>();
+            aux = new ArrayList<>();
             aux.add(res.getString(1) + "," + res.getString(2) + "," + res.getString(3) + "," + res.getString(4) + "," + res.getString(5));
             grupos.add(aux);
         }
@@ -488,6 +471,15 @@ public class GruposBD {
         return hora1;
     }
 
+    /**
+     * Permite obtener la hora a la que entrena un grupo.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param idGrupo <code>String</code> con el identificador del grupo del que
+     * queremos saber la hora de entrenamiento.
+     * @return Devuelve un <code>String</code> con la hora de entrenamiento del
+     * grupo cuyo identificador es <code>idGrupo</code>.
+     * @throws SQLException 
+     */
     static String getHora2(BaseDatos accesoBD, String idGrupo) throws SQLException {
         String query = "SELECT Horario_idHorario FROM Grupo WHERE "
                 + "idGrupo='" + idGrupo + "'";
@@ -720,11 +712,11 @@ public class GruposBD {
         int nRes = accesoBD.ejecutaActualizacion(query);
 
 
-       /* if (res) {
-            System.out.println("se ha eliminado");
-        } else {
-            System.out.println("no se ha eliminado");
-        }*/
+        /* if (res) {
+         System.out.println("se ha eliminado");
+         } else {
+         System.out.println("no se ha eliminado");
+         }*/
     }
 
     /**
@@ -940,7 +932,7 @@ public class GruposBD {
                 nAls = auxR.getInt(1);
             }
 
-           // System.out.println("nAls antes vale:" + nAls);
+            // System.out.println("nAls antes vale:" + nAls);
 
             nAls = nAls + listaAlumnos.size();
             //System.out.println("nAls despues vale:" + nAls);
@@ -1015,7 +1007,7 @@ public class GruposBD {
                 + " AND Grupo_Categoria_idCategoria= '" + g.getIdCategoria() + "' "
                 + " AND Grupo_Usuario_idUsuario = '" + g.getIdEntrenador() + "' AND "
                 + " Grupo_Temporada_idTemporada = '" + g.getIdTemporada() + "' ";
-       // System.out.println(query3);
+        // System.out.println(query3);
         boolean eliminaAlumGrup = false;
         eliminaAlumGrup = accesoBD.eliminar(query3);
 
@@ -1030,7 +1022,7 @@ public class GruposBD {
             if (!AlumnosEnGrupos.next()) {
 
                 String Pagos = "No se han dado de bajo pagos";
-               // System.out.println("PAgos no eliminados " + Pagos + AlumnosBorrados.getString(1));
+                // System.out.println("PAgos no eliminados " + Pagos + AlumnosBorrados.getString(1));
             } else {
                 //borrar pagos
 
@@ -1062,13 +1054,13 @@ public class GruposBD {
 
         String query2 = "DELETE FROM Horario WHERE idHorario='" + idHor + "' AND "
                 + "Instalacion_idInstalacion='" + idInst + "'";
-        
+
         boolean eliminaHor = false;
         eliminaHor = accesoBD.eliminar(query2);
-       // System.out.println(query2);
+        // System.out.println(query2);
 
         //Alumno_idAlumno='"+g.+"'
-        
+
 
         if (eliminaHor == true && eliminaGrupo == true && eliminaAlumGrup == true) {
             GrupoEliminado = true;
@@ -1095,7 +1087,7 @@ public class GruposBD {
                 + "WHERE Alumno_idAlumno='" + idAl + "' "
                 + "AND Temporada_idTemporada='" + idTemp + "'";
         ResultSet res = bd.ejecutaConsulta(query);
-        System.out.println("consulta:"+query);
+        System.out.println("consulta:" + query);
         boolean existe = false;
 
         if (res.next()) {
@@ -1158,22 +1150,33 @@ public class GruposBD {
         }
     }
 
+    /**
+     * Permite saber si un alumno esta en dos grupos de entrenamiento.
+     * @param accesoBD Usado para interactuar con la base de datos.
+     * @param it Parametro formal que representa el número de alumnos que
+     * coinciden.
+     * @param idTemp Identificador de la temporada.
+     * @return TRUE si el alumno esta en tres grupos de entrenamiento, FALSE en
+     * caso contrario.
+     * @throws SQLException 
+     */
     static boolean AlumnoTresGrupos(BaseDatos accesoBD, Integer it, int idTemp) throws SQLException {
         String query = "SELECT COUNT(*) from AlumnoGrupo WHERE "
-                + "Alumno_idAlumno='"+it+"' AND "
-                + "Grupo_Temporada_idTemporada='"+idTemp+"'";
+                + "Alumno_idAlumno='" + it + "' AND "
+                + "Grupo_Temporada_idTemporada='" + idTemp + "'";
         ResultSet res = accesoBD.ejecutaConsulta(query);
-        
+
         boolean existe = false;
         int n = 0;
-        
-        
-        if(res.next());
-            n = res.getInt(1);
-            
-        if(n >= 2)
+
+
+        if (res.next());
+        n = res.getInt(1);
+
+        if (n >= 2) {
             existe = true;
-        
+        }
+
         return existe;
     }
 }
