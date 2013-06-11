@@ -104,6 +104,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         categoriasDescripcion = new javax.swing.JLabel();
         cerrarSesion = new javax.swing.JButton();
         cerrarSesionDescripcion = new javax.swing.JLabel();
+        ligas = new javax.swing.JButton();
+        descripcionLiga = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(610, 395));
@@ -228,14 +230,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panelGestion.add(partidos, gridBagConstraints);
 
         partidosDescripcion.setText("Esta opción permite gestionar todos los partidos, esto es: insertar, modificar o eliminar.");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         panelGestion.add(partidosDescripcion, gridBagConstraints);
@@ -251,14 +253,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panelGestion.add(actividades, gridBagConstraints);
 
         acrividadesDescripcion.setText("Esta opción permite gestionar todos los actividades, esto es: insertar, modificar o eliminar.");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         panelGestion.add(acrividadesDescripcion, gridBagConstraints);
@@ -274,14 +276,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panelGestion.add(pagos, gridBagConstraints);
 
         pagosDescripcion.setText("Esta opción permite gestionar todos los pagos, esto es: modificar o eliminar.");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         panelGestion.add(pagosDescripcion, gridBagConstraints);
@@ -297,14 +299,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridy = 9;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panelGestion.add(instalaciones, gridBagConstraints);
 
         instalacionesDescripcion.setText("Esta opción permite gestionar todos los instalaciones, esto es: insertar, modificar o eliminar.");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridy = 9;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         panelGestion.add(instalacionesDescripcion, gridBagConstraints);
@@ -320,14 +322,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridy = 10;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panelGestion.add(temporadas, gridBagConstraints);
 
         temporadasDescripcion.setText("Esta opción permite gestionar todas las temporadas, esto es: insertar, modificar o eliminar.");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridy = 10;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         panelGestion.add(temporadasDescripcion, gridBagConstraints);
@@ -343,14 +345,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridy = 11;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panelGestion.add(categorias, gridBagConstraints);
 
         categoriasDescripcion.setText("Esta opción permite gestionar todas las categorias, esto es: insertar, modificar o eliminar.");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 10;
+        gridBagConstraints.gridy = 11;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         panelGestion.add(categoriasDescripcion, gridBagConstraints);
@@ -363,7 +365,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 11;
+        gridBagConstraints.gridy = 12;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panelGestion.add(cerrarSesion, gridBagConstraints);
 
@@ -371,10 +373,38 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         cerrarSesionDescripcion.setText("Salir del panel de gestión.");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 11;
+        gridBagConstraints.gridy = 12;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         panelGestion.add(cerrarSesionDescripcion, gridBagConstraints);
+
+        ligas.setText("Ligas");
+        ligas.setMaximumSize(new java.awt.Dimension(97, 23));
+        ligas.setMinimumSize(new java.awt.Dimension(97, 23));
+        ligas.setPreferredSize(new java.awt.Dimension(97, 23));
+        ligas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ligasActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.weightx = 0.2;
+        gridBagConstraints.weighty = 0.4;
+        gridBagConstraints.insets = new java.awt.Insets(4, 3, 4, 5);
+        panelGestion.add(ligas, gridBagConstraints);
+
+        descripcionLiga.setText("Esta opción permite gestionar todas las ligas, esto es: insertar, modificar o eliminar.");
+        descripcionLiga.setMaximumSize(new java.awt.Dimension(416, 14));
+        descripcionLiga.setMinimumSize(new java.awt.Dimension(416, 14));
+        descripcionLiga.setPreferredSize(new java.awt.Dimension(416, 14));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelGestion.add(descripcionLiga, gridBagConstraints);
 
         getContentPane().add(panelGestion, java.awt.BorderLayout.CENTER);
 
@@ -433,6 +463,11 @@ private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         new Acceso().setVisible(true);
     }//GEN-LAST:event_formWindowClosing
+
+    private void ligasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ligasActionPerformed
+        new PrincipalLiga(this, this.accesoBD).setVisible(true);
+    }//GEN-LAST:event_ligasActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel acrividadesDescripcion;
     private javax.swing.JButton actividades;
@@ -440,6 +475,7 @@ private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private javax.swing.JLabel categoriasDescripcion;
     private javax.swing.JButton cerrarSesion;
     private javax.swing.JLabel cerrarSesionDescripcion;
+    private javax.swing.JLabel descripcionLiga;
     private javax.swing.JButton equipos;
     private javax.swing.JLabel equiposDescripcion;
     private javax.swing.JButton grupos;
@@ -448,6 +484,7 @@ private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private javax.swing.JLabel instalacionesDescripcion;
     private javax.swing.JButton jugadores;
     private javax.swing.JLabel jugadoresDescripcion;
+    private javax.swing.JButton ligas;
     private javax.swing.JButton pagos;
     private javax.swing.JLabel pagosDescripcion;
     private javax.swing.JPanel panelGestion;
