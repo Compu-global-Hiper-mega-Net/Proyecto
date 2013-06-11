@@ -93,8 +93,6 @@ public class PartidoBD {
                 + " AND idEquipo= '" + eqL + "'"
                 + " AND idEquipoVisitante= '" + eqV + "'";
 
-        System.out.println(query);
-
         ResultSet res = accesoBD.ejecutaConsulta(query);
 
         int idPart = 0;
@@ -147,7 +145,7 @@ public class PartidoBD {
         boolean and = false;
         boolean primeraVez = true;
         String query = "SELECT fecha, hora, equipo_Categoria_idCategoria, equipo_Temporada_idTemporada, "
-                + "idEquipo, idEquipoVisitante, resultadoLocal, resultadoVisitante FROM Partido";
+                + "equipo_liga_idLiga, idEquipo, idEquipoVisitante, resultadoLocal, resultadoVisitante FROM Partido";
         if (fecha != null) {
             if (primeraVez) {
                 query += " WHERE ";
@@ -202,9 +200,6 @@ public class PartidoBD {
         }
         query += ";";
 
-        System.out.println();
-        System.out.println(query);
-
         ResultSet res = accesoBD.ejecutaConsulta(query);
 
         List<String> aux;
@@ -212,7 +207,7 @@ public class PartidoBD {
         while (res.next()) {
             aux = new ArrayList<>();
             aux.add(res.getString(1) + "," + res.getString(2) + "," + res.getString(3) + "," + res.getString(4)
-                    + "," + res.getString(5) + "," + res.getString(6) + "," + res.getString(7) + "," + res.getString(8));
+                    + "," + res.getString(5) + "," + res.getString(6) + "," + res.getString(7) + "," + res.getString(8)+ "," + res.getString(9));
             partidos.add(aux);
         }
         return partidos;
@@ -272,11 +267,8 @@ public class PartidoBD {
                 + " hora= '" + hora + "'"
                 + " WHERE idPartido= " + idPart;
 
-        System.out.println(actualizacion);
-
         try {
             accesoBD.ejecutaActualizacion(actualizacion);
-            System.out.print("\nModificado act\n " + actualizacion);
         } catch (SQLException ex) {
             exito = false;
         }

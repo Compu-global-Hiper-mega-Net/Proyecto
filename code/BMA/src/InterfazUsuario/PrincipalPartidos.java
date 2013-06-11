@@ -126,6 +126,8 @@ public class PrincipalPartidos extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(980, 320));
+        setResizable(false);
 
         PanelPartidos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -364,12 +366,12 @@ public class PrincipalPartidos extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 296, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 2, Short.MAX_VALUE)
+                    .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(PanelPartidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 2, Short.MAX_VALUE)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();
@@ -440,11 +442,11 @@ public class PrincipalPartidos extends javax.swing.JFrame {
                 Time hora;
                 
                 idEquipoLocalCategoria = GestorCategorias.getIdCategoria(accesoBD, tablaPartidos.getValueAt(iTablaPartido, 2).toString());
-                idEquipoLocal = GestorEquipos.getIdEquipo(accesoBD, tablaPartidos.getValueAt(iTablaPartido, 4).toString(), tablaPartidos.getValueAt(iTablaPartido, 2).toString());
+                idEquipoLocal = GestorEquipos.getIdEquipo(accesoBD, tablaPartidos.getValueAt(iTablaPartido, 5).toString(), tablaPartidos.getValueAt(iTablaPartido, 2).toString());
                 idEquipoLocalFundacion = GestorEquipos.getIdFundacionEquipo(accesoBD, idEquipoLocal);
                 idEquipoLocalTemporada = GestorTemporadas.getIdTemporada(accesoBD, tablaPartidos.getValueAt(iTablaPartido, 3).toString());
                 idEquipoLocalLiga = GestorEquipos.getIdLigaEquipo(accesoBD, idEquipoLocal);
-                idEquipoVisitante = GestorEquipos.getIdEquipo(accesoBD, tablaPartidos.getValueAt(iTablaPartido, 5).toString(), tablaPartidos.getValueAt(iTablaPartido, 2).toString());
+                idEquipoVisitante = GestorEquipos.getIdEquipo(accesoBD, tablaPartidos.getValueAt(iTablaPartido, 6).toString(), tablaPartidos.getValueAt(iTablaPartido, 2).toString());
                 idEquipoVisitanteFundacion = GestorEquipos.getIdFundacionEquipo(accesoBD, idEquipoVisitante);
                 idEquipoVisitanteCategoria = GestorCategorias.getIdCategoria(accesoBD, tablaPartidos.getValueAt(iTablaPartido, 2).toString());
                 idEquipoVisitanteTemporada = GestorTemporadas.getIdTemporada(accesoBD, tablaPartidos.getValueAt(iTablaPartido, 3).toString());
@@ -856,8 +858,6 @@ public class PrincipalPartidos extends javax.swing.JFrame {
         List<List<String>> lpar = new ArrayList<List<String>>();
         int idCat = 0;
         idCat = GestorCategorias.getIdCategoria(accesoBD, categoria);
-        System.out.println();
-        System.out.println(equipoLoc);
         try {
             lpar = GestorPartidos.getListaPartidosFiltro(accesoBD, fecha, String.valueOf(GestorTemporadas.getIdTemporada(accesoBD, temporada)),
                     String.valueOf(idCat), String.valueOf(GestorEquipos.getIdEquipo(accesoBD, equipoLoc, categoria)),
@@ -870,13 +870,14 @@ public class PrincipalPartidos extends javax.swing.JFrame {
         dtm.addColumn("Hora");
         dtm.addColumn("Categoría");
         dtm.addColumn("Temporada");
+        dtm.addColumn("Liga");
         dtm.addColumn("Equipo Local");
         dtm.addColumn("Equipo Visitante");
         dtm.addColumn("Resultado Local");
         dtm.addColumn("Resultado Visitante");
-        
+
         String aux;
-        Object[] fila = new Object[8];
+        Object[] fila = new Object[9];
         for (List<String> it : lpar) {
             aux = it.get(0);
             fila[0] = aux.substring(0, aux.indexOf(","));
@@ -896,7 +897,7 @@ public class PrincipalPartidos extends javax.swing.JFrame {
             }
             aux = aux.substring(aux.indexOf(",") + 1, aux.length());
             try {
-                fila[4] = getEquipo(aux.substring(0, aux.indexOf(",")));
+                fila[4] = getLiga(aux.substring(0, aux.indexOf(",")));
             } catch (SQLException ex) {
                 Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -907,9 +908,15 @@ public class PrincipalPartidos extends javax.swing.JFrame {
                 Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
             aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            fila[6] = aux.substring(0, aux.indexOf(","));
+            try {
+                fila[6] = getEquipo(aux.substring(0, aux.indexOf(",")));
+            } catch (SQLException ex) {
+                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
             aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            fila[7] = aux;
+            fila[7] = aux.substring(0, aux.indexOf(","));
+            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
+            fila[8] = aux;
             dtm.addRow(fila);
         }
         
