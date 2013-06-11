@@ -345,7 +345,7 @@ public class AccesoBDActividad {
 		 * @param alumno int (entero) con el identificador del alumno.
 		 * @param actividad int (entero) con el identificador de la actividad.
      * @throws SQLException algun tipo de error en la base de datos.
-		 * @return int (entero) con el atributo interno del identificador de la cuota.
+		 * @return int (entero)
 		 */
     
     public static int getIDCuotaEliminar(BaseDatos accesoBD, int alumno, int actividad) throws SQLException{

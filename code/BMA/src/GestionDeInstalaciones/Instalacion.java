@@ -70,7 +70,7 @@ public class Instalacion {
     }
 
     /**
-     * Metodo modificador
+     * Metodo constructor
      * @param idInst int (entero) con id de la instalación.
      */
     public void setIdInst(int idInst) {

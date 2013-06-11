@@ -499,7 +499,7 @@ public class PrincipalActividades extends javax.swing.JFrame {
 
             String consulta = "SELECT nombre, fechaInicio, fechaFin FROM actividades"
                     + " WHERE fechaInicio>='" + dateString + "' AND fechaFin<='" + dateString1 + "'";
-
+            System.out.print("\nConsulta Fechas"+consulta);
             ResultSet retSet = bd.ejecutaConsulta(consulta);
 
             ArrayList<ArrayList<Object>> dataCollection = new ArrayList<>();
