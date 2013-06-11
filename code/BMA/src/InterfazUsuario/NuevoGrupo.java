@@ -15,10 +15,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Diego y carlos
- */
+
 
 /*
  ******************************************************************************
@@ -47,6 +44,12 @@ import javax.swing.JOptionPane;
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************
  */
+
+/**
+ * Clase encargada de proporcionar la interfaz para la creacion de un nuevo 
+ * grupo de entrenamiento.
+ * @author Diego y Carlos
+ */
 public class NuevoGrupo extends javax.swing.JFrame {
 
     private PrincipalGrupos pP;
@@ -55,7 +58,7 @@ public class NuevoGrupo extends javax.swing.JFrame {
     private List<String> alumnosCat;
 
     /**
-     * Creates new form NuevoGrupo
+     * Crea una nueva ventana para crear Grupos de Entrenamiento.
      */
     public NuevoGrupo(PrincipalGrupos v, BaseDatos bd) throws SQLException {
         initComponents();
@@ -77,7 +80,7 @@ public class NuevoGrupo extends javax.swing.JFrame {
         aux = pP.getListaEntrenadores("");
         actualizaComboEntrenadores(aux);
 
-        aux = pP.getListaInstalaciones("");
+        aux = pP.getListaInstalaciones(/*""*/);
         actualizaComboInstalaciones(aux);
 
         labelError.setVisible(false);
@@ -279,11 +282,6 @@ public class NuevoGrupo extends javax.swing.JFrame {
         comboInst.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboInst.setMinimumSize(new java.awt.Dimension(117, 20));
         comboInst.setPreferredSize(new java.awt.Dimension(117, 20));
-        comboInst.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboInstActionPerformed(evt);
-            }
-        });
 
         jTextField1.setText("Buscar...");
         jTextField1.setMinimumSize(new java.awt.Dimension(70, 20));
@@ -426,6 +424,12 @@ public class NuevoGrupo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Evento que al ser ejecutado crea un nuevo Grupo de Entrenamiento con todos
+     * los datos necesarios. Ademas muestra diversos mensajes de error si falta algun dato.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
         //Integer a = Integer.parseInt(textHora.getText().toString());
         //Integer a1 = Integer.parseInt(textMin.getText().toString());
@@ -495,15 +499,30 @@ public class NuevoGrupo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonAceptarActionPerformed
 
+    /**
+     * Evento que cierra la ventana de creacion de grupos.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
+    /**
+     * Evento que limpia el campo de texto de buscar entrenador al hacer clic.
+     * @param evt 
+     */
     private void tfBuscarEntMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfBuscarEntMouseClicked
         tfBuscarEnt.setText("");
         tfBuscarEnt.requestFocus();
     }//GEN-LAST:event_tfBuscarEntMouseClicked
 
+    /**
+     * Evento que hace busquedas de entrenadores en la base de datos conforme se 
+     * van escribiedo caracteres.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void tfBuscarEntKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscarEntKeyTyped
         String sEnt = tfBuscarEnt.getText();
         List<String> ents = pP.getListaEntrenadores(sEnt);
@@ -512,6 +531,10 @@ public class NuevoGrupo extends javax.swing.JFrame {
 
     }//GEN-LAST:event_tfBuscarEntKeyTyped
 
+    /**
+     * Evento que limpia el campo de texto de buscar alumnos al hacer clic.
+     * @param evt 
+     */
     private void tfBuscarAlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfBuscarAlMouseClicked
         if ("Buscar...".equals(tfBuscarAl.getText())) {
             tfBuscarAl.setText("");
@@ -519,6 +542,12 @@ public class NuevoGrupo extends javax.swing.JFrame {
         tfBuscarAl.requestFocus();
     }//GEN-LAST:event_tfBuscarAlMouseClicked
 
+    /**
+     * Evento que busca alumnos en la base de datos conforme se van 
+     * tecleando caracteres.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void tfBuscarAlKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscarAlKeyTyped
         List<String> als = new ArrayList<>();
         String s = tfBuscarAl.getText();
@@ -531,6 +560,12 @@ public class NuevoGrupo extends javax.swing.JFrame {
         actualizaModeloLista(als);
     }//GEN-LAST:event_tfBuscarAlKeyTyped
 
+    /**
+     * Evento para actualizar la cuenta de alumnos seleccionados en el 
+     * grupo de entrenamiento.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void jlAlumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlAlumnosMouseClicked
         int[] n = jlAlumnos.getSelectedIndices();
         String auxN = Integer.toString(n.length);
@@ -549,6 +584,12 @@ public class NuevoGrupo extends javax.swing.JFrame {
         labelSelecc.setText(auxN);
     }//GEN-LAST:event_jlAlumnosMouseClicked
 
+    /**
+     * Evento que añade los alumnos seleccionados a una lista para luego 
+     * poder crear un grupo con esos alumnos.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void botonAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAnadirActionPerformed
         List<String> alsTotales;
         List<String> auxiliarAlumnosNuevos = new ArrayList();
@@ -570,22 +611,37 @@ public class NuevoGrupo extends javax.swing.JFrame {
         //actualizaModeloLista(listaAlumnos);
     }//GEN-LAST:event_botonAnadirActionPerformed
 
+    /**
+     * Este evento evita que en el campo de texto de la hora se inserten mas de 
+     * dos caracteres.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void textHoraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textHoraKeyTyped
         if (textHora.getText().length() >= 2) {
             evt.consume();
         }
     }//GEN-LAST:event_textHoraKeyTyped
 
+    /**
+     * Este evento evita que en el campo de texto de los minutos se inserten mas de 
+     * dos caracteres.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void textMinKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textMinKeyTyped
         if (textMin.getText().length() >= 2) {
             evt.consume();
         }
     }//GEN-LAST:event_textMinKeyTyped
 
-    private void comboInstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboInstActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboInstActionPerformed
-
+    /**
+     * Este evento provoca que cada vez que se cambie la categoria a la hora de 
+     * crear un grupo, solo muestre como alumnos seleccionables aquellos que pueden
+     * estar en esa categoria seleccionada.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void comboCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCatActionPerformed
 
         if (bd != null && comboCat.getItemAt(0) != null) {
@@ -608,6 +664,14 @@ public class NuevoGrupo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_comboCatActionPerformed
 
+    /**
+     * Evita que el segundo dia de entrenamiento de un grupo pueda ser seleccionable 
+     * si ya se ha seleccionado para el primer dia. Por ejemplo si para el primer 
+     * dia se selecciona el Lunes, para el segundo dia no aparecerá esa opcion en 
+     * el menu desplegable.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void comboDia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboDia1ActionPerformed
 
         if (comboDia1.getSelectedItem() != null) {
@@ -674,6 +738,12 @@ public class NuevoGrupo extends javax.swing.JFrame {
     private javax.swing.JTextField tfBuscarEnt;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Metodo que permite rellenar la lista desplegable de las temporadas.
+     * @param temps Lista de <code>String</code> con las temporadas que seran 
+     * introducidas en la lista desplegable.
+     * @throws SQLException 
+     */
     private void actualizaComboTemp(List<String> temps) throws SQLException {
         comboTemp.removeAllItems();
         for (String s : temps) {
@@ -682,16 +752,27 @@ public class NuevoGrupo extends javax.swing.JFrame {
 
     }
 
-    private void actualizaComboCat(List<String> temps) throws SQLException {
+    /**
+     * Metodo que permite rellenar la lista desplegable de las categorias.
+     * @param temps Lista de <code>String</code> con las categorias que seran 
+     * introducidas en la lista desplegable.
+     * @throws SQLException 
+     */
+    private void actualizaComboCat(List<String> cat) throws SQLException {
         comboCat.removeAllItems();
-        for (String s : temps) {
+        for (String s : cat) {
             comboCat.addItem(s);
         }
     }
 
-    private void actualizaModeloLista(List<String> temps) {
+    /**
+     * Metodo que permite rellenar la lista de los alumnos.
+     * @param temps Lista de <code>String</code> con los alumnos que seran 
+     * introducidos en la lista de alumnos.
+     */
+    private void actualizaModeloLista(List<String> als) {
         DefaultListModel modelo = new DefaultListModel();
-        for (String s : temps) {
+        for (String s : als) {
             modelo.addElement(s);
         }
 
@@ -699,6 +780,11 @@ public class NuevoGrupo extends javax.swing.JFrame {
         jlAlumnos.setModel(modelo);
     }
 
+    /**
+     * Metodo que permite rellenar la lista desplegable de los entrenadores.
+     * @param ents Lista de <code>String</code> con los entrenadores que seran 
+     * introducidos en la lista desplegable.
+     */
     private void actualizaComboEntrenadores(List<String> ents) {
         comboEnt.removeAllItems();
 
@@ -707,6 +793,11 @@ public class NuevoGrupo extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Metodo que permite rellenar la lista desplegable de las instalaciones.
+     * @param ents Lista de <code>String</code> con las instalaciones que seran 
+     * introducidas en la lista desplegable.
+     */
     private void actualizaComboInstalaciones(List<String> inst) {
         comboInst.removeAllItems();
 
@@ -715,6 +806,10 @@ public class NuevoGrupo extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Metodo que actualiza la lista de alumnos dependiendo la categoria que 
+     * este seleccionada para crear el grupo.
+     */
     private void actualizaListaPorCategoria() {
         List<String> auxList;
 

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package InterfazUsuario;
 
 import GestionDeAlumnos.Alumno;
@@ -22,10 +18,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Diego
- */
+
 
 /*
  ******************************************************************************
@@ -54,6 +47,12 @@ import javax.swing.JOptionPane;
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************
  */
+
+/**
+ * Clase encargada de proporcionar la interfaz para gestionar la consulta de grupos 
+ * de entrenamiento.
+ * @author Diego
+ */
 public class ConsultarGrupo extends javax.swing.JFrame {
 
     private PrincipalGrupos pP;
@@ -75,12 +74,18 @@ public class ConsultarGrupo extends javax.swing.JFrame {
     private List<String> listaAlumnosIntroducidos;
 
     /**
-     * Creates new form ConsultarGrupo
+     * Crea una nueva ventana para gestionar Grupos de Entrenamiento.
      */
     public ConsultarGrupo() {
         initComponents();
     }
 
+    /**
+     * Crea una nueva ventana para gestionar Grupos de Entrenamiento.
+     * @param v Referencia a la ventana padre que mostrar la consulta de grupos.
+     * @param idG Identificador del grupo que va a ser consultado.
+     * @throws SQLException 
+     */
     public ConsultarGrupo(PrincipalGrupos v, String idG) throws SQLException {
         initComponents();
         setLocationRelativeTo(v);
@@ -130,7 +135,7 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         aux = pP.getListaEntrenadores("");
         actualizaComboEntrenadores(aux);
 
-        aux = pP.getListaInstalaciones("");
+        aux = pP.getListaInstalaciones(/*""*/);
         actualizaComboInstalaciones(aux);
 
         labelError.setVisible(false);
@@ -175,6 +180,12 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         //listaAlumnosIntroducidos = GestorGrupos.getListaAlumnosIntroducidos(bd, idGrupo);
     }
 
+    /**
+     * Metodo que permite eliminar un alumno de los que ya hay introducidos en un 
+     * grupo.
+     * @param alumno <code>String</code> con el identificador del alumno que va a 
+     * ser eliminado del grupo.
+     */
     private void EliminarAlumnoLista(String alumno) {
         int idAl = 0;
         try {
@@ -237,7 +248,7 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         labelEntrenador = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        botonAceptar = new javax.swing.JButton();
         labelFijados = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         panelAvanzadas = new javax.swing.JPanel();
@@ -270,12 +281,10 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         labelAnadir = new javax.swing.JLabel();
         botonCancelar = new javax.swing.JButton();
-        botonAceptar = new javax.swing.JButton();
+        botonModificar = new javax.swing.JButton();
         botonAvanzadas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(605, 675));
-        setPreferredSize(new java.awt.Dimension(605, 300));
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -343,10 +352,10 @@ public class ConsultarGrupo extends javax.swing.JFrame {
 
         labelEntrenador.setText("jLabel19");
 
-        jButton1.setText("Aceptar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        botonAceptar.setText("Aceptar");
+        botonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                botonAceptarActionPerformed(evt);
             }
         });
 
@@ -477,10 +486,10 @@ public class ConsultarGrupo extends javax.swing.JFrame {
             }
         });
 
-        botonAceptar.setText("Modificar");
-        botonAceptar.addActionListener(new java.awt.event.ActionListener() {
+        botonModificar.setText("Modificar");
+        botonModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonAceptarActionPerformed(evt);
+                botonModificarActionPerformed(evt);
             }
         });
 
@@ -553,7 +562,7 @@ public class ConsultarGrupo extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAvanzadasLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(botonAceptar)
+                        .addComponent(botonModificar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botonCancelar)))
                 .addContainerGap())
@@ -611,7 +620,7 @@ public class ConsultarGrupo extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(panelAvanzadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonCancelar)
-                    .addComponent(botonAceptar))
+                    .addComponent(botonModificar))
                 .addContainerGap())
         );
 
@@ -690,7 +699,7 @@ public class ConsultarGrupo extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButton1)))))
+                                .addComponent(botonAceptar)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -738,7 +747,7 @@ public class ConsultarGrupo extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonAvanzadas)
-                    .addComponent(jButton1))
+                    .addComponent(botonAceptar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -749,6 +758,12 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Evento que limpia el campo de texto para buscar un alumno cuando se 
+     * hace clic.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void tfBuscarAlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfBuscarAlMouseClicked
         if ("Buscar...".equals(tfBuscarAl.getText())) {
             tfBuscarAl.setText("");
@@ -756,6 +771,11 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         tfBuscarAl.requestFocus();
     }//GEN-LAST:event_tfBuscarAlMouseClicked
 
+    /**
+     * Evento que busca a un alumno conforme se van tecleando caracteres.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void tfBuscarAlKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscarAlKeyTyped
         List<String> als = new ArrayList<>();
         String s = tfBuscarAl.getText();
@@ -767,6 +787,12 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         actualizaModeloLista(als);
     }//GEN-LAST:event_tfBuscarAlKeyTyped
 
+    /**
+     * Evento que actualiza la cuenta de alumnos seleccionados para insertar en 
+     * un grupo.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento. 
+     */
     private void jlAlumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlAlumnosMouseClicked
         int[] n = jlAlumnos.getSelectedIndices();
         String auxN = Integer.toString(n.length);
@@ -785,11 +811,21 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         labelSelecc.setText(auxN);
     }//GEN-LAST:event_jlAlumnosMouseClicked
 
+    /**
+     * Evento que limpia el campo de texto de buscar entrenador cuando se hace clic.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void tfBuscarEntMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfBuscarEntMouseClicked
         tfBuscarEnt.setText("");
         tfBuscarEnt.requestFocus();
     }//GEN-LAST:event_tfBuscarEntMouseClicked
 
+    /**
+     * Evento que busca a un entrenador conforme se van tecleando caracteres.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void tfBuscarEntKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscarEntKeyTyped
         String sEnt = tfBuscarEnt.getText();
         List<String> ents = pP.getListaEntrenadores(sEnt);
@@ -798,6 +834,12 @@ public class ConsultarGrupo extends javax.swing.JFrame {
 
     }//GEN-LAST:event_tfBuscarEntKeyTyped
 
+    /**
+     * Fija en una lista los alumnos seleccionados para luego ser añadidos a un
+     * grupo.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void botonAnadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAnadirActionPerformed
         List<String> auxiliarAlumnosNuevos = new ArrayList();
         auxiliarAlumnosNuevos.addAll(jlAlumnos.getSelectedValuesList());
@@ -811,10 +853,19 @@ public class ConsultarGrupo extends javax.swing.JFrame {
 
     }//GEN-LAST:event_botonAnadirActionPerformed
 
+    /**
+     * Cierra la ventana de consultar grupo.
+     * @param evt 
+     */
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
 
+    /**
+     * Limpia el campo de texto de buscar a un alumno cuando se hace clic.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void tfBuscarAlIntrMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfBuscarAlIntrMouseClicked
         if ("Buscar...".equals(tfBuscarAlIntr.getText())) {
             tfBuscarAlIntr.setText("");
@@ -822,6 +873,11 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         tfBuscarAlIntr.requestFocus();
     }//GEN-LAST:event_tfBuscarAlIntrMouseClicked
 
+    /**
+     * Busca a un alumno conformse se van tecleando caracteres.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void tfBuscarAlIntrKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscarAlIntrKeyTyped
         List<String> als = new ArrayList<>();
         String s = tfBuscarAlIntr.getText();
@@ -834,17 +890,33 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         //actualizaModeloListaAlumnosIntroducidos(als);
     }//GEN-LAST:event_tfBuscarAlIntrKeyTyped
 
+    /**
+     * Permite quitar a un alumno de la lista de alumnos que tiene un grupo.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void botonQuitarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonQuitarAlumnoActionPerformed
         String alumno = (String) jlAlumIntr.getSelectedValue();
         EliminarAlumnoLista(alumno);
 
     }//GEN-LAST:event_botonQuitarAlumnoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
+    /**
+     * Cierra la ventana de consultar grupos.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_botonAceptarActionPerformed
+
+    /**
+     * Modifica el grupo al hacer clic en el boton correspondiente cambiando todos 
+     * los parametros que hayan sido modificados.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
+    private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarActionPerformed
         /*String temp = GestorGrupos.getTemporada(creador.accesoBD, idGrupo);
          String cat = GestorGrupos.getCategoria(creador.accesoBD, idGrupo);
          String hora1 = GestorGrupos.getHora1(creador.accesoBD, idGrupo);
@@ -901,8 +973,13 @@ public class ConsultarGrupo extends javax.swing.JFrame {
 
             this.setVisible(false);
         }
-    }//GEN-LAST:event_botonAceptarActionPerformed
+    }//GEN-LAST:event_botonModificarActionPerformed
 
+    /**
+     * Evita que el campo de texto de la hora pueda tener mas de dos caracteres.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void textHoraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textHoraKeyTyped
         Integer a = Integer.parseInt(textHora.getText().toString());
         if (textHora.getText().length() > 2) {
@@ -911,6 +988,11 @@ public class ConsultarGrupo extends javax.swing.JFrame {
 
     }//GEN-LAST:event_textHoraKeyTyped
 
+    /**
+     * Evita que el campo de los minutos pueda tener mas de dos caracteres.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void textMinKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textMinKeyTyped
         Integer a = Integer.parseInt(textMin.getText().toString());
         if (textMin.getText().length() > 2) {
@@ -919,6 +1001,12 @@ public class ConsultarGrupo extends javax.swing.JFrame {
 
     }//GEN-LAST:event_textMinKeyTyped
 
+    /**
+     * Despliega una nueva parte de la ventana con opciones de modificar mas parametros 
+     * de un grupo.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento.
+     */
     private void botonAvanzadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAvanzadasActionPerformed
         if (avanzadas == false) {
             panelAvanzadas.setVisible(true);
@@ -942,6 +1030,12 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonAvanzadasActionPerformed
 
+    /**
+     * Actualiza la lista de alumnos conforme a la categoria seleccionada en 
+     * el grupo.
+     * @param evt Generado por la accion de un componente de la interfaz, proporciona 
+     * algunas caracteristicas del evento. 
+     */
     private void comboCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCatActionPerformed
 
         if (bd != null && comboCat.getItemAt(0) != null) {
@@ -989,6 +1083,7 @@ public class ConsultarGrupo extends javax.swing.JFrame {
     private javax.swing.JButton botonAnadir;
     private javax.swing.JButton botonAvanzadas;
     private javax.swing.JButton botonCancelar;
+    private javax.swing.JButton botonModificar;
     private javax.swing.JButton botonQuitar;
     private javax.swing.JButton botonQuitarAlumno;
     private javax.swing.JComboBox comboCat;
@@ -997,7 +1092,6 @@ public class ConsultarGrupo extends javax.swing.JFrame {
     private javax.swing.JComboBox comboEnt;
     private javax.swing.JComboBox comboInst;
     private javax.swing.JComboBox comboTemp;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1042,6 +1136,11 @@ public class ConsultarGrupo extends javax.swing.JFrame {
     private javax.swing.JTextField tfBuscarEnt;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Metodo que permite rellenar la lista de los alumnos.
+     * @param als Lista de <code>String</code> con los alumnos que van a ser 
+     * introducidos en la lista.
+     */
     private void actualizaModeloLista(List<String> als) {
         DefaultListModel modelo = new DefaultListModel();
         for (String s : als) {
@@ -1052,6 +1151,11 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         jlAlumnos.setModel(modelo);
     }
 
+    /**
+     * Permite rellenar la lista desplegable de los entrenadores.
+     * @param ents Lista de <code>String</code> con los entrenadores que van a ser 
+     * introducidos en la lista.
+     */
     private void actualizaComboEntrenadores(List<String> ents) {
         comboEnt.removeAllItems();
 
@@ -1060,6 +1164,11 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Permite rellenar la lista desplegable de las temporadas.
+     * @param aux Lista de <code>String</code> con las temporadas que van a ser 
+     * introducidos en la lista.
+     */
     private void actualizaComboTemp(List<String> aux) {
         comboTemp.removeAllItems();
         for (String s : aux) {
@@ -1067,6 +1176,11 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Permite rellenar la lista desplegable de las categorias.
+     * @param aux Lista de <code>String</code> con las categorias que van a ser 
+     * introducidos en la lista.
+     */
     private void actualizaComboCat(List<String> aux) {
         comboCat.removeAllItems();
         for (String s : aux) {
@@ -1074,6 +1188,11 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Permite rellenar la lista desplegable de las instalaciones.
+     * @param aux Lista de <code>String</code> con las instalaciones que van a ser 
+     * introducidos en la lista.
+     */
     private void actualizaComboInstalaciones(List<String> aux) {
         comboInst.removeAllItems();
 
@@ -1082,6 +1201,12 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Metodo que rellena la lista de los alumnos que ya estan introducidos en un 
+     * grupo.
+     * @param als Lista de <code>String</code> con los alumnos que van a ser 
+     * introducidos en la lista.
+     */
     private void actualizaModeloListaAlumnosIntroducidos(List<String> als) {
         DefaultListModel modelo = new DefaultListModel();
         for (String s : als) {
@@ -1092,6 +1217,12 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         jlAlumIntr.setModel(modelo);
     }
 
+    /**
+     * Metodo que rellena la lista de los alumnos que ya estan introducidos en un 
+     * grupo.
+     * @param als Lista de <code>String</code> con los alumnos que van a ser 
+     * introducidos en la lista.
+     */
     private void actualizaListaAlumnosIntroducidos(List<String> als) {
         DefaultListModel modelo = new DefaultListModel();
         for (String s : als) {
@@ -1102,6 +1233,10 @@ public class ConsultarGrupo extends javax.swing.JFrame {
         jlAlumIntr.setModel(modelo);
     }
 
+    /**
+     * Metodo que rellena la lista de alumnos basandose en la categoria seleccionada 
+     * en el grupo.
+     */
     private void actualizaListaPorCategoria() {
         List<String> auxList = new ArrayList<String>();
 
