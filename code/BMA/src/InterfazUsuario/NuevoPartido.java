@@ -227,7 +227,6 @@ public class NuevoPartido extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(CrearPartidoLabel)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(EquipoLocalLabel)
                                         .addGap(18, 18, 18)
@@ -235,20 +234,20 @@ public class NuevoPartido extends javax.swing.JFrame {
                                             .addComponent(ComboEquipo2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(ComboEquipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(EquipoVisitanteLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 243, Short.MAX_VALUE)
-                                        .addComponent(textHora, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel1))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(fechaLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(fechaPartido, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(horaLabel)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textMin, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(CrearPartidoLabel)
+                                            .addComponent(EquipoVisitanteLabel)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(fechaLabel)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(fechaPartido, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(horaLabel)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(textHora, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(5, 5, 5)
+                                .addComponent(jLabel1))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(TemporadaLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -258,9 +257,11 @@ public class NuevoPartido extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(ComboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(LigaLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboLiga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(LigaLabel)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(comboLiga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textMin, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Guardar)
@@ -461,6 +462,8 @@ public class NuevoPartido extends javax.swing.JFrame {
                     noEntry = true;
                     ligas = principal.getListaLigas(idCat, idTemp);
                     if(idCat != 0 && idTemp != 0){
+                        actualizaComboEquipo(new ArrayList<String>(),1);
+                        actualizaComboEquipo(new ArrayList<String>(),2);
                         actualizaComboLiga(ligas);
                     }
                     noEntry = false;
@@ -472,10 +475,10 @@ public class NuevoPartido extends javax.swing.JFrame {
                 List<String> ligas = new ArrayList<String>();
                 try {
                     noEntry = true;
-                    ligas = principal.getListaLigas(idCat, idTemp);
-                    if(idCat != 0 && idTemp != 0){
-                        actualizaComboLiga(ligas);
-                    }
+                    ligas = principal.getListaLigas(0, idTemp);
+                    actualizaComboEquipo(new ArrayList<String>(),1);
+                    actualizaComboEquipo(new ArrayList<String>(),2);
+                    actualizaComboLiga(ligas);
                     noEntry = false;
                 } catch (SQLException ex) {
                     Logger.getLogger(NuevoPartido.class.getName()).log(Level.SEVERE, null, ex);
@@ -500,6 +503,8 @@ public class NuevoPartido extends javax.swing.JFrame {
                     noEntry = true;
                     ligas = principal.getListaLigas(idCat, idTemp);
                     if(idCat != 0 && idTemp != 0){
+                        actualizaComboEquipo(new ArrayList<String>(),1);
+                        actualizaComboEquipo(new ArrayList<String>(),2);
                         actualizaComboLiga(ligas);
                     }
                     noEntry = false;
@@ -511,10 +516,10 @@ public class NuevoPartido extends javax.swing.JFrame {
                 List<String> ligas = new ArrayList<String>();
                 try {
                     noEntry = true;
-                    ligas = principal.getListaLigas(idCat, idTemp);
-                    if(idCat != 0 && idTemp != 0){
-                        actualizaComboLiga(ligas);
-                    }
+                    ligas = principal.getListaLigas(idCat, 0);
+                    actualizaComboEquipo(new ArrayList<String>(),1);
+                    actualizaComboEquipo(new ArrayList<String>(),2);
+                    actualizaComboLiga(ligas);
                     noEntry = false;
                 } catch (SQLException ex) {
                     Logger.getLogger(NuevoPartido.class.getName()).log(Level.SEVERE, null, ex);

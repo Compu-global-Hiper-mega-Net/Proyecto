@@ -134,30 +134,46 @@ public class PrincipalPartidos extends javax.swing.JFrame {
 
         tablaPartidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Fecha", "Hora", "Categoría", "Temporada", "Equipo Local", "Equipo Visitante", "Resultado Local", "Resultado Visitante"
+                "Fecha", "Hora", "Categoría", "Temporada", "Liga", "Equipo Local", "Equipo Visitante", "Resultado Local", "Resultado Visitante"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
         jScrollPane8.setViewportView(tablaPartidos);
+        tablaPartidos.getColumnModel().getColumn(0).setResizable(false);
+        tablaPartidos.getColumnModel().getColumn(1).setResizable(false);
+        tablaPartidos.getColumnModel().getColumn(2).setResizable(false);
+        tablaPartidos.getColumnModel().getColumn(3).setResizable(false);
+        tablaPartidos.getColumnModel().getColumn(4).setResizable(false);
+        tablaPartidos.getColumnModel().getColumn(5).setResizable(false);
+        tablaPartidos.getColumnModel().getColumn(6).setResizable(false);
+        tablaPartidos.getColumnModel().getColumn(7).setResizable(false);
+        tablaPartidos.getColumnModel().getColumn(8).setResizable(false);
 
         BotonModificarPartido.setText("Modificar Partido");
         BotonModificarPartido.addActionListener(new java.awt.event.ActionListener() {
@@ -366,7 +382,7 @@ public class PrincipalPartidos extends javax.swing.JFrame {
         int idPartido = 0;
 
         int iTablaPartido = tablaPartidos.getSelectedRow();
-
+        
         if (iTablaPartido >= 0) {
             String consulta = null;
             try {
@@ -374,7 +390,10 @@ public class PrincipalPartidos extends javax.swing.JFrame {
                  + tablaPartidos.getValueAt(iTablaPartido, 0) + "' AND hora = '"
                  + tablaPartidos.getValueAt(iTablaPartido, 1) + "' AND equipo_Categoria_idCategoria = '"                        
                  + GestorCategorias.getIdCategoria(accesoBD, tablaPartidos.getValueAt(iTablaPartido,2).toString()) + "' AND equipo_Temporada_idTemporada = '"
-                 + GestorTemporadas.getIdTemporada(accesoBD, tablaPartidos.getValueAt(iTablaPartido, 3).toString())+ "' AND idEquipo = '"
+                 + GestorTemporadas.getIdTemporada(accesoBD, tablaPartidos.getValueAt(iTablaPartido,3).toString()) + "' AND equipo_liga_idLiga = '"
+                 + getIdLiga(accesoBD, tablaPartidos.getValueAt(iTablaPartido,4).toString(),
+                        GestorCategorias.getIdCategoria(accesoBD, tablaPartidos.getValueAt(iTablaPartido,2).toString()),
+                        GestorTemporadas.getIdTemporada(accesoBD, tablaPartidos.getValueAt(iTablaPartido,3).toString())) + "' AND idEquipo = '"
                  + GestorEquipos.getIdEquipo(accesoBD, tablaPartidos.getValueAt(iTablaPartido, 4).toString(), tablaPartidos.getValueAt(iTablaPartido, 2).toString())
                  + "' AND idEquipoVisitante = '" + GestorEquipos.getIdEquipo(accesoBD, tablaPartidos.getValueAt(iTablaPartido, 4).toString(), tablaPartidos.getValueAt(iTablaPartido, 2).toString()) + "'";
             } catch (SQLException ex) {
@@ -396,8 +415,8 @@ public class PrincipalPartidos extends javax.swing.JFrame {
                             tablaPartidos.getValueAt(iTablaPartido, 4).toString(),
                             tablaPartidos.getValueAt(iTablaPartido, 5).toString(),
                             tablaPartidos.getValueAt(iTablaPartido, 6).toString(),
-                            Integer.parseInt(tablaPartidos.getValueAt(iTablaPartido, 6).toString()),
                             Integer.parseInt(tablaPartidos.getValueAt(iTablaPartido, 7).toString()),
+                            Integer.parseInt(tablaPartidos.getValueAt(iTablaPartido, 8).toString()),
                             idPartido, this).setVisible(true);
             } catch (SQLException ex) {
                 Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
@@ -624,13 +643,14 @@ public class PrincipalPartidos extends javax.swing.JFrame {
         dtm.addColumn("Hora");
         dtm.addColumn("Categoría");
         dtm.addColumn("Temporada");
+        dtm.addColumn("Liga");
         dtm.addColumn("Equipo Local");
         dtm.addColumn("Equipo Visitante");
         dtm.addColumn("Resultado Local");
         dtm.addColumn("Resultado Visitante");
 
         String aux;
-        Object[] fila = new Object[8];
+        Object[] fila = new Object[9];
         for (List<String> it : lpar) {
             aux = it.get(0);
             fila[0] = aux.substring(0, aux.indexOf(","));
@@ -650,7 +670,7 @@ public class PrincipalPartidos extends javax.swing.JFrame {
             }
             aux = aux.substring(aux.indexOf(",") + 1, aux.length());
             try {
-                fila[4] = getEquipo(aux.substring(0, aux.indexOf(",")));
+                fila[4] = getLiga(aux.substring(0, aux.indexOf(",")));
             } catch (SQLException ex) {
                 Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -661,9 +681,15 @@ public class PrincipalPartidos extends javax.swing.JFrame {
                 Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
             aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            fila[6] = aux.substring(0, aux.indexOf(","));
+            try {
+                fila[6] = getEquipo(aux.substring(0, aux.indexOf(",")));
+            } catch (SQLException ex) {
+                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
             aux = aux.substring(aux.indexOf(",") + 1, aux.length());
-            fila[7] = aux;
+            fila[7] = aux.substring(0, aux.indexOf(","));
+            aux = aux.substring(aux.indexOf(",") + 1, aux.length());
+            fila[8] = aux;
             dtm.addRow(fila);
         }
 
@@ -685,6 +711,20 @@ public class PrincipalPartidos extends javax.swing.JFrame {
 
     private String getEquipo(String s) throws SQLException {
         return GestorEquipos.getEquipo(accesoBD, s);
+    }
+    
+    /*
+     * Metodo provisional
+     */
+    private String getLiga(String s) throws SQLException {
+        
+        String nombre = null;
+        String query = "SELECT nombre FROM Liga WHERE idLiga = "+s;
+        ResultSet res = accesoBD.ejecutaConsulta(query);
+        if(res.next()){
+            nombre = res.getString(1);
+        }
+        return nombre;
     }
     
     private void actualizaComboTemporadaPartidos() throws SQLException {
@@ -800,8 +840,8 @@ public class PrincipalPartidos extends javax.swing.JFrame {
     public int getIdLiga(BaseDatos accesoBD, String nombreLiga, int idCat, int idTemp) throws SQLException {
         int idLiga = 0;
         String query;
-        query = "SELECT idLiga FROM Liga WHERE nombre = '" + nombreLiga + "' AND categoria_idCategoria = " + idCat 
-                + " AND temporada_idTemporada = " + idTemp + ";";
+        query = "SELECT idLiga FROM Liga WHERE (nombre = '" + nombreLiga + "' AND categoria_idCategoria = " + idCat 
+                + " AND temporada_idTemporada = " + idTemp + ");";
        
         ResultSet res = accesoBD.ejecutaConsulta(query);
         if(res.next()){
