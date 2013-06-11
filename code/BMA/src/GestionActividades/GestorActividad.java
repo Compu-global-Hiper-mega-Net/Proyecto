@@ -11,10 +11,7 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Jesus Manuel Contreras Siles
- */
+
 
 /*
  ******************************************************************************
@@ -44,7 +41,27 @@ import javax.swing.JOptionPane;
  ******************************************************************************
  */
 
+/**
+ * Clase que permite la gestión de una actividad
+ * @author Jesus Manuel Contreras Siles
+ * @version 1.0
+ */
+
 public class GestorActividad {
+
+		/**
+		 * Metodo para dar de alta una actividad
+		 * @param accesoBD BaseDatos (BaseDatos) con el acceso a la base de datos.
+		 * @param descripcion String (cadena) con la descripcion de la actividad.
+		 * @param nAlumnos int (entero) con el numero de los alumnos.
+		 * @param precioSocio float (flotante) con el precio de la actividad para los socios.
+		 * @param precioNoSocio float (flotante) con el precio de la actividad para los no socios.
+		 * @param idTemporada int (entero) con el identificador de la temporada a la que pertenece la actividad.
+		 * @param fechaInicio Date (fecha) con la fecha de inicio de la actividad.
+		 * @param fechaFin Date (fecha) con la fecha de fin de la actividad.
+		 * @param nombre String (nombre) con el nombre de la actividad.
+		 * @return boolean (logico) con el atributo interno de la comprobación si se ha insertado con exito o no.
+		 */
     
     public static boolean darAltaActividad (BaseDatos accesoBD,String descripcion, int nAlumnos, float precioSocio, float precioNoSocio, int idTemporada, Date fechaInicio, Date fechaFin, String nombre){
        
@@ -61,6 +78,16 @@ public class GestorActividad {
         return exito;
     }
     
+		/**
+		 * Metodo para insertar alumnos en una actividad
+		 * @param accesoBD BaseDatos (BaseDatos) con el acceso a la base de datos.
+		 * @param idAlumno int (entero) con el identificador del alumno a insertar.
+		 * @param idTemporada int (entero) con el identificador de la temporada a la que pertenece la actividad.
+		 * @param idActividad int (entero) con el identificador de la actividad a la que se va a insertar la actividad.
+     * @throws SQLException algun tipo de error en la base de datos.
+		 * @return boolean (logico) con el atributo interno de la comprobación de si se ha insertardo el alumno o no.
+		 */
+
     public static boolean InsertarAlumnoActividad (BaseDatos accesoBD, int idAlumno, int idTemporada, int idActividad) throws SQLException{
         boolean exito = true;
         
@@ -68,13 +95,35 @@ public class GestorActividad {
         
         return exito;
     }
+
+		/**
+		 * Metodo para consultar una actividad
+		 * @param accesoBD BaseDatos (BaseDatos) con el acceso a la base de datos.
+		 * @param consulta String (cadena) con la consulta a realizar.
+		 * @return ResultSet (java.sql.ResultSet) con el atributo interno del resultado de la consulta.
+		 */
     
     public static ResultSet consultaActividad(BaseDatos accesoBD, String consulta){
         AccesoBDActividad actividad = new AccesoBDActividad();
 
         return actividad.consultaActividadBD(accesoBD, consulta);
     }
-    
+
+		/**
+		 * Metodo para modificar una actividad
+		 * @param accesoBD BaseDatos (BaseDatos) con el acceso a la base de datos.
+		 * @param idActividad int (entero) con el identificador de la actividad a modificar.
+		 * @param descripcion String (cadena) con la descripcion de la actividad.
+		 * @param nAlumnos String (cadena) con el numero de los alumnos.
+		 * @param precioSocio String (cadena) con el precio de la actividad para los socios.
+		 * @param precioNoSocio String (cadena) con el precio de la actividad para los no socios.
+		 * @param idTemporada String (cadena) con el identificador de la temporada a la que pertenece la actividad.
+		 * @param fechaInicio String (cadena) con la fecha de inicio de la actividad.
+		 * @param fechaFin String (cadena) con la fecha de fin de la actividad.
+		 * @param nombre String (nombre) con el nombre de la actividad.
+		 * @return boolean (logico) con el atributo interno de la comprobación si se ha modificado con exito o no.
+		 */
+		    
     public static boolean modificaActividad(BaseDatos accesoBD, int idActividad, String descripcion, String nAlumnos,
             String precioSocio, String precioNoSocio, String idTemporada, String fechaInicio, 
             String fechaFin, String nombre){
@@ -82,6 +131,19 @@ public class GestorActividad {
         return AccesoBDActividad.modificarDatosActividadBD(accesoBD, idActividad, descripcion, nAlumnos, precioSocio, 
                 precioNoSocio, idTemporada, fechaInicio, fechaFin, nombre);
     }
+
+		/**
+		 * Metodo para eliminar una actividad
+		 * @param accesoBD BaseDatos (BaseDatos) con el acceso a la base de datos.
+		 * @param descripcion String (cadena) con la descripcion de la actividad.
+		 * @param nAlumnos int (entero) con el numero de los alumnos.
+		 * @param precioSocio float (flotante) con el precio de la actividad para los socios.
+		 * @param precioNoSocio float (flotante) con el precio de la actividad para los no socios.
+		 * @param idTemporada int (entero) con el identificador de la temporada a la que pertenece la actividad.
+		 * @param fechaInicio Date (fecha) con la fecha de inicio de la actividad.
+		 * @param fechaFin Date (fecha) con la fecha de fin de la actividad.
+		 * @param nombre String (nombre) con el nombre de la actividad.
+		 */
     
     public static void eliminaActividad(BaseDatos accesoBD, String descripcion, int nAlumnos, float precioSocio, float precioNoSocio, int idTemporada, 
             Date fechaInicio, Date fechaFin, String nombre){
@@ -93,7 +155,15 @@ public class GestorActividad {
         actividadBD.eliminarActividadBD(accesoBD, actividadEliminada);
         
     }
-    
+
+		/**
+		 * Metodo para eliminar alumnos de una actividad
+		 * @param accesoBD BaseDatos (BaseDatos) con el acceso a la base de datos.
+		 * @param ListaAlumnos List<Integer> (lista) con los identificadores de los alumnos a eliminar.
+		 * @param idActividad int (entero) con el identificador de la actividad.
+     * @throws SQLException algun tipo de error en la base de datos.
+		 */
+
     public static void eliminaraAlumnos (BaseDatos accesoBD, List<Integer> ListaAlumnos, int idActividad) throws SQLException{
         
         for(int i = 0; i<ListaAlumnos.size(); i++){

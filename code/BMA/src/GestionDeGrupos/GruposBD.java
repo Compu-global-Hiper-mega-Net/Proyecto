@@ -89,9 +89,14 @@ public class GruposBD {
             idCat = res.getInt(1);
         }
 
-        query = "SELECT count(*) from mydb.categoria, mydb.Grupo, mydb.horario, mydb.instalacion where "
+        /*query = "SELECT count(*) from mydb.categoria, mydb.Grupo, mydb.horario, mydb.instalacion where "
                 + "horario.Instalacion_idInstalacion=instalacion.idInstalacion AND "
                 + "horario.hora1='18:00:00' AND grupo.categoria_idCategoria=categoria.idCategoria AND "
+                + "grupo.Categoria_idCategoria='1' ";*/
+        
+        query = "SELECT count(*) from mydb.categoria, mydb.Grupo, mydb.horario, mydb.instalacion where "
+                + "horario.Instalacion_idInstalacion=instalacion.idInstalacion AND "
+                + "horario.hora1='"+hora+":"+min+":00' AND grupo.categoria_idCategoria=categoria.idCategoria AND "
                 + "grupo.Categoria_idCategoria='1' ";
 
         res = accesoBD.ejecutaConsulta(query);
@@ -103,9 +108,14 @@ public class GruposBD {
 
         nCons = nCons * 1;
 
-        query = "select count(*) from mydb.categoria, mydb.Grupo, mydb.horario, mydb.instalacion where "
+        /*query = "select count(*) from mydb.categoria, mydb.Grupo, mydb.horario, mydb.instalacion where "
                 + "horario.Instalacion_idInstalacion=instalacion.idInstalacion AND "
                 + "horario.hora1='18:00:00' AND grupo.categoria_idCategoria=categoria.idCategoria AND "
+                + "grupo.Categoria_idCategoria<>'1' ";*/
+        
+        query = "select count(*) from mydb.categoria, mydb.Grupo, mydb.horario, mydb.instalacion where "
+                + "horario.Instalacion_idInstalacion=instalacion.idInstalacion AND "
+                + "horario.hora1='"+hora+":"+min+"00' AND grupo.categoria_idCategoria=categoria.idCategoria AND "
                 + "grupo.Categoria_idCategoria<>'1' ";
         res = accesoBD.ejecutaConsulta(query);
 
@@ -162,7 +172,7 @@ public class GruposBD {
      * @throws SQLException
      */
     static void crearGruposBD(BaseDatos accesoBD, Grupo g, List<Integer> listaIDAl, int idEnt, int idCat, int idTemp, int idInst) throws SQLException {
-
+        boolean eliminar = false;
         String dia1, dia2;
         dia1 = g.getDia1();
         dia2 = g.getDia2();
@@ -227,8 +237,7 @@ public class GruposBD {
         for (Integer it : listaIDAl) {            
             if(!salir){
                 alumnoTresGrupos = GestorGrupos.AlumnoTresGrupos(accesoBD, it, idTemp);
-                System.getProperties();
-                System.out.println(alumnoTresGrupos);
+                
                 if(alumnoTresGrupos){
                     String nomAlumno = GestorAlumnos.getNombreAlumno(accesoBD, it);
                     JOptionPane.showMessageDialog(null, "El alumno "+nomAlumno+" ya esta en dos grupos.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -1085,7 +1094,7 @@ public class GruposBD {
                 + "WHERE Alumno_idAlumno='" + idAl + "' "
                 + "AND Temporada_idTemporada='" + idTemp + "'";
         ResultSet res = bd.ejecutaConsulta(query);
-        System.out.println("consulta:" + query);
+        //System.out.println("consulta:" + query);
         boolean existe = false;
 
         if (res.next()) {

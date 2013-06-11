@@ -35,12 +35,13 @@ import java.util.List;
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************
  */
+
 /**
  * Clase que permite realizar la gestión de una instalación
- *
  * @author Jesus Manuel Contreras Siles
  * @version 1.0
  */
+
 public class GestorInstalacion {
 
     /** 
@@ -51,6 +52,7 @@ public class GestorInstalacion {
      * @param localizacion String (cadena) con la dirección de una instalación.
      * @return boolean (lógico) con el atributo interno de la comprobación si se ha insertado con exito o no.
      */
+
     public static boolean darAltaInstalacion(BaseDatos accesoBD, String nombre,
             int capacidad, String localizacion) {
 
@@ -73,6 +75,7 @@ public class GestorInstalacion {
      * @param consulta String (cadena) con la consulta a realizar.
      * @return ResultSet (java.sql.ResultSet) con el resultado de la consulta.
      */
+
     public static ResultSet consultaInstalacion(BaseDatos accesoBD, String consulta) {
         AccesoBDInstalacion instalacion = new AccesoBDInstalacion();
 
@@ -88,6 +91,7 @@ public class GestorInstalacion {
      * @param localizacion String (cadena) con la dirección de la instalación.
      * @return boolean (lógico) con el atributo interno de la comprobación de si se ha modificado con éxito o no.
      */
+
     public static boolean modificaInstalacion(BaseDatos accesoBD, int idInstalacion, String nombre,
             String capacidad, String locacizacion) {
 
@@ -120,6 +124,7 @@ public class GestorInstalacion {
      * @throws SQLException algun tipo de error en la base de datos.
      * @return int (entero) con el atributo interno del id de la instalación.
      */
+
     public static int getIdInstalacion(BaseDatos accesoBD, String inst) throws SQLException {
         return AccesoBDInstalacion.getIdInstalacion(accesoBD, inst);
     }
@@ -130,6 +135,7 @@ public class GestorInstalacion {
      * @throws SQLException algun tipo de error en la base de datos.
      * @return List<String> (lista) atributo interno con el nombre de todas las instalaciones.
      */
+
     public static List<String> getListaInstalaciones(BaseDatos accesoBD) throws SQLException {
         return AccesoBDInstalacion.getListaInstalaciones(accesoBD);
     }

@@ -20,8 +20,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author Dell
+ * Clase donde se realiza la interfaz de usuario para las actividades
+ * @author Jesús Manuel Contreras Siles
+ * @version 1.0
  */
 public class PrincipalActividades extends javax.swing.JFrame {
 
@@ -30,8 +31,12 @@ public class PrincipalActividades extends javax.swing.JFrame {
     private ResultSet retset;
 
     /**
-     * Creates new form PrincipalActividades
+     * Metodo para crear el frame principal.
+		 * @param pP Jframe (javax.swing.JFrame) con el frame principal.
+		 * @param bd BaseDatos (BaseDatos) con el acceso a la base de datos.
+     * @throws SQLException algun tipo de error en la base de datos.
      */
+
     public PrincipalActividades(JFrame pP, BaseDatos bd) throws SQLException {
         initComponents();
         setLocationRelativeTo(pP);
@@ -273,6 +278,11 @@ public class PrincipalActividades extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+		/**
+		 * Metodo para consultar instalaciones a partir de la fecha de inicio.
+		 * @param evt (java.awt.event.KeyEvent) con el evento
+		 */
+
     private void fechaInicioDateChooserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fechaInicioDateChooserKeyTyped
         Date nombre = (java.sql.Date) fechaInicioDateChooser.getDate();
         String consulta = "SELECT nombre, fechaInicio, fechaFin FROM actividades"
@@ -336,9 +346,19 @@ public class PrincipalActividades extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_fechaInicioDateChooserKeyTyped
 
+		/**
+		 * Metodo que activa la opcion de insertar una actividad.
+		 * @param evt (java.awt.event.ActionEvent) con el evento.
+		 */
+	
     private void InsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InsertarActionPerformed
         new AltaActividad(bd, this).setVisible(true);
     }//GEN-LAST:event_InsertarActionPerformed
+
+		/**
+		 * Metodo activado por el boton "Eliminar" para eliminar una actividad
+		 * @param evt (java.awt.event.ActionEvent evt) con el evento.
+		 */
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
         int nTabla = actividadesTable.getSelectedRow();
@@ -391,6 +411,11 @@ public class PrincipalActividades extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_EliminarActionPerformed
 
+		/**
+		 * Metodo que se activa con el boton "Modificar" para modificar una actividad.
+		 * @param evt (java.awt.event.ActionEvent evt) con el evento.
+		 */
+
     private void ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarActionPerformed
         ResultSet retsetMostrados;
 
@@ -425,6 +450,11 @@ public class PrincipalActividades extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_ModificarActionPerformed
+		
+		/**
+		 * Metodo que se activa con el boton "Informacion" para ver una información más detallada sobre una actividad.
+		 * @param evt (java.awt.event.ActionEvent) con el evento.
+		 */
 
     private void InformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InformacionActionPerformed
         // TODO add your handling code here:
@@ -439,6 +469,11 @@ public class PrincipalActividades extends javax.swing.JFrame {
 
     }//GEN-LAST:event_InformacionActionPerformed
 
+		/**
+		 * Metodo que se activa con el boton "AñarirAlumno" para añadir alumnos a una actividad.
+		 * @param evt (java.awt.event.ActionEvent) con el evento.
+		 */
+
     private void AñaridAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AñaridAlumnoActionPerformed
         int idTemporada;
         int idActividad;
@@ -448,6 +483,11 @@ public class PrincipalActividades extends javax.swing.JFrame {
         new AñadirAlumno(bd, idTemporada, idActividad).setVisible(true);
     }//GEN-LAST:event_AñaridAlumnoActionPerformed
 
+		/**
+		 * Metodo que se activa con el boton "Buscar" para buscar actividades entre unas fechas determinadas.
+		 * @param evt (java.awt.event.ActionEvent) con el evento.
+		 */ 
+		
     private void buscarActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActividadActionPerformed
         // TODO add your handling code here:
         if (fechaInicioDateChooser.getDate() != null && fechaFinDateChooser.getDate() != null) {
@@ -459,7 +499,7 @@ public class PrincipalActividades extends javax.swing.JFrame {
 
             String consulta = "SELECT nombre, fechaInicio, fechaFin FROM actividades"
                     + " WHERE fechaInicio>='" + dateString + "' AND fechaFin<='" + dateString1 + "'";
-            System.out.print("\nConsulta Fechas"+consulta);
+
             ResultSet retSet = bd.ejecutaConsulta(consulta);
 
             ArrayList<ArrayList<Object>> dataCollection = new ArrayList<>();
@@ -507,6 +547,11 @@ public class PrincipalActividades extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_buscarActividadActionPerformed
+
+		/**
+		 * Metodo que se activa cuando en el cuadro de texto se introduce un caracter y busca por nombre
+		 * @param evt (java.awt.event.ActionEvent) con el evento.
+		 */
 
     private void nombreTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreTextFieldKeyReleased
         // TODO add your handling code here:
@@ -558,6 +603,11 @@ public class PrincipalActividades extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_nombreTextFieldKeyReleased
+	
+		/**
+		 * Metodo para mostrar actividades en la tabla.
+     * @throws SQLException algun tipo de error en la base de datos.		 
+		 */
 
     public final void mostrarActividades() throws SQLException {
 
@@ -598,6 +648,11 @@ public class PrincipalActividades extends javax.swing.JFrame {
 
     }
 
+		/**
+		 * Metodo consultor para consultar el id de una actividad
+		 * @return int (entero) con el atributo interno del id de una actividad.
+		 */
+
     private int getIDActividad() {
 
         int indiceTabla = actividadesTable.getSelectedRow();
@@ -627,6 +682,11 @@ public class PrincipalActividades extends javax.swing.JFrame {
         return idActividad;
     }
 
+		/**
+		 * Metodo consultor para consultar el id de una temporada
+		 * @return int (entero) con el atributo interno del id de una temporada.
+		 */
+
     private int getIDTemporada() {
 
         int indiceTabla = actividadesTable.getSelectedRow();
@@ -653,6 +713,11 @@ public class PrincipalActividades extends javax.swing.JFrame {
         }
         return idTemporada;
     }
+
+		/**
+		 * Metodo consultor para consultar las actividades que cumplen los requisitos de busqueda insertados.
+		 * @return String (cadena) con el atributo interno de la consulta a realizar.
+		 */
 
     private String leeConsultaActividad() {
 
