@@ -21,14 +21,14 @@ import javax.swing.border.Border;
 
 /**
  *
- * @author David
+ * @author 
  */
 public class NuevoEquipo extends javax.swing.JFrame {
 
     private PantallaPrincipal creador;
-    List<String> listaAlumnos = new ArrayList<String>();
-    List<String> listaAlumnosQuitados = new ArrayList<String>();
-    List<Integer> listaIDAlumnosQuitados = new ArrayList<Integer>();
+    List<String> listaAlumnos = new ArrayList<>();
+    List<String> listaAlumnosQuitados = new ArrayList<>();
+    List<Integer> listaIDAlumnosQuitados = new ArrayList<>();
     BaseDatos accesoBD;
     DefaultListModel modeloGuardar = new DefaultListModel(); 
     Border bordeError;
@@ -52,6 +52,10 @@ public class NuevoEquipo extends javax.swing.JFrame {
                 try {
                     actualizarCategoria();
                     actualizarTemporada();
+                    ActualizarPrimerEntrenador();
+                    textPrimerEnt.setEditable(true);
+                    textSegundoEnt.setEditable(true);
+                    jTextField1.setEditable(true);
                 } catch (SQLException ex) {
                     Logger.getLogger(NuevoEquipo.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -537,17 +541,19 @@ public class NuevoEquipo extends javax.swing.JFrame {
     }
 
     private void comboTempItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboTempItemStateChanged
-        if(evt.getStateChange() == 1){
-        if (PerteneceFundacion.isSelected()) {
-            DefaultListModel model = new DefaultListModel();
-            alumnosMostrados.setModel(model);
-            MostrarAlumnos();
-        }}
+        if (evt.getStateChange() == 1) {
+            if (PerteneceFundacion.isSelected()) {
+                DefaultListModel model = new DefaultListModel();
+                alumnosMostrados.setModel(model);
+                MostrarAlumnos();
+            }
+        }
     }//GEN-LAST:event_comboTempItemStateChanged
 
     private void comboEntrenadorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboEntrenadorItemStateChanged
-        if(evt.getStateChange() == 1)
+        if (evt.getStateChange() == 1) {
             ActualizarCombo2Entrenador(comboEntrenador.getSelectedItem().toString());
+        }
     }//GEN-LAST:event_comboEntrenadorItemStateChanged
 
     private void PerteneceFundacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PerteneceFundacionMouseClicked
@@ -555,10 +561,7 @@ public class NuevoEquipo extends javax.swing.JFrame {
 
         if (PerteneceFundacion.isSelected() == true) {
             try {
-                ActualizarPrimerEntrenador();
-                textPrimerEnt.setEditable(true);
-                textSegundoEnt.setEditable(true);
-                jTextField1.setEditable(true);
+                
                 actualizarCategoria();
                 actualizarTemporada();
 
