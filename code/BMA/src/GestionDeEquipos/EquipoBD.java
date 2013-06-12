@@ -411,6 +411,26 @@ public class EquipoBD {
 
         return id;
     }
+    
+    /**
+     * Metodo consultor
+     * @param acceso acceso a la base de datos
+     * @return int devuelve el número de equipos que hay en la base de
+     * datos.
+     * @throws SQLException si encuentra algún error al ejectuar la query SQL
+     */
+    public static int getNumEquipos(BaseDatos acceso) throws SQLException
+    {
+        String query = "SELECT COUNT(idEquipo) FROM Equipo";
+        
+        int num = 0;
+        
+        ResultSet res = acceso.ejecutaConsulta(query);
+        if(res.next())
+           num = res.getInt(1);
+        
+        return num;
+    }
 
     /** 
      * Metodo para obtener el Id de la liga.

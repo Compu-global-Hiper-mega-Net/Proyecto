@@ -252,14 +252,10 @@
             <Component class="javax.swing.JTable" name="tablaEquipos">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="6" rowCount="4">
-                    <Column editable="true" title="Nombre" type="java.lang.Object"/>
-                    <Column editable="true" title="Categoria" type="java.lang.Object"/>
-                    <Column editable="true" title="Temporada" type="java.lang.Object"/>
-                    <Column editable="true" title="Primer Entrenador" type="java.lang.Object"/>
-                    <Column editable="true" title="Segundo Entrenador" type="java.lang.Object"/>
-                    <Column editable="true" title="Sexo" type="java.lang.Object"/>
-                  </Table>
+                  <Table columnCount="0" rowCount="4"/>
+                </Property>
+                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                  <TableColumnModel selectionModel="0"/>
                 </Property>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                   <TableHeader reorderingAllowed="false" resizingAllowed="false"/>
@@ -288,6 +284,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Info"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonInfoEquipoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="botonNuevoEquipo">
           <Properties>

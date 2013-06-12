@@ -226,6 +226,12 @@ public class GestorEquipos {
 
 
     }
+    
+    public static int getNumeroEquipos(BaseDatos accesoBD) throws SQLException
+    {
+        return EquipoBD.getNumEquipos(accesoBD);
+    }
+    
 
     /** 
      * Metodo para generar la clasificación

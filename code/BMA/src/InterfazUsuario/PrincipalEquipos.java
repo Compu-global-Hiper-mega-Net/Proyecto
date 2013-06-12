@@ -6,7 +6,11 @@ package InterfazUsuario;
 
 import GestionDeCategorias.GestorCategorias;
 import GestionDeEquipos.Equipo;
+import GestionDeEquipos.EquipoBD;
 import GestionDeEquipos.GestorEquipos;
+import GestionDeGrupos.GestorGrupos;
+import GestionDeGrupos.Grupo;
+import GestionDeInstalaciones.GestorInstalacion;
 import GestionDeTemporadas.GestorTemporadas;
 import GestionDeUsuarios.GestorUsuarios;
 import ServiciosAlmacenamiento.BaseDatos;
@@ -113,13 +117,13 @@ public class PrincipalEquipos extends javax.swing.JFrame {
 
         tablaEquipos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Nombre", "Categoria", "Temporada", "Primer Entrenador", "Segundo Entrenador", "Sexo"
+
             }
         ));
         tablaEquipos.getTableHeader().setResizingAllowed(false);
@@ -141,6 +145,11 @@ public class PrincipalEquipos extends javax.swing.JFrame {
         });
 
         botonInfoEquipo.setText("Info");
+        botonInfoEquipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonInfoEquipoActionPerformed(evt);
+            }
+        });
 
         botonNuevoEquipo.setText("Nuevo");
         botonNuevoEquipo.addActionListener(new java.awt.event.ActionListener() {
@@ -323,12 +332,12 @@ public class PrincipalEquipos extends javax.swing.JFrame {
         int fila = tablaEquipos.getSelectedRow();
 
         if (fila != -1) {
-            String nombreEquipo = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 0);
-            String selecCat = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 1);
-            String selecTemp = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 2);
-            String primerEntr = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 3);
-            String segundoEntr = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 4);
-            String sexo = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 5);
+            String nombreEquipo = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 1);
+            String selecCat = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 2);
+            String selecTemp = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 3);
+            String primerEntr = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 4);
+            String segundoEntr = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 5);
+            String sexo = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 6);
 
             if (!nombreEquipo.isEmpty() || !selecCat.isEmpty() || !selecTemp.isEmpty() || !primerEntr.isEmpty() || !segundoEntr.isEmpty() || !sexo.isEmpty()) {
                 try {
@@ -346,7 +355,62 @@ public class PrincipalEquipos extends javax.swing.JFrame {
     }//GEN-LAST:event_botonModificarEquipoActionPerformed
 
     private void botonEliminarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarEquipoActionPerformed
+        int fila = tablaEquipos.getSelectedRow();
+        /*
+        if (fila != -1) {
+                JOptionPane.showMessageDialog(this, "Debes seleccionar un equipo", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int continuar = JOptionPane.showConfirmDialog(this, "¿Desea eliminar el equipo?", "Confirmar", JOptionPane.YES_NO_OPTION);
+            if (continuar == JOptionPane.YES_OPTION) {
+                int idCat = 0, id = 0, idInst = 0, idTemp = 0;
+                String temp = "";
 
+                int idEquipo = Integer.parseInt(((tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 0)).toString()));
+                String nombreEquipo = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 1);
+                String selecCat = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 2);
+                String selecTemp = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 3);
+                String primerEntr = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 4);
+                String segundoEntr = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 5);
+                String sexo = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 6);
+                
+                try {
+                    idCat = GestorCategorias.getIdCategoria(this.bd, cat);
+                    idEnt = GestorUsuarios.getIdEnt(this.bd, ent);
+                    idInst = GestorInstalacion.getIdInstalacion(this.bd, inst);
+                    idTemp = GestorGrupos.getIdTemporada(this.bd, idGrup);
+                    temp = GestorTemporadas.getTemporada(this.bd, idTemp);
+                } catch (SQLException ex) {
+                    Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                Grupo g = new Grupo(cat, ent, inst, temp);
+                g.setIdGrupo(idGrup);
+                g.setIdCat(idCat);
+                g.setIdEnt(idEnt);
+                
+                g.setIdTemp(idTemp);
+
+                boolean GrupoEliminado = false;
+
+                try {
+                    GrupoEliminado = GestorGrupos.EliminarGrupos(this.bd, g);
+                } catch (SQLException ex) {
+                    Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                if (GrupoEliminado) {
+                    JOptionPane.showMessageDialog(this, "Grupo Eliminado con exito", "Exito", JOptionPane.NO_OPTION);
+
+                    try {
+                        actualizaTablaGrupos();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se ha podido borrar el grupo", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }*/
     }//GEN-LAST:event_botonEliminarEquipoActionPerformed
 
     private void botonNuevoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoEquipoActionPerformed
@@ -362,6 +426,7 @@ public class PrincipalEquipos extends javax.swing.JFrame {
             actualizaTablaEquipos();
             labelEquiposMostrados.setVisible(true);
             labelNumeroEquipos.setVisible(true);
+            labelNumeroEquipos.setText(String.valueOf(this.numeroEquipos()));
         } catch (SQLException ex) {
             Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -370,6 +435,37 @@ public class PrincipalEquipos extends javax.swing.JFrame {
     private void verClasificacionEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verClasificacionEquiposActionPerformed
         new ClasificacionLiga(accesoBD).setVisible(true);
     }//GEN-LAST:event_verClasificacionEquiposActionPerformed
+
+    private void botonInfoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInfoEquipoActionPerformed
+        int fila = tablaEquipos.getSelectedRow();
+        
+        if(fila != -1)
+        {
+            int idEquipo = Integer.parseInt(((tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 0)).toString()));
+            String nombreEquipo = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 1);
+            String selecCat = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 2);
+            String selecTemp = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 3);
+            String primerEntr = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 4);
+            String segundoEntr = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 5);
+            String sexo = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 6);
+
+            if (idEquipo == 0 || !nombreEquipo.isEmpty() || !selecCat.isEmpty() || !selecTemp.isEmpty() || !primerEntr.isEmpty() || !segundoEntr.isEmpty() || !sexo.isEmpty()) {
+                try {
+                    new InformacionEquipo(accesoBD, nombreEquipo, selecCat, sexo, primerEntr, segundoEntr, selecTemp).setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                mostrarMensajeError("Falta algún campo por editar");
+            }
+
+        } else {
+            mostrarMensajeError("No se ha seleccionado ninguna fila de la tabla");
+        }
+            
+        
+        
+    }//GEN-LAST:event_botonInfoEquipoActionPerformed
 
     private void actualizaComboCatEquipo() throws SQLException {
         comboCatEquipo.removeAllItems();
@@ -396,6 +492,11 @@ public class PrincipalEquipos extends javax.swing.JFrame {
     public void actualizaTablaEquiposFiltro(String nombre, String temporada, String categoria, String entrenador) throws SQLException {
     }
     
+    private int numeroEquipos() throws SQLException
+    {
+        return GestorEquipos.getNumeroEquipos(accesoBD);
+    }
+    
     private void mostrarMensajeError(String mensaje) {
         JOptionPane.showMessageDialog(null,
                 mensaje, "Error",
@@ -406,6 +507,7 @@ public class PrincipalEquipos extends javax.swing.JFrame {
         List<Equipo> equipos = GestorEquipos.getListaEquipos(accesoBD);
         
         DefaultTableModel dtm = new DefaultTableModel();
+        dtm.addColumn("id");
         dtm.addColumn("Nombre");
         dtm.addColumn("Categoria");
         dtm.addColumn("Temporada");
@@ -414,20 +516,30 @@ public class PrincipalEquipos extends javax.swing.JFrame {
         dtm.addColumn("Sexo");
         
         
-        Object[] fila = new Object[6];
+        Object[] fila = new Object[7];
         for (Equipo it : equipos) {
             
-            fila[0] = it.getNombre();
-            fila[1] = it.getCategoria();
-            fila[2] = it.getTemporada();
-            fila[3] = it.getEntrenador();
-            fila[4] = it.getEntrenador2();
-            fila[5] = it.getSexo();
+            fila[0] = GestorEquipos.getIdEquipo(accesoBD, it.getNombre(), it.getCategoria());
+            fila[1] = it.getNombre();
+            fila[2] = it.getCategoria();
+            fila[3] = it.getTemporada();
+            fila[4] = it.getEntrenador();
+            fila[5] = it.getEntrenador2();
+            fila[6] = it.getSexo();
             
             dtm.addRow(fila);
         }
         
         tablaEquipos.setModel(dtm);
+        
+        /* Con estas tres líneas ocultamos una columna en nuestra tabla,
+         * preferiblemente para ocultar el id y así facilitar la búsqueda
+         * de información relacionada.
+         */
+        
+        tablaEquipos.getColumnModel().getColumn(0).setMaxWidth(0);
+        tablaEquipos.getColumnModel().getColumn(0).setMinWidth(0);
+        tablaEquipos.getColumnModel().getColumn(0).setPreferredWidth(0);
     }
     
     private String getCategoria(String s) throws SQLException {

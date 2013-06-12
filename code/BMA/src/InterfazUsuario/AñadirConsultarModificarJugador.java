@@ -578,15 +578,15 @@ public class AñadirConsultarModificarJugador extends javax.swing.JFrame {
         String campos = "";
 
         // Primero se comprueba que todos los campos sean correctos.
-        if (!nombre.getText().matches("[a-zA-Z]{1,45}")) {
+        if (!nombre.getText().matches("[' 'a-zA-Z]{1,45}")) {
             campos = campos + "'Nombre',";
             nombre.setBorder(bordeError);
         }
-        if (!primerApellido.getText().matches("[a-zA-Z]{1,45}")) {
+        if (!primerApellido.getText().matches("[' 'a-zA-Z]{1,45}")) {
             campos = campos + "'Primer apellido',";
             primerApellido.setBorder(bordeError);
         }
-        if (!segundoApellido.getText().matches("[a-zA-Z]{1,45}")) {
+        if (!segundoApellido.getText().matches("[' 'a-zA-Z]{1,45}")) {
             campos = campos + "'Segundo apellido',";
             segundoApellido.setBorder(bordeError);
         }
@@ -596,11 +596,11 @@ public class AñadirConsultarModificarJugador extends javax.swing.JFrame {
             campos = campos + "'Fecha de nacimiento',";
             fechaNac.setBorder(bordeError);
         }
-        if (!domicilio.getText().matches("[a-zA-Z0-9/ºª.,()\\-\\s]{1,100}")) {
+        if (!domicilio.getText().matches("[' 'a-zA-Z0-9/ºª.,()\\-\\s]{1,100}")) {
             campos = campos + "'Domicilio',";
             domicilio.setBorder(bordeError);
         }
-        if (!localidad.getText().matches("[a-zA-Z\\-]{1,45}")) {
+        if (!localidad.getText().matches("[' 'a-zA-Z\\-]{1,45}")) {
             campos = campos + "'Localidad',";
             localidad.setBorder(bordeError);
         }
@@ -608,19 +608,19 @@ public class AñadirConsultarModificarJugador extends javax.swing.JFrame {
             campos = campos + "'Codigo postal',";
             codPostal.setBorder(bordeError);
         }
-        if (!provincia.getText().matches("[a-zA-Z\\-]{1,70}")) {
+        if (!provincia.getText().matches("[' 'a-zA-Z\\-]{1,70}")) {
             campos = campos + "'Provincia',";
             provincia.setBorder(bordeError);
         }
-        if (!colegio.getText().matches("[a-zA-Z\\-]{1,45}")) {
+        if (!colegio.getText().matches("[' 'a-zA-Z\\-]{1,45}")) {
             campos = campos + "'Colegio',";
             colegio.setBorder(bordeError);
         }
-        if (!nombrePadre.getText().matches("[a-zA-Z\\-\\s]{1,100}")) {
+        if (!nombrePadre.getText().matches("[' 'a-zA-Z\\-\\s]{1,100}")) {
             campos = campos + "'Nombre padre',";
             nombrePadre.setBorder(bordeError);
         }
-        if (!nombreMadre.getText().matches("[a-zA-Z\\-\\s]{1,100}")) {
+        if (!nombreMadre.getText().matches("[' 'a-zA-Z\\-\\s]{1,100}")) {
             campos = campos + "'Nombre madre',";
             nombreMadre.setBorder(bordeError);
         }

@@ -281,7 +281,7 @@ public class ModificarEquipo extends javax.swing.JFrame {
         campoTemporada = this.comboTemp.getSelectedItem().toString();
         campoSexo = this.comboSexo.getSelectedItem().toString();
         
-        String fundacion = "SELECT rango.Equipo_Fundacion_idFundacion FROM rango, equipo, usuario WHERE equipo.idEquipo = rango.Equipo_idEquipo AND "
+        String fundacion = "SELECT Equipo.idEquipo, rango.Equipo_Fundacion_idFundacion FROM rango, equipo, usuario WHERE equipo.idEquipo = rango.Equipo_idEquipo AND "
                 + "equipo.nombre = '"+ nombreEquipo_anterior +"' AND usuario.idUsuario = rango.Usuario_idUsuario AND CONCAT(`usuario`.`nombre`,' ',`usuario`.`primerApellido`,' ',`usuario`.`segundoApellido`) = '"+ campoPrimerEntr_anterior +
                 "' AND rango.tipo = 'Primero'"; 
         int int_fundacion = 0;
@@ -289,7 +289,10 @@ public class ModificarEquipo extends javax.swing.JFrame {
         ResultSet res = accesoBD.ejecutaConsulta(fundacion);
             
             if(res.next())
+            {
                 int_fundacion = res.getInt(1);
+            }
+                
             
         } catch (SQLException ex) {
             Logger.getLogger(ModificarEquipo.class.getName()).log(Level.SEVERE, null, ex);

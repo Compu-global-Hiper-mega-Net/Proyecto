@@ -39,7 +39,6 @@ package GestionDeEquipos;
  */
 public class Equipo {
 
-    private int idEquipo;
     private String nombre;
     private String temporada;
     private String categoria;
@@ -67,14 +66,6 @@ public class Equipo {
         this.entrenador2 = entrenador2;
         this.Fundacion = fundacion;
         this.sexo = sexo;
-    }
-
-    /**
-     * Metodo consultor
-     * @return int (entero) con el atributo interno del Id del equipo
-     */
-    public int getIdEquipo() {
-        return idEquipo;
     }
 
     /**
