@@ -35,6 +35,7 @@ public class ModificarLiga extends javax.swing.JFrame {
     
     public ModificarLiga(BaseDatos acceso, String nomb, String catLig, String tempLig, int idLiga, PrincipalLiga p) throws SQLException {
         initComponents();
+        this.setLocationRelativeTo(p);
         accesoBD = acceso;
         cat = catLig;
         temp = tempLig;

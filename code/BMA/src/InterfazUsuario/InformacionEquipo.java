@@ -69,6 +69,7 @@ public class InformacionEquipo extends javax.swing.JFrame {
         this.fieldSexo.setText(sexo);
         this.fieldPrimerEntr.setText(primerEntr);
         this.fieldSegEntr.setText(segundoEntr);
+        this.fieldTemporada.setText(temporada);
         this.nombreEquipo = nombreEquipo;
         this.Categoria = categoria;
         this.Sexo = sexo;
@@ -179,7 +180,19 @@ public class InformacionEquipo extends javax.swing.JFrame {
 
         labelAlumInscritos.setText("Alumnos inscritos");
 
+        fieldNombreEquipo.setEditable(false);
+
+        fieldNombreCategoria.setEditable(false);
+
+        fieldSexo.setEditable(false);
+
+        fieldPrimerEntr.setEditable(false);
+
+        fieldSegEntr.setEditable(false);
+
         labelTemporada.setText("Temporada:");
+
+        fieldTemporada.setEditable(false);
 
         listaAlumnosInscritos.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -187,6 +200,7 @@ public class InformacionEquipo extends javax.swing.JFrame {
             public Object getElementAt(int i) { return strings[i]; }
         });
         listaAlumnosInscritos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listaAlumnosInscritos.setEnabled(false);
         jScrollPane1.setViewportView(listaAlumnosInscritos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

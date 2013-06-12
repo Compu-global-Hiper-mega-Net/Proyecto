@@ -32,6 +32,7 @@ public class NuevaLiga extends javax.swing.JFrame {
     }
     public NuevaLiga(BaseDatos acceso, PrincipalLiga p) throws SQLException {  
         initComponents();
+        this.setLocationRelativeTo(p);
         accesoBD = acceso;
         principal = p;
         

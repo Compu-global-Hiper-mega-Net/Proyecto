@@ -32,6 +32,7 @@ public class PrincipalLiga extends javax.swing.JFrame {
      */
     public PrincipalLiga(JFrame pL, BaseDatos bd) {
         initComponents();
+        this.setLocationRelativeTo(pL);
         this.accesoBD = bd;
         this.pL = pL;
         actualizaTablaLiga();
