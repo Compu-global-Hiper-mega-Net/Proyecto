@@ -9,11 +9,13 @@ import GestionDeLigas.*;
 import GestionDeTemporadas.GestorTemporadas;
 import ServiciosAlmacenamiento.BaseDatos;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -58,6 +60,13 @@ public class PrincipalLiga extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         LigasLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         LigasLabel.setText("Ligas");
@@ -114,7 +123,7 @@ public class PrincipalLiga extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(botonNuevaLiga)
-                        .addGap(18, 18, 18)
+                        .addGap(30, 30, 30)
                         .addComponent(botonModificarLiga)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(botonEliminarLiga)))
@@ -127,7 +136,7 @@ public class PrincipalLiga extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(143, 143, 143)
                         .addComponent(LigasLabel)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,16 +159,77 @@ public class PrincipalLiga extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonNuevaLigaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevaLigaActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:                                              
+        try {
+            new NuevaLiga(accesoBD, this).setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_botonNuevaLigaActionPerformed
 
     private void botonModificarLigaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarLigaActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
+        int idLiga = 0;
+
+        int iTablaLiga = tablaLigas.getSelectedRow();
+        
+        if (iTablaLiga >= 0) {
+            try {
+                idLiga = GestorLigas.getIdLiga(accesoBD, 
+                        tablaLigas.getValueAt(iTablaLiga, 0).toString(), 
+                        GestorCategorias.getIdCategoria(accesoBD, tablaLigas.getValueAt(iTablaLiga, 1).toString()),
+                        GestorTemporadas.getIdTemporada(accesoBD, tablaLigas.getValueAt(iTablaLiga, 2).toString()));
+               
+            } catch (SQLException ex) {
+                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            try {        
+                    new ModificarLiga(accesoBD, 
+                            tablaLigas.getValueAt(iTablaLiga, 0).toString(),
+                            tablaLigas.getValueAt(iTablaLiga, 1).toString(),
+                            tablaLigas.getValueAt(iTablaLiga, 2).toString(),
+                            idLiga, this).setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (iTablaLiga == -1) {
+            JOptionPane.showMessageDialog(this, "No se ha seleccionado ninguna liga", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_botonModificarLigaActionPerformed
 
     private void botonEliminarLigaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarLigaActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
+        try {  
+            int iTablaLiga = tablaLigas.getSelectedRow();
+            if (iTablaLiga == -1) {
+                JOptionPane.showMessageDialog(this, "Debes seleccionar una Liga", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                int idCatLig, idTempLig;
+                String nomb;
+                
+                nomb = tablaLigas.getValueAt(iTablaLiga,0).toString();
+                idCatLig = GestorCategorias.getIdCategoria(accesoBD, tablaLigas.getValueAt(iTablaLiga,1).toString());
+                idTempLig = GestorTemporadas.getIdTemporada(accesoBD, tablaLigas.getValueAt(iTablaLiga,2).toString());
+                
+                Liga l = new Liga(nomb, idCatLig, idTempLig);
+
+               int continuar = JOptionPane.showConfirmDialog(this, "¿Desea eliminar la Liga?", "Confirmar", JOptionPane.YES_NO_OPTION);
+               if (continuar == JOptionPane.YES_OPTION) {
+                   LigaBD.eliminarLigaBD(accesoBD, l);
+                   actualizaTablaLiga();
+
+               }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PrincipalLiga.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_botonEliminarLigaActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        // TODO add your handling code here:
+        actualizaTablaLiga();
+    }//GEN-LAST:event_formWindowGainedFocus
 
     /**
      * @param args the command line arguments
@@ -238,6 +308,16 @@ public class PrincipalLiga extends javax.swing.JFrame {
     private String getTemporada(String s) throws SQLException {
 
         return GestorTemporadas.getTemporada(accesoBD, s);
+    }
+    
+    List<String> getListaTemps() throws SQLException {
+        return GestorTemporadas.getListaTemporadas(accesoBD);
+    }
+    
+    List<List<String>> getListaCategorias() throws SQLException {
+        List<List<String>> cats = new ArrayList<List<String>>();
+        cats = GestorCategorias.getListaCategorias(accesoBD);
+        return cats;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

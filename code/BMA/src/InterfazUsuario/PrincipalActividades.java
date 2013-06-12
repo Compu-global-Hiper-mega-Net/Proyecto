@@ -727,9 +727,6 @@ public class PrincipalActividades extends javax.swing.JFrame {
         String TablasImplicadas = " actividades a";
         String condicionConsulta = " WHERE";
 
-        //Date fechaInicio = (Date) fechaInicioDateChooser.getDate();
-        //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
 
         if (!nombreTextField.getText().equals("") || !fechaInicioDateChooser.getDateFormatString().equals("dd-MMM-yyyy")
                 || !fechaFinDateChooser.getDateFormatString().equals("dd-MMM-yyyy")) {

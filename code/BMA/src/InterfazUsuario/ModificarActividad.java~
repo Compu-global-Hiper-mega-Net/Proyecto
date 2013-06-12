@@ -459,8 +459,8 @@ public class ModificarActividad extends javax.swing.JFrame {
 
 		/**
 		 * Metodo consultor para comprobar si una cadena es un valor numerico o no
-		 * @param cadena String (cadena) con la cadena a comprobar.
-		 * @return boolean (logico) con el atributo interno del resultado de la comprobacion 
+		 * @param cadena 
+		 * @return String
 		 */
 
     private static boolean isNumeric(String cadena) {

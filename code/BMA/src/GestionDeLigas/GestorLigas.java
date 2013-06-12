@@ -45,4 +45,8 @@ public class GestorLigas {
         return LigaBD.getListaLigas(accesoBD);
     }
     
+    public static String getLiga (BaseDatos accesoBD, String s) throws SQLException{
+        return LigaBD.getLiga(accesoBD, s);
+    }
+    
 }

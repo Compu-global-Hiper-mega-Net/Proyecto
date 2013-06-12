@@ -64,7 +64,7 @@ public class LigaBD {
                 + " Categoria_idCategoria= '" + idCatLig + "',"
                 + " Temporada_idTemporada= '" + idTempLig + "',"
                 + " nombre= '" + nomb + "'"
-                + " WHERE idPartido= " + idLiga;
+                + " WHERE idLiga= " + idLiga;
 
         try {
             accesoBD.ejecutaActualizacion(actualizacion);
@@ -75,7 +75,7 @@ public class LigaBD {
         return exito;
     }
     
-    static void eliminarLigaBD (BaseDatos accesoBD, Liga l) throws SQLException{
+    public static void eliminarLigaBD (BaseDatos accesoBD, Liga l) throws SQLException{
         int idLiga = getIdLiga(accesoBD, l.getNombre(), l.getIdCategoriaLiga(), l.getIdTemporadaLiga());
 
         String delete = "DELETE FROM Liga WHERE idLiga = "
@@ -86,7 +86,7 @@ public class LigaBD {
             JOptionPane.showMessageDialog(null, "Ha habido un error en la base de datos",
                     "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(null, "Partido Eliminado con éxito",
+            JOptionPane.showMessageDialog(null, "Liga Eliminada con éxito",
                     "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
         }
     }
@@ -105,5 +105,16 @@ public class LigaBD {
         }
 
         return idLig;
+    }
+    
+    static String getLiga (BaseDatos accesoBD, String s) throws SQLException{        
+        String nombre = null;
+        String query = "SELECT nombre FROM Liga WHERE idLiga = "+s;
+        ResultSet res = accesoBD.ejecutaConsulta(query);
+        if(res.next()){
+            nombre = res.getString(1);
+        }
+        return nombre;
+        
     }
 }
