@@ -23,6 +23,34 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+/*
+ ******************************************************************************
+ (c) Copyright 2013 
+ * 
+ * Moisés Gautier Gómez
+ * Julio Ros Martínez
+ * Francisco Javier Gómez del Olmo
+ * Francisco Santolalla Quiñonero
+ * Carlos Jesús Fernández Basso
+ * Alexander Moreno Borrego
+ * Jesús Manuel Contreras Siles
+ * Diego Muñoz Rio
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ******************************************************************************
+ */
+
 /**
  *
  * @author Dell
@@ -356,7 +384,7 @@ public class PrincipalEquipos extends javax.swing.JFrame {
 
     private void botonEliminarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarEquipoActionPerformed
         int fila = tablaEquipos.getSelectedRow();
-        /*
+        
         if (fila != -1) {
                 JOptionPane.showMessageDialog(this, "Debes seleccionar un equipo", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
@@ -373,7 +401,7 @@ public class PrincipalEquipos extends javax.swing.JFrame {
                 String segundoEntr = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 5);
                 String sexo = (String) tablaEquipos.getValueAt(tablaEquipos.getSelectedRow(), 6);
                 
-                try {
+                /*try {
                     idCat = GestorCategorias.getIdCategoria(this.bd, cat);
                     idEnt = GestorUsuarios.getIdEnt(this.bd, ent);
                     idInst = GestorInstalacion.getIdInstalacion(this.bd, inst);
@@ -408,9 +436,9 @@ public class PrincipalEquipos extends javax.swing.JFrame {
                     }
                 } else {
                     JOptionPane.showMessageDialog(this, "No se ha podido borrar el grupo", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+                }*/
             }
-        }*/
+        }
     }//GEN-LAST:event_botonEliminarEquipoActionPerformed
 
     private void botonNuevoEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoEquipoActionPerformed
