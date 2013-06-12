@@ -47,7 +47,6 @@ import javax.swing.border.Border;
  */
 
 /**
- * Formulario que añade una actividad a la base de datos
  * Clase para añadir una actividad
  * @author Jesus Manuel Contreras Siles 
  * @version 1.0

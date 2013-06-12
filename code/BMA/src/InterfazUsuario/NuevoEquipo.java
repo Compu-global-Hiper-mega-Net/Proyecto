@@ -113,9 +113,9 @@ public class NuevoEquipo extends javax.swing.JFrame {
         jLabel3.setText("Categoria:");
 
         comboCat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Categoria" }));
-        comboCat.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                comboCatMouseClicked(evt);
+        comboCat.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboCatItemStateChanged(evt);
             }
         });
         comboCat.addActionListener(new java.awt.event.ActionListener() {
@@ -127,11 +127,6 @@ public class NuevoEquipo extends javax.swing.JFrame {
         jLabel4.setText("Temporada:");
 
         comboTemp.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Temporada" }));
-        comboTemp.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                comboTempMouseClicked(evt);
-            }
-        });
         comboTemp.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comboTempItemStateChanged(evt);
@@ -211,11 +206,6 @@ public class NuevoEquipo extends javax.swing.JFrame {
         jLabel8.setText("Alumnos seleccionados:");
 
         comboEntrenador.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-Entrenador-" }));
-        comboEntrenador.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                comboEntrenadorMouseClicked(evt);
-            }
-        });
         comboEntrenador.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comboEntrenadorItemStateChanged(evt);
@@ -547,20 +537,18 @@ public class NuevoEquipo extends javax.swing.JFrame {
     }
 
     private void comboTempItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboTempItemStateChanged
-        // TODO add your handling code here:
-        /*DefaultListModel model = new DefaultListModel();
-         alumnosMostrados.setModel(model);
-         MostrarAlumnos();*/
+        if(evt.getStateChange() == 1){
+        if (PerteneceFundacion.isSelected()) {
+            DefaultListModel model = new DefaultListModel();
+            alumnosMostrados.setModel(model);
+            MostrarAlumnos();
+        }}
     }//GEN-LAST:event_comboTempItemStateChanged
 
     private void comboEntrenadorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboEntrenadorItemStateChanged
-        // TODO add your handling code here:
+        if(evt.getStateChange() == 1)
+            ActualizarCombo2Entrenador(comboEntrenador.getSelectedItem().toString());
     }//GEN-LAST:event_comboEntrenadorItemStateChanged
-
-    private void comboEntrenadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboEntrenadorMouseClicked
-        // TODO add your handling code here:
-        ActualizarCombo2Entrenador(comboEntrenador.getSelectedItem().toString());
-    }//GEN-LAST:event_comboEntrenadorMouseClicked
 
     private void PerteneceFundacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PerteneceFundacionMouseClicked
         // TODO add your handling code here:
@@ -603,26 +591,8 @@ public class NuevoEquipo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_PerteneceFundacionMouseClicked
 
-    private void comboCatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboCatMouseClicked
-        // TODO add your handling code here:
-        if (PerteneceFundacion.isSelected()) {
-            DefaultListModel model = new DefaultListModel();
-            alumnosMostrados.setModel(model);
-            MostrarAlumnos();
-        }
-    }//GEN-LAST:event_comboCatMouseClicked
-
     private void comboCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCatActionPerformed
     }//GEN-LAST:event_comboCatActionPerformed
-
-    private void comboTempMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboTempMouseClicked
-        // TODO add your handling code here:
-        if (PerteneceFundacion.isSelected()) {
-            DefaultListModel model = new DefaultListModel();
-            alumnosMostrados.setModel(model);
-            MostrarAlumnos();
-        }
-    }//GEN-LAST:event_comboTempMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -649,8 +619,17 @@ public class NuevoEquipo extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void comSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comSexoActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_comSexoActionPerformed
+
+    private void comboCatItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboCatItemStateChanged
+        if (evt.getStateChange() == 1) {
+            if (PerteneceFundacion.isSelected()) {
+                DefaultListModel model = new DefaultListModel();
+                alumnosMostrados.setModel(model);
+                MostrarAlumnos();
+            }
+        }
+    }//GEN-LAST:event_comboCatItemStateChanged
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Error;
     private javax.swing.JCheckBox PerteneceFundacion;
@@ -721,7 +700,7 @@ public class NuevoEquipo extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(NuevoEquipo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        for (int i = 0; i< listaNombreAlumnos.size();i++) {
+        for (int i = 0; i < listaNombreAlumnos.size(); i++) {
             modelo.addElement(listaNombreAlumnos.get(i));
         }
 

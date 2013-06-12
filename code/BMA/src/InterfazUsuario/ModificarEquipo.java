@@ -60,12 +60,23 @@ public class ModificarEquipo extends javax.swing.JFrame {
     String nombreEquipo_anterior, campoPrimerEntr_anterior;
     
     /**
-     * Creates new form ModificarEquipo
+     * Constructor predeterminado de la clase
      */
     public ModificarEquipo() {
         initComponents();
     }
     
+    /**
+     * Constructor de la clase
+     * @param acceso
+     * @param nombreEquip
+     * @param selecCat
+     * @param selecTemp
+     * @param primerEntr
+     * @param segundoEntr
+     * @param sexo
+     * @throws SQLException 
+     */
     public ModificarEquipo(BaseDatos acceso, String nombreEquip, String selecCat, String selecTemp, String primerEntr, String segundoEntr, String sexo) throws SQLException
     {
         initComponents();
@@ -74,20 +85,20 @@ public class ModificarEquipo extends javax.swing.JFrame {
         bordeError = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.red);
         this.actualizarCategoria();
         this.actualizarTemporada();
-        this.actualizarEntrenadores();
         this.actualizarSexo();
         nombreEquipo_anterior = nombreEquip;
         campoPrimerEntr_anterior = primerEntr;
         this.fieldNombreEquipo.setText(nombreEquip);
         this.comboCat.setSelectedItem(selecCat);
         this.comboTemp.setSelectedItem(selecTemp);
+        this.actualizarEntrenadores();
         this.comboPrimerEntrenador.setSelectedItem(primerEntr);
         this.comboSegundoEntrenador.setSelectedItem(segundoEntr);
         this.comboSexo.setSelectedItem(sexo);
         
     }
     
-    public void actualizarEntrenadores() throws SQLException
+    private void actualizarEntrenadores() throws SQLException
     {
         comboPrimerEntrenador.removeAllItems();
         comboSegundoEntrenador.removeAllItems();
@@ -173,18 +184,11 @@ public class ModificarEquipo extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(labelModificarEquipo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(labelSexo))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(labelPrimerEntrenador)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(comboPrimerEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelModificarEquipo)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(labelNombreEquipo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -192,35 +196,41 @@ public class ModificarEquipo extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(labelCategoria)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(botonCancelar)
-                                    .addComponent(laberSegundoEntrenador))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(comboSegundoEntrenador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(28, 28, 28)
+                                .addComponent(botonCancelar))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(comboSexo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(comboCat, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(comboCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(35, 35, 35)
                                 .addComponent(labelTemporada)
                                 .addGap(18, 18, 18)
                                 .addComponent(comboTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(136, 136, 136)
-                        .addComponent(botonGuardar)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(labelPrimerEntrenador)
+                                .addGap(18, 18, 18)
+                                .addComponent(comboPrimerEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(laberSegundoEntrenador)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(botonGuardar)
+                                    .addComponent(comboSegundoEntrenador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(37, 37, 37)
+                        .addComponent(labelSexo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(comboSexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(0, 62, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelModificarEquipo)
-                    .addComponent(labelSexo)
-                    .addComponent(comboSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
+                .addGap(40, 40, 40)
+                .addComponent(labelModificarEquipo)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelNombreEquipo)
                     .addComponent(labelCategoria)
@@ -231,26 +241,39 @@ public class ModificarEquipo extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelPrimerEntrenador)
-                    .addComponent(laberSegundoEntrenador)
                     .addComponent(comboPrimerEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboSegundoEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
+                    .addComponent(labelSexo)
+                    .addComponent(comboSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonGuardar)
-                    .addComponent(botonCancelar))
-                .addContainerGap(98, Short.MAX_VALUE))
+                    .addComponent(laberSegundoEntrenador)
+                    .addComponent(comboSegundoEntrenador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonCancelar)
+                    .addComponent(botonGuardar))
+                .addGap(70, 70, 70))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Evento 
+     * @param evt Parametro formal que representa el evento de pulsar
+     * el boton de cancelacion de la operacion en el formulario.
+     */
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
-        // TODO add your handling code here:
         this.setVisible(false);
     }//GEN-LAST:event_botonCancelarActionPerformed
 
+    /**
+     * Evento
+     * @param evt Parametro formal que representa el evento de pulsar
+     * el boton de guardar los contenidos introducidos en el formulario.
+     */
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
-        // TODO add your handling code here:
+        
         nombreEquipo = this.fieldNombreEquipo.getText();
         campoCategoria = this.comboCat.getSelectedItem().toString();
         campoPrimerEntr = this.comboPrimerEntrenador.getSelectedItem().toString();
@@ -284,7 +307,8 @@ public class ModificarEquipo extends javax.swing.JFrame {
             Logger.getLogger(ModificarEquipo.class.getName()).log(Level.SEVERE, null, ex);
         }
                 
-        
+        this.setVisible(false);
+        this.setEnabled(false);
     }//GEN-LAST:event_botonGuardarActionPerformed
 
     private void actualizarCategoria() throws SQLException {
