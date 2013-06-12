@@ -316,7 +316,7 @@ public class AñadirAlumno extends javax.swing.JFrame {
 	   * @param evt (java.awt.event.ActionEvent) con el evento.
 		 */
 
-    private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
+    private void SalirActionPerformed(java.awt.event.ActionEvent evt) {                                      
 
         this.setVisible(false);
     }
@@ -458,7 +458,7 @@ public class AñadirAlumno extends javax.swing.JFrame {
 		 * @param evt (java.awt.event.ActionEvent) con el evento.
 		 */
 
-    private void QuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QuitarActionPerformed
+    private void QuitarActionPerformed(java.awt.event.ActionEvent evt) {                                       
         // TODO add your handling code here:
         List<String> listaAlumnosQuitados = new ArrayList<>();
         listaAlumnosQuitados.addAll(AlumnosMostrados.getSelectedValuesList());
@@ -520,7 +520,7 @@ public class AñadirAlumno extends javax.swing.JFrame {
 		 * @param evt (java.awt.event.MouseEvent) con el evento.
 		 */
 
-    private void ListaAlumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaAlumnosMouseClicked
+    private void ListaAlumnosMouseClicked(java.awt.event.MouseEvent evt) {                                          
 
         AlumnosSelecionados.setText(Integer.toString(ListaAlumnos.getSelectedIndices().length));
     }
@@ -583,7 +583,7 @@ public class AñadirAlumno extends javax.swing.JFrame {
         consulta = "SELECT primerApellido, segundoApellido, nombre FROM alumno WHERE "
                 + "idAlumno NOT IN (" + idAlum + ")";
 
-        System.out.println("Stark " + consulta);
+        System.out.println("La consulta es: " + consulta);
 
         retset = accesoBD.ejecutaConsulta(consulta);
         try {

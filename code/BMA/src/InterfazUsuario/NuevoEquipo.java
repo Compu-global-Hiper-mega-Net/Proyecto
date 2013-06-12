@@ -878,7 +878,7 @@ public class NuevoEquipo extends javax.swing.JFrame {
                 + " AND Alumno_idAlumno NOT IN ("
                 + idAlu + ")";
 
-        System.out.println("Ola k ase " + Consulta);
+        System.out.println("La consulta es: " + Consulta);
         ret = accesoBD.ejecutaConsulta(Consulta);
         try {
             while (ret.next()) {

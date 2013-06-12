@@ -383,7 +383,7 @@ public class EquipoBD {
                 + "Equipo_Categoria_idCategoria) VALUES ("
                 + alumno + ", " + equipo + ", " + fundacion + ", " + categoria + ")";
 
-        System.out.println("Yao " + consulta);
+        System.out.println("La consulta es " + consulta);
 
         acceso.ejecutaActualizacion(consulta);
 
