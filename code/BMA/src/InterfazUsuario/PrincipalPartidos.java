@@ -7,6 +7,7 @@ package InterfazUsuario;
 import GestionDeCategorias.GestorCategorias;
 import GestionDeEquipos.GestorEquipos;
 import GestionDeInstalaciones.GestorInstalacion;
+import GestionDeLigas.GestorLigas;
 import GestionDePartidos.GestorPartidos;
 import GestionDePartidos.Partido;
 import GestionDePartidos.PartidoBD;
@@ -128,6 +129,13 @@ public class PrincipalPartidos extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(980, 320));
         setResizable(false);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         PanelPartidos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -379,36 +387,23 @@ public class PrincipalPartidos extends javax.swing.JFrame {
 
     private void BotonModificarPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonModificarPartidoActionPerformed
 
-        ResultSet retsetMostrados;
-
         int idPartido = 0;
 
         int iTablaPartido = tablaPartidos.getSelectedRow();
         
         if (iTablaPartido >= 0) {
-            String consulta = null;
             try {
-                consulta = "SELECT idPartido FROM partido WHERE fecha = '"
-                 + tablaPartidos.getValueAt(iTablaPartido, 0) + "' AND hora = '"
-                 + tablaPartidos.getValueAt(iTablaPartido, 1) + "' AND equipo_Categoria_idCategoria = '"                        
-                 + GestorCategorias.getIdCategoria(accesoBD, tablaPartidos.getValueAt(iTablaPartido,2).toString()) + "' AND equipo_Temporada_idTemporada = '"
-                 + GestorTemporadas.getIdTemporada(accesoBD, tablaPartidos.getValueAt(iTablaPartido,3).toString()) + "' AND equipo_liga_idLiga = '"
-                 + getIdLiga(accesoBD, tablaPartidos.getValueAt(iTablaPartido,4).toString(),
-                        GestorCategorias.getIdCategoria(accesoBD, tablaPartidos.getValueAt(iTablaPartido,2).toString()),
-                        GestorTemporadas.getIdTemporada(accesoBD, tablaPartidos.getValueAt(iTablaPartido,3).toString())) + "' AND idEquipo = '"
-                 + GestorEquipos.getIdEquipo(accesoBD, tablaPartidos.getValueAt(iTablaPartido, 4).toString(), tablaPartidos.getValueAt(iTablaPartido, 2).toString())
-                 + "' AND idEquipoVisitante = '" + GestorEquipos.getIdEquipo(accesoBD, tablaPartidos.getValueAt(iTablaPartido, 4).toString(), tablaPartidos.getValueAt(iTablaPartido, 2).toString()) + "'";
+                idPartido = GestorPartidos.getIdPartido(accesoBD, 
+                        tablaPartidos.getValueAt(iTablaPartido, 0).toString(), 
+                        tablaPartidos.getValueAt(iTablaPartido, 1).toString(), 
+                        GestorEquipos.getIdEquipo(accesoBD, tablaPartidos.getValueAt(iTablaPartido, 4).toString(), tablaPartidos.getValueAt(iTablaPartido, 2).toString()), 
+                        GestorEquipos.getIdEquipo(accesoBD, tablaPartidos.getValueAt(iTablaPartido, 4).toString(), tablaPartidos.getValueAt(iTablaPartido, 2).toString()));
+               
             } catch (SQLException ex) {
                 Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            retsetMostrados = accesoBD.ejecutaConsulta(consulta);
-
-            try {
-                if (retsetMostrados.next()) {
-                    idPartido = retsetMostrados.getInt("idPartido");
-                }                    
-
+            try {        
                     new ModificarPartido(accesoBD, 
                             tablaPartidos.getValueAt(iTablaPartido, 0).toString(),
                             tablaPartidos.getValueAt(iTablaPartido, 1).toString(),
@@ -633,6 +628,11 @@ public class PrincipalPartidos extends javax.swing.JFrame {
          }*/
     }//GEN-LAST:event_fechaPartidoFocusLost
 
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        // TODO add your handling code here:
+        actualizaTablaPartidos();
+    }//GEN-LAST:event_formWindowGainedFocus
+
     private void actualizaTablaPartidos() {
         List<List<String>> lpar = new ArrayList<List<String>>();
         try {
@@ -672,7 +672,7 @@ public class PrincipalPartidos extends javax.swing.JFrame {
             }
             aux = aux.substring(aux.indexOf(",") + 1, aux.length());
             try {
-                fila[4] = getLiga(aux.substring(0, aux.indexOf(",")));
+                fila[4] = GestorLigas.getLiga(accesoBD, aux.substring(0, aux.indexOf(",")));
             } catch (SQLException ex) {
                 Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -713,20 +713,6 @@ public class PrincipalPartidos extends javax.swing.JFrame {
 
     private String getEquipo(String s) throws SQLException {
         return GestorEquipos.getEquipo(accesoBD, s);
-    }
-    
-    /*
-     * Metodo provisional
-     */
-    private String getLiga(String s) throws SQLException {
-        
-        String nombre = null;
-        String query = "SELECT nombre FROM Liga WHERE idLiga = "+s;
-        ResultSet res = accesoBD.ejecutaConsulta(query);
-        if(res.next()){
-            nombre = res.getString(1);
-        }
-        return nombre;
     }
     
     private void actualizaComboTemporadaPartidos() throws SQLException {
@@ -835,25 +821,6 @@ public class PrincipalPartidos extends javax.swing.JFrame {
         return ligas;
     }
     
-    /*
-     * Método provisional
-     */
-    
-    public int getIdLiga(BaseDatos accesoBD, String nombreLiga, int idCat, int idTemp) throws SQLException {
-        int idLiga = 0;
-        String query;
-        query = "SELECT idLiga FROM Liga WHERE (nombre = '" + nombreLiga + "' AND categoria_idCategoria = " + idCat 
-                + " AND temporada_idTemporada = " + idTemp + ");";
-       
-        ResultSet res = accesoBD.ejecutaConsulta(query);
-        if(res.next()){
-            idLiga = res.getInt(1);
-        }
-        return idLiga;
-    }
-    
-    
-    
     private void actualizaTablaPartidosFiltro(String fecha, String temporada, String categoria, String equipoLoc, String equipoVis) throws SQLException {
         List<List<String>> lpar = new ArrayList<List<String>>();
         int idCat = 0;
@@ -897,7 +864,7 @@ public class PrincipalPartidos extends javax.swing.JFrame {
             }
             aux = aux.substring(aux.indexOf(",") + 1, aux.length());
             try {
-                fila[4] = getLiga(aux.substring(0, aux.indexOf(",")));
+                fila[4] = GestorLigas.getLiga(accesoBD, aux.substring(0, aux.indexOf(",")));
             } catch (SQLException ex) {
                 Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             }

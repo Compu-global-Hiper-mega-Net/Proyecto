@@ -8,6 +8,7 @@ import GestionDePartidos.*;
 import GestionDeTemporadas.*;
 import GestionDeCategorias.*;
 import GestionDeEquipos.*;
+import GestionDeLigas.GestorLigas;
 import ServiciosAlmacenamiento.BaseDatos;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
@@ -250,9 +251,7 @@ public class NuevoPartido extends javax.swing.JFrame {
                                 .addGap(1, 1, 1)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(ComboEquipo2, 0, 441, Short.MAX_VALUE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(ComboEquipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))))
+                                    .addComponent(ComboEquipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(fechaLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -541,7 +540,7 @@ public class NuevoPartido extends javax.swing.JFrame {
         if(!noEntry){
             if(comboLiga.getSelectedItem() != "-Liga-"){
                 try {            
-                    idLig = principal.getIdLiga(accesoBD, comboLiga.getSelectedItem().toString(),idCat, idTemp);
+                    idLig = GestorLigas.getIdLiga(accesoBD, comboLiga.getSelectedItem().toString(),idCat, idTemp);
                 } catch (SQLException ex) {
                     Logger.getLogger(NuevoPartido.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -568,6 +567,8 @@ public class NuevoPartido extends javax.swing.JFrame {
                     Logger.getLogger(NuevoPartido.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+                equipoAnterior1 = "";
+                equipoAnterior2 = "";
         }
     }//GEN-LAST:event_comboLigaItemStateChanged
     

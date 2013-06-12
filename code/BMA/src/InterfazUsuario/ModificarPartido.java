@@ -6,6 +6,7 @@ package InterfazUsuario;
 
 import GestionDeCategorias.GestorCategorias;
 import GestionDeEquipos.GestorEquipos;
+import GestionDeLigas.GestorLigas;
 import GestionDePartidos.GestorPartidos;
 import GestionDeTemporadas.GestorTemporadas;
 import ServiciosAlmacenamiento.BaseDatos;
@@ -108,7 +109,7 @@ public class ModificarPartido extends javax.swing.JFrame {
         
         idCat =  GestorCategorias.getIdCategoria(accesoBD, cat);
         idTemp = GestorTemporadas.getIdTemporada(accesoBD, temp);
-        idLig = principal.getIdLiga(accesoBD, comboLiga.getSelectedItem().toString(),idCat, idTemp);;
+        idLig = GestorLigas.getIdLiga(accesoBD, liga, idCat, idTemp);
         List<String> equipos = new ArrayList<>();
         List<String> ligas = new ArrayList<>();
         equipos = principal.getListaEquipos(idCat,idTemp,idLig);
@@ -414,10 +415,7 @@ public class ModificarPartido extends javax.swing.JFrame {
          * Fin Comprobacion de Errores
          */
         
-        if(!error){            
-                /*Revisar esta insercion por:
-                 * idLiga, etc
-                 */
+        if(!error){
             java.sql.Date sqlDate = new java.sql.Date(fechaPartido.getDate().getTime());
             int idEquip1 = 0;
             int idEquip2 = 0;
@@ -432,13 +430,13 @@ public class ModificarPartido extends javax.swing.JFrame {
                                 GestorEquipos.getIdFundacionEquipo(accesoBD, idEquip1),
                                 GestorCategorias.getIdCategoria(accesoBD, ComboCategoria.getSelectedItem().toString()), 
                                 GestorTemporadas.getIdTemporada(accesoBD, ComboTemporada.getSelectedItem().toString()), 
-                                principal.getIdLiga(accesoBD, comboLiga.getSelectedItem().toString(),
+                                GestorLigas.getIdLiga(accesoBD, comboLiga.getSelectedItem().toString(),
                                     GestorCategorias.getIdCategoria(accesoBD, ComboCategoria.getSelectedItem().toString()),
                                     GestorTemporadas.getIdTemporada(accesoBD, ComboTemporada.getSelectedItem().toString())), 
                                 idEquip2, GestorEquipos.getIdFundacionEquipo(accesoBD, idEquip2), 
                                 GestorCategorias.getIdCategoria(accesoBD, ComboCategoria.getSelectedItem().toString()), 
                                 GestorTemporadas.getIdTemporada(accesoBD, ComboTemporada.getSelectedItem().toString()), 
-                                principal.getIdLiga(accesoBD, comboLiga.getSelectedItem().toString(),
+                                GestorLigas.getIdLiga(accesoBD, comboLiga.getSelectedItem().toString(),
                                     GestorCategorias.getIdCategoria(accesoBD, ComboCategoria.getSelectedItem().toString()),
                                     GestorTemporadas.getIdTemporada(accesoBD, ComboTemporada.getSelectedItem().toString())), 
                                 sqlDate, convierteHoraTime(textHora.getText(), textMin.getText()),
@@ -602,7 +600,7 @@ public class ModificarPartido extends javax.swing.JFrame {
         if(!noEntry){
             if(comboLiga.getSelectedItem() != "-Liga-"){
                 try {            
-                    idLig = principal.getIdLiga(accesoBD, comboLiga.getSelectedItem().toString(),idCat, idTemp);
+                    idLig = GestorLigas.getIdLiga(accesoBD, comboLiga.getSelectedItem().toString(),idCat, idTemp);
                 } catch (SQLException ex) {
                     Logger.getLogger(NuevoPartido.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -629,6 +627,8 @@ public class ModificarPartido extends javax.swing.JFrame {
                     Logger.getLogger(NuevoPartido.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+                equipoAnterior1 = "";
+                equipoAnterior2 = "";
         }
     }//GEN-LAST:event_comboLigaItemStateChanged
 
