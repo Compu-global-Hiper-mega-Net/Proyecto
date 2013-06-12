@@ -19,16 +19,44 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 
+/*
+ ******************************************************************************
+ (c) Copyright 2013 
+ * 
+ * Moisés Gautier Gómez
+ * Julio Ros Martínez
+ * Francisco Javier Gómez del Olmo
+ * Francisco Santolalla Quiñonero
+ * Carlos Jesús Fernández Basso
+ * Alexander Moreno Borrego
+ * Jesús Manuel Contreras Siles
+ * Diego Muñoz Rio
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ******************************************************************************
+ */
+
 /**
  *
- * @author David
+ * @author 
  */
 public class NuevoEquipo extends javax.swing.JFrame {
 
     private PantallaPrincipal creador;
-    List<String> listaAlumnos = new ArrayList<String>();
-    List<String> listaAlumnosQuitados = new ArrayList<String>();
-    List<Integer> listaIDAlumnosQuitados = new ArrayList<Integer>();
+    List<String> listaAlumnos = new ArrayList<>();
+    List<String> listaAlumnosQuitados = new ArrayList<>();
+    List<Integer> listaIDAlumnosQuitados = new ArrayList<>();
     BaseDatos accesoBD;
     DefaultListModel modeloGuardar = new DefaultListModel(); 
     Border bordeError;
@@ -52,6 +80,10 @@ public class NuevoEquipo extends javax.swing.JFrame {
                 try {
                     actualizarCategoria();
                     actualizarTemporada();
+                    ActualizarPrimerEntrenador();
+                    textPrimerEnt.setEditable(true);
+                    textSegundoEnt.setEditable(true);
+                    jTextField1.setEditable(true);
                 } catch (SQLException ex) {
                     Logger.getLogger(NuevoEquipo.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -537,17 +569,19 @@ public class NuevoEquipo extends javax.swing.JFrame {
     }
 
     private void comboTempItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboTempItemStateChanged
-        if(evt.getStateChange() == 1){
-        if (PerteneceFundacion.isSelected()) {
-            DefaultListModel model = new DefaultListModel();
-            alumnosMostrados.setModel(model);
-            MostrarAlumnos();
-        }}
+        if (evt.getStateChange() == 1) {
+            if (PerteneceFundacion.isSelected()) {
+                DefaultListModel model = new DefaultListModel();
+                alumnosMostrados.setModel(model);
+                MostrarAlumnos();
+            }
+        }
     }//GEN-LAST:event_comboTempItemStateChanged
 
     private void comboEntrenadorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboEntrenadorItemStateChanged
-        if(evt.getStateChange() == 1)
+        if (evt.getStateChange() == 1) {
             ActualizarCombo2Entrenador(comboEntrenador.getSelectedItem().toString());
+        }
     }//GEN-LAST:event_comboEntrenadorItemStateChanged
 
     private void PerteneceFundacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PerteneceFundacionMouseClicked
@@ -555,10 +589,7 @@ public class NuevoEquipo extends javax.swing.JFrame {
 
         if (PerteneceFundacion.isSelected() == true) {
             try {
-                ActualizarPrimerEntrenador();
-                textPrimerEnt.setEditable(true);
-                textSegundoEnt.setEditable(true);
-                jTextField1.setEditable(true);
+                
                 actualizarCategoria();
                 actualizarTemporada();
 
@@ -847,7 +878,7 @@ public class NuevoEquipo extends javax.swing.JFrame {
                 + " AND Alumno_idAlumno NOT IN ("
                 + idAlu + ")";
 
-        System.out.println("Ola k ase " + Consulta);
+        System.out.println("La consulta es: " + Consulta);
         ret = accesoBD.ejecutaConsulta(Consulta);
         try {
             while (ret.next()) {

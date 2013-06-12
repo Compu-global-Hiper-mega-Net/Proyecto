@@ -11,6 +11,34 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
+/*
+ ******************************************************************************
+ (c) Copyright 2013 
+ * 
+ * Moisés Gautier Gómez
+ * Julio Ros Martínez
+ * Francisco Javier Gómez del Olmo
+ * Francisco Santolalla Quiñonero
+ * Carlos Jesús Fernández Basso
+ * Alexander Moreno Borrego
+ * Jesús Manuel Contreras Siles
+ * Diego Muñoz Rio
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ******************************************************************************
+ */
+
 /**
  *
  * @author Julio
@@ -34,6 +62,13 @@ public class LigaBD {
         return validar;
     }*/
     
+    /**
+     * 
+     * @param accesoBD
+     * @param l
+     * @return
+     * @throws SQLException 
+     */
     static int insertarLigaBD (BaseDatos accesoBD, Liga l) throws SQLException{
         String query = "INSERT INTO Liga (Categoria_idCategoria, Temporada_idTemporada, nombre) "
                 + "VALUES ('"+l.getIdCategoriaLiga()+"','"+l.getIdTemporadaLiga()+"','"+l.getNombre()+"')";
@@ -41,6 +76,12 @@ public class LigaBD {
         return correcto;
     }
     
+    /**
+     * 
+     * @param accesoBD
+     * @return
+     * @throws SQLException 
+     */
     static List<List<String>> getListaLigas (BaseDatos accesoBD) throws SQLException{
         String query = "SELECT Categoria_idCategoria, Temporada_idTemporada, nombre FROM Liga";
         ResultSet res = accesoBD.ejecutaConsulta(query);
@@ -58,6 +99,15 @@ public class LigaBD {
         return ligas;
     }
     
+    /**
+     * 
+     * @param accesoBD
+     * @param nomb
+     * @param idCatLig
+     * @param idTempLig
+     * @param idLiga
+     * @return 
+     */
     static boolean modificarLigaBD (BaseDatos accesoBD, String nomb, int idCatLig, int idTempLig, int idLiga){
         boolean exito = true;
         String actualizacion = "UPDATE Liga SET"
@@ -75,6 +125,12 @@ public class LigaBD {
         return exito;
     }
     
+    /**
+     * 
+     * @param accesoBD
+     * @param l
+     * @throws SQLException 
+     */
     public static void eliminarLigaBD (BaseDatos accesoBD, Liga l) throws SQLException{
         int idLiga = getIdLiga(accesoBD, l.getNombre(), l.getIdCategoriaLiga(), l.getIdTemporadaLiga());
 
@@ -91,6 +147,15 @@ public class LigaBD {
         }
     }
     
+    /**
+     * 
+     * @param accesoBD
+     * @param nom
+     * @param idCatLig
+     * @param idTempLig
+     * @return
+     * @throws SQLException 
+     */
     static int getIdLiga (BaseDatos accesoBD, String nom, int idCatLig, int idTempLig) throws SQLException{
         String query = "SELECT idLiga FROM Liga WHERE "
                 + "Categoria_idCategoria='" + idCatLig + "'"
@@ -107,6 +172,13 @@ public class LigaBD {
         return idLig;
     }
     
+    /**
+     * 
+     * @param accesoBD
+     * @param s
+     * @return
+     * @throws SQLException 
+     */
     static String getLiga (BaseDatos accesoBD, String s) throws SQLException{        
         String nombre = null;
         String query = "SELECT nombre FROM Liga WHERE idLiga = "+s;
