@@ -473,6 +473,7 @@ public class PrincipalJugadores extends javax.swing.JFrame {
                             consultaEquipo.addItem(cbi);
                         }
                         consultaEquipo.setSelectedItem(equipo);
+                        System.out.print("\n sale "+consulta);
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(PrincipalJugadores.class.getName()).log(Level.SEVERE, null, ex);
@@ -517,10 +518,12 @@ public class PrincipalJugadores extends javax.swing.JFrame {
                             consultaGrupo.addItem(consulta.getString(1));
                         }
                         consultaGrupo.setSelectedItem(grupo);
+                        System.out.print("\n grupo "+consulta);
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(PrincipalJugadores.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                
             }
             try {
                 alumnosFiltrado();

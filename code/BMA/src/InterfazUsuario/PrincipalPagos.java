@@ -87,7 +87,7 @@ public class PrincipalPagos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18));
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel15.setText("Pagos");
 
         jLabel9.setText("Buscar Pagos por:");
@@ -132,6 +132,7 @@ public class PrincipalPagos extends javax.swing.JFrame {
         pagos_etiqGrupo.setText("Grupos por temporada");
 
         pago_grupo.setToolTipText("");
+        pago_grupo.setModel(new javax.swing.DefaultComboBoxModel(new String[]{""}));
 
         pagos_botonMostrar.setText("Mostrar");
         pagos_botonMostrar.addActionListener(new java.awt.event.ActionListener() {
@@ -723,7 +724,6 @@ private void pago_temporadaActividadMousePressed(java.awt.event.MouseEvent evt) 
                 tablasImplicadas = tablasImplicadas + " , alumnogrupo, grupo ";
                 condicionesConsulta = condicionesConsulta + " alumnogrupo.alumno_idalumno=a.idalumno AND alumnogrupo.grupo_idGrupo=grupo.idGrupo AND grupo.idGrupo=" + (Integer) pago_grupo.getSelectedItem() + " AND ";
             }
-
             condicionesConsulta = condicionesConsulta.substring(0, condicionesConsulta.length() - 4);
             tablasImplicadas = tablasImplicadas + condicionesConsulta;
         } else {

@@ -136,7 +136,6 @@ public class NuevoPartido extends javax.swing.JFrame {
         comboLiga = new javax.swing.JComboBox();
         LigaLabel = new javax.swing.JLabel();
 
-        setPreferredSize(new java.awt.Dimension(600, 270));
         setResizable(false);
 
         CrearPartidoLabel.setText("Crear Partido");
@@ -157,6 +156,11 @@ public class NuevoPartido extends javax.swing.JFrame {
         ComboCategoria.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 ComboCategoriaItemStateChanged(evt);
+            }
+        });
+        ComboCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboCategoriaActionPerformed(evt);
             }
         });
 
@@ -571,6 +575,10 @@ public class NuevoPartido extends javax.swing.JFrame {
                 equipoAnterior2 = "";
         }
     }//GEN-LAST:event_comboLigaItemStateChanged
+
+    private void ComboCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboCategoriaActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancelar;
