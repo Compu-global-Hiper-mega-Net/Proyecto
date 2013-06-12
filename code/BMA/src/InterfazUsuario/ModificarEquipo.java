@@ -16,10 +16,7 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.border.Border;
 
-/**
- *
- * @author 
- */
+
 
 /*
  ******************************************************************************
@@ -47,6 +44,12 @@ import javax.swing.border.Border;
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************
+*/
+
+/**
+ * Clase interfaz que se encarga de modificaro los datos del equipo
+ * en la base de datos relacional
+ * @author Jesús, Moisés
  */
 
 public class ModificarEquipo extends javax.swing.JFrame {

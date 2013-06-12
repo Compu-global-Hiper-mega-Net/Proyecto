@@ -62,6 +62,8 @@ public class InformacionEquipo extends javax.swing.JFrame {
     
     public InformacionEquipo(BaseDatos acceso, String nombreEquipo, String categoria, String sexo, String primerEntr, String segundoEntr, String temporada) throws SQLException
     {
+        initComponents();
+        this.setLocationRelativeTo(null);
         this.fieldNombreEquipo.setText(nombreEquipo);
         this.fieldNombreCategoria.setText(categoria);
         this.fieldSexo.setText(sexo);

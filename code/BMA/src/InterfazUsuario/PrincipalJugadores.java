@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package InterfazUsuario;
 
 import GestionDeAlumnos.GestorAlumnos;
@@ -15,16 +11,50 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+/*
+ ******************************************************************************
+                   (c) Copyright 2013 
+                   * 
+                   * Moisés Gautier Gómez
+                   * Julio Ros Martínez
+                   * Francisco Javier Gómez del Olmo
+                   * Francisco Santolalla Quiñonero
+                   * Carlos Jesús Fernández Basso
+                   * Alexander Moreno Borrego
+                   * Jesús Manuel Contreras Siles
+                   * Diego Muñoz Rio
+ 
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ ******************************************************************************
+*/
+
 /**
+ * Clase interfaz que se encarga de mostrar los datos relacionados con la
+ * pantalla del gestor de jugadores de la aplicación
  *
- * @author Dell
+ * @author Alex
  */
 public class PrincipalJugadores extends javax.swing.JFrame {
 
     private BaseDatos bd;
 
     /**
-     * Creates new form PruebaPrincipalJugadores
+     * Constructor de la clase
+     *
+     * @param pP Parametro formal correspondiente al componente padre de donde
+     * hereda la interfaz que esta en uso.
+     * @param bd datos para acceder a la base de datos de nuestro sistema.
      */
     public PrincipalJugadores(PantallaPrincipal pP, BaseDatos bd) {
         initComponents();
@@ -240,6 +270,10 @@ public class PrincipalJugadores extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     *
+     * @param evt
+     */
     private void botonEliminarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarAlumnoActionPerformed
         // Se comprueba si se ha seleccionado un alumno
         int fila = tablaAlumnos.getSelectedRow();
@@ -259,6 +293,10 @@ public class PrincipalJugadores extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonEliminarAlumnoActionPerformed
 
+    /**
+     *
+     * @param evt
+     */
     private void botonNuevoAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoAlumnoActionPerformed
         new AñadirConsultarModificarJugador(null, this.bd).setVisible(true);
     }//GEN-LAST:event_botonNuevoAlumnoActionPerformed
@@ -295,6 +333,10 @@ public class PrincipalJugadores extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_estadisticasJugadorActionPerformed
 
+    /**
+     *
+     * @param evt
+     */
     private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarActionPerformed
         // Se comprueba si se ha seleccionado a un alumno para modificarlo
         int filaSel = tablaAlumnos.getSelectedRow();
@@ -309,6 +351,10 @@ public class PrincipalJugadores extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonModificarActionPerformed
 
+    /**
+     *
+     * @param evt
+     */
     private void nombreAlumnoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreAlumnoKeyReleased
         try {
             alumnosFiltrado();
@@ -317,6 +363,10 @@ public class PrincipalJugadores extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_nombreAlumnoKeyReleased
 
+    /**
+     *
+     * @param evt
+     */
     private void consultaTemporadaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_consultaTemporadaItemStateChanged
         if (evt.getStateChange() == 1) {
             ResultSet consulta;
@@ -367,6 +417,10 @@ public class PrincipalJugadores extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_consultaTemporadaItemStateChanged
 
+    /**
+     *
+     * @param evt
+     */
     private void consultaCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_consultaCategoriaItemStateChanged
         if (evt.getStateChange() == 1) {
             if (((ComboBoxItem) consultaTemporada.getSelectedItem()).getId() == 0) {
@@ -387,7 +441,10 @@ public class PrincipalJugadores extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_consultaCategoriaItemStateChanged
-
+    /**
+     *
+     * @param evt
+     */
     private void consultaEquipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_consultaEquipoItemStateChanged
         if (evt.getStateChange() == 1) {
             ComboBoxItem equipo = (ComboBoxItem) consultaEquipo.getSelectedItem();
@@ -428,7 +485,10 @@ public class PrincipalJugadores extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_consultaEquipoItemStateChanged
-
+    /**
+     *
+     * @param evt
+     */
     private void consultaGrupoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_consultaGrupoItemStateChanged
         if (evt.getStateChange() == 1) {
             String grupo = consultaGrupo.getSelectedItem().toString();
@@ -469,7 +529,10 @@ public class PrincipalJugadores extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_consultaGrupoItemStateChanged
-
+    /**
+     *
+     * @param evt
+     */
     private void consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultarActionPerformed
         // Se comprueba si se ha seleccionado a un alumno para modificarlo
         int filaSel = tablaAlumnos.getSelectedRow();
@@ -483,7 +546,10 @@ public class PrincipalJugadores extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_consultarActionPerformed
-
+    /**
+     *
+     * @throws SQLException
+     */
     protected final void alumnosFiltrado() throws SQLException {
         String consulta = "SELECT a.idAlumno, CONCAT(`a`.`nombre`,' ',`a`.`primerApellido`,' ',`a`.`segundoApellido`), "
                 + "a.localidad, a.sexo "
